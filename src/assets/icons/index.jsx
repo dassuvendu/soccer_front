@@ -38,6 +38,8 @@ import {
   BsCollection,
   BsFillTrash3Fill,
   BsArrowsAngleExpand,
+  BsChevronDoubleRight,
+  BsChevronDoubleLeft,
 } from "react-icons/bs";
 import { BiSolidUser, BiSolidContact, BiMenu } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
@@ -55,8 +57,12 @@ import { SiPremierleague } from "react-icons/si";
 import { GrTemplate } from "react-icons/gr";
 import { HiTemplate } from "react-icons/hi";
 import { GiChampions } from "react-icons/gi";
+import { CiUnlock } from "react-icons/ci";
 
 export {
+  BsChevronDoubleRight,
+  BsChevronDoubleLeft,
+  CiUnlock,
   FiArrowRight,
   FiArrowUpRight,
   GiChampions,

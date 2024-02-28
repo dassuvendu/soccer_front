@@ -12,6 +12,7 @@ import SerieA from "../imagesource/SerieA.png";
 import LigueIcon from "../imagesource/LigueIcon.png";
 import BuyTokenIcon from "../imagesource/ic_outline-generating-tokens.png";
 import icSortIcon from "../imagesource/ic_sort.png";
+import requestPredictionBanner from "../imagesource/request_prediction_banner.png";
 
 export {
   icSortIcon,
@@ -28,4 +29,5 @@ export {
   SerieA,
   LigueIcon,
   BuyTokenIcon,
+  requestPredictionBanner,
 };

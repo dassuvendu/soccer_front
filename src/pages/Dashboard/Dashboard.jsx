@@ -15,7 +15,7 @@ const Dashboard = () => {
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
         <div className="flex justify-between mb-4">
-          <h1 className="font-Syne text-4xl font-medium text-white mb-2">
+          <h1 className="font-Syne text-4xl font-bold text-white mb-2">
             Hi Johns Valina
           </h1>
           <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">

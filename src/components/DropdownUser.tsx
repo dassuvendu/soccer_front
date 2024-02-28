@@ -78,32 +78,29 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-3 flex w-52 flex-col rounded-sm border border-stroke bg-white shadow-md ${
+        className={`absolute right-0 mt-3 flex w-52 flex-col rounded-xl bg-[#192328] shadow-md ${
           dropdownOpen === true ? 'block' : 'hidden'
         }`}
       >
-        <ul className="flex flex-col gap-3 border-b border-stroke px-4 py-4">
-          <li>
-            <Link
-              to="/profile"
-              className="flex items-center gap-2 text-sm font-normal duration-300 ease-in-out text-[#1fc4ff] hover:text-[#4922ce]"
-            >
-              <BiSolidUser className='text-lg' />
-              My Profile
-            </Link>
-          </li>
-          <li>
+        <ul className="flex flex-col">
+          <li className='border-b border-[#363e42] py-3 px-4'>
             <Link
               to="/settings"
-              className="flex items-center gap-2 text-sm font-normal duration-300 ease-in-out text-[#1fc4ff] hover:text-[#4922ce]"
+              className="flex items-center text-sm font-normal duration-300 ease-in-out text-white hover:text-[#1fc4ff]"
             >
-              <AiFillSetting className='text-lg' />
-              Account Settings
+              Settings
+            </Link>
+          </li>
+          <li className='border-b border-[#363e42] py-3 px-4'>
+            <Link
+              to="/dashboard"
+              className="flex items-center text-sm font-normal duration-300 ease-in-out text-white hover:text-[#1fc4ff]"
+            >
+              Dashboard
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-2 py-3 px-4 text-sm font-normal duration-300 ease-in-out text-[#1fc4ff] hover:text-[#4922ce]">
-          <AiOutlineLogout className='text-lg' />
+        <button className="flex items-center gap-2 py-3 px-4 text-sm font-normal duration-300 ease-in-out text-[#ff4343] hover:text-[#ff0000]">
           Log Out
         </button>
       </div>

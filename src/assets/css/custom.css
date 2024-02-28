@@ -3,67 +3,26 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* .bg-cyan-700 {
-    background: #556ee6 !important;
-} */
 
 /* hide scrollbar for chrome, safari and opera */
 .container::-webkit-scrollbar {
     display: none;
 }
 
-/* .header_area nav ul li {
-    margin: 0 3px !important;
-}
-.header_area nav ul li a {
-    padding: 10px 15px;
-    color: #143c7c;
-}
-.header_area nav ul li a.active, .header_area nav ul li a:hover {
-    background: #16bdcf;
-    padding: 10px 15px;
+.go_page input {
     border-radius: 25px;
-    color: #ffffff;
+    background: #000000;
 }
-.edit_user_profile_btn {
-    background: none !important;
-    text-align: center;
-    padding: 0;
-    margin: 0;
+.date_picker_box svg {
+    color: #E1E1E1;
 }
-.edit_user_profile_btn span {
-    background: #f5f8ff;
-    color: #143c7c;
-    font-size: 20px;
-    line-height: 40px;
-    border-radius: 10px;
-    width: 100%;
-    text-align: center;
-    display: block;
-    padding: 5px;
-}
-.edit_user_profile_btn span:hover {
-    background: #dbe6ff;
-}
-.user_edit_wrap .user_details_tab_bar {
-    display: flex;
-    justify-content: space-between;
-}
-.user_edit_wrap .user_details_tab_bar button {
-    padding: 0 35px;
+.date_picker_box input {
+    background: #0d0f11;
+    color: #E1E1E1;
+    border-radius: 25px;
     font-size: 14px;
-    line-height: 40px;
-    height: 40px;
+    width: 350px;
 }
-.user_edit_wrap .user_details_tab_bar button[aria-selected="true"] {
-    background: #f5f8ff !important;
-    color: #ffffff;
-}
-
-
-.user_edit_wrap .user_details_tab_bar button:focus {
-    box-shadow: none;
-} */
 
 .sidebar_menu ul li a {
   line-height: 30px;
@@ -83,108 +42,11 @@ body {
     padding: 5px;
 }
 
-/* 
-.wrapper_area button {
-    background-color: transparent;
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-.wrapper_area button:hover {
-    border: none;
-    background-image: none !important;
-    box-shadow: none !important;
-}
-.wrapper_area button span {
-    padding: 5px 10px;
-    font-size: 12px;
-    background: #556ee6;
-}
-.wrapper_area button:hover span {
-    background: #143c7c;
-}
-
-.wrapper_area input[type="text"]:focus,
-.wrapper_area select:focus,
-.wrapper_area input[type="button"]:focus,
-.wrapper_area textarea:focus,
-.wrapper_area input[type="checkbox"]:focus,
-.wrapper_area input[type="number"]:focus,
-.wrapper_area button:focus {
-    border: none;
-    box-shadow: none;
-    outline: none;
-}
-
-.wrapper_area button:enabled:hover {
-    background: none !important;
-}
-
-.wrapper_area input[type='checkbox']:checked {
-  background-color: #556ee6;
-} */
-
-
-
-/* input[type="button"] {
-    background: #556ee6 !important;
-} */
-
-/* .multiselect .css-13cymwt-control {
-    border-radius: 8px;
-    font-size: 13px;
-}
-
-.toggle-bg:after {
-    top: 5px !important;
-}
-
-.wrapper_area h2 {
-    width: 100%;
-}
-
-.toggle_box span {
-    background: none !important;
-    margin: 0;
-} */
-
-
-/*  */
-
-/* .offer_section .acco_title_panel {
-    background: #dae3f3;
-    border: #556ee6 1px solid !important;
-} */
-
-/*  */
-
 
 @media only screen and (max-width:767px) {
-
-    /* .header_area nav ul li a.active, .header_area nav ul li a:hover {
-        background: none;
-        padding: 10px 15px;
-        border-radius: 0;
-        color: #173f7e;
-    }
-    .header_area button {
-        margin-left: 10px;
-    }
-
-    .wrapper_area input[type="text"],
-    .wrapper_area input[type="number"] {
-        font-size: 12px;
-    }
-    .wrapper_area select {
-        font-size: 12px;
-    } */
 
 }
 
 @media screen and (min-width:768px) and (max-width:1024px) {
-    /* .header_area nav ul li a {
-        padding: 10px 3px;
-        color: #173f7e;
-        font-size: 12px;
-    } */
+
 }

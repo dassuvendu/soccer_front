@@ -105,7 +105,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
             <ul className="mb-6 flex flex-col gap-1.5">
               {/* <!-- Menu Item Dashboard --> */}
-              <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -121,7 +121,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
 
               {/* <!-- Menu Item Calendar --> */}
-              <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/cooked-slips"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -137,7 +137,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Calendar --> */}
 
               {/* <!-- Menu Item Offer Request --> */}
-              <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/request-prediction"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -151,7 +151,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Offer Request --> */}
 
               {/* <!-- Menu Item Offer --> */}
-              <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/my-prediction"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -165,7 +165,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Offer --> */}
 
               {/* <!-- Menu Item Workspace --> */}
-                <li>
+                <li className='mb-4'>
                 <NavLink
                   to="/statistics"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -181,7 +181,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
               {/* <!-- Menu Item Manage Users --> */}
-                <li>
+              <li className='mb-0'>
                 <NavLink
                   to="/team-comparisions"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -196,13 +196,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Manage Users --> */}
 
 
-              <h3 className="my-2 ml-4 text-sm font-medium text-[#828282] uppercase">
+              <h3 className="my-4 ml-4 text-sm font-medium text-[#828282] uppercase">
                Top Leagues
               </h3>
 
 
               {/* <!-- Menu Item Settings --> */}
-              <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/uffa-champions"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -221,7 +221,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Settings --> */}
 
               {/* <!-- Menu Item Logs --> */}
-                <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/premier-league"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -240,7 +240,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-                <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/la-liga"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -259,7 +259,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-                <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/serie-a"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -278,7 +278,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-                <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/ligue"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
@@ -297,7 +297,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-                <li>
+              <li className='mb-4'>
                 <NavLink
                   to="/logout"
                   className={`mt-10 group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#FF0000] duration-300 ease-in-out hover:bg-graydark ${
