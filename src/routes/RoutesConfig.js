@@ -43,7 +43,7 @@ const allRoutes = [
     ],
   },
   {
-    path: '/cooked-slips',
+    path: '/coped-slips',
     element: <InsideLayout />,
     children: [
       {

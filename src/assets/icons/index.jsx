@@ -51,15 +51,20 @@ import { FiMoon, FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 import { CiMaximize1 } from "react-icons/ci";
 import { RxDashboard } from "react-icons/rx";
 import { PiGitPullRequestBold, PiLightbulbLight } from "react-icons/pi";
-import { FaChartPie } from "react-icons/fa";
+import { FaChartPie, FaMoon } from "react-icons/fa";
 import { RiTeamLine } from "react-icons/ri";
 import { SiPremierleague } from "react-icons/si";
 import { GrTemplate } from "react-icons/gr";
 import { HiTemplate } from "react-icons/hi";
 import { GiChampions } from "react-icons/gi";
 import { CiUnlock } from "react-icons/ci";
+import { IoSunny } from "react-icons/io5";
+import { MdMoreHoriz } from "react-icons/md";
 
 export {
+  MdMoreHoriz,
+  FaMoon,
+  IoSunny,
   BsChevronDoubleRight,
   BsChevronDoubleLeft,
   CiUnlock,

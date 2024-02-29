@@ -42,6 +42,38 @@ body {
     padding: 5px;
 }
 
+/*  add css for tab section start here */
+
+.tab_section ul {
+    padding: 30px 20px;
+    border-bottom: none;
+}
+.tab_section li {
+    color: #787a7d;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 600;
+    padding: 0;
+    margin-right: 20px;
+}
+.tab_section li.react-tabs__tab--selected:before {
+    display: none !important;
+}
+.tab_section li.react-tabs__tab--selected:focus:before {
+    display: none !important;
+}
+.tab_section li.react-tabs__tab--selected {
+    color: #2880DA;
+    background: none;
+    border: none;
+    border-bottom: #2880DA 2px solid;
+}
+.react-tabs__tab:focus:after {
+    display: none !important;
+}
+
+/* add css for tab section ends here */
+
 
 @media only screen and (max-width:767px) {
 

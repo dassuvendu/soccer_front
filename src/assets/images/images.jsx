@@ -14,7 +14,18 @@ import BuyTokenIcon from "../imagesource/ic_outline-generating-tokens.png";
 import icSortIcon from "../imagesource/ic_sort.png";
 import requestPredictionBanner from "../imagesource/request_prediction_banner.png";
 
+import DeportivoPastoIcon from "../imagesource/Deportivo_Pasto_Icon.png";
+import EnvigadoIcon from "../imagesource/EnvigadoIcon.png";
+import MyPredictionsbanner from "../imagesource/My_Predictions_banner.png";
+import BayernMunichIcon from "../imagesource/Bayern_Munich_Icon.png";
+import BarcelonaIcon from "../imagesource/BarcelonaIcon.png";
+
 export {
+  BayernMunichIcon,
+  BarcelonaIcon,
+  MyPredictionsbanner,
+  DeportivoPastoIcon,
+  EnvigadoIcon,
   icSortIcon,
   dashboardcard01,
   dashboardcard02,

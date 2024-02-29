@@ -15,16 +15,26 @@ import {
 } from "react-icons/bs";
 import { Datepicker, TextInput, Dropdown } from "flowbite-react";
 import { CiUnlock } from "react-icons/ci";
+import { useSelector } from "react-redux";
 const CookedSlips = () => {
+  const themeMode = useSelector((state) => state.darkmode.mode);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
         <div className="flex justify-between mb-10">
           <div>
-            <h1 className="font-Syne text-4xl font-bold text-white mb-2">
-              Cooked Slips
+            <h1
+              className={`${
+                themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+              } font-Syne text-4xl font-bold mb-2`}
+            >
+              Coped slips
             </h1>
-            <p className="text-[18px] leading-[22px] font-medium text-white">
+            <p
+              className={`text-[18px] leading-[22px] font-medium ${
+                themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+              }`}
+            >
               Explore different slips containing multiple matches for best odds.
             </p>
           </div>
@@ -35,7 +45,11 @@ const CookedSlips = () => {
         </div>
         <div className="flex justify-between items-center mb-6">
           <div>
-            <p className="text-[14px] leading-[20px] font-medium text-white pb-2">
+            <p
+              className={`text-[14px] leading-[20px] font-medium ${
+                themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+              } pb-2`}
+            >
               Start and End Date
             </p>
             <div className="date_picker_box">
@@ -446,7 +460,11 @@ const CookedSlips = () => {
         {/* Pagination section start here */}
         <div className="flex justify-between mt-8">
           <div>
-            <p className="text-[#989ca0] text-xs">
+            <p
+              className={`${
+                themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+              } text-xs`}
+            >
               Showing 1 to 8 of 200 entries
             </p>
           </div>
@@ -497,7 +515,13 @@ const CookedSlips = () => {
                 </ul>
               </div>
               <div className="flex items-center">
-                <p className="text-[12px] text-white mr-1.5">Go to page</p>
+                <p
+                  className={`text-[12px] ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                  } mr-1.5`}
+                >
+                  Go to page
+                </p>
                 <TextInput
                   id="small"
                   type="text"

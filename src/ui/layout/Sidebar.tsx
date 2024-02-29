@@ -123,14 +123,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Calendar --> */}
               <li className='mb-4'>
                 <NavLink
-                  to="/cooked-slips"
+                  to="/coped-slips"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
-                    pathname.includes('cooked-slips') &&
+                    pathname.includes('coped-slips') &&
                     'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <HiTemplate className='text-4xl' />
-                  Cooked Slips 
+                  Coped slips 
                   <img src={NewItemIcon} alt='NewItemIcon' />
                 </NavLink>
               </li>

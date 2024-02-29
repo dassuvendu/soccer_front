@@ -4,7 +4,12 @@ import {BiSolidUser, BiSolidContact, AiFillSetting, AiOutlineLogout } from "../a
 
 import UserOne from '../assets/imagesource/user/user-01.png';
 
+import { useSelector } from "react-redux";
+
 const DropdownUser = () => {
+
+  const themeMode = useSelector((state:any) => state.darkmode.mode);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -49,7 +54,7 @@ const DropdownUser = () => {
         </span>
 
         <span className="hidden text-right lg:block">
-          <span className="block text-[14px] font-normal text-white">
+          <span className={`block text-[14px] font-normal ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"}`}>
             Alexim
           </span>
         </span>
@@ -68,7 +73,7 @@ const DropdownUser = () => {
             fillRule="evenodd"
             clipRule="evenodd"
             d="M0.410765 0.910734C0.736202 0.585297 1.26384 0.585297 1.58928 0.910734L6.00002 5.32148L10.4108 0.910734C10.7362 0.585297 11.2638 0.585297 11.5893 0.910734C11.9147 1.23617 11.9147 1.76381 11.5893 2.08924L6.58928 7.08924C6.26384 7.41468 5.7362 7.41468 5.41077 7.08924L0.410765 2.08924C0.0853277 1.76381 0.0853277 1.23617 0.410765 0.910734Z"
-            fill="#ffffff"
+            fill={`${themeMode === "light" ? "#000000" : "#ffffff"}`}
           />
         </svg>
       </Link>

@@ -10,12 +10,20 @@ import {
   dashboardcard02,
 } from "../../assets/images/images";
 import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+
+import { useSelector } from "react-redux";
+
 const Dashboard = () => {
+  const themeMode = useSelector((state) => state.darkmode.mode);
   return (
-    <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
+    <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
         <div className="flex justify-between mb-4">
-          <h1 className="font-Syne text-4xl font-bold text-white mb-2">
+          <h1
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } font-Syne text-4xl font-bold mb-2`}
+          >
             Hi Johns Valina
           </h1>
           <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
@@ -26,7 +34,11 @@ const Dashboard = () => {
 
         {/* Dashboard section start here  */}
         <div className="mb-10">
-          <h2 className="text-white text-[27px] leading-[40px] font-medium pb-3">
+          <h2
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } text-[27px] leading-[40px] font-medium pb-3`}
+          >
             Dashboard
           </h2>
           <div className="grid grid-cols-2 gap-4">
@@ -77,14 +89,18 @@ const Dashboard = () => {
 
         {/* Actions section start here  */}
         <div className="mb-10">
-          <h2 className="text-white text-[27px] leading-[40px] font-medium pb-3">
+          <h2
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } text-[27px] leading-[40px] font-medium pb-3`}
+          >
             Actions
           </h2>
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-gradient-to-t from-[#04fca0] to-[#07abee] rounded-lg py-5 px-5">
               <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                  Cooked Slips
+                  Coped slips
                 </h2>
                 <span className="text-white text-[20px] leading-[40px] font-normal">
                   New
@@ -94,7 +110,7 @@ const Dashboard = () => {
                 Explore different slips containing multiple matches for best
                 odds.
               </p>
-              <div className="bg-black inline-block rounded-full mb-2">
+              <div className="bg-black hover:bg-gray-800 inline-block rounded-full mb-2">
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   Explore Slips{" "}
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -110,7 +126,7 @@ const Dashboard = () => {
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
                 Browse matches happening today from any league.
               </p>
-              <div className="bg-black inline-block rounded-full mb-2">
+              <div className="bg-black hover:bg-gray-800 inline-block rounded-full mb-2">
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -126,7 +142,7 @@ const Dashboard = () => {
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
                 Browse matches happening tomorrow from any league.
               </p>
-              <div className="bg-black inline-block rounded-full mb-2">
+              <div className="bg-black hover:bg-gray-800 inline-block rounded-full mb-2">
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -139,7 +155,11 @@ const Dashboard = () => {
 
         {/* Explore Matches section start here  */}
         <div className="mb-10">
-          <h2 className="text-white text-[27px] leading-[40px] font-medium pb-3">
+          <h2
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } text-[27px] leading-[40px] font-medium pb-3`}
+          >
             Explore Matches from your Favorite Leagues
           </h2>
           <div className="grid grid-cols-6 gap-3">

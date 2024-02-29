@@ -7,12 +7,28 @@ import DropdownNotification from '../../components/DropdownNotification';
 import DropdownUser from '../../components/DropdownUser';
 import { BiMenu } from "react-icons/bi";
 
+import { useDispatch, useSelector } from "react-redux";
+import {toggleTheme} from '../../reducers/darkModeSlice';
+import { IoSunny } from 'react-icons/io5';
+import { FaMoon } from 'react-icons/fa';
+
+
 function Header(props: {
     sidebarOpen: string | boolean | undefined;
     setSidebarOpen: (arg0: boolean) => void;
   }) {
+
+//   const {darkMode} = useSelector((state)=>state.darkmode)
+const themeMode = useSelector((state:any) => state.darkmode.mode);
+
+  const dispatch = useDispatch();
+  const toggleThemeMode = () => {
+    dispatch(toggleTheme());
+    //console.log("sdsdsds in header", themeMode);
+  };
+
   return (
-    <div className="z-10 sticky top-0 z-999 flex w-full bg-[#191d23] shadow-md md:pt-[5px] md:pb-[10px]">
+    <div className={`${ themeMode === "light" ? "bg-white" : "bg-[#191d23]"} z-10 sticky top-0 z-999 flex w-full shadow-md md:pt-[5px] md:pb-[10px]`}>
         <div className="flex flex-grow items-center justify-between py-2 px-2 shadow-2 md:px-6 2xl:px-11">
             <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
                 {/* <!-- Hamburger Toggle BTN --> */}
@@ -34,20 +50,20 @@ function Header(props: {
 
             <div className="hidden sm:block w-full">
                 <div className='flex w-full'>
-                    <div className='w-7/12 flex'>
+                    <div className='w-5/12 flex'>
                         <div>
-                            <h1 className='text-white text-[28px]'>Dashboard</h1>
+                            <h1 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[28px]`}>Dashboard</h1>
                             <p className='text-[#727377] text-xs italic'>Update on 23 may 2023</p>
                         </div>
                         <div className='pl-6'>
-                            <h3 className='text-white text-[16px] leading-[42px]'>Go To Website</h3>
+                            <h3 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[16px] leading-[42px]`}>Go To Website</h3>
                         </div>
                     </div>
-                    <div className='w-5/12 flex mt-1.5'>
+                    <div className='w-7/12 flex mt-1.5'>
                         <div className='w-4/12 mr-3 my-1'>
-                            <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-3 text-[14px] leading-[40px] rounded-3xl flex items-center">
+                            <Link className="max-w-[125px] bg-[#08a1f8] hover:bg-[#2854b7] text-white px-3 text-[14px] leading-[40px] rounded-3xl flex items-center">
                                 <img src={dollerIcon} alt='dollerIcon' className='mr-1' />
-                                10 Tokens
+                                10 Coins 
                             </Link>
                         </div>
                         <div className='w-8/12 pr-4'>
@@ -72,6 +88,13 @@ function Header(props: {
                 <DropdownNotification />
                 {/* <!-- Notification Menu Area --> */}
             </ul>
+
+            <div
+                onClick={toggleThemeMode}
+                className="rounded-full cursor-pointer bg-[#151718] dark:bg-white text-white dark:text-black w-12 h-12 text-xs flex items-center justify-center"
+            >
+                {themeMode === "light" ? <FaMoon className='text-white text-xl' /> : <IoSunny className='text-white text-2xl'/>}
+            </div>
 
             {/* <!-- User Area --> */}
             <DropdownUser />
