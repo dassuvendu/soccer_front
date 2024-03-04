@@ -34,7 +34,7 @@ const Statistics = () => {
           <h1
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-4xl font-bold mb-2`}
+            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
           >
             Statistics
           </h1>
@@ -44,7 +44,7 @@ const Statistics = () => {
           </Link>
         </div>
         {/* Statistics graph start here */}
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           <div
             className="bg-center bg-no-repeat bg-contain p-[15px] w-[210px] h-[131px]"
             style={{ backgroundImage: `url(${HighAccuracyBG})` }}
@@ -115,8 +115,8 @@ const Statistics = () => {
         {/* Statistics graph ends here */}
         {/* Statistics list section start here */}
         <div className="mt-[60px]">
-          <div className="flex justify-between items-center mb-[25px]">
-            <div>
+          <div className="md:flex justify-between items-center mb-[25px]">
+            <div className="mb-4 md:mb-0">
               <h2
                 className={`${
                   themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -719,8 +719,8 @@ const Statistics = () => {
         </div>
         {/* Statistics list section ends here */}
         {/* Pagination section start here */}
-        <div className="flex justify-between mt-8">
-          <div>
+        <div className="md:flex justify-between mt-8">
+          <div className="mb-2 md:mb-0">
             <p
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -730,8 +730,8 @@ const Statistics = () => {
             </p>
           </div>
           <div className="min-w-[450px]">
-            <div className="flex justify-between items-center">
-              <div className="mr-[30px]">
+            <div className="md:flex justify-between items-center">
+              <div className="mr-[30px] mb-2 md:mb-0">
                 <ul className="flex">
                   <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">

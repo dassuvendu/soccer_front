@@ -29,17 +29,17 @@ const MyPrediction = () => {
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
-        <div className="flex justify-between mb-10">
-          <div>
+        <div className="md:flex justify-between mb-10">
+          <div className="mb-4 md:mb-0">
             <h1
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } font-Syne text-4xl font-bold mb-2`}
+              } font-Syne text-2xl md:text-4xl font-bold mb-2`}
             >
               My Prediction
             </h1>
             <p
-              className={`text-[18px] leading-[22px] font-medium ${
+              className={`text-[15px] md:text-[18px] leading-[22px] font-medium ${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-white"
               }`}
             >
@@ -56,7 +56,7 @@ const MyPrediction = () => {
           style={{ backgroundImage: `url(${MyPredictionsbanner})` }}
         >
           <div className="w-8/12 py-16 pl-14">
-            <h1 className="font-Syne text-4xl font-bold text-black mb-4">
+            <h1 className="font-Syne text-2xl md:text-4xl font-bold text-black mb-4">
               Stake responsibly, keep correct score accuracy in mind
             </h1>
             <p className="text-black text-[18px] leading-[28px] font-medium">
@@ -71,15 +71,15 @@ const MyPrediction = () => {
         <div className="bg-[#191D23] rounded-md">
           {/* Tab section start here */}
           <Tabs className="tab_section">
-            <div className="flex justify-between items-center">
+            <div className="md:flex justify-between items-center">
               <TabList>
                 <Tab>All Prediction</Tab>
                 <Tab>Recently</Tab>
                 <Tab>Cooked Slip</Tab>
                 <Tab>Failed Prediction</Tab>
               </TabList>
-              <div className="mr-4">
-                <Link className="bg-[#0d0f11] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
+              <div className="mr-4 mb-4 ml-4 md:ml-0 md:mb-0">
+                <Link className="bg-[#0d0f11] w-[180px] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
                   <img src={icSortIcon} alt="BuyTokenIcon" className="mr-1" />
                   Apply Filter{" "}
                   <BsChevronDown className="text-[#08a1f8] ml-1 text-[18px]" />
@@ -2406,8 +2406,8 @@ const MyPrediction = () => {
         </div>
         {/* My Prediction section ends here */}
         {/* Pagination section start here */}
-        <div className="flex justify-between mt-8">
-          <div>
+        <div className="md:flex justify-between mt-8">
+          <div className="mb-2 md:mb-0">
             <p
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -2417,8 +2417,8 @@ const MyPrediction = () => {
             </p>
           </div>
           <div className="min-w-[450px]">
-            <div className="flex justify-between items-center">
-              <div className="mr-[30px]">
+            <div className="md:flex justify-between items-center">
+              <div className="mr-[30px] mb-2 md:mb-0">
                 <ul className="flex">
                   <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">

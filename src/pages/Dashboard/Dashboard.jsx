@@ -18,11 +18,11 @@ const Dashboard = () => {
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
-        <div className="flex justify-between mb-4">
+        <div className="md:flex justify-between mb-4">
           <h1
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-4xl font-bold mb-2`}
+            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
           >
             Hi Johns Valina
           </h1>
@@ -32,71 +32,16 @@ const Dashboard = () => {
           </Link>
         </div>
 
-        {/* Dashboard section start here  */}
-        {/* <div className="mb-10">
-          <h2
-            className={`${
-              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } text-[27px] leading-[40px] font-medium pb-3`}
-          >
-            Dashboard
-          </h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div
-              className="bg-center bg-no-repeat bg-contain p-[30px] max-w-[545px]"
-              style={{ backgroundImage: `url(${dashboardcard01})` }}
-            >
-              <div className="flex justify-between pb-6">
-                <h3 className="text-white text-[28px] leading-[40px] font-semibold">
-                  Your Tokens
-                </h3>
-                <p className="text-[31px] leading-[40px] font-normal text-[#50E3C2] flex items-center">
-                  <FiArrowUpRight className="text-4xl" /> +132%
-                </p>
-              </div>
-              <h4 className="text-[#50E3C2] text-[78px] leading-[78px] font-semibold pb-2">
-                6
-              </h4>
-              <span className="text-white text-[20px] leading-[40px] font-medium">
-                Tokens are for requesting predictions
-              </span>
-            </div>
-            <div
-              className="bg-center bg-no-repeat bg-contain p-[30px] max-w-[545px]"
-              style={{ backgroundImage: `url(${dashboardcard02})` }}
-            >
-              <div className="flex justify-between pb-6">
-                <h3 className="text-white text-[28px] leading-[40px] font-semibold">
-                  Daily Free Tokens
-                </h3>
-                <p className="text-[31px] leading-[40px] font-normal text-[#50E3C2] flex items-center">
-                  <FiArrowUpRight className="text-4xl" /> +132%
-                </p>
-              </div>
-              <h4 className="text-[#F9AE52] text-[78px] leading-[78px] font-semibold pb-2">
-                4{" "}
-                <span className="text-[#F9AE52] text-[27px] leading-[40px] font-medium italic">
-                  (Remaining Quota)
-                </span>
-              </h4>
-              <span className="text-white text-[20px] leading-[40px] font-medium">
-                You get 4 free tokens daily!
-              </span>
-            </div>
-          </div>
-        </div> */}
-        {/* Dashboard section ends here */}
-
         {/* Actions section start here  */}
         <div className="mb-10">
           <h2
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } text-[27px] leading-[40px] font-medium pb-3`}
+            } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
           >
             Actions
           </h2>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-gradient-to-t from-[#04fca0] to-[#07abee] rounded-lg py-5 px-5">
               <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] leading-[40px] font-semibold">
@@ -158,11 +103,11 @@ const Dashboard = () => {
           <h2
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } text-[27px] leading-[40px] font-medium pb-3`}
+            } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
           >
             Explore Matches from your Favorite Leagues
           </h2>
-          <div className="grid grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
             <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
               <img
                 src={UEFAChampionsLeagueIcon}

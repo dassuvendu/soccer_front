@@ -13,12 +13,12 @@ const TeamComparisions = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
-      <div className="w-full h-screen py-4">
-        <div className="flex justify-between mb-8">
+      <div className="w-full h-full py-4">
+        <div className="md:flex justify-between mb-8">
           <h1
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-4xl font-bold mb-2`}
+            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
           >
             Team Comparisions
           </h1>
@@ -26,7 +26,7 @@ const TeamComparisions = () => {
             Request Predictions <FiArrowRight className="text-white ml-0.5" />
           </Link>
         </div>
-        <div className="bg-[#191D23] rounded-xl py-[60px]">
+        <div className="bg-[#191D23] rounded-xl p-6 md:py-[60px]">
           <div className="max-w-2xl mx-auto">
             <Tabs className="team_comparisions_tab_section">
               <TabList>

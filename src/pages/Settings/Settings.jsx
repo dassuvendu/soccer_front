@@ -17,7 +17,7 @@ const Settings = () => {
           <h1
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-4xl font-bold mb-2`}
+            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
           >
             Settings
           </h1>
@@ -30,12 +30,12 @@ const Settings = () => {
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
           style={{ backgroundImage: `url(${settingBanner})` }}
         >
-          <div className="w-9/12 py-6 pl-10 pr-2">
+          <div className="w-full md:w-9/12 py-6 pl-10 pr-2">
             <h1 className="font-Syne text-4xl font-bold text-black mb-4">
               Referral Link
             </h1>
-            <div className="flex items-center mb-5">
-              <div className="copy_link_box bg-black rounded-full max-w-sm flex mr-4">
+            <div className="md:flex items-center mb-5">
+              <div className="copy_link_box bg-black rounded-full max-w-sm flex justify-between mr-4">
                 <TextInput
                   id="base"
                   type="text"
@@ -61,8 +61,8 @@ const Settings = () => {
         </div>
         {/* Banner ends here */}
         {/* Setting edit section start here */}
-        <div className="flex">
-          <div className="w-5/12 bg-[#191D23] rounded-md p-5">
+        <div className="md:flex">
+          <div className="w-full md:w-5/12 bg-[#191D23] rounded-md p-5">
             <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
               <h3 className="text-[20px] text-white font-normal">Overview</h3>
               <button>
@@ -110,7 +110,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div className="w-7/12 bg-[#191D23] rounded-md p-5 ml-4">
+          <div className="w-full md:w-7/12 bg-[#191D23] rounded-md p-5 md:ml-4 mt-4 md:mt-0">
             <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
               <h3 className="text-[20px] text-white font-normal">
                 Signin Methos

@@ -48,7 +48,7 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                 </Link>
             </div>
 
-            <div className="hidden sm:block w-full">
+            <div className="hidden lg:block w-full">
                 <div className='flex w-full'>
                     <div className='w-5/12 flex'>
                         <div>

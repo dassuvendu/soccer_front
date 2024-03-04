@@ -25,10 +25,10 @@ const RequestPrediction = () => {
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4">
         <div
-          className="bg-left-top bg-no-repeat rounded-xl bg-cover mb-6"
+          className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
           style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-5/12 py-20 pl-14">
+          <div className="w-full md:w-5/12 py-20 pl-14">
             <h1 className="font-Syne text-4xl font-bold text-white mb-4">
               Match <br></br> Predictions
             </h1>
@@ -37,8 +37,8 @@ const RequestPrediction = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-between items-center mb-6">
-          <div>
+        <div className="md:flex justify-between items-center mb-6">
+          <div className="mb-4 md:mb-0">
             <p
               className={`text-[14px] leading-[20px] font-medium ${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -50,14 +50,14 @@ const RequestPrediction = () => {
               <Datepicker />
             </div>
           </div>
-          <Link className="bg-[#0d0f11] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
+          <Link className="bg-[#0d0f11] w-[180px] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
             <HiTemplate className="text-xl mr-1" />
             Prediction Slip
           </Link>
         </div>
       </div>
       {/* Request Predictions list start here */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-[#191D23] rounded-2xl">
           <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
@@ -433,8 +433,8 @@ const RequestPrediction = () => {
       </div>
       {/* Request Predictions list ends here */}
       {/* Pagination section start here */}
-      <div className="flex justify-between mt-8">
-        <div>
+      <div className="md:flex justify-between mt-8">
+        <div className="mb-2 md:mb-0">
           <p
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -444,8 +444,8 @@ const RequestPrediction = () => {
           </p>
         </div>
         <div className="min-w-[450px]">
-          <div className="flex justify-between items-center">
-            <div className="mr-[30px]">
+          <div className="md:flex justify-between items-center">
+            <div className="mr-[30px] mb-2 md:mb-0">
               <ul className="flex">
                 <li>
                   <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">

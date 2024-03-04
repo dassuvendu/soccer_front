@@ -21,17 +21,17 @@ const CookedSlips = () => {
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
-        <div className="flex justify-between mb-10">
-          <div>
+        <div className="md:flex justify-between mb-4 md:mb-10">
+          <div className="mb-4 md:mb-0">
             <h1
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } font-Syne text-4xl font-bold mb-2`}
+              } font-Syne text-2xl md:text-4xl font-bold mb-2`}
             >
               Coped slips
             </h1>
             <p
-              className={`text-[18px] leading-[22px] font-medium ${
+              className={`text-[15px] md:text-[18px] leading-[22px] font-medium ${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-white"
               }`}
             >
@@ -43,8 +43,8 @@ const CookedSlips = () => {
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
           </Link>
         </div>
-        <div className="flex justify-between items-center mb-6">
-          <div>
+        <div className="md:flex justify-between items-center mb-6">
+          <div className="mb-4 md:mb-0">
             <p
               className={`text-[14px] leading-[20px] font-medium ${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -56,7 +56,7 @@ const CookedSlips = () => {
               <Datepicker />
             </div>
           </div>
-          <Link className="bg-[#0d0f11] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
+          <Link className="bg-[#0d0f11] border border-[#9db4e1] w-[180px] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
             <img src={icSortIcon} alt="BuyTokenIcon" className="mr-1" />
             Apply Filter{" "}
             <BsChevronDown className="text-[#08a1f8] ml-1 text-[18px]" />
@@ -70,7 +70,7 @@ const CookedSlips = () => {
         </div>
 
         {/* Cooked Slips list start here */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="bg-[#191D23] rounded-lg p-5">
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
@@ -458,8 +458,8 @@ const CookedSlips = () => {
         </div>
         {/* Cooked Slips list start here */}
         {/* Pagination section start here */}
-        <div className="flex justify-between mt-8">
-          <div>
+        <div className="md:flex justify-between mt-8">
+          <div className="mb-2 md:mb-0">
             <p
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -469,8 +469,8 @@ const CookedSlips = () => {
             </p>
           </div>
           <div className="min-w-[450px]">
-            <div className="flex justify-between items-center">
-              <div className="mr-[30px]">
+            <div className="md:flex justify-between items-center">
+              <div className="mr-[30px] mb-2 md:mb-0">
                 <ul className="flex">
                   <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
