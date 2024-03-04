@@ -24,6 +24,7 @@ import {
   AiOutlineSearch,
   AiFillDelete,
   AiFillPlusCircle,
+  AiFillEdit,
 } from "react-icons/ai";
 import {
   BsChevronLeft,
@@ -59,9 +60,13 @@ import { HiTemplate } from "react-icons/hi";
 import { GiChampions } from "react-icons/gi";
 import { CiUnlock } from "react-icons/ci";
 import { IoSunny } from "react-icons/io5";
-import { MdMoreHoriz } from "react-icons/md";
+import { MdMoreHoriz, MdVerifiedUser } from "react-icons/md";
+import { FaRegCopy } from "react-icons/fa";
 
 export {
+  MdVerifiedUser,
+  AiFillEdit,
+  FaRegCopy,
   MdMoreHoriz,
   FaMoon,
   IoSunny,

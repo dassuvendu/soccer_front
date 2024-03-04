@@ -98,7 +98,7 @@ const DropdownUser = () => {
           </li>
           <li className='border-b border-[#363e42] py-3 px-4'>
             <Link
-              to="/dashboard"
+              to="/"
               className="flex items-center text-sm font-normal duration-300 ease-in-out text-white hover:text-[#1fc4ff]"
             >
               Dashboard

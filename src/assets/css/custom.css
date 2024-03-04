@@ -74,6 +74,77 @@ body {
 
 /* add css for tab section ends here */
 
+/*  */
+
+.team_comparisions_tab_section ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #163245;
+    border-radius: 25px;
+    padding: 3px 5px 5px;
+    border-bottom: none;
+}
+.team_comparisions_tab_section ul li {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    line-height: 34px;
+    font-weight: bold;
+    color: #C5C5C5;
+    width: 50%;
+    text-align: center;
+}
+.team_comparisions_tab_section ul li.react-tabs__tab--selected {
+    background: #08A1F8;
+    border-radius: 25px;
+    border: none;
+    color: #ffffff;
+}
+
+/*  */
+
+.copy_link_box input[type="text"] {
+    background: #000000;
+    border-radius: 25px 0 0 25px;
+    border: none;
+    width: 230px;
+    padding-left: 10px;
+    color: #ffffff;
+}
+.copy_link_box input[type="text"]::placeholder {
+    color: #ffffff;
+}
+.copy_link_box input[type="text"]:focus {
+    border: none !important;
+    outline: none !important;
+}
+.copy_link_box button {
+    background: #08a1f8 !important;
+    border-radius: 0 25px 25px 0;
+}
+.copy_link_box button:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important; 
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+.copy_link_box input[type="submit"] {
+    background: #08a1f8 !important;
+    box-shadow: none !important;
+}
+
+.password_box input[type="password"] {
+    background: none;
+    border: none;
+    color: #ffffff;
+}
+.password_box input[type="password"]:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
 
 @media only screen and (max-width:767px) {
 

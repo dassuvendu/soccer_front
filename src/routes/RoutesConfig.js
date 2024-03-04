@@ -7,13 +7,14 @@ import ForgotPassword from "../pages/Auth/ForgotPassword/ForgotPassword.jsx";
 import CookedSlips from '../pages/CookedSlips/CookedSlips.jsx';
 import RequestPrediction from '../pages/RequestPrediction/RequestPrediction.jsx';
 import MyPrediction from '../pages/MyPrediction/MyPrediction.jsx';
-import Statistics from '../hooks/Statistics/Statistics.jsx';
 import TeamComparisions from '../pages/TeamComparisions/TeamComparisions.jsx';
 import UFFAChampions from '../pages/UFFAChampions/UFFAChampions.jsx';
 import PremierLeague from '../pages/PremierLeague/PremierLeague.jsx';
 import LaLiga from '../pages/LaLiga/LaLiga.jsx';
 import SerieA from '../pages/SerieA/SerieA.jsx';
 import Ligue from '../pages/Ligue/Ligue.jsx';
+import Statistics from '../pages/Statistics/Statistics.jsx';
+import Settings from '../pages/Settings/Settings.jsx';
 
 const allRoutes = [
   {
@@ -53,7 +54,7 @@ const allRoutes = [
     ],
   },
   {
-    path: '/request-prediction',
+    path: '/match-prediction',
     element: <InsideLayout />,
     children: [
       {
@@ -139,6 +140,16 @@ const allRoutes = [
       {
         index: true,
         element: <Ligue />
+      },
+    ],
+  },
+  {
+    path: '/settings',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <Settings />
       },
     ],
   },

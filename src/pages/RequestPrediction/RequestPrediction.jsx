@@ -30,7 +30,7 @@ const RequestPrediction = () => {
         >
           <div className="w-5/12 py-20 pl-14">
             <h1 className="font-Syne text-4xl font-bold text-white mb-4">
-              Request <br></br> Predictions
+              Match <br></br> Predictions
             </h1>
             <p className="text-white text-[18px] leading-[24px] font-medium">
               Explore different slips containing multiple matches for best odds.

@@ -33,7 +33,7 @@ const Dashboard = () => {
         </div>
 
         {/* Dashboard section start here  */}
-        <div className="mb-10">
+        {/* <div className="mb-10">
           <h2
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -84,7 +84,7 @@ const Dashboard = () => {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Dashboard section ends here */}
 
         {/* Actions section start here  */}

@@ -139,13 +139,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Offer Request --> */}
               <li className='mb-4'>
                 <NavLink
-                  to="/request-prediction"
+                  to="/match-prediction"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-normal text-sm text-[#e1e1e1] duration-300 ease-in-out hover:bg-graydark ${
-                    pathname.includes('request-prediction') && 'bg-graydark dark:bg-meta-4'
+                    pathname.includes('match-prediction') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <PiGitPullRequestBold className='text-4xl' />
-                  Request Prediction
+                  Match Predictions
                 </NavLink>
               </li>
               {/* <!-- Menu Item Offer Request --> */}

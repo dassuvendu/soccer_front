@@ -20,7 +20,23 @@ import MyPredictionsbanner from "../imagesource/My_Predictions_banner.png";
 import BayernMunichIcon from "../imagesource/Bayern_Munich_Icon.png";
 import BarcelonaIcon from "../imagesource/BarcelonaIcon.png";
 
+import HighAccuracyBG from "../imagesource/High_Accuracy_BG.png";
+import LowAccuracyBG from "../imagesource/Low_Accuracy_BG.png";
+import InactiveBG from "../imagesource/Inactive_BG.png";
+import ActiveBG from "../imagesource/Active_BG.png";
+import TotalMatchesBG from "../imagesource/Total_Matches_BG.png";
+import settingBanner from "../imagesource/setting_banner.png";
+
+import userFace from "../imagesource/user_face.png";
+
 export {
+  userFace,
+  HighAccuracyBG,
+  LowAccuracyBG,
+  InactiveBG,
+  ActiveBG,
+  settingBanner,
+  TotalMatchesBG,
   BayernMunichIcon,
   BarcelonaIcon,
   MyPredictionsbanner,
