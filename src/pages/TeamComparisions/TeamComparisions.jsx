@@ -17,16 +17,20 @@ const TeamComparisions = () => {
         <div className="md:flex justify-between mb-8">
           <h1
             className={`${
-              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Team Comparisions
           </h1>
-          <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             Request Predictions <FiArrowRight className="text-white ml-0.5" />
           </Link>
         </div>
-        <div className="bg-[#191D23] rounded-xl p-6 md:py-[60px]">
+        <div
+          className={` ${
+            themeMode === "light" ? "bg-[#e2e2e2]" : "bg-[#191D23]"
+          } rounded-xl p-6 md:py-[60px]`}
+        >
           <div className="max-w-2xl mx-auto">
             <Tabs className="team_comparisions_tab_section">
               <TabList>
@@ -35,16 +39,28 @@ const TeamComparisions = () => {
               </TabList>
               <TabPanel>
                 <div>
-                  <h2 className="font-Syne text-[33px] font-bold text-white">
+                  <h2
+                    className={`font-Bebas text-[35px] tracking-normal  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    }`}
+                  >
                     Compare Teams
                   </h2>
-                  <p className="font-Montserrat text-[19px] leading-[25px] font-medium text-white">
+                  <p
+                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    }`}
+                  >
                     View statistics, head to head information, team analysis and
                     simple predictions
                   </p>
                   <div className="mt-8">
                     <div className="mb-4">
-                      <Label className="text-[14px] font-medium text-white pb-1 block">
+                      <Label
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
+                      >
                         Eearch for First Team
                       </Label>
                       <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
@@ -75,7 +91,11 @@ const TeamComparisions = () => {
                       </div>
                     </div>
                     <div className="mb-4">
-                      <Label className="text-[14px] font-medium text-white pb-1 block">
+                      <Label
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
+                      >
                         Search for Second Team
                       </Label>
                       <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
@@ -105,7 +125,7 @@ const TeamComparisions = () => {
                         </div>
                       </div>
                     </div>
-                    <button className="bg-[#08A1F8] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4">
+                    <button className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4">
                       View comparison
                     </button>
                   </div>
@@ -113,21 +133,33 @@ const TeamComparisions = () => {
               </TabPanel>
               <TabPanel>
                 <div className="mt-6">
-                  <p className="text-white pb-4 text-[14px]">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } pb-4 text-[14px]`}
+                  >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
                     printer took a galley of type and scrambled it to make a
                     type specimen book.
                   </p>
-                  <p className="text-white pb-4 text-[14px]">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } pb-4 text-[14px]`}
+                  >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
                     printer took a galley of type and scrambled it to make a
                     type specimen book.
                   </p>{" "}
-                  <p className="text-white pb-4 text-[14px]">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } pb-4 text-[14px]`}
+                  >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown

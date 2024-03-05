@@ -33,8 +33,8 @@ const MyPrediction = () => {
           <div className="mb-4 md:mb-0">
             <h1
               className={`${
-                themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } font-Syne text-2xl md:text-4xl font-bold mb-2`}
+                themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+              } font-Bebas text-2xl md:text-5xl tracking-normal mb-1`}
             >
               My Prediction
             </h1>
@@ -46,7 +46,7 @@ const MyPrediction = () => {
               Explore different slips containing multiple matches for best odds.
             </p>
           </div>
-          <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
           </Link>
@@ -56,7 +56,7 @@ const MyPrediction = () => {
           style={{ backgroundImage: `url(${MyPredictionsbanner})` }}
         >
           <div className="w-8/12 py-16 pl-14">
-            <h1 className="font-Syne text-2xl md:text-4xl font-bold text-black mb-4">
+            <h1 className="font-Bebas text-2xl md:text-4xl tracking-normal text-black mb-2">
               Stake responsibly, keep correct score accuracy in mind
             </h1>
             <p className="text-black text-[18px] leading-[28px] font-medium">
@@ -68,7 +68,11 @@ const MyPrediction = () => {
           </div>
         </div>
         {/* My Prediction section start here */}
-        <div className="bg-[#191D23] rounded-md">
+        <div
+          className={` ${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-md`}
+        >
           {/* Tab section start here */}
           <Tabs className="tab_section">
             <div className="md:flex justify-between items-center">
@@ -79,7 +83,13 @@ const MyPrediction = () => {
                 <Tab>Failed Prediction</Tab>
               </TabList>
               <div className="mr-4 mb-4 ml-4 md:ml-0 md:mb-0">
-                <Link className="bg-[#0d0f11] w-[180px] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
+                <Link
+                  className={`${
+                    themeMode === "light" ? "bg-[#E1E1E1]" : "bg-[#0d0f11]"
+                  } border border-[#9db4e1] w-[180px] hover:bg-[#2854b7]  ${
+                    themeMode === "light" ? "text-black" : "text-[#C8C8C8]"
+                  } hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center`}
+                >
                   <img src={icSortIcon} alt="BuyTokenIcon" className="mr-1" />
                   Apply Filter{" "}
                   <BsChevronDown className="text-[#08a1f8] ml-1 text-[18px]" />
@@ -98,24 +108,68 @@ const MyPrediction = () => {
               <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[34%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px]  ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[34%]`}
+                    >
                       Match
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Score
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Over Under
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Accuracy
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[15%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[15%]`}
+                    >
                       More
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -125,7 +179,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -136,7 +196,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -157,7 +223,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -170,7 +240,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -180,7 +254,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -191,7 +271,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -212,7 +298,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -225,7 +315,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -235,7 +329,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -246,7 +346,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -267,7 +373,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -280,7 +390,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -290,7 +404,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -301,7 +421,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -322,7 +448,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -335,7 +465,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -345,7 +479,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -356,7 +496,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -377,7 +523,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -390,7 +540,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -400,7 +554,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -411,7 +571,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -432,7 +598,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -445,7 +615,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -455,7 +629,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -466,7 +646,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -487,7 +673,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -500,7 +690,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -510,7 +704,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -521,7 +721,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -542,7 +748,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -555,7 +765,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -565,7 +779,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -576,7 +796,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -597,7 +823,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -610,7 +840,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -620,7 +854,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -631,7 +871,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -652,7 +898,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -675,24 +925,68 @@ const MyPrediction = () => {
               <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[34%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px]  ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[34%]`}
+                    >
                       Match
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Score
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Over Under
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Accuracy
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[15%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[15%]`}
+                    >
                       More
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -702,7 +996,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -713,7 +1013,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -734,7 +1040,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -747,7 +1057,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -757,7 +1071,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -768,7 +1088,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -789,7 +1115,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -802,7 +1132,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -812,7 +1146,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -823,7 +1163,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -844,7 +1190,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -857,7 +1207,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -867,7 +1221,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -878,7 +1238,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -899,7 +1265,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -912,7 +1282,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -922,7 +1296,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -933,7 +1313,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -954,7 +1340,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -967,7 +1357,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -977,7 +1371,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -988,7 +1388,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1009,7 +1415,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1022,7 +1432,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1032,7 +1446,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1043,7 +1463,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1064,7 +1490,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1077,7 +1507,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1087,7 +1521,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1098,7 +1538,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1119,7 +1565,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1132,7 +1582,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1142,7 +1596,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1153,7 +1613,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1174,7 +1640,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1187,7 +1657,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1197,7 +1671,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1208,7 +1688,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1229,7 +1715,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1252,24 +1742,68 @@ const MyPrediction = () => {
               <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[34%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px]  ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[34%]`}
+                    >
                       Match
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Score
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Over Under
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Accuracy
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[15%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[15%]`}
+                    >
                       More
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1279,7 +1813,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1290,7 +1830,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1311,7 +1857,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1324,7 +1874,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1334,7 +1888,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1345,7 +1905,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1366,7 +1932,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1379,7 +1949,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1389,7 +1963,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1400,7 +1980,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1421,7 +2007,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1434,7 +2024,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1444,7 +2038,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1455,7 +2055,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1476,7 +2082,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1489,7 +2099,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1499,7 +2113,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1510,7 +2130,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1531,7 +2157,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1544,7 +2174,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1554,7 +2188,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1565,7 +2205,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1586,7 +2232,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1599,7 +2249,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1609,7 +2263,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1620,7 +2280,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1641,7 +2307,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1654,7 +2324,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1664,7 +2338,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1675,7 +2355,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1696,7 +2382,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1709,7 +2399,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1719,7 +2413,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1730,7 +2430,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1751,7 +2457,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1764,7 +2474,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1774,7 +2488,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1785,7 +2505,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1806,7 +2532,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1829,24 +2559,68 @@ const MyPrediction = () => {
               <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[34%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px]  ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[34%]`}
+                    >
                       Match
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Score
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Over Under
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
+                    >
                       Accuracy
                     </Table.HeadCell>
-                    <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[15%]">
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[15%]`}
+                    >
                       More
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1856,7 +2630,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1867,7 +2647,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1888,7 +2674,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1901,7 +2691,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1911,7 +2705,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1922,7 +2722,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1943,7 +2749,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -1956,7 +2766,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -1966,7 +2780,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1977,7 +2797,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -1998,7 +2824,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2011,7 +2841,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2021,7 +2855,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2032,7 +2872,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2053,7 +2899,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2066,7 +2916,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2076,7 +2930,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2087,7 +2947,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2108,7 +2974,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2121,7 +2991,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2131,7 +3005,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2142,7 +3022,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2163,7 +3049,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2176,7 +3066,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2186,7 +3080,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2197,7 +3097,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2218,7 +3124,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2231,7 +3141,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2241,7 +3155,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2252,7 +3172,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2273,7 +3199,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2286,7 +3216,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2296,7 +3230,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2307,7 +3247,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2328,7 +3274,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>
@@ -2341,7 +3291,11 @@ const MyPrediction = () => {
                         <MdMoreHoriz />
                       </Table.Cell>
                     </Table.Row>
-                    <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                    <Table.Row
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                    >
                       <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                         <div className="flex items-center">
                           <div className="flex items-center">
@@ -2351,7 +3305,13 @@ const MyPrediction = () => {
                               className="mr-2"
                             />
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Bayern Munich
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2362,7 +3322,13 @@ const MyPrediction = () => {
                           <div className="text-[12px] text-white px-6">VS</div>
                           <div className="flex items-center">
                             <div>
-                              <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                              <p
+                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 Barcelona
                               </p>
                               <span className="text-[#8EA2AB] text-[9px]">
@@ -2383,7 +3349,11 @@ const MyPrediction = () => {
                         </span>
                       </Table.Cell>
                       <Table.Cell className="w-[17%]">
-                        <span className="text-base font-bold text-white">
+                        <span
+                          className={`text-base font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
                           5/10
                         </span>
                       </Table.Cell>

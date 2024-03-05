@@ -25,8 +25,8 @@ const CookedSlips = () => {
           <div className="mb-4 md:mb-0">
             <h1
               className={`${
-                themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } font-Syne text-2xl md:text-4xl font-bold mb-2`}
+                themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+              } font-Bebas text-2xl md:text-5xl tracking-normal mb-1`}
             >
               Coped slips
             </h1>
@@ -38,7 +38,7 @@ const CookedSlips = () => {
               Explore different slips containing multiple matches for best odds.
             </p>
           </div>
-          <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
           </Link>
@@ -52,11 +52,23 @@ const CookedSlips = () => {
             >
               Start and End Date
             </p>
-            <div className="date_picker_box">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "date_picker_box_light"
+                  : "date_picker_box"
+              }`}
+            >
               <Datepicker />
             </div>
           </div>
-          <Link className="bg-[#0d0f11] border border-[#9db4e1] w-[180px] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
+          <Link
+            className={`${
+              themeMode === "light" ? "bg-[#E1E1E1]" : "bg-[#0d0f11]"
+            } border border-[#9db4e1] w-[180px] hover:bg-[#2854b7]  ${
+              themeMode === "light" ? "text-black" : "text-[#C8C8C8]"
+            } hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center`}
+          >
             <img src={icSortIcon} alt="BuyTokenIcon" className="mr-1" />
             Apply Filter{" "}
             <BsChevronDown className="text-[#08a1f8] ml-1 text-[18px]" />
@@ -71,7 +83,11 @@ const CookedSlips = () => {
 
         {/* Cooked Slips list start here */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="bg-[#191D23] rounded-lg p-5">
+          <div
+            className={`bg-[#191D23] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-lg p-5 shadow-xl`}
+          >
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
                 #45678
@@ -82,42 +98,82 @@ const CookedSlips = () => {
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white mb-1">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }  mb-1`}
+                >
                   3.03 Odds
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-semibold text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-semibold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   5 Matches
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Strategy
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   Double, Single
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   5 Matches
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   6:30 PM
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Ends On
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   9:30 PM
                 </span>
               </div>
@@ -129,59 +185,107 @@ const CookedSlips = () => {
               </button>
               <div className="text-right flex items-center">
                 <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   4 Tokens
                 </p>
               </div>
             </div>
           </div>
-          <div className="bg-[#191D23] rounded-lg p-5">
+          <div
+            className={`bg-[#191D23] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-lg p-5 shadow-xl`}
+          >
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
                 #45678
               </p>
-              <span className="text-[16px] leading-[30px] font-medium text-white bg-red-600 py-0 px-3 inline-block rounded-full">
+              <span className="text-[16px] leading-[30px] font-medium text-white bg-[#ff0000] py-0 px-3 inline-block rounded-full">
                 Hight Risk
               </span>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white mb-1">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }  mb-1`}
+                >
                   3.03 Odds
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-semibold text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-semibold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   5 Matches
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Strategy
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   Double, Single
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   5 Matches
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   6:30 PM
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Ends On
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   9:30 PM
                 </span>
               </div>
@@ -193,13 +297,21 @@ const CookedSlips = () => {
               </button>
               <div className="text-right flex items-center">
                 <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   4 Tokens
                 </p>
               </div>
             </div>
           </div>
-          <div className="bg-[#191D23] rounded-lg p-5">
+          <div
+            className={`bg-[#191D23] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-lg p-5 shadow-xl`}
+          >
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
                 #45678
@@ -210,42 +322,82 @@ const CookedSlips = () => {
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white mb-1">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }  mb-1`}
+                >
                   3.03 Odds
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-semibold text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-semibold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   5 Matches
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Strategy
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   Double, Single
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   5 Matches
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   6:30 PM
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Ends On
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   9:30 PM
                 </span>
               </div>
@@ -257,13 +409,21 @@ const CookedSlips = () => {
               </button>
               <div className="text-right flex items-center">
                 <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   4 Tokens
                 </p>
               </div>
             </div>
           </div>
-          <div className="bg-[#191D23] rounded-lg p-5">
+          <div
+            className={`bg-[#191D23] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-lg p-5 shadow-xl`}
+          >
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
                 #45678
@@ -274,42 +434,82 @@ const CookedSlips = () => {
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white mb-1">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }  mb-1`}
+                >
                   3.03 Odds
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-semibold text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-semibold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   5 Matches
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Strategy
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   Double, Single
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   5 Matches
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   6:30 PM
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Ends On
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   9:30 PM
                 </span>
               </div>
@@ -321,13 +521,21 @@ const CookedSlips = () => {
               </button>
               <div className="text-right flex items-center">
                 <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   4 Tokens
                 </p>
               </div>
             </div>
           </div>
-          <div className="bg-[#191D23] rounded-lg p-5">
+          <div
+            className={`bg-[#191D23] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-lg p-5 shadow-xl`}
+          >
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
                 #45678
@@ -338,42 +546,82 @@ const CookedSlips = () => {
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white mb-1">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }  mb-1`}
+                >
                   3.03 Odds
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-semibold text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-semibold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   5 Matches
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Strategy
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   Double, Single
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   5 Matches
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   6:30 PM
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Ends On
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   9:30 PM
                 </span>
               </div>
@@ -385,13 +633,21 @@ const CookedSlips = () => {
               </button>
               <div className="text-right flex items-center">
                 <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   4 Tokens
                 </p>
               </div>
             </div>
           </div>
-          <div className="bg-[#191D23] rounded-lg p-5">
+          <div
+            className={`bg-[#191D23] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-lg p-5 shadow-xl`}
+          >
             <div className="flex justify-between items-center mb-5">
               <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
                 #45678
@@ -402,42 +658,82 @@ const CookedSlips = () => {
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white mb-1">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }  mb-1`}
+                >
                   3.03 Odds
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-semibold text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-semibold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   5 Matches
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Strategy
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   Double, Single
                 </span>
               </div>
             </div>
             <div className="flex justify-between items-center mb-5">
               <div>
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   5 Matches
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   6:30 PM
                 </span>
               </div>
               <div className="text-right">
-                <p className="font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 mb-1">
+                <p
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium text-gray-600 ${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-gray-600"
+                  } mb-1`}
+                >
                   Ends On
                 </p>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white block">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  } block`}
+                >
                   Feb 18, 2024
                 </span>
-                <span className="font-Montserrat text-[16px] leading-[18px] font-medium text-white">
+                <span
+                  className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   9:30 PM
                 </span>
               </div>
@@ -449,7 +745,11 @@ const CookedSlips = () => {
               </button>
               <div className="text-right flex items-center">
                 <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
-                <p className="font-Montserrat text-[23px] leading-[25px] font-bold text-white">
+                <p
+                  className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
+                    themeMode === "light" ? "text-[#191D23]" : "text-white"
+                  }`}
+                >
                   4 Tokens
                 </p>
               </div>

@@ -6,6 +6,7 @@ import dollerIcon from "../imagesource/doller_icon.png";
 import dashboardcard01 from "../imagesource/dashboardcard01.png";
 import dashboardcard02 from "../imagesource/dashboardcard02.png";
 import UEFAChampionsLeagueIcon from "../imagesource/UEFAChampionsLeague.png";
+import UEFAChampionsLeagueDarkIcon from "../imagesource/UEFAChampionsLeague _dark.png";
 import PremierLeague from "../imagesource/PremierLeague.png";
 import LaLiya from "../imagesource/LaLiya.png";
 import SerieA from "../imagesource/SerieA.png";
@@ -51,6 +52,7 @@ export {
   userIcon,
   NewItemIcon,
   UEFAChampionsLeagueIcon,
+  UEFAChampionsLeagueDarkIcon,
   PremierLeague,
   LaLiya,
   SerieA,

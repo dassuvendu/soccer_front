@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineBell } from "react-icons/ai";
 
+import { useSelector } from "react-redux";
+
 const DropdownNotification = () => {
+  const themeMode = useSelector((state:any) => state.darkmode.mode);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -39,10 +42,14 @@ const DropdownNotification = () => {
         ref={trigger}
         onClick={() => setDropdownOpen(!dropdownOpen)}
         to="#"
-        className="relative flex h-12 w-12 items-center justify-center rounded-full bg-[#151718] hover:text-primary"
+        className={`relative flex h-12 w-12 items-center justify-center rounded-full ${
+          themeMode === "light" ? "bg-[#ececed]" : "bg-[#151718]"
+        } hover:text-primary`}
       >
         <span className="absolute top-[12px] right-[13px] bg-[#ea2d2d] w-[8px] h-[8px] rounded-full">&nbsp;</span>
-        <AiOutlineBell className='text-2xl text-[#ffffff]' />
+        <AiOutlineBell className={`text-2xl ${
+          themeMode === "light" ? "text-[#151718]" : "text-[#ffffff]"
+        }`} />
       </Link>
 
       <div

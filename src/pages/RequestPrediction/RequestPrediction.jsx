@@ -28,9 +28,9 @@ const RequestPrediction = () => {
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
           style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-full md:w-5/12 py-20 pl-14">
-            <h1 className="font-Syne text-4xl font-bold text-white mb-4">
-              Match <br></br> Predictions
+          <div className="w-full md:w-5/12 py-24 pl-14">
+            <h1 className="font-Bebas text-5xl tracking-normal text-white mb-4">
+              Match Predictions
             </h1>
             <p className="text-white text-[18px] leading-[24px] font-medium">
               Explore different slips containing multiple matches for best odds.
@@ -46,11 +46,23 @@ const RequestPrediction = () => {
             >
               Select Date
             </p>
-            <div className="date_picker_box">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "date_picker_box_light"
+                  : "date_picker_box"
+              }`}
+            >
               <Datepicker />
             </div>
           </div>
-          <Link className="bg-[#0d0f11] w-[180px] border border-[#9db4e1] hover:bg-[#2854b7] text-[#C8C8C8] hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center">
+          <Link
+            className={`${
+              themeMode === "light" ? "bg-[#E1E1E1]" : "bg-[#0d0f11]"
+            } w-[180px] border border-[#9db4e1] hover:bg-[#2854b7] ${
+              themeMode === "light" ? "text-black" : "text-[#C8C8C8]"
+            } hover:text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-medium rounded-3xl flex items-center`}
+          >
             <HiTemplate className="text-xl mr-1" />
             Prediction Slip
           </Link>
@@ -58,8 +70,16 @@ const RequestPrediction = () => {
       </div>
       {/* Request Predictions list start here */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="bg-[#191D23] rounded-2xl">
-          <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
+        <div
+          className={`${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-2xl shadow-xl`}
+        >
+          <div
+            className={`flex justify-between items-center ${
+              themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+            } px-5 py-3 rounded-t-2xl`}
+          >
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
               Kick Off
             </div>
@@ -72,7 +92,11 @@ const RequestPrediction = () => {
               </p>
             </div>
           </div>
-          <div className="pt-6 pb-4 px-3 border-2 border-[#2E3B4D] rounded-b-2xl">
+          <div
+            className={`pt-6 pb-4 px-3 border-2  ${
+              themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
+            } rounded-b-2xl`}
+          >
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <img
@@ -80,13 +104,21 @@ const RequestPrediction = () => {
                   alt="DeportivoPastoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Deportivo Pasto
                 </p>
               </div>
               <div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Score
                   </p>
                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -94,7 +126,11 @@ const RequestPrediction = () => {
                   </span>
                 </div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Prediction
                   </p>
                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -108,20 +144,38 @@ const RequestPrediction = () => {
                   alt="EnvigadoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Envigado
                 </p>
               </div>
             </div>
-            <div className="bg-black hover:bg-gray-800 block rounded-full text-center mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } block rounded-full text-center mb-0`}
+            >
               <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>
             </div>
           </div>
         </div>
-        <div className="bg-[#191D23] rounded-2xl">
-          <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
+        <div
+          className={`${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-2xl shadow-xl`}
+        >
+          <div
+            className={`flex justify-between items-center ${
+              themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+            } px-5 py-3 rounded-t-2xl`}
+          >
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
               Kick Off
             </div>
@@ -134,7 +188,11 @@ const RequestPrediction = () => {
               </p>
             </div>
           </div>
-          <div className="pt-6 pb-4 px-3 border-2 border-[#2E3B4D] rounded-b-2xl">
+          <div
+            className={`pt-6 pb-4 px-3 border-2  ${
+              themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
+            } rounded-b-2xl`}
+          >
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <img
@@ -142,13 +200,21 @@ const RequestPrediction = () => {
                   alt="DeportivoPastoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Deportivo Pasto
                 </p>
               </div>
               <div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Score
                   </p>
                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -156,7 +222,11 @@ const RequestPrediction = () => {
                   </span>
                 </div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Prediction
                   </p>
                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -170,20 +240,38 @@ const RequestPrediction = () => {
                   alt="EnvigadoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Envigado
                 </p>
               </div>
             </div>
-            <div className="bg-black hover:bg-gray-800 block rounded-full text-center mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } block rounded-full text-center mb-0`}
+            >
               <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>
             </div>
           </div>
         </div>
-        <div className="bg-[#191D23] rounded-2xl">
-          <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
+        <div
+          className={`${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-2xl shadow-xl`}
+        >
+          <div
+            className={`flex justify-between items-center ${
+              themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+            } px-5 py-3 rounded-t-2xl`}
+          >
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
               Kick Off
             </div>
@@ -196,7 +284,11 @@ const RequestPrediction = () => {
               </p>
             </div>
           </div>
-          <div className="pt-6 pb-4 px-3 border-2 border-[#2E3B4D] rounded-b-2xl">
+          <div
+            className={`pt-6 pb-4 px-3 border-2  ${
+              themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
+            } rounded-b-2xl`}
+          >
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <img
@@ -204,13 +296,21 @@ const RequestPrediction = () => {
                   alt="DeportivoPastoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Deportivo Pasto
                 </p>
               </div>
               <div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Score
                   </p>
                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -218,7 +318,11 @@ const RequestPrediction = () => {
                   </span>
                 </div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Prediction
                   </p>
                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -232,20 +336,38 @@ const RequestPrediction = () => {
                   alt="EnvigadoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Envigado
                 </p>
               </div>
             </div>
-            <div className="bg-black hover:bg-gray-800 block rounded-full text-center mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } block rounded-full text-center mb-0`}
+            >
               <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>
             </div>
           </div>
         </div>
-        <div className="bg-[#191D23] rounded-2xl">
-          <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
+        <div
+          className={`${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-2xl shadow-xl`}
+        >
+          <div
+            className={`flex justify-between items-center ${
+              themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+            } px-5 py-3 rounded-t-2xl`}
+          >
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
               Kick Off
             </div>
@@ -258,7 +380,11 @@ const RequestPrediction = () => {
               </p>
             </div>
           </div>
-          <div className="pt-6 pb-4 px-3 border-2 border-[#2E3B4D] rounded-b-2xl">
+          <div
+            className={`pt-6 pb-4 px-3 border-2  ${
+              themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
+            } rounded-b-2xl`}
+          >
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <img
@@ -266,13 +392,21 @@ const RequestPrediction = () => {
                   alt="DeportivoPastoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Deportivo Pasto
                 </p>
               </div>
               <div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Score
                   </p>
                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -280,7 +414,11 @@ const RequestPrediction = () => {
                   </span>
                 </div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Prediction
                   </p>
                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -294,20 +432,38 @@ const RequestPrediction = () => {
                   alt="EnvigadoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Envigado
                 </p>
               </div>
             </div>
-            <div className="bg-black hover:bg-gray-800 block rounded-full text-center mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } block rounded-full text-center mb-0`}
+            >
               <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>
             </div>
           </div>
         </div>
-        <div className="bg-[#191D23] rounded-2xl">
-          <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
+        <div
+          className={`${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-2xl shadow-xl`}
+        >
+          <div
+            className={`flex justify-between items-center ${
+              themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+            } px-5 py-3 rounded-t-2xl`}
+          >
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
               Kick Off
             </div>
@@ -320,7 +476,11 @@ const RequestPrediction = () => {
               </p>
             </div>
           </div>
-          <div className="pt-6 pb-4 px-3 border-2 border-[#2E3B4D] rounded-b-2xl">
+          <div
+            className={`pt-6 pb-4 px-3 border-2  ${
+              themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
+            } rounded-b-2xl`}
+          >
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <img
@@ -328,13 +488,21 @@ const RequestPrediction = () => {
                   alt="DeportivoPastoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Deportivo Pasto
                 </p>
               </div>
               <div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Score
                   </p>
                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -342,7 +510,11 @@ const RequestPrediction = () => {
                   </span>
                 </div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Prediction
                   </p>
                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -356,20 +528,38 @@ const RequestPrediction = () => {
                   alt="EnvigadoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Envigado
                 </p>
               </div>
             </div>
-            <div className="bg-black hover:bg-gray-800 block rounded-full text-center mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } block rounded-full text-center mb-0`}
+            >
               <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>
             </div>
           </div>
         </div>
-        <div className="bg-[#191D23] rounded-2xl">
-          <div className="flex justify-between items-center bg-[#2E3B4D] px-5 py-3 rounded-t-2xl">
+        <div
+          className={`${
+            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          } rounded-2xl shadow-xl`}
+        >
+          <div
+            className={`flex justify-between items-center ${
+              themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+            } px-5 py-3 rounded-t-2xl`}
+          >
             <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
               Kick Off
             </div>
@@ -382,7 +572,11 @@ const RequestPrediction = () => {
               </p>
             </div>
           </div>
-          <div className="pt-6 pb-4 px-3 border-2 border-[#2E3B4D] rounded-b-2xl">
+          <div
+            className={`pt-6 pb-4 px-3 border-2  ${
+              themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
+            } rounded-b-2xl`}
+          >
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="text-center">
                 <img
@@ -390,13 +584,21 @@ const RequestPrediction = () => {
                   alt="DeportivoPastoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Deportivo Pasto
                 </p>
               </div>
               <div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Score
                   </p>
                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -404,7 +606,11 @@ const RequestPrediction = () => {
                   </span>
                 </div>
                 <div className="mb-4 text-center">
-                  <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat pb-1">
+                  <p
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                  >
                     Prediction
                   </p>
                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
@@ -418,12 +624,22 @@ const RequestPrediction = () => {
                   alt="EnvigadoIcon"
                   className="inline-block mb-2"
                 />
-                <p className="font-Syne text-[15px] leading-[20px] font-bold text-white">
+                <p
+                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  }`}
+                >
                   Envigado
                 </p>
               </div>
             </div>
-            <div className="bg-black hover:bg-gray-800 block rounded-full text-center mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } block rounded-full text-center mb-0`}
+            >
               <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>

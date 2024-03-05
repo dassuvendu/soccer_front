@@ -23,13 +23,20 @@ body {
     font-size: 14px;
     width: 350px;
 }
+.date_picker_box_light input {
+    background: #E1E1E1;
+    color: #0d0f11;
+    border-radius: 25px;
+    font-size: 14px;
+    width: 350px;
+}
 
 .sidebar_menu ul li a {
   line-height: 30px;
 }
 .sidebar_menu ul li a.active {
     color: #ffffff;
-    background: #08a1f8;
+    background: #2aa9e1;
     border-radius: 25px;
 }
 .sidebar_menu ul li a svg {
@@ -38,7 +45,7 @@ body {
 .sidebar_menu ul li a.active svg {
     background: #ffffff;
     border-radius: 100%;
-    color: #08a1f8;
+    color: #2aa9e1;
     padding: 5px;
 }
 
@@ -95,7 +102,7 @@ body {
     text-align: center;
 }
 .team_comparisions_tab_section ul li.react-tabs__tab--selected {
-    background: #08A1F8;
+    background: #2aa9e1;
     border-radius: 25px;
     border: none;
     color: #ffffff;

@@ -33,12 +33,12 @@ const Statistics = () => {
         <div className="flex justify-between mb-4">
           <h1
             className={`${
-              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Statistics
           </h1>
-          <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
           </Link>
@@ -119,8 +119,8 @@ const Statistics = () => {
             <div className="mb-4 md:mb-0">
               <h2
                 className={`${
-                  themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                } font-Syne text-[27px] font-bold mb-0`}
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-Bebas text-[32px] tracking-normal mb-0`}
               >
                 Today's Predictions
               </h2>
@@ -132,7 +132,13 @@ const Statistics = () => {
                 Showing all predictions requested today,February 18, 2024
               </p>
             </div>
-            <div className="bg-black hover:bg-gray-800 border border-[#08a5f5] inline-block rounded-full mb-0">
+            <div
+              className={` ${
+                themeMode === "light"
+                  ? "bg-gray-800 hover:bg-black"
+                  : "bg-black hover:bg-gray-800"
+              } border border-[#08a5f5] inline-block rounded-full mb-0`}
+            >
               <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[47px] h-[47px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                 See all Predictions{" "}
                 <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -144,24 +150,68 @@ const Statistics = () => {
             <div className="overflow-x-auto bg-transparent">
               <Table hoverable>
                 <Table.Head className="border-b border-[#2b2f35]">
-                  <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[34%]">
+                  <Table.HeadCell
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px]  ${
+                      themeMode === "light"
+                        ? "text-[#787a7d]"
+                        : "text-[#96A5B8]"
+                    } font-medium capitalize w-[34%]`}
+                  >
                     Match
                   </Table.HeadCell>
-                  <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                  <Table.HeadCell
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${
+                      themeMode === "light"
+                        ? "text-[#787a7d]"
+                        : "text-[#96A5B8]"
+                    } font-medium capitalize w-[17%]`}
+                  >
                     Score
                   </Table.HeadCell>
-                  <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                  <Table.HeadCell
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${
+                      themeMode === "light"
+                        ? "text-[#787a7d]"
+                        : "text-[#96A5B8]"
+                    } font-medium capitalize w-[17%]`}
+                  >
                     Over Under
                   </Table.HeadCell>
-                  <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[17%]">
+                  <Table.HeadCell
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${
+                      themeMode === "light"
+                        ? "text-[#787a7d]"
+                        : "text-[#96A5B8]"
+                    } font-medium capitalize w-[17%]`}
+                  >
                     Accuracy
                   </Table.HeadCell>
-                  <Table.HeadCell className="bg-[#191D23] text-[16px] text-[#96A5B8] font-normal capitalize w-[15%]">
+                  <Table.HeadCell
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${
+                      themeMode === "light"
+                        ? "text-[#787a7d]"
+                        : "text-[#96A5B8]"
+                    } font-medium capitalize w-[15%]`}
+                  >
                     More
                   </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -171,7 +221,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -182,7 +238,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -203,7 +265,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -216,7 +282,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -226,7 +296,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -237,7 +313,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -258,7 +340,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -271,7 +357,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -281,7 +371,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -292,7 +388,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -313,7 +415,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -326,7 +432,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -336,7 +446,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -347,7 +463,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -368,7 +490,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -381,7 +507,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -391,7 +521,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -402,7 +538,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -423,7 +565,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -436,7 +582,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -446,7 +596,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -457,7 +613,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -478,7 +640,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -491,7 +657,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -501,7 +671,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -512,7 +688,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -533,7 +715,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -546,7 +732,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -556,7 +746,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -567,7 +763,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -588,7 +790,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -601,7 +807,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -611,7 +821,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -622,7 +838,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -643,7 +865,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>
@@ -656,7 +882,11 @@ const Statistics = () => {
                       <MdMoreHoriz />
                     </Table.Cell>
                   </Table.Row>
-                  <Table.Row className="bg-[#191D23] border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent">
+                  <Table.Row
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  >
                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                       <div className="flex items-center">
                         <div className="flex items-center">
@@ -666,7 +896,13 @@ const Statistics = () => {
                             className="mr-2"
                           />
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Bayern Munich
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -677,7 +913,13 @@ const Statistics = () => {
                         <div className="text-[12px] text-white px-6">VS</div>
                         <div className="flex items-center">
                           <div>
-                            <p className="font-Montserrat font-bold text-[13px] leading-[13px] text-white">
+                            <p
+                              className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
+                            >
                               Barcelona
                             </p>
                             <span className="text-[#8EA2AB] text-[9px]">
@@ -698,7 +940,11 @@ const Statistics = () => {
                       </span>
                     </Table.Cell>
                     <Table.Cell className="w-[17%]">
-                      <span className="text-base font-bold text-white">
+                      <span
+                        className={`text-base font-bold ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         5/10
                       </span>
                     </Table.Cell>

@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         Syne: ['"Syne"', "sans-serif"],
         Montserrat: ['"Montserrat"', "sans-serif"],
+        Bebas: ['"Bebas Neue"', "sans-serif"],
       }
     },
   },

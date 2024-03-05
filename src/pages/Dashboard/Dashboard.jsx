@@ -5,6 +5,7 @@ import {
   LigueIcon,
   PremierLeague,
   SerieA,
+  UEFAChampionsLeagueDarkIcon,
   UEFAChampionsLeagueIcon,
   dashboardcard01,
   dashboardcard02,
@@ -17,16 +18,16 @@ const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
-      <div className="w-full h-full py-4">
+      <div className="w-full h-screen py-4 mb-16">
         <div className="md:flex justify-between mb-4">
           <h1
             className={`${
-              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } font-Syne text-2xl md:text-4xl font-bold mb-2`}
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Hi Johns Valina
           </h1>
-          <Link className="bg-[#08a1f8] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
           </Link>
@@ -55,7 +56,11 @@ const Dashboard = () => {
                 Explore different slips containing multiple matches for best
                 odds.
               </p>
-              <div className="bg-black hover:bg-gray-800 inline-block rounded-full mb-2">
+              <div
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
+              >
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   Explore Slips{" "}
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -71,7 +76,11 @@ const Dashboard = () => {
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
                 Browse matches happening today from any league.
               </p>
-              <div className="bg-black hover:bg-gray-800 inline-block rounded-full mb-2">
+              <div
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
+              >
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -87,7 +96,11 @@ const Dashboard = () => {
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
                 Browse matches happening tomorrow from any league.
               </p>
-              <div className="bg-black hover:bg-gray-800 inline-block rounded-full mb-2">
+              <div
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
+              >
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -108,64 +121,120 @@ const Dashboard = () => {
             Explore Matches from your Favorite Leagues
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-            <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
-              <img
-                src={UEFAChampionsLeagueIcon}
-                alt="UEFAChampionsLeagueIcon"
-                className="mb-4 inline-block"
-              />
-              <h3 className="font-Montserrat text-white font-bold text-[16px] leading-[20px] mb-2">
+            <div
+              className={`${
+                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+            >
+              {themeMode === "light" ? (
+                <img
+                  src={UEFAChampionsLeagueDarkIcon}
+                  alt="UEFAChampionsLeagueDarkIcon"
+                  className="mb-4 inline-block"
+                />
+              ) : (
+                <img
+                  src={UEFAChampionsLeagueIcon}
+                  alt="UEFAChampionsLeagueIcon"
+                  className="mb-4 inline-block"
+                />
+              )}
+              <h3
+                className={`font-Montserrat ${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } font-bold text-[16px] leading-[20px] mb-2`}
+              >
                 UEFA Champions League
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">World</p>
             </div>
-            <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
+            <div
+              className={`${
+                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+            >
               <img
                 src={PremierLeague}
                 alt="PremierLeague"
                 className="mb-4 inline-block"
               />
-              <h3 className="font-Montserrat text-white font-bold text-[16px] leading-[20px] mb-2">
+              <h3
+                className={`font-Montserrat ${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } font-bold text-[16px] leading-[20px] mb-2`}
+              >
                 Premier <br></br> League
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
                 England
               </p>
             </div>
-            <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
+            <div
+              className={`${
+                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+            >
               <img src={LaLiya} alt="LaLiya" className="mb-4 inline-block" />
-              <h3 className="font-Montserrat text-white font-bold text-[16px] leading-[20px] mb-8">
+              <h3
+                className={`font-Montserrat ${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } font-bold text-[16px] leading-[20px] mb-8`}
+              >
                 La Liya
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">Spain</p>
             </div>
-            <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
+            <div
+              className={`${
+                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+            >
               <img src={SerieA} alt="SerieA" className="mb-4 inline-block" />
-              <h3 className="font-Montserrat text-white font-bold text-[16px] leading-[20px] mb-8">
+              <h3
+                className={`font-Montserrat ${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } font-bold text-[16px] leading-[20px] mb-8`}
+              >
                 Serie A
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">Italy</p>
             </div>
-            <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
+            <div
+              className={`${
+                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+            >
               <img
                 src={LigueIcon}
                 alt="UEFAChampionsLeagueIcon"
                 className="mb-6 inline-block"
               />
-              <h3 className="font-Montserrat text-white font-bold text-[16px] leading-[20px] mb-8">
+              <h3
+                className={`font-Montserrat ${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } font-bold text-[16px] leading-[20px] mb-8`}
+              >
                 Ligue 1
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
                 France
               </p>
             </div>
-            <div className="bg-[#191D23] rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#08a1f8]">
+            <div
+              className={`${
+                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+            >
               <img
                 src={LigueIcon}
                 alt="UEFAChampionsLeagueIcon"
                 className="mb-6 inline-block"
               />
-              <h3 className="font-Montserrat text-white font-bold text-[16px] leading-[20px] mb-8">
+              <h3
+                className={`font-Montserrat ${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } font-bold text-[16px] leading-[20px] mb-8`}
+              >
                 Ligue 1
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
