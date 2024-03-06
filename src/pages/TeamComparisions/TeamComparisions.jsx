@@ -14,7 +14,7 @@ const TeamComparisions = () => {
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
-        <div className="md:flex justify-between mb-8">
+        <div className="flex justify-between mb-8">
           <h1
             className={`${
               themeMode === "light" ? "text-[#2aa9e1]" : "text-white"

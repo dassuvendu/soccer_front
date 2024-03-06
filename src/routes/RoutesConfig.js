@@ -15,8 +15,17 @@ import SerieA from '../pages/SerieA/SerieA.jsx';
 import Ligue from '../pages/Ligue/Ligue.jsx';
 import Statistics from '../pages/Statistics/Statistics.jsx';
 import Settings from '../pages/Settings/Settings.jsx';
+import Home from '../pages/Home/Home.jsx';
 
 const allRoutes = [
+  {
+    path: '/',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'home', element: <Home /> },
+    ],
+  },
   {
     path: '/login',
     element: <OutsideLayout />,
@@ -34,7 +43,7 @@ const allRoutes = [
     ],
   },
   {
-    path: '/',
+    path: '/dashboard',
     element: <InsideLayout />,
     children: [
       {

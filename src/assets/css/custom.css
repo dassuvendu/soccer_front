@@ -2,13 +2,14 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
-
+.outsideLayout {
+    background: #f8f8f8 url(../imagesource//home_header_bg.png) no-repeat center 20px;
+}
 
 /* hide scrollbar for chrome, safari and opera */
 .container::-webkit-scrollbar {
     display: none;
 }
-
 .go_page input {
     border-radius: 25px;
     background: #000000;
@@ -30,7 +31,6 @@ body {
     font-size: 14px;
     width: 350px;
 }
-
 .sidebar_menu ul li a {
   line-height: 30px;
 }
@@ -48,9 +48,7 @@ body {
     color: #2aa9e1;
     padding: 5px;
 }
-
 /*  add css for tab section start here */
-
 .tab_section ul {
     padding: 30px 20px;
     border-bottom: none;
@@ -82,7 +80,6 @@ body {
 /* add css for tab section ends here */
 
 /*  */
-
 .team_comparisions_tab_section ul {
     display: flex;
     justify-content: center;
@@ -107,9 +104,7 @@ body {
     border: none;
     color: #ffffff;
 }
-
 /*  */
-
 .copy_link_box input[type="text"] {
     background: #000000;
     border-radius: 25px 0 0 25px;
@@ -152,8 +147,26 @@ body {
     box-shadow: none;
 }
 
+.soccer_prediction {
+    position: relative;
+}
+.soccer_prediction:before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: #ffffff;
+    height: 10px;
+    width: 70%;
+    content: "";
+    display: block;
+}
 
 @media only screen and (max-width:767px) {
+
+    .team_comparisions_tab_section ul li {
+        font-size: 12px;
+        line-height: 34px;
+    }
 
 }
 

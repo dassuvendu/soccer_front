@@ -47,7 +47,7 @@ import { FaUsers } from "react-icons/fa";
 import { CgSwap, CgArrowsShrinkV } from "react-icons/cg";
 import { HiArrowsRightLeft } from "react-icons/hi2";
 import { MdManageAccounts } from "react-icons/md";
-import { FaClockRotateLeft } from "react-icons/fa6";
+import { FaClockRotateLeft, FaXTwitter } from "react-icons/fa6";
 import { FiMoon, FiArrowUpRight, FiArrowRight } from "react-icons/fi";
 import { CiMaximize1 } from "react-icons/ci";
 import { RxDashboard } from "react-icons/rx";
@@ -61,9 +61,14 @@ import { GiChampions } from "react-icons/gi";
 import { CiUnlock } from "react-icons/ci";
 import { IoSunny } from "react-icons/io5";
 import { MdMoreHoriz, MdVerifiedUser } from "react-icons/md";
-import { FaRegCopy } from "react-icons/fa";
+import { FaRegCopy, FaFacebookF, FaDribbble } from "react-icons/fa";
+import { TfiYoutube } from "react-icons/tfi";
 
 export {
+  TfiYoutube,
+  FaDribbble,
+  FaXTwitter,
+  FaFacebookF,
   MdVerifiedUser,
   AiFillEdit,
   FaRegCopy,

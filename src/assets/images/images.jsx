@@ -30,7 +30,30 @@ import settingBanner from "../imagesource/setting_banner.png";
 
 import userFace from "../imagesource/user_face.png";
 
+import HomeHeader from "../imagesource/home_header_bg.png";
+import soccerBannerText from "../imagesource/soccer_banner_text.png";
+import bannerImgOne from "../imagesource/banner_img01.png";
+import fcDallaIcon from "../imagesource/fc_dalla_icon.png";
+import dcUnitedIcon from "../imagesource/dc_united_icon.png";
+import reventNews01 from "../imagesource/revent_news01.png";
+import teamIcon01 from "../imagesource/team_icon01.png";
+import ColumbusCrewIcon from "../imagesource/ColumbusCrewIcon.png";
+import HoustonDynamoIcon from "../imagesource/HoustonDynamoIcon.png";
+import footerFootball from "../imagesource/footer_football.png";
+import footerArrow from "../imagesource/footer_arrow.png";
+
 export {
+  footerArrow,
+  footerFootball,
+  ColumbusCrewIcon,
+  HoustonDynamoIcon,
+  teamIcon01,
+  reventNews01,
+  fcDallaIcon,
+  dcUnitedIcon,
+  HomeHeader,
+  soccerBannerText,
+  bannerImgOne,
   userFace,
   HighAccuracyBG,
   LowAccuracyBG,
