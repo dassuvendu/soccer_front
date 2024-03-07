@@ -169,7 +169,7 @@ const HeaderOutside = () => {
               <div className="w-full md:w-6/12 md:pl-4">
                 <div className="text-center">
                   <AiOutlineLogout className="mx-auto mb-4 h-14 w-14 text-gray-400" />
-                  <h3 className="mb-5 text-2xl font-bold text-black">
+                  <h3 className="mb-5 text-xl font-bold text-black">
                     Register to <span className="text-[#2aa9e1]">PlayCope</span>
                   </h3>
                   <form className="flex max-w-md flex-col gap-4 text-left">
