@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ColumbusCrewIcon,
   HoustonDynamoIcon,
 } from "../../assets/images/images";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const LastMatchResult = () => {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="bg-white py-10 lg:py-24 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
@@ -12,7 +18,11 @@ const LastMatchResult = () => {
           Last Match Result
         </h2>
         {/* Last Match Result start here */}
-        <div className="mt-10 mb-[20px]">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          className="mt-10 mb-[20px]"
+        >
           <div className="max-full mx-auto">
             <div className="md:flex justify-center items-center">
               <div className="flex items-center justify-center">
@@ -57,7 +67,11 @@ const LastMatchResult = () => {
         </div>
         {/* Last Match Result ends here */}
         {/* Last Match Result list start here */}
-        <div>
+        <div
+          data-aos="fade-up"
+          data-aos-duration="2000"
+          className="mt-10 mb-[20px]"
+        >
           <h3 className="font-Bebas text-white text-2xl text-center bg-[#18191b] tracking-normal py-4">
             next matches
           </h3>

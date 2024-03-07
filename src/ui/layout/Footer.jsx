@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaDribbble, FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TfiYoutube } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 import { footerArrow, footerFootball } from "../../assets/images/images";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Footer = () => {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="bg-[#18191b] pt-12 lg:pt-24 pb-0 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
         <div className="footer_top grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div>
+          <div data-aos="fade-up" data-aos-duration="1000">
             <h3 className="font-Bebas text-xl text-white tracking-normal pb-4">
               About Us
             </h3>
@@ -24,7 +30,7 @@ const Footer = () => {
               ante.
             </p>
           </div>
-          <div>
+          <div data-aos="fade-up" data-aos-duration="1500">
             <h3 className="font-Bebas text-xl text-white tracking-normal pb-4">
               Latest News
             </h3>
@@ -52,7 +58,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div data-aos="fade-up" data-aos-duration="2000">
             <h3 className="font-Bebas text-xl text-white tracking-normal pb-4">
               Tags
             </h3>
@@ -119,7 +125,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div data-aos="fade-up" data-aos-duration="2500">
             <h3 className="font-Bebas text-xl text-white tracking-normal pb-4">
               Recent Comments
             </h3>

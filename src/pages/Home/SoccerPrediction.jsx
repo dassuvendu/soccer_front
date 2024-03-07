@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { reventNews01, teamIcon01 } from "../../assets/images/images";
 import { Link } from "react-router-dom";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
 const SoccerPrediction = () => {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div className="bg-white rounded p-6">
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            className="bg-white rounded p-6"
+          >
             <h2 className="font-Bebas text-3xl tracking-normal pb-3">
               Recent News
             </h2>
@@ -139,7 +148,7 @@ const SoccerPrediction = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div data-aos="fade-up" data-aos-duration="2000">
             <div className="bg-white rounded-t p-6">
               <h2 className="font-Bebas text-3xl tracking-normal pb-3">
                 League Table
@@ -305,7 +314,11 @@ const SoccerPrediction = () => {
               </Link>
             </div>
           </div>
-          <div className="md:col-span-2 lg:col-span-1">
+          <div
+            data-aos="fade-up"
+            data-aos-duration="2500"
+            className="md:col-span-2 lg:col-span-1"
+          >
             <h2 className="soccer_prediction font-Bebas text-white py-5 text-6xl md:text-8xl tracking-normal mb-6">
               Soccer Prediction
             </h2>
