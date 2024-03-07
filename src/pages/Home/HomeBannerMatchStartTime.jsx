@@ -3,10 +3,10 @@ import { dcUnitedIcon, fcDallaIcon } from "../../assets/images/images";
 
 const HomeBannerMatchStartTime = () => {
   return (
-    <div className="mt-20 mb-[20px]">
+    <div className="mt-20 mb-[20px] relative z-10 md:px-4 lg:px-0">
       <div className="max-full mx-auto">
-        <div className="flex justify-center items-center">
-          <div className="flex items-center">
+        <div className="md:flex justify-center items-center">
+          <div className="flex items-center justify-center mb-4 md:mb-0">
             <img src={fcDallaIcon} alt="fcDallaIcon" />
             <div className="ml-2 text-right">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
@@ -17,7 +17,7 @@ const HomeBannerMatchStartTime = () => {
               </p>
             </div>
           </div>
-          <div className="flex justify-center items-center mx-16">
+          <div className="flex justify-center items-center mx-16 mb-4 md:mb-0">
             <ul className="flex justify-center items-center">
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
@@ -68,7 +68,7 @@ const HomeBannerMatchStartTime = () => {
               </li>
             </ul>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <div className="mr-2 text-left">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
                 D.C.United

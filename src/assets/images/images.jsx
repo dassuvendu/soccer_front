@@ -33,6 +33,8 @@ import userFace from "../imagesource/user_face.png";
 import HomeHeader from "../imagesource/home_header_bg.png";
 import soccerBannerText from "../imagesource/soccer_banner_text.png";
 import bannerImgOne from "../imagesource/banner_img01.png";
+import bannerImgTwo from "../imagesource/banner_img02.png";
+import bannerImgThree from "../imagesource/banner_img03.png";
 import fcDallaIcon from "../imagesource/fc_dalla_icon.png";
 import dcUnitedIcon from "../imagesource/dc_united_icon.png";
 import reventNews01 from "../imagesource/revent_news01.png";
@@ -42,7 +44,10 @@ import HoustonDynamoIcon from "../imagesource/HoustonDynamoIcon.png";
 import footerFootball from "../imagesource/footer_football.png";
 import footerArrow from "../imagesource/footer_arrow.png";
 
+import loginImg from "../imagesource/banner_img02.png";
+
 export {
+  loginImg,
   footerArrow,
   footerFootball,
   ColumbusCrewIcon,
@@ -54,6 +59,8 @@ export {
   HomeHeader,
   soccerBannerText,
   bannerImgOne,
+  bannerImgTwo,
+  bannerImgThree,
   userFace,
   HighAccuracyBG,
   LowAccuracyBG,

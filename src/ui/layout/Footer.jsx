@@ -7,9 +7,9 @@ import { footerArrow, footerFootball } from "../../assets/images/images";
 
 const Footer = () => {
   return (
-    <div className="bg-[#18191b] pt-24 pb-0">
+    <div className="bg-[#18191b] pt-12 lg:pt-24 pb-0 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
-        <div className="footer_top grid grid-cols-4 gap-4">
+        <div className="footer_top grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <h3 className="font-Bebas text-xl text-white tracking-normal pb-4">
               About Us

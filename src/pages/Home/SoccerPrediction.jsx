@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const SoccerPrediction = () => {
   return (
-    <div className="bg-[#2aa9e1] py-24">
+    <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <div className="bg-white rounded p-6">
             <h2 className="font-Bebas text-3xl tracking-normal pb-3">
               Recent News
@@ -305,8 +305,8 @@ const SoccerPrediction = () => {
               </Link>
             </div>
           </div>
-          <div>
-            <h2 className="soccer_prediction font-Bebas text-white py-5 text-2xl md:text-8xl tracking-normal mb-6">
+          <div className="md:col-span-2 lg:col-span-1">
+            <h2 className="soccer_prediction font-Bebas text-white py-5 text-6xl md:text-8xl tracking-normal mb-6">
               Soccer Prediction
             </h2>
             <p className="text-[15px] text-white pb-5">

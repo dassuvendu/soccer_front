@@ -161,11 +161,70 @@ body {
     display: block;
 }
 
+/*  */
+
+.slick-slide img {
+    display: inline-block !important;
+}
+
+/*  */
+
+.create_character_btn {
+    background: #2aa9e1 !important;
+    text-transform: uppercase;
+    transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -webkit-transition: all 500ms ease-in-out;
+  }
+  .create_character_btn:hover {
+    background: #000000 !important;
+    transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+    -webkit-transition: all 500ms ease-in-out;
+  }
+
 @media only screen and (max-width:767px) {
+
+    .top_social ul {
+        background: none !important;
+        box-shadow: none !important;
+    }
 
     .team_comparisions_tab_section ul li {
         font-size: 12px;
         line-height: 34px;
+    }
+    .main_menu ul {
+        position: relative;
+    }
+    .main_menu ul {
+        position: absolute;
+        right: 0;
+        width: 100%;
+        z-index: 100;
+        background: #ffffff;
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: -1px 2px 12px 4px rgba(209,209,209,0.59);
+        -webkit-box-shadow: -1px 2px 12px 4px rgba(209,209,209,0.59);
+        -moz-box-shadow: -1px 2px 12px 4px rgba(209,209,209,0.59);
+      }
+      .main_menu ul li a {
+        font-size: 16px;
+        line-height: 26px;
+        color: #000000;
+        padding: 5px 0;
+        display: block;
+      }
+      .main_menu ul li a:hover {
+        color: #2aa9e1;
+      }
+      .soccer_prediction:before {
+        width: 100%;
     }
 
 }

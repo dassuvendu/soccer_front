@@ -25,6 +25,7 @@ import {
   AiFillDelete,
   AiFillPlusCircle,
   AiFillEdit,
+  AiOutlineLogin,
 } from "react-icons/ai";
 import {
   BsChevronLeft,
@@ -64,7 +65,11 @@ import { MdMoreHoriz, MdVerifiedUser } from "react-icons/md";
 import { FaRegCopy, FaFacebookF, FaDribbble } from "react-icons/fa";
 import { TfiYoutube } from "react-icons/tfi";
 
+import { FcGoogle } from "react-icons/fc";
+
 export {
+  FcGoogle,
+  AiOutlineLogin,
   TfiYoutube,
   FaDribbble,
   FaXTwitter,
