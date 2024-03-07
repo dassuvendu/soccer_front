@@ -319,7 +319,7 @@ const SoccerPrediction = () => {
             data-aos-duration="2500"
             className="md:col-span-2 lg:col-span-1"
           >
-            <h2 className="soccer_prediction font-Bebas text-white py-5 text-6xl md:text-8xl tracking-normal mb-6">
+            <h2 className="soccer_prediction font-Bebas text-white py-5 text-6xl lg:text-8xl tracking-normal mb-6">
               Soccer Prediction
             </h2>
             <p className="text-[15px] text-white pb-5">

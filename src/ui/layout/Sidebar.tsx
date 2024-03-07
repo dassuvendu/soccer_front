@@ -114,7 +114,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
               <li className='mb-3'>
                 <NavLink
-                  to="/"
+                  to="/dashboard"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   }  duration-300 ease-in-out hover:bg-graydark ${
