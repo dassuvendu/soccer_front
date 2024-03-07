@@ -67,7 +67,10 @@ import { TfiYoutube } from "react-icons/tfi";
 
 import { FcGoogle } from "react-icons/fc";
 
+import { HiChevronUp } from "react-icons/hi2";
+
 export {
+  HiChevronUp,
   FcGoogle,
   AiOutlineLogin,
   TfiYoutube,

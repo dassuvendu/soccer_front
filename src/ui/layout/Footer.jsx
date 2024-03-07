@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaDribbble, FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TfiYoutube } from "react-icons/tfi";
@@ -7,8 +7,30 @@ import { footerArrow, footerFootball } from "../../assets/images/images";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { HiChevronUp } from "react-icons/hi2";
 
 const Footer = () => {
+  // Top Scroll start here
+  const [visible, setVisible] = useState(false);
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 300) {
+      setVisible(true);
+    } else if (scrolled <= 300) {
+      setVisible(false);
+    }
+  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+      /* you can also use 'auto' behaviour
+             in place of 'smooth' */
+    });
+  };
+  window.addEventListener("scroll", toggleVisible);
+  // Top Scroll ends here
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -180,6 +202,24 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <button
+        onClick={scrollToTop}
+        //className="animate-bounce"
+        style={{
+          display: visible ? "inline" : "none",
+          position: "fixed",
+          bottom: "40px",
+          right: "20px",
+          border: "none",
+          background: "none",
+          zIndex: 5,
+        }}
+      >
+        <HiChevronUp
+          className="text-[#2aa9e1] hover:text-[#030304]"
+          size={35}
+        />
+      </button>
     </div>
   );
 };
