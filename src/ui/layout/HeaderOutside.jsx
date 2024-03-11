@@ -25,6 +25,7 @@ const HeaderOutside = () => {
     setOpenLoginModal(false);
     setOpenRegisterModal(true);
   };
+
   return (
     <div className="header_section max-w-6xl mx-auto px-0 lg:px-0 py-2 md:py-3 bg-transparent">
       <Navbar fluid rounded className="bg-transparent">
