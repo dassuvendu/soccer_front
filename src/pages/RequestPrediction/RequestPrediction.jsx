@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   DeportivoPastoIcon,
@@ -6,7 +6,7 @@ import {
   icSortIcon,
   requestPredictionBanner,
 } from "../../assets/images/images";
-import { Datepicker, TextInput } from "flowbite-react";
+import { Datepicker, Button, Modal, TextInput } from "flowbite-react";
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -20,6 +20,11 @@ import { FiArrowRight } from "react-icons/fi";
 import { useSelector } from "react-redux";
 
 const RequestPrediction = () => {
+  const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
+  const viewDetailsModalHandler = () => {
+    setOpenViewDetailsModal(true);
+  };
+
   const themeMode = useSelector((state) => state.darkmode.mode);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -160,7 +165,10 @@ const RequestPrediction = () => {
                   : "bg-black hover:bg-gray-800"
               } block rounded-full text-center mb-0`}
             >
-              <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+              <Link
+                onClick={viewDetailsModalHandler}
+                className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+              >
                 View Details <FiArrowRight className="text-[#08a5f5] ml-0.5" />
               </Link>
             </div>
@@ -727,6 +735,242 @@ const RequestPrediction = () => {
         </div>
       </div>
       {/* Pagination section ends here */}
+
+      {/* Login Modal start here */}
+      {openViewDetailsModal && (
+        <Modal
+          show={openViewDetailsModal}
+          size="4xl"
+          onClose={() => setOpenViewDetailsModal(false)}
+          popup
+        >
+          <Modal.Header className="absolute right-0 top-0" />
+          <Modal.Body>
+            <div className="pt-8 pb-2">
+              <h2 className="font-Bebas text-3xl tracking-normal text-[#2aa9e1] mb-4">
+                Match Details
+              </h2>
+              <div className="pt-6 pb-4 px-3 mb-4 border-b border-gray-300">
+                <div className="grid grid-cols-3 gap-4 mb-4">
+                  <div className="text-center">
+                    <img
+                      src={DeportivoPastoIcon}
+                      alt="DeportivoPastoIcon"
+                      className="inline-block mb-2"
+                    />
+                    <p
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
+                    >
+                      Deportivo Pasto
+                    </p>
+                  </div>
+                  <div className="flex justify-center items-center text-center">
+                    <div>
+                      <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
+                        Kick Off
+                      </p>
+                      <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
+                        Tue, 12 March, 2024
+                      </h3>
+                      <h3 className="text-black text-[18px] leading-[24px] font-medium">
+                        1:30 PM
+                      </h3>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <img
+                      src={EnvigadoIcon}
+                      alt="EnvigadoIcon"
+                      className="inline-block mb-2"
+                    />
+                    <p
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
+                    >
+                      Envigado
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4">
+                <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
+                  History
+                </h4>
+                <div>
+                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                    <div className="text-center">
+                      <img
+                        src={DeportivoPastoIcon}
+                        alt="DeportivoPastoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <div className="bg-[#2aa9e1] py-2 rounded-full">
+                        <h3 className="text-white text-base">0 - 1</h3>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <img
+                        src={EnvigadoIcon}
+                        alt="EnvigadoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                    <div className="text-center">
+                      <img
+                        src={DeportivoPastoIcon}
+                        alt="DeportivoPastoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <div className="bg-[#2aa9e1] py-2 rounded-full">
+                        <h3 className="text-white text-base">3 - 2</h3>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <img
+                        src={EnvigadoIcon}
+                        alt="EnvigadoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                    <div className="text-center">
+                      <img
+                        src={DeportivoPastoIcon}
+                        alt="DeportivoPastoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <div className="bg-[#2aa9e1] py-2 rounded-full">
+                        <h3 className="text-white text-base">1 - 1</h3>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <img
+                        src={EnvigadoIcon}
+                        alt="EnvigadoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                    <div className="text-center">
+                      <img
+                        src={DeportivoPastoIcon}
+                        alt="DeportivoPastoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <div className="bg-[#2aa9e1] py-2 rounded-full">
+                        <h3 className="text-white text-base">3 - 1</h3>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <img
+                        src={EnvigadoIcon}
+                        alt="EnvigadoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                    <div className="text-center">
+                      <img
+                        src={DeportivoPastoIcon}
+                        alt="DeportivoPastoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <div className="bg-[#2aa9e1] py-2 rounded-full">
+                        <h3 className="text-white text-base">3 - 3</h3>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <img
+                        src={EnvigadoIcon}
+                        alt="EnvigadoIcon"
+                        className="inline-block mb-2 w-10"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-0">
+                <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
+                  Last 5 matches
+                </h4>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <ul className="flex items-center">
+                      <li>
+                        <img
+                          src={DeportivoPastoIcon}
+                          alt="DeportivoPastoIcon"
+                          className="inline-block mb-0 w-8"
+                        />
+                      </li>
+                      <li className="ml-1.5 bg-[#ff0000] text-[14px] text-white px-2 rounded">
+                        L
+                      </li>
+                      <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
+                        W
+                      </li>
+                      <li className="ml-1.5 bg-[#1f2937] text-[14px] text-white px-2 rounded">
+                        D
+                      </li>
+                      <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
+                        W
+                      </li>
+                      <li className="ml-1.5 bg-[#1f2937] text-[14px] text-white px-2 rounded">
+                        D
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul className="flex items-center">
+                      <li className="mr-1.5 bg-[#1f2937] text-[14px] text-white px-2 rounded">
+                        D
+                      </li>
+                      <li className="mr-1.5 bg-[#ff0000] text-[14px] text-white px-2 rounded">
+                        L
+                      </li>
+                      <li className="mr-1.5 bg-[#ff0000] text-[14px] text-white px-2 rounded">
+                        L
+                      </li>
+                      <li className="mr-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
+                        W
+                      </li>
+                      <li className="mr-1.5 bg-[#ff0000] text-[14px] text-white px-2 rounded">
+                        L
+                      </li>
+                      <li>
+                        <img
+                          src={EnvigadoIcon}
+                          alt="EnvigadoIcon"
+                          className="inline-block mb-2 w-8"
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+      {/* Login Modal ends here */}
     </div>
   );
 };
