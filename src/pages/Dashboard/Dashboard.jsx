@@ -70,7 +70,7 @@ const Dashboard = () => {
             <div className="bg-gradient-to-t from-[#03faa1] to-[#3b5998] rounded-lg py-5 px-5">
               <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                  Today's Predictions
+                  Predictions
                 </h2>
               </div>
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
@@ -90,7 +90,7 @@ const Dashboard = () => {
             <div className="bg-gradient-to-t from-[#12a4ee] to-[#fdca40] rounded-lg py-5 px-5">
               <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                  Tomorrow's Predictions
+                  Statistics
                 </h2>
               </div>
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
@@ -144,7 +144,7 @@ const Dashboard = () => {
                   themeMode === "light" ? "text-black" : "text-white"
                 } font-bold text-[16px] leading-[20px] mb-2`}
               >
-                UEFA Champions League
+                World to Europe
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">World</p>
             </div>
@@ -235,7 +235,7 @@ const Dashboard = () => {
                   themeMode === "light" ? "text-black" : "text-white"
                 } font-bold text-[16px] leading-[20px] mb-8`}
               >
-                Ligue 1
+                Bundesliga
               </h3>
               <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
                 France

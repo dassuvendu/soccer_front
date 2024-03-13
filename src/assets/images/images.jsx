@@ -47,8 +47,10 @@ import footerArrow from "../imagesource/footer_arrow.png";
 import loginImg from "../imagesource/banner_img02.png";
 import paymentIcon from "../imagesource/payment_icon.jpg";
 import planIcon from "../imagesource/plan_icon.jpg";
+import mobileLogo from "../imagesource/mobile_logo.png";
 
 export {
+  mobileLogo,
   paymentIcon,
   planIcon,
   loginImg,

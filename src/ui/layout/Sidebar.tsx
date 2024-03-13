@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 // import Logo from '../images/logo/logo.svg';
 // import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarLinkGroup from "../layout/SidebarLinkGroup";
-import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo } from '../../assets/images/images';
+import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, mobileLogo } from '../../assets/images/images';
 
 import { AiFillSetting, AiFillTag, AiFillTags, AiOutlineDashboard, AiOutlineLogout, AiOutlineNotification, AiOutlineUser, BsPersonWorkspace, FaChartPie, GiChampions, GrTemplate, HiTemplate, MdManageAccounts, PiGitPullRequestBold, PiLightbulbLight, RiTeamLine, RxDashboard, SiPremierleague } from "../../assets/icons/index";
 
@@ -66,7 +66,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     <aside
       ref={sidebar}
       style={{zIndex:1}}
-      className={`absolute left-0 top-[50px] z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden shadow-md ${
+      className={`absolute left-0 top-[60px] md:top-[80px] lg:top-[60px] z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden shadow-md ${
         themeMode === "light" ? "bg-white" : "bg-[#191d23]"
       }  duration-300 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -74,9 +74,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between lg:justify-center gap-2 px-6 py-5 lg:py-6">
-        <NavLink to="/">
-          <img src={logo} alt="Logo" className='w-28' />
-        </NavLink>
+
+        <div className='block lg:hidden'>
+          <NavLink to="/">
+            <img src={mobileLogo} alt="mobileLogo" className='w-28' />
+          </NavLink>
+        </div>
+        <div className='hidden lg:block'>
+          <NavLink to="/">
+            <img src={logo} alt="Logo" className='w-28' />
+          </NavLink>
+        </div>
 
         <button
           ref={trigger}
@@ -106,7 +114,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
       <div className="sidebar_menu no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear overscroll-none">
         {/* <!-- Sidebar Menu --> */}
-        <nav className="mt-5 py-4 px-4 lg:mt-0 lg:px-2">
+        <nav className="mt-2 py-4 px-4 lg:mt-0 lg:px-2">
           {/* <!-- Menu Group --> */}
           <div>
 
@@ -142,7 +150,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <HiTemplate className='text-4xl' />
                   Coped slips 
-                  <img src={NewItemIcon} alt='NewItemIcon' />
                 </NavLink>
               </li>
               {/* <!-- Menu Item Calendar --> */}
