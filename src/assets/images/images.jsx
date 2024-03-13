@@ -45,8 +45,12 @@ import footerFootball from "../imagesource/footer_football.png";
 import footerArrow from "../imagesource/footer_arrow.png";
 
 import loginImg from "../imagesource/banner_img02.png";
+import paymentIcon from "../imagesource/payment_icon.jpg";
+import planIcon from "../imagesource/plan_icon.jpg";
 
 export {
+  paymentIcon,
+  planIcon,
   loginImg,
   footerArrow,
   footerFootball,

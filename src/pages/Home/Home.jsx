@@ -4,6 +4,7 @@ import HomeBannerMatchStartTime from "./HomeBannerMatchStartTime";
 import SoccerPrediction from "./SoccerPrediction";
 import LastMatchResult from "./LastMatchResult";
 import { Footer } from "flowbite-react";
+import SelectPlan from "./SelectPlan";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <HomeBannerMatchStartTime />
       <SoccerPrediction />
       <LastMatchResult />
+      <SelectPlan />
     </div>
   );
 };

@@ -14,6 +14,8 @@ import {
 import { FcGoogle } from "react-icons/fc";
 
 const HeaderOutside = () => {
+  const navigate = useNavigate();
+
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
@@ -24,6 +26,11 @@ const HeaderOutside = () => {
   const registerHandler = () => {
     setOpenLoginModal(false);
     setOpenRegisterModal(true);
+  };
+
+  const goChoosePlanHandler = () => {
+    setOpenRegisterModal(false);
+    navigate("/choose-plan");
   };
 
   return (
@@ -197,6 +204,7 @@ const HeaderOutside = () => {
                       />
                     </div>
                     <button
+                      onClick={goChoosePlanHandler}
                       type="submit"
                       className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
                     >

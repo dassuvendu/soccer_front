@@ -20,6 +20,8 @@ import Predictions from '../pages/Predictions/Predictions.jsx';
 import Faqs from '../pages/Faqs/Faqs.jsx';
 import Comparisons from '../pages/Comparisons/Comparisons.jsx';
 import NewsBlog from '../pages/NewsBlog/NewsBlog.jsx';
+import ChoosePlan from '../pages/ChoosePlan/ChoosePlan.jsx';
+import Payment from '../pages/Payment/Payment.jsx';
 
 const allRoutes = [
   {
@@ -60,6 +62,22 @@ const allRoutes = [
     children: [
       { index: true, element: <NewsBlog /> },
       { path: 'news-blog', element: < NewsBlog/> },
+    ],
+  },
+  {
+    path: '/choose-plan',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <ChoosePlan /> },
+      { path: 'choose-plan', element: < ChoosePlan/> },
+    ],
+  },
+  {
+    path: '/payment',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Payment /> },
+      { path: 'choose-plan', element: < Payment/> },
     ],
   },
   {
