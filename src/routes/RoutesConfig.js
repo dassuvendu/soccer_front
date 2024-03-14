@@ -16,6 +16,12 @@ import Ligue from '../pages/Ligue/Ligue.jsx';
 import Statistics from '../pages/Statistics/Statistics.jsx';
 import Settings from '../pages/Settings/Settings.jsx';
 import Home from '../pages/Home/Home.jsx';
+import Predictions from '../pages/Predictions/Predictions.jsx';
+import Faqs from '../pages/Faqs/Faqs.jsx';
+import Comparisons from '../pages/Comparisons/Comparisons.jsx';
+import NewsBlog from '../pages/NewsBlog/NewsBlog.jsx';
+import ChoosePlan from '../pages/ChoosePlan/ChoosePlan.jsx';
+import Payment from '../pages/Payment/Payment.jsx';
 
 const allRoutes = [
   {
@@ -24,6 +30,54 @@ const allRoutes = [
     children: [
       { index: true, element: <Home /> },
       { path: 'home', element: <Home /> },
+    ],
+  },
+  {
+    path: '/predictions',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Predictions /> },
+      { path: 'predictions', element: <Predictions /> },
+    ],
+  },
+  {
+    path: '/faqs',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Faqs /> },
+      { path: 'faqs', element: < Faqs/> },
+    ],
+  },
+  {
+    path: '/comparisons',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Comparisons /> },
+      { path: 'comparisons', element: < Comparisons/> },
+    ],
+  },
+  {
+    path: '/news-blog',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <NewsBlog /> },
+      { path: 'news-blog', element: < NewsBlog/> },
+    ],
+  },
+  {
+    path: '/choose-plan',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <ChoosePlan /> },
+      { path: 'choose-plan', element: < ChoosePlan/> },
+    ],
+  },
+  {
+    path: '/payment',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Payment /> },
+      { path: 'choose-plan', element: < Payment/> },
     ],
   },
   {
@@ -64,16 +118,6 @@ const allRoutes = [
   },
   {
     path: '/match-prediction',
-    element: <InsideLayout />,
-    children: [
-      {
-        index: true,
-        element: <RequestPrediction />
-      },
-    ],
-  },
-  {
-    path: '/match-prediction/:id',
     element: <InsideLayout />,
     children: [
       {

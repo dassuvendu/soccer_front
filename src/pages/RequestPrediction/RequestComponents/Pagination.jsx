@@ -23,7 +23,7 @@ export const Pagination = ({date,topten}) => {
   console.log("cur",currentItems);
     return (
         <>
-          <div className="mb-2 md:mb-0">
+          <div className="mb-2 md:mb-0 text-center">
         <p
           className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
             } text-xs`}
@@ -34,7 +34,7 @@ export const Pagination = ({date,topten}) => {
       </div>
       <div className="min-w-[450px]">
         <div className="md:flex justify-between items-center">
-          <div className="mr-[30px] mb-2 md:mb-0">
+          <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
             <ul className="flex">
               <li>
                 <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
@@ -93,7 +93,7 @@ export const Pagination = ({date,topten}) => {
               </li>
             </ul>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <p
               className={`text-[12px] ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
                 } mr-1.5`}

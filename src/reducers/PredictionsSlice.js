@@ -24,7 +24,7 @@ export const getFixturesByleague = createAsyncThunk(
   'user/getFixturesbyleague',
   async (userInput, { rejectWithValue }) => {
     try {
-      const response = await api.post('/api/leagues_by_id',userInput);
+      const response = await api.post('/api/leagues',userInput);
       if (response.status === 200) {
         return response.data.data;
       } else {

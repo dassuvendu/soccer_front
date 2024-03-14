@@ -99,7 +99,7 @@ export const SearchCompo = ({loadingData}) => {
         </p>
         <div className="mb-4 md:mb-0">
           <div
-            className={` ${themeMode === "light" ? "date_picker_box_light" : "date_picker_box"
+            className={` ${themeMode === "light" ? "date_picker_box_light Select_League" : "date_picker_box Select_League"
               }`}
           >
 
@@ -139,7 +139,7 @@ export const SearchCompo = ({loadingData}) => {
         </p>
         <div className="mb-4 md:mb-0">
           <div
-            className={` ${themeMode === "light" ? "date_picker_box_light" : "date_picker_box"
+            className={` ${themeMode === "light" ? "date_picker_box_light Select_Season" : "date_picker_box Select_Season"
               }`}
           >
             {isloading ? (

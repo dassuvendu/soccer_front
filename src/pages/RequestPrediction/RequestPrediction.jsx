@@ -85,7 +85,7 @@ console.log(topten);
           >
             <div
               className={`flex justify-between items-center ${themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
-                } px-5 py-3 rounded-t-2xl`}
+                } px-5 py-3 rounded-t-2xl h-16`}
             >
               <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
                 {dat?.league?.name}
@@ -103,7 +103,7 @@ console.log(topten);
               className={`pt-6 pb-4 px-3 border-2  ${themeMode === "light" ? "border-[#2aa9e1]" : "border-[#2E3B4D]"
                 } rounded-b-2xl`}
             >
-              <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="grid grid-cols-3 gap-4 mb-4 h-32">
                 <div className="text-center">
                   <img
                     src={dat?.teams?.home?.logo}
@@ -127,7 +127,7 @@ console.log(topten);
                     >
                       Venue
                     </p>
-                    <span className=" text-black font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                    <span className=" text-black font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-0">
                       <b>{dat?.fixture?.venue?.name}</b>
                     </span>
                   </div>

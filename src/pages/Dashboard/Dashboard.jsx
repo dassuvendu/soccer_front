@@ -1,22 +1,13 @@
 import { Link } from "react-router-dom";
 import {
   BuyTokenIcon,
-  LaLiya,
-  LigueIcon,
-  PremierLeague,
-  SerieA,
-  UEFAChampionsLeagueDarkIcon,
-  UEFAChampionsLeagueIcon,
-  dashboardcard01,
-  dashboardcard02,
 } from "../../assets/images/images";
-import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
+
 import { useDispatch, useSelector } from "react-redux";
-import { getLeagues } from "../../reducers/LeagueSlice";
-import { useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";
-
-
+import { useEffect, useState } from "react";
+import { getLeagues } from "../../reducers/LeagueSlice";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -32,11 +23,12 @@ const Dashboard = () => {
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
-      <div className="w-full h-screen py-4 mb-16">
-        <div className="md:flex justify-between mb-4">
+      <div className="w-full h-full pt-4 mb-0">
+        <div className="md:flex justify-between mb-0">
           <h1
-            className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-              } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+            className={`${
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Hi Johns Valina
           </h1>
@@ -49,8 +41,9 @@ const Dashboard = () => {
         {/* Actions section start here  */}
         <div className="mb-10">
           <h2
-            className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
           >
             Actions
           </h2>
@@ -69,8 +62,9 @@ const Dashboard = () => {
                 odds.
               </p>
               <div
-                className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                  } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   Explore Slips{" "}
@@ -81,15 +75,16 @@ const Dashboard = () => {
             <div className="bg-gradient-to-t from-[#03faa1] to-[#3b5998] rounded-lg py-5 px-5">
               <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                  Today's Predictions
+                  Predictions
                 </h2>
               </div>
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
                 Browse matches happening today from any league.
               </p>
               <div
-                className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                  } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
@@ -100,15 +95,16 @@ const Dashboard = () => {
             <div className="bg-gradient-to-t from-[#12a4ee] to-[#fdca40] rounded-lg py-5 px-5">
               <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                  Tomorrow's Predictions
+                  Statistics
                 </h2>
               </div>
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
                 Browse matches happening tomorrow from any league.
               </p>
               <div
-                className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                  } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
                 <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
@@ -121,10 +117,11 @@ const Dashboard = () => {
         {/* Actions section ends here */}
 
         {/* Explore Matches section start here  */}
-        <div className="mb-10">
+        <div className="mb-0">
           <h2
-            className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
           >
             Explore Matches from your Favorite Leagues
           </h2>

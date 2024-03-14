@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 // import Logo from '../images/logo/logo.svg';
 // import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarLinkGroup from "../layout/SidebarLinkGroup";
-import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo } from '../../assets/images/images';
+import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, mobileLogo } from '../../assets/images/images';
 
 import { AiFillSetting, AiFillTag, AiFillTags, AiOutlineDashboard, AiOutlineLogout, AiOutlineNotification, AiOutlineUser, BsPersonWorkspace, FaChartPie, GiChampions, GrTemplate, HiTemplate, MdManageAccounts, PiGitPullRequestBold, PiLightbulbLight, RiTeamLine, RxDashboard, SiPremierleague } from "../../assets/icons/index";
 
@@ -12,15 +12,11 @@ interface SidebarProps {
   setSidebarOpen: (arg: boolean) => void;
 }
 
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from '../../reducers/authSlice';
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-  const themeMode = useSelector((state: any) => state.darkmode.mode);
+  const themeMode = useSelector((state:any) => state.darkmode.mode);
   const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { pathname } = location;
 
   const trigger = useRef<any>(null);
@@ -66,24 +62,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     }
   }, [sidebarExpanded]);
 
-  const handleLogOut = () => {
-    dispatch(logout());
-    navigate("/");
-  };
-
   return (
     <aside
       ref={sidebar}
-      style={{ zIndex: 1 }}
-      className={`absolute left-0 top-[50px] z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden shadow-md ${themeMode === "light" ? "bg-white" : "bg-[#191d23]"
-        }  duration-300 ease-linear lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+      style={{zIndex:1}}
+      className={`absolute left-0 top-[60px] md:top-[80px] lg:top-[60px] z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden shadow-md ${
+        themeMode === "light" ? "bg-white" : "bg-[#191d23]"
+      }  duration-300 ease-linear lg:static lg:translate-x-0 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between lg:justify-center gap-2 px-6 py-5 lg:py-6">
-        <NavLink to="/">
-          <img src={logo} alt="Logo" className='w-28' />
-        </NavLink>
+
+        <div className='block lg:hidden'>
+          <NavLink to="/">
+            <img src={mobileLogo} alt="mobileLogo" className='w-28' />
+          </NavLink>
+        </div>
+        <div className='hidden lg:block'>
+          <NavLink to="/">
+            <img src={logo} alt="Logo" className='w-28' />
+          </NavLink>
+        </div>
 
         <button
           ref={trigger}
@@ -93,8 +94,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           className="block lg:hidden"
         >
           <svg
-            className={`fill-current ${themeMode === "light" ? "text-black" : "text-white"
-              }`}
+            className={`fill-current ${
+              themeMode === "light" ? "text-black" : "text-white"
+            }`}
             width="20"
             height="18"
             viewBox="0 0 20 18"
@@ -112,7 +114,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
       <div className="sidebar_menu no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear overscroll-none">
         {/* <!-- Sidebar Menu --> */}
-        <nav className="mt-5 py-4 px-4 lg:mt-0 lg:px-2">
+        <nav className="mt-2 py-4 px-4 lg:mt-0 lg:px-2">
           {/* <!-- Menu Group --> */}
           <div>
 
@@ -121,10 +123,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/dashboard"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    }  duration-300 ease-in-out hover:bg-graydark ${pathname.includes('dashboard') &&
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  }  duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('dashboard') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   {/* <AiOutlineNotification /> */}
                   <RxDashboard className='text-4xl' />
@@ -137,14 +142,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/coped-slips"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('coped-slips') &&
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('coped-slips') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <HiTemplate className='text-4xl' />
-                  Coped slips
-                  <img src={NewItemIcon} alt='NewItemIcon' />
+                  Coped slips 
                 </NavLink>
               </li>
               {/* <!-- Menu Item Calendar --> */}
@@ -153,9 +160,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/match-prediction"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('match-prediction') && 'bg-graydark dark:bg-meta-4'
-                    }`}
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('match-prediction') && 'bg-graydark dark:bg-meta-4'
+                  }`}
                 >
                   <PiGitPullRequestBold className='text-4xl' />
                   Match Predictions
@@ -167,9 +177,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/my-prediction"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('my-prediction') && 'bg-graydark dark:bg-meta-4'
-                    }`}
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('my-prediction') && 'bg-graydark dark:bg-meta-4'
+                  }`}
                 >
                   <PiLightbulbLight className='text-4xl' />
                   My Prediction
@@ -178,13 +191,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Offer --> */}
 
               {/* <!-- Menu Item Workspace --> */}
-              <li className='mb-3'>
+                <li className='mb-3'>
                 <NavLink
                   to="/statistics"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('statistics') &&
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('statistics') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <FaChartPie className='text-4xl' />
                   Statistics
@@ -197,10 +213,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-0'>
                 <NavLink
                   to="/team-comparisions"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('team-comparisions') &&
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('team-comparisions') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <RiTeamLine className='text-4xl' />
                   Team Comparisions
@@ -210,7 +229,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
               <h3 className="my-4 ml-4 text-sm font-medium text-[#828282] uppercase">
-                Top Leagues
+               Top Leagues
               </h3>
 
 
@@ -218,24 +237,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/uffa-champions"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('uffa-champions') &&
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('uffa-champions') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
-                  {themeMode === "light" ?
+                  { themeMode === "light" ? 
                     <img
                       src={UEFAChampionsLeagueDarkIcon}
                       alt="UEFAChampionsLeagueDarkIcon"
                       className="inline-block w-6 h-6 ml-1"
                     />
-                    :
+                    : 
                     <img
                       src={UEFAChampionsLeagueIcon}
                       alt="UEFAChampionsLeagueIcon"
                       className="inline-block w-6 h-6 ml-1"
                     />
-                  }
+                   }
                   UFFA Champions
                 </NavLink>
               </li>
@@ -245,16 +266,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/premier-league"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('premier-league') &&
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('premier-league') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
-                  <img
-                    src={PremierLeague}
-                    alt="PremierLeague"
-                    className="inline-block w-8 h-8"
-                  />
+                    <img
+                      src={PremierLeague}
+                      alt="PremierLeague"
+                      className="inline-block w-8 h-8"
+                    />
                   Premier League
                 </NavLink>
               </li>
@@ -263,11 +286,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Logs --> */}
               <li className='mb-3'>
                 <NavLink
-                  to={"/logout"}
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('la-liga') &&
+                  to="/la-liga"
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('la-liga') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <img
                     src={LaLiya}
@@ -283,10 +308,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/serie-a"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('serie-a') &&
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('serie-a') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <img
                     src={SerieA}
@@ -302,10 +329,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/ligue"
-                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                    } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('ligue') &&
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('ligue') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <img
                     src={LigueIcon}
@@ -319,17 +348,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
               {/* <!-- Menu Item Logs --> */}
               <li className='mb-3'>
-                <div
-                  onClick={handleLogOut}
-                  className={`mt-10 group relative hover:cursor-pointer flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm text-[#FF0000] duration-300 ease-in-out hover:bg-graydark ${pathname.includes('logout') &&
+                <NavLink
+                  to="/logout"
+                  className={`mt-10 group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm text-[#FF0000] duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('logout') &&
                     'bg-graydark dark:bg-meta-4'
-                    }`}
+                  }`}
                 >
                   <div className='text-[#FF0000] rounded-full'>
-                    <AiOutlineLogout className='text-4xl' />
+                    <AiOutlineLogout className='text-4xl'/>
                   </div>
                   Logout
-                </div>
+                </NavLink>
               </li>
               {/* <!-- Menu Item Logs --> */}
 

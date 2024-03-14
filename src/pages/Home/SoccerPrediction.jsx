@@ -4,27 +4,10 @@ import { Link } from "react-router-dom";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getLeagues } from "../../reducers/LeagueSlice";
 const SoccerPrediction = () => {
-  const { league } = useSelector((state) => state.league)
-  const leagueData = league.slice(0, 10)
-  console.log(leagueData);
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getLeagues({}))
-  }, [dispatch])
-
   useEffect(() => {
     AOS.init();
   }, []);
-
-
-
-
-
   return (
     <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
@@ -171,29 +154,26 @@ const SoccerPrediction = () => {
                 League Table
               </h2>
               <div>
-                {leagueData.map((data) => (
-                  <div className="flex items-center mb-5" key={data.id}>
-
-                    <ul className="flex items-center w-full" >
-                      <li className="w-1/12 text-black text-[15px] leading-[15px] font-medium">
-                        {data.league.id}
-                      </li>
-                      <li className="w-2/12">
-                        <img src={data.league.logo} alt="teamIcon01" width={30} />
-                      </li>
-                      <li className="w-5/12 text-black text-[15px] leading-[15px] font-medium">
-                        {data.league.name}
-                      </li>
-                      <li className="w-4/12 text-black text-[15px] leading-[15px] font-medium">
-                        {data.league.type}
-                      </li>
-                      <li className="w-1/12 text-black text-[15px] leading-[15px] font-medium">
-                        40
-                      </li>
-                    </ul>
-                  </div>
-                ))}
-                {/* <div className="flex items-center mb-5">
+                <div className="flex items-center mb-5">
+                  <ul className="flex items-center w-full">
+                    <li className="w-1/12 text-black text-[15px] leading-[15px] font-medium">
+                      1
+                    </li>
+                    <li className="w-2/12">
+                      <img src={teamIcon01} alt="teamIcon01" />
+                    </li>
+                    <li className="w-4/12 text-black text-[15px] leading-[15px] font-medium">
+                      Liverpool
+                    </li>
+                    <li className="w-4/12 text-black text-[15px] leading-[15px] font-medium">
+                      Liverpool
+                    </li>
+                    <li className="w-1/12 text-black text-[15px] leading-[15px] font-medium">
+                      40
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex items-center mb-5">
                   <ul className="flex items-center w-full">
                     <li className="w-1/12 text-black text-[15px] leading-[15px] font-medium">
                       2
@@ -325,13 +305,11 @@ const SoccerPrediction = () => {
                       32
                     </li>
                   </ul>
-                </div> */}
+                </div>
               </div>
             </div>
             <div>
-              <Link className="bg-[#18191b] hover:bg-white text-white hover:text-[#2aa9e1] text-base font-medium uppercase py-4 block text-center"
-            
-              >
+              <Link className="bg-[#18191b] hover:bg-white text-white hover:text-[#2aa9e1] text-base font-medium uppercase py-4 block text-center">
                 View full table
               </Link>
             </div>

@@ -46,6 +46,12 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                 <Link className="block flex-shrink-0 lg:hidden" to="/">
                     <img src={logoIcon} alt="Logo" />
                 </Link>
+                <div className='w-12/12 mr-3 my-1'>
+                    <Link className="max-w-[125px] bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-3 text-[12px] leading-[34px] rounded-3xl flex items-center">
+                        <img src={dollerIcon} alt='dollerIcon' className='mr-1 w-4' />
+                        10 Coins 
+                    </Link>
+                </div>
             </div>
 
             <div className="hidden lg:block w-full">
