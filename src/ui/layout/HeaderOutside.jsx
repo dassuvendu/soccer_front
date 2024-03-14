@@ -107,7 +107,7 @@ const HeaderOutside = () => {
                 <img
                   src={PlaycopeLogoPopup}
                   alt="PlaycopeLogoPopup"
-                  className="rounded-xl w-72 opacity-80"
+                  className="rounded-xl w-32 md:w-72 opacity-80"
                 />
               </div>
               <div className="w-full md:w-6/12 md:pl-4">
@@ -179,7 +179,7 @@ const HeaderOutside = () => {
                 <img
                   src={PlaycopeLogoPopup}
                   alt="PlaycopeLogoPopup"
-                  className="rounded-xl w-72 opacity-80"
+                  className="rounded-xl w-32 md:w-72 opacity-80"
                 />
               </div>
               <div className="w-full md:w-6/12 md:pl-4">
