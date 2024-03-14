@@ -758,8 +758,8 @@ const CookedSlips = () => {
         </div>
         {/* Cooked Slips list start here */}
         {/* Pagination section start here */}
-        <div className="md:flex justify-between mt-8">
-          <div className="mb-2 md:mb-0">
+        <div className="md:flex justify-between items-center mt-8">
+          <div className="mb-2 md:mb-0 text-center">
             <p
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -770,7 +770,7 @@ const CookedSlips = () => {
           </div>
           <div className="min-w-[450px]">
             <div className="md:flex justify-between items-center">
-              <div className="mr-[30px] mb-2 md:mb-0">
+              <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
                   <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
@@ -814,7 +814,7 @@ const CookedSlips = () => {
                   </li>
                 </ul>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center">
                 <p
                   className={`text-[12px] ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-white"

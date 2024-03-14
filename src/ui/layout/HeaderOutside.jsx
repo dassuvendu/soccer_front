@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Navbar, Button, Modal, TextInput } from "flowbite-react";
-import { loginImg, logo } from "../../assets/images/images";
+import { PlaycopeLogoPopup, loginImg, logo } from "../../assets/images/images";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaDribbble, FaFacebookF, FaUsers } from "react-icons/fa";
 import { TfiYoutube } from "react-icons/tfi";
@@ -103,8 +103,12 @@ const HeaderOutside = () => {
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="md:flex items-center pt-6">
-              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0">
-                <img src={loginImg} className="rounded-xl" />
+              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
+                <img
+                  src={PlaycopeLogoPopup}
+                  alt="PlaycopeLogoPopup"
+                  className="rounded-xl w-72 opacity-80"
+                />
               </div>
               <div className="w-full md:w-6/12 md:pl-4">
                 <div className="text-center">
@@ -171,8 +175,12 @@ const HeaderOutside = () => {
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="md:flex items-center pt-6">
-              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0">
-                <img src={loginImg} className="rounded-xl" />
+              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
+                <img
+                  src={PlaycopeLogoPopup}
+                  alt="PlaycopeLogoPopup"
+                  className="rounded-xl w-72 opacity-80"
+                />
               </div>
               <div className="w-full md:w-6/12 md:pl-4">
                 <div className="text-center">

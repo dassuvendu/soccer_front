@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {BiSolidUser, BiSolidContact, AiFillSetting, AiOutlineLogout } from "../assets/icons/index";
+import {BiSolidUser, BiSolidContact, AiFillSetting, AiOutlineLogout, AiOutlineUser } from "../assets/icons/index";
 
 import UserOne from '../assets/imagesource/user/user-01.png';
 
@@ -49,8 +49,9 @@ const DropdownUser = () => {
         className="flex items-center gap-4"
         to="#"
       >
-        <span className="h-11 w-11 rounded-full">
-          <img src={UserOne} alt="User" />
+
+        <span className={`flex justify-center items-center h-11 w-11 rounded-full block font-normal ${themeMode === "light" ? "text-[#0d0f11] bg-[#ececed]" : "text-white bg-[#151718]"}`}>
+          <BiSolidUser className='text-[28px]'/>
         </span>
 
         <span className="hidden text-right lg:block">

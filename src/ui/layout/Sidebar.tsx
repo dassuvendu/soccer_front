@@ -123,6 +123,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/dashboard"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   }  duration-300 ease-in-out hover:bg-graydark ${
@@ -141,6 +142,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/coped-slips"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   } duration-300 ease-in-out hover:bg-graydark ${
@@ -158,6 +160,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/match-prediction"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   } duration-300 ease-in-out hover:bg-graydark ${
@@ -174,6 +177,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-3'>
                 <NavLink
                   to="/my-prediction"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   } duration-300 ease-in-out hover:bg-graydark ${
@@ -190,6 +194,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <li className='mb-3'>
                 <NavLink
                   to="/statistics"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   } duration-300 ease-in-out hover:bg-graydark ${
@@ -208,6 +213,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li className='mb-0'>
                 <NavLink
                   to="/team-comparisions"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   } duration-300 ease-in-out hover:bg-graydark ${

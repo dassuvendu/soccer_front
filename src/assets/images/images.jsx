@@ -48,8 +48,10 @@ import loginImg from "../imagesource/banner_img02.png";
 import paymentIcon from "../imagesource/payment_icon.jpg";
 import planIcon from "../imagesource/plan_icon.jpg";
 import mobileLogo from "../imagesource/mobile_logo.png";
+import PlaycopeLogoPopup from "../imagesource/Playcope_Logo_popup.png";
 
 export {
+  PlaycopeLogoPopup,
   mobileLogo,
   paymentIcon,
   planIcon,

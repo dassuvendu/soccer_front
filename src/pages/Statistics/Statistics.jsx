@@ -44,9 +44,9 @@ const Statistics = () => {
           </Link>
         </div>
         {/* Statistics graph start here */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           <div
-            className="bg-center bg-no-repeat bg-contain p-[15px] w-[210px] h-[131px]"
+            className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
             style={{ backgroundImage: `url(${HighAccuracyBG})` }}
           >
             <div className="flex justify-between items-center mb-3">
@@ -60,7 +60,7 @@ const Statistics = () => {
             <h3 className="text-white text-[24px] font-medium">90</h3>
           </div>
           <div
-            className="bg-center bg-no-repeat bg-contain p-[15px] w-[210px] h-[131px]"
+            className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
             style={{ backgroundImage: `url(${LowAccuracyBG})` }}
           >
             <div className="flex justify-between items-center mb-3">
@@ -74,7 +74,7 @@ const Statistics = () => {
             <h3 className="text-white text-[24px] font-medium">9</h3>
           </div>
           <div
-            className="bg-center bg-no-repeat bg-contain p-[15px] w-[210px] h-[131px]"
+            className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
             style={{ backgroundImage: `url(${ActiveBG})` }}
           >
             <div className="flex justify-between items-center mb-3">
@@ -86,7 +86,7 @@ const Statistics = () => {
             <h3 className="text-white text-[24px] font-medium">10</h3>
           </div>
           <div
-            className="bg-center bg-no-repeat bg-contain p-[15px] w-[210px] h-[131px]"
+            className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
             style={{ backgroundImage: `url(${InactiveBG})` }}
           >
             <div className="flex justify-between items-center mb-3">
@@ -98,7 +98,7 @@ const Statistics = () => {
             <h3 className="text-white text-[24px] font-medium">10</h3>
           </div>
           <div
-            className="bg-center bg-no-repeat bg-contain p-[15px] w-[210px] h-[131px]"
+            className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
             style={{ backgroundImage: `url(${TotalMatchesBG})` }}
           >
             <div className="flex justify-between items-center mb-3">
@@ -965,8 +965,8 @@ const Statistics = () => {
         </div>
         {/* Statistics list section ends here */}
         {/* Pagination section start here */}
-        <div className="md:flex justify-between mt-8">
-          <div className="mb-2 md:mb-0">
+        <div className="md:flex justify-between items-center mt-8">
+          <div className="mb-2 md:mb-0 text-center">
             <p
               className={`${
                 themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -977,7 +977,7 @@ const Statistics = () => {
           </div>
           <div className="min-w-[450px]">
             <div className="md:flex justify-between items-center">
-              <div className="mr-[30px] mb-2 md:mb-0">
+              <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
                   <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
@@ -1021,7 +1021,7 @@ const Statistics = () => {
                   </li>
                 </ul>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center">
                 <p
                   className={`text-[12px] ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-white"

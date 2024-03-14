@@ -18,8 +18,8 @@ const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
-      <div className="w-full h-screen py-4 mb-16">
-        <div className="md:flex justify-between mb-4">
+      <div className="w-full h-full pt-4 mb-0">
+        <div className="md:flex justify-between mb-0">
           <h1
             className={`${
               themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
@@ -112,7 +112,7 @@ const Dashboard = () => {
         {/* Actions section ends here */}
 
         {/* Explore Matches section start here  */}
-        <div className="mb-10">
+        <div className="mb-0">
           <h2
             className={`${
               themeMode === "light" ? "text-[#0d0f11]" : "text-white"
