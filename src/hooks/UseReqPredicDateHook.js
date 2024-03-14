@@ -5,9 +5,9 @@ import { postpredictions } from "../reducers/PredictionsSlice";
 export const UseReqPredicDateHook = () => {
     const dispatch = useDispatch();
     const { prediction } = useSelector((state) => state.prediction)
-    console.log("map",prediction);
+
     let predicDate = [];
-    console.log("map1",predicDate);
+
   
     if (prediction && prediction.length) {
         prediction.forEach((item) => {
@@ -53,7 +53,7 @@ export const UseReqPredicDateHook = () => {
   
     useEffect(() => {
         dispatch(postpredictions({ "fixture": 198772 })).then((res)=>{
-            console.log(res);
+          
         })
       }, [dispatch])
   

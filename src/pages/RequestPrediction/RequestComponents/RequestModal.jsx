@@ -9,7 +9,6 @@ import { UseReqPredicDateHook } from '../../../hooks/UseReqPredicDateHook';
 export const RequestModal = ({openViewDetailsModal,onClose}) => {
     const themeMode = useSelector((state) => state.darkmode.mode);
     const { prediction } = useSelector((state) => state.prediction)
-    console.log("tu",prediction);
     const [predicDate] = UseReqPredicDateHook()
    const dispatch = useDispatch()
 

@@ -3,26 +3,39 @@ import { useEffect, useState } from "react";
 import { BsChevronDoubleLeft, BsChevronDoubleRight, BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getFixtures, pagination } from "../../../reducers/PredictionsSlice";
+import { getFixtures} from "../../../reducers/PredictionsSlice";
+import RequestPredictionList from "./RequestPredictionList";
 
-export const Pagination = ({date,topten}) => {
+export const Pagination = ({date}) => {
     const themeMode = useSelector((state) => state.darkmode.mode);
     const { fixtures } = useSelector((state) => state.prediction);
-    const [data, setData] = useState([]); // State to store fetched data
+   
     const [currentPage, setCurrentPage] = useState(1); // State to track current page
     const [itemsPerPage] = useState(8); // Number of items per page
+    
+    const [pagelist ,setPageList] = useState()
+    console.log("pa",pagelist);
+    
+    const [loadingData,setLoadingData] = useState(true);
 
+    const dispatch = useDispatch();
 
     useEffect(() => {
+      dispatch(getFixtures({ date: date })).then(()=>{
+        setLoadingData(false)
+      })
+    }, [dispatch]);
 
-          
-  }, []);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = fixtures.slice(indexOfFirstItem, indexOfLastItem);
-  console.log("cur",currentItems);
+  const currentItems = fixtures.slice(indexOfFirstItem,indexOfLastItem);
+  useEffect(()=>{
+        setPageList(currentItems)
+  },[fixtures])
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
     return (
-        <>
+        <div >
           <div className="mb-2 md:mb-0 text-center">
         <p
           className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
@@ -38,44 +51,33 @@ export const Pagination = ({date,topten}) => {
             <ul className="flex">
               <li>
                 <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                 onClick={() => paginate(1)}
+                 
                 >
                   <BsChevronDoubleLeft />
                 </Link>
               </li>
               <li>
                 <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                onClick={()=>handleNext(2)}
+                onClick={() => paginate(1)}
                 >
                   <BsChevronLeft />
                 </Link>
               </li>
-              <li>
-                <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                to={`/match-prediction/${1}`}
-                onClick={()=>handleNext(1)}
-                >
-                  1
-                </Link>
-              </li>
-              <li>
-                <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                to={`/match-prediction/${2}`}
-                onClick={()=>handleNext(2)}
-                >
-                  2
-                </Link>
-              </li>
-              <li>
-                <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
-                  3
-                </Link>
-              </li>
-              <li>
-                <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
-                  23
-                </Link>
-              </li>
+              {Array.from({ length: Math.ceil(fixtures.length / itemsPerPage) }, (_, i) => (
+                                <li key={i}>
+                                    <Link
+                                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
+                                        flex justify-center items-center rounded-full text-[12px] text-white 
+                                        ${
+                                            currentPage === i + 1 ? "bg-[#0053CD]" : ""
+                                        }`}
+                                        onClick={() => paginate(i + 1)}
+                                    >
+                                        {i + 1}
+                                    </Link>
+                                </li>
+                            ))}
+             
               <li>
                 <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                 onClick={() => setCurrentPage(currentPage + 1)}
@@ -112,7 +114,7 @@ export const Pagination = ({date,topten}) => {
           </div>
         </div>
       </div>
-        </>
+        </div>
       
     );
   };

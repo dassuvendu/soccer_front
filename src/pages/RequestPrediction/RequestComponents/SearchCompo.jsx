@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { useState } from "react";
 import { getFixtures, getFixturesByleague, getSeasons } from "../../../reducers/PredictionsSlice";
-import { FiLoader } from "react-icons/fi";
-import { UseReqPredicDateHook } from "../../../hooks/UseReqPredicDateHook";
 
-export const SearchCompo = ({loadingData}) => {
+
+export const SearchCompo = ({onError}) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
@@ -14,22 +13,18 @@ export const SearchCompo = ({loadingData}) => {
   const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isseason, setIsSeason] = useState()
-  const [errData, setErrData] = useState(null)
-  const [predicDate] = UseReqPredicDateHook(league)
-// console.log(errData);
+  const [errmsg,setErrMsg] = useState('')
+ 
   const handleDateChange = (e) => {
+    console.log(e);
     setLeague(e)
     setLoading(true);
-    loadingData(true);
     const date = e.toISOString().split("T")[0];
     dispatch(getFixtures({ date: date })).then(() => {
       dispatch(getFixturesByleague({})).then(() => {
         setLoading(false)
-        loadingData(false)
       })
-      
     })
-    
   };
 
   const handleLeagueChange = (selectedOption) => {
@@ -40,15 +35,19 @@ export const SearchCompo = ({loadingData}) => {
     })
   };
   const handleSearch = (season) => {
-    loadingData(true)
+   
     dispatch(getFixtures({ league: isseason.value, season: season.target.value })).then((response)=>{
-      console.log(response,"res");
-    //  setErrData(res.data.status)
-     loadingData(false)
+      console.log(response);
+    if (response.payload.message === 'Something went wrong. Please try again later') {
+      onError(400); 
+    }else{
+      onError(null)
+    }
      
     })
-
+   
   };
+ 
   const options = [
     ...(allLeague?.map((dlist) => {
       return {
@@ -150,14 +149,16 @@ export const SearchCompo = ({loadingData}) => {
               <select disabled={!isseason} onChange={handleSearch} >
                 <option value=''>Select</option>
                 {seasons.map(data => (
-                  <option value={data}>{data}</option>
+                  <option key={data} value={data}>{data}</option>
                 ))}
               </select>
             )
             }
 
           </div>
+          
         </div>
+        
       </div>
     </>
   );

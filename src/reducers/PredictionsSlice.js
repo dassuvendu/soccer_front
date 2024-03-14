@@ -8,7 +8,6 @@ export const getFixtures = createAsyncThunk(
     try {
       const response = await api.post('/api/fixtures',userInput);
       if (response.status === 200) {
-        console.log(response.data.status,"ft");
         return response.data.data;
       } else {
         let errors = errorHandler(response);

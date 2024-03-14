@@ -127,6 +127,16 @@ const allRoutes = [
     ],
   },
   {
+    path: '/match-prediction/:id',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <RequestPrediction />
+      },
+    ],
+  },
+  {
     path: '/my-prediction',
     element: <InsideLayout />,
     children: [
