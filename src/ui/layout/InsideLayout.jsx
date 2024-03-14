@@ -6,7 +6,6 @@ import Sidebar from "../layout/Sidebar";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../reducers/darkModeSlice";
-import ScrollToTop from "../../pages/ScrollToTop/ScrollToTop";
 
 const InsideLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -37,8 +36,6 @@ const InsideLayout = () => {
             {/* <!-- ===== Header Start ===== --> */}
             <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             {/* <!-- ===== Header End ===== --> */}
-
-            <ScrollToTop />
 
             {/* <!-- ===== Main Content Start ===== --> */}
             <main

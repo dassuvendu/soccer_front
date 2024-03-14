@@ -1,10 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logo } from "../../../assets/images/images";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { login } from "../../../reducers/authSlice";
+// import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const signinHandler = () => {
-    navigate("/dashboard");
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  // const signInHandler = () => {
+  //   navigate("/dashboard", { replace: true });
+  // };
+  const onSubmit = (data) => {
+    // console.log(data)
+    dispatch(login(data));
   };
 
   return (
@@ -20,27 +31,36 @@ const Login = () => {
           Welcome back! Please enter your details.
         </p>
         <div className="login_area">
-          <form>
-            <div class="mb-6">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-6">
               <label
-                for="email"
-                class="block mb-2 text-base text-left md:text-xl font-bold text-blue-900 dark:text-white"
+                htmlFor="email"
+                className="block mb-2 text-base text-left md:text-xl font-bold text-blue-900 dark:text-white"
               >
                 Email
               </label>
               <input
                 type="email"
                 id="email"
-                class="bg-gray-50 border border-blue-900 text-blue-900 text-sm rounded-lg focus:ring-blue-900 focus:border-blue-900 block w-full p-2.5"
-                placeholder="Enter your email address"
-                required
+                className="bg-gray-50 border border-blue-900 text-blue-900 text-sm rounded-lg focus:ring-blue-900 focus:border-blue-900 block w-full p-2.5"
+                placeholder="Your email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: "Entered value does not match email format",
+                  },
+                })}
               />
+              {errors?.email?.message && (
+                <h6 className="text-rose-500">{errors.email.message}</h6>
+              )}
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <div className="flex justify-between">
                 <label
-                  for="password"
-                  class="block mb-2 text-base md:text-xl font-bold text-blue-900"
+                  htmlFor="password"
+                  className="block mb-2 text-base md:text-xl font-bold text-blue-900"
                 >
                   Password
                 </label>
@@ -57,24 +77,29 @@ const Login = () => {
                 placeholder="Enter your password"
                 type="password"
                 id="password"
-                class="bg-gray-50 border border-blue-900 text-blue-900 text-sm rounded-lg focus:ring-blue-900 focus:border-blue-900 block w-full p-2.5"
-                required
+                className="bg-gray-50 border border-blue-900 text-blue-900 text-sm rounded-lg focus:ring-blue-900 focus:border-blue-900 block w-full p-2.5"
+                {...register("password", {
+                  required: "Password is required",
+                })}
               />
+              {errors?.password?.message && (
+                <h6 className="text-rose-500">{errors.password.message}</h6>
+              )}
             </div>
-            <div class="flex justify-between mb-6">
+            <div className="flex justify-between mb-6">
               <div className="flex items-center">
-                <div class="flex items-center h-5">
+                <div className="flex items-center h-5">
                   <input
                     id="remember"
                     type="checkbox"
                     value=""
-                    class="w-4 h-4 border border-blue-900 rounded bg-gray-50 focus:ring-3 focus:ring-blue-900"
+                    className="w-4 h-4 border border-blue-900 rounded bg-gray-50 focus:ring-3 focus:ring-blue-900"
                     required
                   />
                 </div>
                 <label
-                  for="remember"
-                  class="ml-2 text-base font-medium text-blue-900"
+                  htmlFor="remember"
+                  className="ml-2 text-base font-medium text-blue-900"
                 >
                   Remember me!
                 </label>
@@ -89,9 +114,9 @@ const Login = () => {
               </div>
             </div>
             <button
-              onClick={signinHandler}
+              // onClick={signInHandler}
               type="submit"
-              class="text-white bg-blue-950 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl w-full px-5 py-2.5 text-center"
+              className="text-white bg-blue-950 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl w-full px-5 py-2.5 text-center"
             >
               Sign In
             </button>

@@ -1,23 +1,35 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Navbar, Button, Modal, TextInput } from "flowbite-react";
-import { PlaycopeLogoPopup, loginImg, logo } from "../../assets/images/images";
+import { loginImg, logo } from "../../assets/images/images";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaDribbble, FaFacebookF, FaUsers } from "react-icons/fa";
+import { FaDribbble, FaFacebookF } from "react-icons/fa";
 import { TfiYoutube } from "react-icons/tfi";
 import { BiSolidUser } from "react-icons/bi";
 import {
-  AiOutlineGoogle,
   AiOutlineLogin,
   AiOutlineLogout,
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { login, registerUser } from "../../reducers/authSlice";
 
 const HeaderOutside = () => {
-  const navigate = useNavigate();
-
+  const { isLoggedIn, message, error, loading } = useSelector(state => state.auth);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register: registerReg, handleSubmit: handleSubmitReg, formState: { errors: errorsReg }, getValues: getValuesReg, reset: resetReg } = useForm();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [message, isLoggedIn])
 
   const loginHandler = () => {
     setOpenRegisterModal(false);
@@ -28,11 +40,14 @@ const HeaderOutside = () => {
     setOpenRegisterModal(true);
   };
 
-  const goChoosePlanHandler = () => {
-    setOpenRegisterModal(false);
-    navigate("/choose-plan");
+  const onSubmit = (data) => {
+    dispatch(login(data));
+    isLoggedIn && !error && navigate("/dashboard", { replace: true });
   };
-
+  const onSubmitReg = (data) => {
+    dispatch(registerUser(data));
+    false && resetReg()
+  };
   return (
     <div className="header_section max-w-6xl mx-auto px-0 lg:px-0 py-2 md:py-3 bg-transparent">
       <Navbar fluid rounded className="bg-transparent">
@@ -103,12 +118,8 @@ const HeaderOutside = () => {
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="md:flex items-center pt-6">
-              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
-                <img
-                  src={PlaycopeLogoPopup}
-                  alt="PlaycopeLogoPopup"
-                  className="rounded-xl w-32 md:w-72 opacity-80"
-                />
+              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0">
+                <img src={loginImg} className="rounded-xl" />
               </div>
               <div className="w-full md:w-6/12 md:pl-4">
                 <div className="text-center">
@@ -116,32 +127,51 @@ const HeaderOutside = () => {
                   <h3 className="mb-5 text-xl font-bold text-black">
                     Welcome to <span className="text-[#2aa9e1]">PlayCope</span>
                   </h3>
-                  <form className="flex max-w-md flex-col gap-4 text-left">
+                  <form className="flex max-w-md flex-col gap-4 text-left" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                       <TextInput
-                        id="email1"
+                        id="email"
                         type="email"
                         placeholder="Your email"
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: "Entered value does not match email format",
+                          },
+                        })}
                       />
+                      {errors?.email?.message && (
+                        <h6 className="text-rose-500">{errors.email.message}</h6>
+                      )}
                     </div>
                     <div>
                       <TextInput
-                        id="password1"
+                        id="password"
                         type="password"
                         placeholder="Password"
+                        {...register("password", {
+                          required: "Password is required",
+                        })}
                       />
+                      {errors?.password?.message && (
+                        <h6 className="text-rose-500">{errors.password.message}</h6>
+                      )}
                     </div>
+                    {error && (
+                      <h6 className="text-rose-500">{message}</h6>
+                    )}
                     <Button
                       className="create_character_btn w-full"
                       type="submit"
                     >
-                      Login
+                      {loading ? "wait..." : "Login"}
                     </Button>
                   </form>
                   <p className="py-4">OR</p>
                   <Link
                     className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-                    onClick={() => googleLogin()}
+                  // onClick={() => googleLogin()}
                   >
                     <FcGoogle className="text-3xl" />
                     Google
@@ -175,12 +205,8 @@ const HeaderOutside = () => {
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="md:flex items-center pt-6">
-              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
-                <img
-                  src={PlaycopeLogoPopup}
-                  alt="PlaycopeLogoPopup"
-                  className="rounded-xl w-32 md:w-72 opacity-80"
-                />
+              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0">
+                <img src={loginImg} className="rounded-xl" />
               </div>
               <div className="w-full md:w-6/12 md:pl-4">
                 <div className="text-center">
@@ -188,35 +214,73 @@ const HeaderOutside = () => {
                   <h3 className="mb-5 text-xl font-bold text-black">
                     Register to <span className="text-[#2aa9e1]">PlayCope</span>
                   </h3>
-                  <form className="flex max-w-md flex-col gap-4 text-left">
+                  <form className="flex max-w-md flex-col gap-4 text-left" onSubmit={handleSubmitReg(onSubmitReg)}>
                     <div>
                       <TextInput
                         id="name"
                         type="name"
                         placeholder="Your name"
                         autoComplete="off"
+                        {...registerReg("name", {
+                          required: "Name is required",
+                        })}
                       />
+                      {errorsReg?.name?.message && (
+                        <h6 className="text-rose-500">{errorsReg.name.message}</h6>
+                      )}
                     </div>
                     <div>
                       <TextInput
                         id="email1"
                         type="email"
                         placeholder="Your email"
+                        {...registerReg("email", {
+                          required: "email is required",
+                        })}
                       />
+                      {errorsReg?.email?.message && (
+                        <h6 className="text-rose-500">{errorsReg.email.message}</h6>
+                      )}
+                      {error && (
+                        <h6 className="text-rose-500">{error?.email && error?.email[0]}</h6>
+                      )}
                     </div>
                     <div>
                       <TextInput
                         id="password1"
                         type="password"
                         placeholder="Password"
+                        {...registerReg("password", {
+                          required: "password is required",
+                        })}
                       />
+                      {errorsReg?.password?.message && (
+                        <h6 className="text-rose-500">{errorsReg.password.message}</h6>
+                      )}
                     </div>
+                    <div>
+                      <TextInput
+                        id="password1"
+                        type="password"
+                        placeholder="Confirm Password"
+                        {...registerReg("cPassword", {
+                          required: "confirm password is required",
+                          validate: (value) => value === getValuesReg("password") || 'confirm passwords do not match',
+
+                        })}
+                      />
+                      {errorsReg?.cPassword?.message && (
+                        <h6 className="text-rose-500">{errorsReg.cPassword.message}</h6>
+                      )}
+                    </div>
+                    {error && (
+                      <h6 className="text-rose-500">{error?.message}</h6>
+                    )}
                     <button
-                      onClick={goChoosePlanHandler}
                       type="submit"
                       className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
                     >
-                      Submit
+                      {loading ? "wait..." : "Submit"}
                     </button>
                   </form>
                   <p className="py-4">OR</p>

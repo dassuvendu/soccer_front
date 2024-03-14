@@ -187,59 +187,6 @@ body {
     -webkit-transition: all 500ms ease-in-out;
   }
 
-  .main_menu ul li a.active {
-    color: #2aa9e1;
-  }
-
-  
-  
-  /*  */
-  
-  .plan_tab_area .react-tabs ul.react-tabs__tab-list {
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.05);
-    border-bottom: none;
-    padding: 10px;
-    width: 325px;
-    margin: 0 auto 50px;
-  }
-  
-  .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab.react-tabs__tab--selected {
-    border-radius: 10px;
-    background: #2aa9e1;
-    color: #FFF;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 46px;
-    padding: 0 25px;
-    display: inline-block;
-    border: none;
-  }
-  
-  .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab {
-    border-radius: 10px;
-    background: #ffffff;
-    color: #000000;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 46px;
-    padding: 0 25px;
-    display: inline-block;
-    border: none;
-    margin: 0 5px;
-  }
-
-  
-  /*  */
-
-
 @media only screen and (max-width:767px) {
 
     .top_social ul {
@@ -279,26 +226,6 @@ body {
       .soccer_prediction:before {
         width: 100%;
     }
-
-    .choose_your_plan_section:before {
-        display: none;
-      }
-
-      /*  */
-
-        .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab.react-tabs__tab--selected {
-            font-size: 14px;
-            line-height: 40px;
-            padding: 0 10px;
-        }
-        .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab {
-            font-size: 14px;
-            line-height: 40px;
-            padding: 0 10px;
-        }
-        .plan_tab_area .react-tabs ul.react-tabs__tab-list {
-            width: 270px;
-        }
 
 }
 
