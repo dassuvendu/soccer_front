@@ -52,9 +52,7 @@ export const UseReqPredicDateHook = () => {
     }
   
     useEffect(() => {
-        dispatch(postpredictions({ "fixture": 198772 })).then((res)=>{
-          
-        })
+        dispatch(postpredictions({ "fixture": 198772 }))
       }, [dispatch])
   
     return predicDate;

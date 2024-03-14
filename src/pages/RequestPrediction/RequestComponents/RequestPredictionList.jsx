@@ -20,6 +20,8 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
+
+  
   const viewDetailsModalHandler = () => {
     setOpenViewDetailsModal(true);
   };

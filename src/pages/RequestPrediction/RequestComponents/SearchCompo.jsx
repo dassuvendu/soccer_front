@@ -13,7 +13,6 @@ export const SearchCompo = ({onError}) => {
   const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isseason, setIsSeason] = useState()
-  const [errmsg,setErrMsg] = useState('')
  
   const handleDateChange = (e) => {
     console.log(e);

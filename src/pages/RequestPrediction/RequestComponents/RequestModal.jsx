@@ -1,15 +1,12 @@
 import { Modal } from 'flowbite-react'
-import React, { useEffect, useState } from 'react'
-import { DeportivoPastoIcon, EnvigadoIcon } from '../../../assets/images/images'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { postpredictions } from '../../../reducers/PredictionsSlice';
-import { UseReqPredicDateHook } from '../../../hooks/UseReqPredicDateHook';
 
 
 export const RequestModal = ({openViewDetailsModal,onClose}) => {
     const themeMode = useSelector((state) => state.darkmode.mode);
     const { prediction } = useSelector((state) => state.prediction)
-    const [predicDate] = UseReqPredicDateHook()
    const dispatch = useDispatch()
 
     useEffect(() => {
@@ -30,7 +27,7 @@ export const RequestModal = ({openViewDetailsModal,onClose}) => {
         >
           <Modal.Header className="absolute right-0 top-0" />
           {prediction.map(data=>(
- <Modal.Body>
+ <Modal.Body key={data.id}>
  <div className="pt-8 pb-2">
    <h2 className="font-Bebas text-3xl tracking-normal text-[#2aa9e1] mb-4">
      Match Details

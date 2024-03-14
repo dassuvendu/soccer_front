@@ -1,5 +1,5 @@
 import { HiTemplate } from "react-icons/hi";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export const Prediction = () => {
