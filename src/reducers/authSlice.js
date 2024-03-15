@@ -8,7 +8,6 @@ export const registerUser = createAsyncThunk(
     async (userInput, { rejectWithValue }) => {
         try {
             const response = await api.post('/user/register', userInput);
-            console.log(response)
             if (response?.data?.status_code === 201) {
                 return response.data;
             } else {
@@ -92,6 +91,7 @@ const authSlice = createSlice({
                     'regToken',
                     JSON.stringify({ token: access_token })
                 );
+                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
             })
             .addCase(registerUser.rejected, (state, { payload }) => {
                 state.loading = false;

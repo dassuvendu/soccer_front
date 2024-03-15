@@ -13,6 +13,7 @@ body {
 .go_page input {
     border-radius: 25px;
     background: #000000;
+    color: #ffffff;
 }
 .date_picker_box svg {
     color: #E1E1E1;
@@ -42,12 +43,12 @@ body {
     height: 42px;
 }
 .date_picker_box.Select_Season select {
-    background-color: #E1E1E1;
-    color: #0d0f11;
+    background: #0d0f11;
+    color: #E1E1E1;
     border-radius: 25px;
     font-size: 14px;
     width: 130px;
-    border: #cccccc 1px solid;
+    border: #ffffff 1px solid;
     height: 42px;
 }
 
@@ -79,12 +80,12 @@ body {
     height: 42px;
 }
 .date_picker_box.Select_League .css-16xfy0z-control {
-    background: #E1E1E1;
-    color: #0d0f11;
+    background: #0d0f11;
+    color: #E1E1E1;
     border-radius: 25px;
     font-size: 14px;
     width: 350px;
-    border: #cccccc 1px solid;
+    border: #ffffff 1px solid;
     height: 42px;
 }
 .date_picker_box.Select_League .css-13cymwt-control {
@@ -315,6 +316,15 @@ body {
 
 
 @media only screen and (max-width:767px) {
+
+    .date_picker_box_light.Select_Season select {
+        width: 100%;
+        max-width: 350px;
+    }
+    .date_picker_box.Select_Season select {
+        width: 100%;
+        max-width: 350px;
+    }
 
     .top_social ul {
         background: none !important;
