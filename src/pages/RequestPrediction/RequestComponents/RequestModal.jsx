@@ -1,30 +1,32 @@
-import { Modal } from 'flowbite-react'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { LastFixtures, postpredictions } from '../../../reducers/PredictionsSlice';
+import { Modal } from "flowbite-react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  LastFixtures,
+  postpredictions,
+} from "../../../reducers/PredictionsSlice";
 
-export const RequestModal = ({openViewDetailsModal,onClose,homeTeamId}) => {
-  console.log("team",homeTeamId);
-    const themeMode = useSelector((state) => state.darkmode.mode);
-    const { prediction } = useSelector((state) => state.prediction)
-    const { lastResult } = useSelector((state) => state.prediction)
-    console.log("tr",lastResult);
-   const dispatch = useDispatch()
+export const RequestModal = ({ openViewDetailsModal, onClose, homeTeamId }) => {
+  console.log("team", homeTeamId);
+  const themeMode = useSelector((state) => state.darkmode.mode);
+  const { prediction } = useSelector((state) => state.prediction);
+  const { lastResult } = useSelector((state) => state.prediction);
+  console.log("tr", lastResult);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(LastFixtures({ "team": homeTeamId , "last": 5 }))
+  useEffect(() => {
+    dispatch(LastFixtures({ team: homeTeamId, last: 5 }));
+  }, [dispatch, homeTeamId]);
 
-    }, [dispatch,homeTeamId])
-
-    const handleModal = () => {
-      onClose();
-    };
+  const handleModal = () => {
+    onClose();
+  };
   return (
     <div>
-         {openViewDetailsModal && (
-          <Modal
+      {openViewDetailsModal && (
+        <Modal
           show={openViewDetailsModal}
-          size="4xl"
+          size="7xl"
           onClose={handleModal}
           popup
         >
@@ -84,32 +86,32 @@ export const RequestModal = ({openViewDetailsModal,onClose,homeTeamId}) => {
                   History
                 </h4>
                 <div>
-                  {lastResult.map((data)=>(
- <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={data.id}>
- <div className="text-center">
-   <img
-     src={data?.leagues?.home?.logo}
-     alt="DeportivoPastoIcon"
-     className="inline-block mb-2 w-10"
-   />
- </div>
- <div className="text-center">
-   <div className="bg-[#2aa9e1] py-2 rounded-full">
-     <h3 className="text-white text-base">0 - 1</h3>
-   </div>
- </div>
- <div className="text-center">
-   <img
-     // src={EnvigadoIcon}
-     alt="EnvigadoIcon"
-     className="inline-block mb-2 w-10"
-   />
- </div>
-</div>
+                  {lastResult.map((data) => (
+                    <div
+                      className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
+                      key={data.id}
+                    >
+                      <div className="text-center">
+                        <img
+                          src={data?.leagues?.home?.logo}
+                          alt="DeportivoPastoIcon"
+                          className="inline-block mb-2 w-10"
+                        />
+                      </div>
+                      <div className="text-center">
+                        <div className="bg-[#2aa9e1] py-2 rounded-full">
+                          <h3 className="text-white text-base">0 - 1</h3>
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <img
+                          // src={EnvigadoIcon}
+                          alt="EnvigadoIcon"
+                          className="inline-block mb-2 w-10"
+                        />
+                      </div>
+                    </div>
                   ))}
-                 
-                  
-
                 </div>
               </div>
               <div className="mb-0">
@@ -173,11 +175,8 @@ export const RequestModal = ({openViewDetailsModal,onClose,homeTeamId}) => {
               </div>
             </div>
           </Modal.Body>
-        
-         
         </Modal>
-        )}
-      
+      )}
     </div>
-  )
-}
+  );
+};
