@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  BuyTokenIcon,
-} from "../../assets/images/images";
+import { BuyTokenIcon } from "../../assets/images/images";
 import { FiArrowRight } from "react-icons/fi";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -11,15 +9,15 @@ import { getLeagues } from "../../reducers/LeagueSlice";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { league } = useSelector((state) => state.league)
+  const { league } = useSelector((state) => state.league);
   const [loadingdash, setLoadingDash] = useState(true);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getLeagues({})).then(()=>{
-      setLoadingDash(false)
-    })
-  }, [dispatch])
+    dispatch(getLeagues({})).then(() => {
+      setLoadingDash(false);
+    });
+  }, [dispatch]);
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -125,45 +123,51 @@ const Dashboard = () => {
           >
             Explore Matches from your Favorite Leagues
           </h2>
-          {!loadingdash?
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-            {league.map((data) => (
-              <div
-                className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+          {!loadingdash ? (
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+              {league.map((data) => (
+                <div
+                  className={`${
+                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                   } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-                key={data.id}
-
-              >
-                {themeMode === "light" ? (
-                  <img
-                    src={data.league.logo}
-                    alt="UEFAChampionsLeagueDarkIcon"
-                    className="mb-4 inline-block"
-                  />
-                ) : (
-                  <img
-                    src={data.league.logo}
-                    alt="UEFAChampionsLeagueIcon"
-                    className="mb-4 inline-block"
-                  />
-                )}
-                <h3
-                  className={`font-Montserrat ${themeMode === "light" ? "text-black" : "text-white"
-                    } font-bold text-[16px] leading-[20px] mb-2`}
+                  key={data.id}
                 >
-                  {data.league.name}
-                </h3>
-                <p className="text-[#8EA2AB] text-[12px] leading-[20px]">{data.country.name}</p>
-              </div>
-            ))}
-
-          </div>
-          :
-          <div className="text-center">
-          <Spinner color="pink" aria-label="Warning spinner example" size="lg" />
-         <span className="pl-3">Loading...</span>
-         </div>
-}
+                  {themeMode === "light" ? (
+                    <img
+                      src={data.league.logo}
+                      alt="UEFAChampionsLeagueDarkIcon"
+                      className="mb-4 inline-block"
+                    />
+                  ) : (
+                    <img
+                      src={data.league.logo}
+                      alt="UEFAChampionsLeagueIcon"
+                      className="mb-4 inline-block"
+                    />
+                  )}
+                  <h3
+                    className={`font-Montserrat ${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-bold text-[16px] leading-[20px] mb-2`}
+                  >
+                    {data.league.name}
+                  </h3>
+                  <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
+                    {data.country.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center">
+              <Spinner
+                color="pink"
+                aria-label="Warning spinner example"
+                size="lg"
+              />
+              <span className="pl-3">Loading...</span>
+            </div>
+          )}
         </div>
         {/* Explore Matches section ends here */}
       </div>

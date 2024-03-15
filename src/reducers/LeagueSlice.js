@@ -8,7 +8,6 @@ export const getLeagues = createAsyncThunk(
     try {
       const response = await api.post('/api/leagues',userInput);
       if (response.status === 200) {
-        console.log("dres",response.data.data);
         return response.data.data;
       } else {
         let errors = errorHandler(response);
