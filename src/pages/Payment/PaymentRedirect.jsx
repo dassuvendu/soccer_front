@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'flowbite-react';
-import { stripePayment } from '../../slices/PaymentSlice';
+import { stripePayment } from '../../reducers/paymentSlice';
 
 const PaymentRedirect = () => {
     const dispatch = useDispatch();

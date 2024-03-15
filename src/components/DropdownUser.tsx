@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import {BiSolidUser, BiSolidContact, AiFillSetting, AiOutlineLogout, AiOutlineUser } from "../assets/icons/index";
+import { Link, useNavigate } from 'react-router-dom';
+import { BiSolidUser, BiSolidContact, AiFillSetting, AiOutlineLogout, AiOutlineUser } from "../assets/icons/index";
 
 import UserOne from '../assets/imagesource/user/user-01.png';
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from '../reducers/authSlice';
 
 const DropdownUser = () => {
-
-  const themeMode = useSelector((state:any) => state.darkmode.mode);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const themeMode = useSelector((state: any) => state.darkmode.mode);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -41,6 +43,11 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  };
+
   return (
     <div className="relative">
       <Link
@@ -51,7 +58,7 @@ const DropdownUser = () => {
       >
 
         <span className={`flex justify-center items-center h-11 w-11 rounded-full block font-normal ${themeMode === "light" ? "text-[#0d0f11] bg-[#ececed]" : "text-white bg-[#151718]"}`}>
-          <BiSolidUser className='text-[28px]'/>
+          <BiSolidUser className='text-[28px]' />
         </span>
 
         <span className="hidden text-right lg:block">
@@ -61,9 +68,8 @@ const DropdownUser = () => {
         </span>
 
         <svg
-          className={`hidden fill-current sm:block ${
-            dropdownOpen ? 'rotate-180' : ''
-          }`}
+          className={`hidden fill-current sm:block ${dropdownOpen ? 'rotate-180' : ''
+            }`}
           width="12"
           height="6"
           viewBox="0 0 12 8"
@@ -84,9 +90,8 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-3 flex w-52 flex-col rounded-xl bg-[#192328] shadow-md ${
-          dropdownOpen === true ? 'block' : 'hidden'
-        }`}
+        className={`absolute right-0 mt-3 flex w-52 flex-col rounded-xl bg-[#192328] shadow-md ${dropdownOpen === true ? 'block' : 'hidden'
+          }`}
       >
         <ul className="flex flex-col">
           <li className='border-b border-[#363e42] py-3 px-4'>
@@ -106,7 +111,8 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-2 py-3 px-4 text-sm font-normal duration-300 ease-in-out text-[#ff4343] hover:text-[#ff0000]">
+        <button className="flex items-center gap-2 py-3 px-4 text-sm font-normal duration-300 ease-in-out text-[#ff4343] hover:text-[#ff0000]"
+          onClick={handleLogout}>
           Log Out
         </button>
       </div>
