@@ -20,9 +20,11 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-
+  const [homeTeamId,sethomeTeamId] = useState(null)
+  console.log("home",homeTeamId);
   
-  const viewDetailsModalHandler = () => {
+  const viewDetailsModalHandler = (id) => {
+    sethomeTeamId(id)
     setOpenViewDetailsModal(true);
   };
   const handleModalClose = () => {
@@ -70,7 +72,6 @@ const RequestPredictionList = ({ errorMessage }) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
   const totalPages = Math.ceil(fixtures.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
@@ -188,7 +189,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                 >
                   <Link
                     className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                    onClick={viewDetailsModalHandler}
+                    onClick={()=>viewDetailsModalHandler(dat?.teams?.home?.id)}
                   >
                     View Prediction{" "}
                     <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -253,9 +254,9 @@ const RequestPredictionList = ({ errorMessage }) => {
                     <li key={pageNumber}>
                       <Link
                         className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white ${
-                          currentPage === pageNumber ? "bg-[#0053CD]" : ""
+                          currentPage === pageNumber ? "bg-[#015de4]" : ""
                         }`}
-                        onClick={() => handlePageChange(pageNumber)}
+                        onClick={() => handlePageChange()}
                       >
                         {pageNumber}
                       </Link>
@@ -310,6 +311,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       <RequestModal
         openViewDetailsModal={openViewDetailsModal}
         onClose={handleModalClose}
+        homeTeamId={homeTeamId}
       />
       {/* modal section ends here */}
     </div>
