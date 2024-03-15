@@ -91,6 +91,7 @@ const authSlice = createSlice({
                     'regToken',
                     JSON.stringify({ token: access_token })
                 );
+                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
             })
             .addCase(registerUser.rejected, (state, { payload }) => {
                 state.loading = false;

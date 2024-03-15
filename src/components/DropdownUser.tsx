@@ -112,7 +112,8 @@ const DropdownUser = () => {
           </li>
         </ul>
         <button className="flex items-center gap-2 py-3 px-4 text-sm font-normal duration-300 ease-in-out text-[#ff4343] hover:text-[#ff0000]"
-          onClick={handleLogout}>
+          onClick={handleLogout}
+        >
           Log Out
         </button>
       </div>
