@@ -1,20 +1,17 @@
-import {
-  requestPredictionBanner,
-} from "../../assets/images/images";
+import { requestPredictionBanner } from "../../assets/images/images";
 import { useSelector } from "react-redux";
 import { SearchCompo } from "./RequestComponents/SearchCompo";
 import { Prediction } from "./RequestComponents/Prediction";
 import RequestPredictionList from "./RequestComponents/RequestPredictionList";
 import { useEffect, useState } from "react";
 
-
 const RequestPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleError = (data) => {
-      setErrorMessage(data);
+    setErrorMessage(data);
   };
   useEffect(() => {
     console.log(errorMessage);
@@ -36,19 +33,17 @@ const RequestPrediction = () => {
             </p>
           </div>
         </div>
-        <div className="md:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompo onError={handleError}/>
-         <Prediction/>
+        <div className="lg:flex justify-between items-center mb-6 w:6/12">
+          <SearchCompo onError={handleError} />
+          <Prediction />
         </div>
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionList errorMessage={errorMessage}/>
+      <RequestPredictionList errorMessage={errorMessage} />
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}
- 
-
     </div>
   );
 };

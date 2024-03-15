@@ -13,31 +13,31 @@ export const useDateList = (date) => {
       let dateString = item?.fixture.date;
       let date = new Date(dateString);
       let months = [
-        "January",
-        "February",
-        "March",
-        "April",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
         "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
       ];
       let day = date?.getDate();
       let monthIndex = date?.getMonth();
       let year = date?.getFullYear();
 
       let daysOfWeek = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
       ];
       let dayOfWeekIndex = date?.getDay();
       let dayOfWeek = daysOfWeek[dayOfWeekIndex];
