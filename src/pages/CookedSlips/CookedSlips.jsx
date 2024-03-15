@@ -1143,7 +1143,7 @@ const CookedSlips = () => {
                       <li key={pageNumber}>
                         <Link
                           className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white ${
-                            currentPage === pageNumber ? "bg-[#0053CD]" : ""
+                            currentPage === pageNumber ? "bg-[#0868f4]" : ""
                           }`}
                           onClick={() => handlePageChange(pageNumber)}
                         >
