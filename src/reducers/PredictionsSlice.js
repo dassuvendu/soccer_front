@@ -89,12 +89,29 @@ export const pagination = createAsyncThunk(
     }
   }
 );
-export const LastFixtures = createAsyncThunk(
-  'user/LastFixtures',
+export const LastHomeResult = createAsyncThunk(
+  'user/LasthomeResult',
   async (userInput, { rejectWithValue }) => {
     try {
       const response = await api.post('/api/fixtures',userInput);
-      if (response.status === 200) { 
+      if (response?.status === 200) { 
+        return response.data.data;
+      } else {
+        let errors = errorHandler(response);
+        return rejectWithValue(errors);
+      }
+    } catch (err) {
+      let errors = errorHandler(err);
+      return rejectWithValue(errors);
+    }
+  }
+);
+export const LastAwayResult = createAsyncThunk(
+  'user/LastawayResult',
+  async (userInput, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/fixtures',userInput);
+      if (response?.status === 200) { 
         return response.data.data;
       } else {
         let errors = errorHandler(response);
@@ -115,7 +132,8 @@ const initialState = {
   seasons:[],
   prediction: [],
   page:[],
-  lastResult:[]
+  lastHomeResult:[],
+  lastAwayResult:[]
 };
 
 const PredictionsSlice = createSlice({
@@ -199,17 +217,32 @@ const PredictionsSlice = createSlice({
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';
       })
-      .addCase(LastFixtures.pending, (state) => {
+      .addCase(LastHomeResult.pending, (state) => {
         state.isLoading = true;
         state.error = null;
         state.message = null;
       })
-      .addCase(LastFixtures.fulfilled, (state, { payload }) => {
+      .addCase(LastHomeResult.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.lastResult = payload; 
+        state.lastHomeResult = payload; 
       })
-      .addCase(LastFixtures.rejected, (state, { payload }) => {
+      .addCase(LastHomeResult.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = payload?.message || 'Something went wrong. Try again later.';
+      })
+      .addCase(LastAwayResult.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(LastAwayResult.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.lastAwayResult = payload; 
+      })
+      .addCase(LastAwayResult.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';

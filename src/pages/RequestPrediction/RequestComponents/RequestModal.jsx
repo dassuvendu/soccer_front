@@ -1,14 +1,15 @@
-import { Modal } from 'flowbite-react'
-import { useEffect } from 'react'
+import { Modal, Spinner } from 'flowbite-react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { LastFixtures, postpredictions } from '../../../reducers/PredictionsSlice';
 
 export const RequestModal = ({openViewDetailsModal,onClose,homeTeamId}) => {
   console.log("team",homeTeamId);
-    const themeMode = useSelector((state) => state.darkmode.mode);
-    const { prediction } = useSelector((state) => state.prediction)
+    const themeMode = useSelector((state) => state.darkmode.mode)
     const { lastResult } = useSelector((state) => state.prediction)
     console.log("tr",lastResult);
+    const [loadingModalData, setLoadingModalData] = useState(true);
+
    const dispatch = useDispatch()
 
     useEffect(() => {
@@ -84,35 +85,38 @@ export const RequestModal = ({openViewDetailsModal,onClose,homeTeamId}) => {
                   History
                 </h4>
                 <div>
+                 
+                
                   {lastResult.map((data)=>(
- <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={data.id}>
+                 <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={data.id}>
  <div className="text-center">
    <img
-     src={data?.leagues?.home?.logo}
+     src={data?.teams?.home?.logo}
      alt="DeportivoPastoIcon"
      className="inline-block mb-2 w-10"
    />
  </div>
  <div className="text-center">
    <div className="bg-[#2aa9e1] py-2 rounded-full">
-     <h3 className="text-white text-base">0 - 1</h3>
+     <h3 className="text-white text-base">{data?.goals?.home}-{data?.goals?.away}</h3>
    </div>
  </div>
  <div className="text-center">
    <img
-     // src={EnvigadoIcon}
+     src={data?.teams?.away?.logo}
      alt="EnvigadoIcon"
      className="inline-block mb-2 w-10"
    />
  </div>
-</div>
+                 </div>
                   ))}
-                 
-                  
+            
+               
+
 
                 </div>
-              </div>
-              <div className="mb-0">
+               
+                <div className="mb-0">
                 <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
                   Last 5 matches
                 </h4>
@@ -170,6 +174,9 @@ export const RequestModal = ({openViewDetailsModal,onClose,homeTeamId}) => {
                     </ul>
                   </div>
                 </div>
+               
+              </div>
+           
               </div>
             </div>
           </Modal.Body>
