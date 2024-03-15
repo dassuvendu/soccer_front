@@ -22,6 +22,7 @@ import Comparisons from '../pages/Comparisons/Comparisons.jsx';
 import NewsBlog from '../pages/NewsBlog/NewsBlog.jsx';
 import ChoosePlan from '../pages/ChoosePlan/ChoosePlan.jsx';
 import Payment from '../pages/Payment/Payment.jsx';
+import PaymentRedirect from '../pages/Payment/PaymentRedirect.jsx';
 
 const allRoutes = [
   {
@@ -45,7 +46,7 @@ const allRoutes = [
     element: <OutsideLayout />,
     children: [
       { index: true, element: <Faqs /> },
-      { path: 'faqs', element: < Faqs/> },
+      { path: 'faqs', element: < Faqs /> },
     ],
   },
   {
@@ -53,7 +54,7 @@ const allRoutes = [
     element: <OutsideLayout />,
     children: [
       { index: true, element: <Comparisons /> },
-      { path: 'comparisons', element: < Comparisons/> },
+      { path: 'comparisons', element: < Comparisons /> },
     ],
   },
   {
@@ -61,7 +62,7 @@ const allRoutes = [
     element: <OutsideLayout />,
     children: [
       { index: true, element: <NewsBlog /> },
-      { path: 'news-blog', element: < NewsBlog/> },
+      { path: 'news-blog', element: < NewsBlog /> },
     ],
   },
   {
@@ -69,7 +70,7 @@ const allRoutes = [
     element: <OutsideLayout />,
     children: [
       { index: true, element: <ChoosePlan /> },
-      { path: 'choose-plan', element: < ChoosePlan/> },
+      { path: 'choose-plan', element: < ChoosePlan /> },
     ],
   },
   {
@@ -77,7 +78,15 @@ const allRoutes = [
     element: <OutsideLayout />,
     children: [
       { index: true, element: <Payment /> },
-      { path: 'choose-plan', element: < Payment/> },
+      { path: 'choose-plan', element: < Payment /> },
+    ],
+  },
+  {
+    path: '/payment-redirect',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <PaymentRedirect /> },
+      { path: 'payment-redirect', element: < PaymentRedirect /> },
     ],
   },
   {

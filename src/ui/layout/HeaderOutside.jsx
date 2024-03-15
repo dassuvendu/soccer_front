@@ -12,6 +12,7 @@ import {
   AiOutlineLogout,
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import Login from "../../pages/Auth/Login/Login";
 
 const HeaderOutside = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const HeaderOutside = () => {
         </Navbar.Collapse>
       </Navbar>
       {/* Login Modal start here */}
-      {openLoginModal && (
+      {/* {openLoginModal && (
         <Modal
           show={openLoginModal}
           size="5xl"
@@ -161,11 +162,15 @@ const HeaderOutside = () => {
             </div>
           </Modal.Body>
         </Modal>
-      )}
+      )} */}
+      <Login
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
       {/* Login Modal ends here */}
 
       {/* Register Modal start here */}
-      {openRegisterModal && (
+      {/* {openRegisterModal && (
         <Modal
           show={openRegisterModal}
           size="5xl"
@@ -239,7 +244,7 @@ const HeaderOutside = () => {
             </div>
           </Modal.Body>
         </Modal>
-      )}
+      )} */}
       {/* Register Modal ends here */}
     </div>
   );

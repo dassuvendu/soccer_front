@@ -43,13 +43,15 @@ const Payment = (props) => {
               <div className="w-full max-w-4xl p-6 mx-auto my-0 shadow-xl bg-[#2aa9e1] rounded-2xl lg:p-10">
                 <div className="container mx-auto my-0">
                   <div className="md:flex">
-                    <div className="w-2/5 hidden lg:block">
-                      <div className="text-center">
-                        <img
-                          src={paymentIcon}
-                          alt="paymentIcon"
-                          className="rounded-xl"
-                        />
+                    <div className="w-2/5 flex justify-center items-center">
+                      <div className="hidden lg:block">
+                        <div className="text-center">
+                          <img
+                            src={paymentIcon}
+                            alt="paymentIcon"
+                            className="rounded-xl w-64"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="w-full lg:w-3/5">
