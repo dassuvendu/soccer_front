@@ -109,7 +109,7 @@ const RequestPredictionList = ({ errorMessage }) => {
             <div>No Data Found</div>
           ) : (
             <>
-              {currentItems.map((dat) => (
+              {currentItems?.map((dat) => (
                 <div
                   key={dat.id}
                   className={`${
@@ -176,7 +176,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                             } font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-0`}
                           >
                             <b>
-                              {dat?.fixture?.venue?.name.length > 30
+                              {dat?.fixture?.venue?.name?.length > 30
                                 ? dat?.fixture?.venue?.name.substring(0, 30) +
                                   "..."
                                 : dat?.fixture?.venue?.name}

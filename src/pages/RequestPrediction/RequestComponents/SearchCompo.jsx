@@ -4,7 +4,6 @@ import Select from "react-select";
 import { useState } from "react";
 import { getFixtures, getFixturesByleague, getSeasons } from "../../../reducers/PredictionsSlice";
 
-
 export const SearchCompo = ({onError}) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
