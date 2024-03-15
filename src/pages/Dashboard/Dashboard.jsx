@@ -1,21 +1,24 @@
 import { Link } from "react-router-dom";
-import {
-  BuyTokenIcon,
-  LaLiya,
-  LigueIcon,
-  PremierLeague,
-  SerieA,
-  UEFAChampionsLeagueDarkIcon,
-  UEFAChampionsLeagueIcon,
-  dashboardcard01,
-  dashboardcard02,
-} from "../../assets/images/images";
-import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { BuyTokenIcon } from "../../assets/images/images";
+import { FiArrowRight } from "react-icons/fi";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { getLeagues } from "../../reducers/LeagueSlice";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
+  const { league } = useSelector((state) => state.league);
+  const [loadingdash, setLoadingDash] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLeagues({})).then(() => {
+      setLoadingDash(false);
+    });
+  }, [dispatch]);
+
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full pt-4 mb-0">
@@ -120,130 +123,51 @@ const Dashboard = () => {
           >
             Explore Matches from your Favorite Leagues
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-            <div
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-            >
-              {themeMode === "light" ? (
-                <img
-                  src={UEFAChampionsLeagueDarkIcon}
-                  alt="UEFAChampionsLeagueDarkIcon"
-                  className="mb-4 inline-block"
-                />
-              ) : (
-                <img
-                  src={UEFAChampionsLeagueIcon}
-                  alt="UEFAChampionsLeagueIcon"
-                  className="mb-4 inline-block"
-                />
-              )}
-              <h3
-                className={`font-Montserrat ${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } font-bold text-[16px] leading-[20px] mb-2`}
-              >
-                UEFA Champions League
-              </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                Europe
-              </p>
+          {!loadingdash ? (
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+              {league.map((data) => (
+                <div
+                  className={`${
+                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                  } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+                  key={data.id}
+                >
+                  {themeMode === "light" ? (
+                    <img
+                      src={data.league.logo}
+                      alt="UEFAChampionsLeagueDarkIcon"
+                      className="mb-4 inline-block"
+                    />
+                  ) : (
+                    <img
+                      src={data.league.logo}
+                      alt="UEFAChampionsLeagueIcon"
+                      className="mb-4 inline-block"
+                    />
+                  )}
+                  <h3
+                    className={`font-Montserrat ${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } font-bold text-[16px] leading-[20px] mb-2`}
+                  >
+                    {data.league.name}
+                  </h3>
+                  <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
+                    {data.country.name}
+                  </p>
+                </div>
+              ))}
             </div>
-            <div
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-            >
-              <img
-                src={PremierLeague}
-                alt="PremierLeague"
-                className="mb-4 inline-block"
+          ) : (
+            <div className="text-center">
+              <Spinner
+                color="pink"
+                aria-label="Warning spinner example"
+                size="lg"
               />
-              <h3
-                className={`font-Montserrat ${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } font-bold text-[16px] leading-[20px] mb-2`}
-              >
-                Premier <br></br> League
-              </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                England
-              </p>
+              <span className="pl-3">Loading...</span>
             </div>
-            <div
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-            >
-              <img src={LaLiya} alt="LaLiya" className="mb-4 inline-block" />
-              <h3
-                className={`font-Montserrat ${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } font-bold text-[16px] leading-[20px] mb-8`}
-              >
-                La Liya
-              </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">Spain</p>
-            </div>
-            <div
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-            >
-              <img src={SerieA} alt="SerieA" className="mb-4 inline-block" />
-              <h3
-                className={`font-Montserrat ${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } font-bold text-[16px] leading-[20px] mb-8`}
-              >
-                Serie A
-              </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">Italy</p>
-            </div>
-            <div
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-            >
-              <img
-                src={LigueIcon}
-                alt="UEFAChampionsLeagueIcon"
-                className="mb-6 inline-block"
-              />
-              <h3
-                className={`font-Montserrat ${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } font-bold text-[16px] leading-[20px] mb-8`}
-              >
-                Ligue 1
-              </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                France
-              </p>
-            </div>
-            <div
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-            >
-              <img
-                src={LigueIcon}
-                alt="UEFAChampionsLeagueIcon"
-                className="mb-6 inline-block"
-              />
-              <h3
-                className={`font-Montserrat ${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } font-bold text-[16px] leading-[20px] mb-8`}
-              >
-                Bundesliga
-              </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                France
-              </p>
-            </div>
-          </div>
+          )}
         </div>
         {/* Explore Matches section ends here */}
       </div>
