@@ -144,9 +144,11 @@ const Dashboard = () => {
                   themeMode === "light" ? "text-black" : "text-white"
                 } font-bold text-[16px] leading-[20px] mb-2`}
               >
-                World to Europe
+                UEFA Champions League
               </h3>
-              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">World</p>
+              <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
+                Europe
+              </p>
             </div>
             <div
               className={`${
