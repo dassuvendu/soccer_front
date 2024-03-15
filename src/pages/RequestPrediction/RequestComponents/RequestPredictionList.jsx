@@ -19,13 +19,20 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-  const [homeTeamId, sethomeTeamId] = useState(null);
-  console.log("home", homeTeamId);
+  const [teamId, setTeamId] = useState('');
+  const [hometeamId, setHomeTeamId] = useState(null);
+  const [awayteamId, setAwayTeamId] = useState(null);
+ 
+
 
   const viewDetailsModalHandler = (id) => {
-    sethomeTeamId(id);
-
-  const viewDetailsModalHandler = () => {
+    setTeamId(id);
+    const concatenatedString = teamId
+    const parts = concatenatedString.split(":");
+    const homeID = parts[0];
+    const awayID = parts[1];
+    setHomeTeamId(homeID)
+    setAwayTeamId(awayID)
     setOpenViewDetailsModal(true);
   };
   const handleModalClose = () => {
@@ -204,7 +211,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                       <Link
                         className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
                         onClick={() =>
-                          viewDetailsModalHandler(dat?.teams?.home?.id)
+                          viewDetailsModalHandler(`${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`)
                         }
                       >
                         View Prediction{" "}
@@ -325,7 +332,8 @@ const RequestPredictionList = ({ errorMessage }) => {
       <RequestModal
         openViewDetailsModal={openViewDetailsModal}
         onClose={handleModalClose}
-        homeTeamId={homeTeamId}
+        homeTeamId={hometeamId}
+        awayteamId={awayteamId}
       />
       {/* modal section ends here */}
     </div>
