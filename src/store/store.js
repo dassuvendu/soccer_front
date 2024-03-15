@@ -3,6 +3,7 @@ import darkModeSlice from "../reducers/darkModeSlice";
 import LeagueSlice from '../reducers/LeagueSlice';
 import AuthSlice from '../reducers/authSlice';
 import PredictionsSlice from '../reducers/PredictionsSlice';
+import CookedSlipSlice from '../reducers/CookedSlipSlice';
 
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     league: LeagueSlice,
     prediction: PredictionsSlice,
     auth: AuthSlice,
+    cookedSlips: CookedSlipSlice
   },
   devTools: import.meta.env.DEV,
 });
