@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postpredictions } from "../reducers/PredictionsSlice";
 
 export const useReqPredicDateHook = () => {
     const dispatch = useDispatch();
@@ -52,7 +51,7 @@ export const useReqPredicDateHook = () => {
     }
   
     useEffect(() => {
-        dispatch(postpredictions({ "fixture": 198772 }))
+       
       }, [dispatch])
   
     return predicDate;

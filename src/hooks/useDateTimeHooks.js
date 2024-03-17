@@ -8,8 +8,8 @@ export const useDateList = (date) => {
 
   let matchDateList = []
 
-  if (fixtures && fixtures.length) {
-    fixtures.forEach((item) => {
+  if (fixtures?.data && fixtures?.data?.length) {
+    fixtures?.data?.forEach((item) => {
       let dateString = item?.fixture.date;
       let date = new Date(dateString);
       let months = [
@@ -63,8 +63,8 @@ export const useTimeList = (time) => {
 
   let matchTimeList = [];
 
-  if (fixtures && fixtures.length) {
-    fixtures.forEach((item) => {
+  if (fixtures?.data && fixtures?.data?.length) {
+    fixtures?.data?.forEach((item) => {
       let dateString = item.fixture.date;
       let date = new Date(dateString);
       // Get time

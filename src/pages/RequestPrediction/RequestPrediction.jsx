@@ -1,14 +1,13 @@
 import { requestPredictionBanner } from "../../assets/images/images";
-import { useSelector } from "react-redux";
 import { SearchCompo } from "./RequestComponents/SearchCompo";
 import { Prediction } from "./RequestComponents/Prediction";
 import RequestPredictionList from "./RequestComponents/RequestPredictionList";
 import { useEffect, useState } from "react";
 
 const RequestPrediction = () => {
-  const themeMode = useSelector((state) => state.darkmode.mode);
 
   const [errorMessage, setErrorMessage] = useState("");
+
 
   const handleError = (data) => {
     setErrorMessage(data);
@@ -16,6 +15,7 @@ const RequestPrediction = () => {
   useEffect(() => {
     console.log(errorMessage);
   }, [errorMessage]);
+
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">

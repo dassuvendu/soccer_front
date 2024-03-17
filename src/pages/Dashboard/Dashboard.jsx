@@ -14,8 +14,10 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getLeagues({})).then(() => {
-      setLoadingDash(false);
+    dispatch(getLeagues({})).then((res) => {
+      if(res?.payload?.status === true){
+        setLoadingDash(false);
+      }
     });
   }, [dispatch]);
 
@@ -125,7 +127,7 @@ const Dashboard = () => {
           </h2>
           {!loadingdash ? (
             <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-              {league.map((data) => (
+              {league?.data?.map((data) => (
                 <div
                   className={`${
                     themeMode === "light" ? "bg-white" : "bg-[#191D23]"

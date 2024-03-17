@@ -8,7 +8,7 @@ export const getFixtures = createAsyncThunk(
     try {
       const response = await api.post('/api/fixtures',userInput);
       if (response.status === 200) {
-        return response.data.data;
+        return response.data;
       } else {
         let errors = errorHandler(response);
         return rejectWithValue(errors);
@@ -25,7 +25,7 @@ export const getFixturesByleague = createAsyncThunk(
     try {
       const response = await api.post('/api/leagues',userInput);
       if (response.status === 200) {
-        return response.data.data;
+        return response.data;
       } else {
         let errors = errorHandler(response);
         return rejectWithValue(errors);
@@ -42,7 +42,7 @@ export const getSeasons = createAsyncThunk(
     try {
       const response = await api.post('/api/seasons',userInput);
       if (response.status === 200) {
-        return response.data.data;
+        return response.data;
       } else {
         let errors = errorHandler(response);
         return rejectWithValue(errors);
@@ -53,49 +53,49 @@ export const getSeasons = createAsyncThunk(
     }
   }
 );
-export const postpredictions = createAsyncThunk(
-  'user/getpredic',
-  async (userInput, { rejectWithValue }) => {
-    try {
-      const response = await api.post('/api/predictions',userInput);
-      if (response.status === 200) {
+// export const postpredictions = createAsyncThunk(
+//   'user/getpredic',
+//   async (userInput, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post('/api/predictions',userInput);
+//       if (response.status === 200) {
           
-        return response.data.data;
-      } else {
-        let errors = errorHandler(response);
-        return rejectWithValue(errors);
-      }
-    } catch (err) {
-      let errors = errorHandler(err);
-      return rejectWithValue(errors);
-    }
-  }
-);
-export const pagination = createAsyncThunk(
-  'user/pagination',
-  async (userInput, { rejectWithValue }) => {
-    try {
-      const response = await api.post('/api/fixtures',userInput);
-      if (response.status === 200) { 
+//         return response.data.data;
+//       } else {
+//         let errors = errorHandler(response);
+//         return rejectWithValue(errors);
+//       }
+//     } catch (err) {
+//       let errors = errorHandler(err);
+//       return rejectWithValue(errors);
+//     }
+//   }
+// );
+// export const pagination = createAsyncThunk(
+//   'user/pagination',
+//   async (userInput, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post('/api/fixtures',userInput);
+//       if (response.status === 200) { 
          
-        return response.data.data;
-      } else {
-        let errors = errorHandler(response);
-        return rejectWithValue(errors);
-      }
-    } catch (err) {
-      let errors = errorHandler(err);
-      return rejectWithValue(errors);
-    }
-  }
-);
+//         return response.data.data;
+//       } else {
+//         let errors = errorHandler(response);
+//         return rejectWithValue(errors);
+//       }
+//     } catch (err) {
+//       let errors = errorHandler(err);
+//       return rejectWithValue(errors);
+//     }
+//   }
+// );
 export const LastHomeResult = createAsyncThunk(
   'user/LasthomeResult',
   async (userInput, { rejectWithValue }) => {
     try {
       const response = await api.post('/api/fixtures',userInput);
       if (response?.status === 200) { 
-        return response.data.data;
+        return response.data;
       } else {
         let errors = errorHandler(response);
         return rejectWithValue(errors);
@@ -112,7 +112,7 @@ export const LastAwayResult = createAsyncThunk(
     try {
       const response = await api.post('/api/fixtures',userInput);
       if (response?.status === 200) { 
-        return response.data.data;
+        return response.data;
       } else {
         let errors = errorHandler(response);
         return rejectWithValue(errors);
@@ -130,8 +130,7 @@ const initialState = {
   fixtures: [],
   allLeague: [],
   seasons:[],
-  prediction: [],
-  page:[],
+  // page:[],
   lastHomeResult:[],
   lastAwayResult:[]
 };
@@ -187,36 +186,36 @@ const PredictionsSlice = createSlice({
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';
       })
-      .addCase(postpredictions.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-        state.message = null;
-      })
-      .addCase(postpredictions.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
-        state.prediction = payload; 
-      })
-      .addCase(postpredictions.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = true;
-        state.message = payload?.message || 'Something went wrong. Try again later.';
-      })
-      .addCase(pagination.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-        state.message = null;
-      })
-      .addCase(pagination.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
-        state.page = payload; 
-      })
-      .addCase(pagination.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = true;
-        state.message = payload?.message || 'Something went wrong. Try again later.';
-      })
+      // .addCase(postpredictions.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      //   state.message = null;
+      // })
+      // .addCase(postpredictions.fulfilled, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = null;
+      //   state.prediction = payload; 
+      // })
+      // .addCase(postpredictions.rejected, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = true;
+      //   state.message = payload?.message || 'Something went wrong. Try again later.';
+      // })
+      // .addCase(pagination.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      //   state.message = null;
+      // })
+      // .addCase(pagination.fulfilled, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = null;
+      //   state.page = payload; 
+      // })
+      // .addCase(pagination.rejected, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = true;
+      //   state.message = payload?.message || 'Something went wrong. Try again later.';
+      // })
       .addCase(LastHomeResult.pending, (state) => {
         state.isLoading = true;
         state.error = null;

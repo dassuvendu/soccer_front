@@ -11,33 +11,47 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import { getFixtures } from "../../../reducers/PredictionsSlice";
+import {
+  LastAwayResult,
+  LastHomeResult,
+  getFixtures,
+} from "../../../reducers/PredictionsSlice";
 
 const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
+  const [modalLoader, setModalLoader] = useState(true);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-  const [teamId, setTeamId] = useState('');
-  const [hometeamId, setHomeTeamId] = useState(null);
-  const [awayteamId, setAwayTeamId] = useState(null);
- 
-
 
   const viewDetailsModalHandler = (id) => {
-    setTeamId(id);
-    const concatenatedString = teamId
-    const parts = concatenatedString.split(":");
-    const homeID = parts[0];
-    const awayID = parts[1];
-    setHomeTeamId(homeID)
-    setAwayTeamId(awayID)
     setOpenViewDetailsModal(true);
+    Promise.all([
+      dispatch(LastHomeResult({ team: id.split(":")[0], last: "5" })),
+      dispatch(LastAwayResult({ team: id.split(":")[1], last: "5" })),
+    ]).then(([homeRes, awayRes]) => {
+      if (homeRes?.payload?.status === true) {
+        setModalLoader(false);
+        setModalData(homeRes?.payload?.data);
+      } else {
+        setModalLoader(true);
+      }
+      if (awayRes?.payload?.status === true) {
+        setModalData(awayRes?.payload?.data);
+        setModalLoader(false);
+      } else {
+        setModalLoader(true);
+      }
+    });
   };
+
   const handleModalClose = () => {
+    setModalData(null);
     setOpenViewDetailsModal(false);
   };
+
   //date formate
   const newdate = new Date();
   const changeDateformate = newdate.toISOString().split("T")[0];
@@ -57,11 +71,16 @@ const RequestPredictionList = ({ errorMessage }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFixtures({ date: changeDateformate })).then(() => {
-      setLoadingData(false);
-      setHide(true);
+    dispatch(getFixtures({ date: changeDateformate })).then((res) => {
+      if (res?.payload?.status === true) {
+        setLoadingData(false);
+        setHide(true);
+      } else {
+        setLoadingData(true);
+        setHide(false);
+      }
     });
-  }, [dispatch]);
+  }, [dispatch, changeDateformate]);
 
   const [matchDateList] = useDateList({ date: changeDateformate });
 
@@ -76,11 +95,16 @@ const RequestPredictionList = ({ errorMessage }) => {
   const itemsPerPage = 9;
   const [searchPage, setSearchPage] = useState(null);
 
-  const currentItems = fixtures.slice(
+  const currentItems = fixtures?.data?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  const totalPages = Math.ceil(fixtures.length / itemsPerPage);
+
+  const isDataFound = currentItems && currentItems.length > 0;
+
+  const totalPages = fixtures?.data
+    ? Math.ceil(fixtures.data.length / itemsPerPage)
+    : isDataFound;
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -99,128 +123,150 @@ const RequestPredictionList = ({ errorMessage }) => {
     (_, index) => index + 1
   );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
 
   return (
     <div>
       {!loadingData ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {error ? (
-            <div>No Data Found</div>
+            <div
+              className={`${
+                themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+              } text-2xl flex justify-center items-center`}
+            >
+              No Data Found
+            </div>
           ) : (
             <>
-              {currentItems?.map((dat) => (
-                <div
-                  key={dat.id}
-                  className={`${
-                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-2xl shadow-xl`}
-                >
+              {currentItems && currentItems.length > 0 ? (
+                currentItems.map((dat) => (
                   <div
-                    className={`flex justify-between items-center ${
-                      themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
-                    } px-5 py-3 rounded-t-2xl h-16`}
+                    key={dat.id}
+                    className={`${
+                      themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } rounded-2xl shadow-xl`}
                   >
-                    <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                      {dat?.league?.name}
-                    </div>
-                    <div className="text-right">
-                      <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                        {date?.label}
-                      </p>
-                      <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                        {time?.label}
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className={`pt-6 pb-4 px-3 border-2  ${
-                      themeMode === "light"
-                        ? "border-[#2aa9e1]"
-                        : "border-[#2E3B4D]"
-                    } rounded-b-2xl`}
-                  >
-                    <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                      <div className="text-center">
-                        <img
-                          src={dat?.teams?.home?.logo}
-                          alt="DeportivoPastoIcon"
-                          className="inline-block mb-2"
-                          width={58}
-                          height={58}
-                        />
-                        <p
-                          className={`font-Syne text-[14px] leading-[20px] font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          {dat?.teams?.home?.name}
+                    <div
+                      className={`flex justify-between items-center ${
+                        themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
+                      } px-5 py-3 rounded-t-2xl h-16`}
+                    >
+                      <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
+                        {dat?.league?.name}
+                      </div>
+                      <div className="text-right">
+                        <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
+                          {date?.label}
                         </p>
-                      </div>
-                      <div className="flex justify-center items-center">
-                        <div className="mb-4 text-center">
-                          <p
-                            className={`${
-                              themeMode === "light"
-                                ? "text-black"
-                                : "text-white"
-                            } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
-                          >
-                            Venue
-                          </p>
-                          <span
-                            className={`${
-                              themeMode === "light"
-                                ? "text-black"
-                                : "text-white"
-                            } font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-0`}
-                          >
-                            <b>
-                              {dat?.fixture?.venue?.name?.length > 30
-                                ? dat?.fixture?.venue?.name.substring(0, 30) +
-                                  "..."
-                                : dat?.fixture?.venue?.name}
-                            </b>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <img
-                          src={dat?.teams?.away?.logo}
-                          alt="EnvigadoIcon"
-                          className="inline-block mb-2"
-                          width={58}
-                          height={58}
-                        />
-                        <p
-                          className={`font-Syne text-[14px] leading-[20px] font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          {dat?.teams?.away?.name}
+                        <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
+                          {time?.label}
                         </p>
                       </div>
                     </div>
                     <div
-                      className={` ${
+                      className={`pt-6 pb-4 px-3 border-2  ${
                         themeMode === "light"
-                          ? "bg-gray-800 hover:bg-black"
-                          : "bg-black hover:bg-gray-800"
-                      } block rounded-full text-center mb-0`}
+                          ? "border-[#2aa9e1]"
+                          : "border-[#2E3B4D]"
+                      } rounded-b-2xl`}
                     >
-                      <Link
-                        className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                        onClick={() =>
-                          viewDetailsModalHandler(`${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`)
-                        }
+                      <div className="grid grid-cols-3 gap-4 mb-4 h-32">
+                        <div className="text-center">
+                          <img
+                            src={dat?.teams?.home?.logo}
+                            alt="DeportivoPastoIcon"
+                            className="inline-block mb-2"
+                            width={58}
+                            height={58}
+                          />
+                          <p
+                            className={`font-Syne text-[14px] leading-[20px] font-bold ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            }`}
+                          >
+                            {dat?.teams?.home?.name}
+                          </p>
+                        </div>
+                        <div className="flex justify-center items-center">
+                          <div className="mb-4 text-center">
+                            <p
+                              className={`${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                            >
+                              Venue
+                            </p>
+                            <span
+                              className={`${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              } font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-0`}
+                            >
+                              <b>
+                                {dat?.fixture?.venue?.name?.length > 30
+                                  ? dat?.fixture?.venue?.name.substring(0, 30) +
+                                    "..."
+                                  : dat?.fixture?.venue?.name}
+                              </b>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <img
+                            src={dat?.teams?.away?.logo}
+                            alt="EnvigadoIcon"
+                            className="inline-block mb-2"
+                            width={58}
+                            height={58}
+                          />
+                          <p
+                            className={`font-Syne text-[14px] leading-[20px] font-bold ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            }`}
+                          >
+                            {dat?.teams?.away?.name}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className={` ${
+                          themeMode === "light"
+                            ? "bg-gray-800 hover:bg-black"
+                            : "bg-black hover:bg-gray-800"
+                        } block rounded-full text-center mb-0`}
                       >
-                        View Prediction{" "}
-                        <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                      </Link>
+                        <Link
+                          className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                          onClick={() =>
+                            viewDetailsModalHandler(
+                              `${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`
+                            )
+                          }
+                        >
+                          View Prediction{" "}
+                          <FiArrowRight className="text-[#08a5f5] ml-0.5" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 text-center">
+                  No More Data
                 </div>
-              ))}
+              )}
             </>
           )}
         </div>
@@ -239,15 +285,27 @@ const RequestPredictionList = ({ errorMessage }) => {
       {hide && !error && (
         <div className="md:flex justify-between mt-8">
           <div className="mb-2 md:mb-0 text-center">
-            <p
-              className={`${
-                themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-              } text-xs`}
-            >
-              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
-              {Math.min(currentPage * itemsPerPage, fixtures.length)} of{" "}
-              {fixtures.length} entries
-            </p>
+            {isDataFound ? (
+              <p
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-xs`}
+              >
+                Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+                {Math.min(currentPage * itemsPerPage, fixtures?.data?.length)}{" "}
+                of {fixtures?.data?.length} entries
+              </p>
+            ) : (
+              <p
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-xs`}
+              >
+                Showing {(currentPage - 0) * itemsPerPage + 0} to{" "}
+                {Math.min(currentPage * itemsPerPage, fixtures?.data?.length)}{" "}
+                of {fixtures?.data?.length} entries
+              </p>
+            )}
           </div>
           <div className="min-w-[450px]">
             <div className="md:flex justify-between items-center">
@@ -285,20 +343,24 @@ const RequestPredictionList = ({ errorMessage }) => {
                   ))}
 
                   <li>
-                    <Link
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                      onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                      <BsChevronRight />
-                    </Link>
+                    {isDataFound && (
+                      <Link
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                      >
+                        <BsChevronRight />
+                      </Link>
+                    )}
                   </li>
                   <li>
-                    <Link
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                      onClick={() => setCurrentPage(totalPages)}
-                    >
-                      <BsChevronDoubleRight />
-                    </Link>
+                    {isDataFound && (
+                      <Link
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        onClick={() => setCurrentPage(totalPages)}
+                      >
+                        <BsChevronDoubleRight />
+                      </Link>
+                    )}
                   </li>
                 </ul>
               </div>
@@ -332,8 +394,8 @@ const RequestPredictionList = ({ errorMessage }) => {
       <RequestModal
         openViewDetailsModal={openViewDetailsModal}
         onClose={handleModalClose}
-        homeTeamId={hometeamId}
-        awayteamId={awayteamId}
+        modalLoader={modalLoader}
+        modalData={modalData}
       />
       {/* modal section ends here */}
     </div>
