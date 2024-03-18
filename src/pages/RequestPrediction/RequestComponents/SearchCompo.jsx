@@ -22,8 +22,11 @@ export const SearchCompo = ({ onError }) => {
     console.log(e);
     setLeague(e);
     setLoading(true);
-    const date = e.toISOString().split("T")[0];
-    dispatch(getFixtures({ date: date })).then((res) => {
+    const year = e.getFullYear();
+  const month = String(e.getMonth() + 1).padStart(2, "0");
+  const day = String(e.getDate()).padStart(2, "0");
+  const newDate = `${year}-${month}-${day}`
+    dispatch(getFixtures({ date: newDate})).then((res) => {
       if (res?.payload?.status === true) {
         dispatch(getFixturesByleague({})).then((res) => {
           if (res?.payload?.status === true) {
