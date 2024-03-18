@@ -196,8 +196,9 @@ body {
     outline: none !important;
 }
 .copy_link_box button {
-    background: #08a1f8 !important;
+    background: #ffffff !important;
     border-radius: 0 25px 25px 0;
+    color: #000000;
 }
 .copy_link_box button:focus {
     outline: none !important;

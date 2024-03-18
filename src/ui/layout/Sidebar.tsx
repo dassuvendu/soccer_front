@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 // import Logo from '../images/logo/logo.svg';
 // import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarLinkGroup from "../layout/SidebarLinkGroup";
-import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, mobileLogo } from '../../assets/images/images';
+import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, logoIcon, mobileLogo } from '../../assets/images/images';
 
 import { AiFillSetting, AiFillTag, AiFillTags, AiOutlineDashboard, AiOutlineLogout, AiOutlineNotification, AiOutlineUser, BsPersonWorkspace, FaChartPie, GiChampions, GrTemplate, HiTemplate, MdManageAccounts, PiGitPullRequestBold, PiLightbulbLight, RiTeamLine, RxDashboard, SiPremierleague } from "../../assets/icons/index";
 
@@ -77,7 +77,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
         <div className='block lg:hidden'>
           <NavLink to="/">
-            <img src={mobileLogo} alt="mobileLogo" className='w-28' />
+            <img src={logoIcon} alt="logoIcon" className='w-[30px]' />
           </NavLink>
         </div>
         <div className='hidden lg:block'>
