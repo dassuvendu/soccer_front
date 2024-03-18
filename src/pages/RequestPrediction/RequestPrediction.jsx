@@ -5,9 +5,7 @@ import RequestPredictionList from "./RequestComponents/RequestPredictionList";
 import { useEffect, useState } from "react";
 
 const RequestPrediction = () => {
-
   const [errorMessage, setErrorMessage] = useState("");
-
 
   const handleError = (data) => {
     setErrorMessage(data);
@@ -16,7 +14,6 @@ const RequestPrediction = () => {
     console.log(errorMessage);
   }, [errorMessage]);
 
-
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4">
@@ -24,12 +21,12 @@ const RequestPrediction = () => {
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
           style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-full md:w-5/12 py-24 pl-14">
+          <div className="w-full md:w-5/12 py-28 pl-14">
             <h1 className="font-Bebas text-5xl tracking-normal text-white mb-4">
               Match Predictions
             </h1>
             <p className="text-white text-[18px] leading-[24px] font-medium">
-              Explore different slips containing multiple matches for best odds.
+              Explore multiple matches for best insights
             </p>
           </div>
         </div>

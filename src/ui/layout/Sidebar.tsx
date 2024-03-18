@@ -212,7 +212,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Manage Users --> */}
               <li className='mb-0'>
                 <NavLink
-                  to="/team-comparisions"
+                  to="/Stats-comparisions"
                   onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
@@ -222,7 +222,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   <RiTeamLine className='text-4xl' />
-                  Team Comparisions
+                  Stats Comparisions
                 </NavLink>
               </li>
               {/* <!-- Menu Item Manage Users --> */}
@@ -257,7 +257,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       className="inline-block w-6 h-6 ml-1"
                     />
                    }
-                  UFFA Champions
+                  UEFA Champions
                 </NavLink>
               </li>
               {/* <!-- Menu Item Settings --> */}

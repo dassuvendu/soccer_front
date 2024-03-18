@@ -167,7 +167,7 @@ const allRoutes = [
     ],
   },
   {
-    path: '/team-comparisions',
+    path: '/stats-comparisions',
     element: <InsideLayout />,
     children: [
       {

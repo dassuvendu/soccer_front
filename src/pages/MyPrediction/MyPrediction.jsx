@@ -53,17 +53,14 @@ const MyPrediction = () => {
         </div>
         <div
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
-          style={{ backgroundImage: `url(${MyPredictionsbanner})` }}
+          style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-8/12 py-16 pl-14">
-            <h1 className="font-Bebas text-2xl md:text-4xl tracking-normal text-black mb-2">
-              Stake responsibly, keep correct score accuracy in mind
+          <div className="w-full md:w-5/12 py-28 pl-14">
+            <h1 className="font-Bebas text-5xl tracking-normal text-white mb-4">
+              My Prediction
             </h1>
-            <p className="text-black text-[18px] leading-[28px] font-medium">
-              While our AI predictions can be a useful guide, remember they're {" "}
-              <br></br>
-              <span className="text-[#ff0000]">not foolproof</span>. Actual
-              results might differ, so consider the accuracy percentages
+            <p className="text-white text-[18px] leading-[24px] font-medium">
+              Explore all your unlocked predictions
             </p>
           </div>
         </div>
