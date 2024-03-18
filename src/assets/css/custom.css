@@ -196,8 +196,9 @@ body {
     outline: none !important;
 }
 .copy_link_box button {
-    background: #08a1f8 !important;
+    background: #ffffff !important;
     border-radius: 0 25px 25px 0;
+    color: #000000;
 }
 .copy_link_box button:focus {
     outline: none !important;
@@ -313,6 +314,17 @@ body {
 
   
   /*  */
+
+  .p-PaymentDetails-group .TermsText {
+    color: #ffffff !important;
+  }
+
+  .Progress_bar_left > div {
+    background: #2aa9e1;
+  }
+  .Progress_bar_right > div {
+    background: #151718;
+  }
 
 
 @media only screen and (max-width:767px) {
