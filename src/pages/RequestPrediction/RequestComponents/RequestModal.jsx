@@ -114,7 +114,7 @@ export const RequestModal = ({
                       {/* team1 */}
 
                       <div>
-                        <h4 className="font-Bebas text-xl tracking-normal text-black mb-4 text-center mb-4 mt-4">
+                        <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
                           Home History
                         </h4>
                         {lastHomeResult?.data?.map((data) => (
@@ -259,10 +259,7 @@ export const RequestModal = ({
                 </>
               ) : (
                 <div className="text-center">
-                  <Spinner
-                    color="success"
-                    size="md"
-                  />
+                  <Spinner color="success" size="md" />
                   <span className="pl-3">Loading...</span>
                 </div>
               )}

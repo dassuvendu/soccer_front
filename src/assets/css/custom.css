@@ -318,6 +318,13 @@ body {
     color: #ffffff !important;
   }
 
+  .Progress_bar_left > div {
+    background: #2aa9e1;
+  }
+  .Progress_bar_right > div {
+    background: #151718;
+  }
+
 
 @media only screen and (max-width:767px) {
 
