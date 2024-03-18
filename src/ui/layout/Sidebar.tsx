@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 // import Logo from '../images/logo/logo.svg';
 // import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarLinkGroup from "../layout/SidebarLinkGroup";
-import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, mobileLogo } from '../../assets/images/images';
+import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, logoIcon, mobileLogo } from '../../assets/images/images';
 
 import { AiFillSetting, AiFillTag, AiFillTags, AiOutlineDashboard, AiOutlineLogout, AiOutlineNotification, AiOutlineUser, BsPersonWorkspace, FaChartPie, GiChampions, GrTemplate, HiTemplate, MdManageAccounts, PiGitPullRequestBold, PiLightbulbLight, RiTeamLine, RxDashboard, SiPremierleague } from "../../assets/icons/index";
 
@@ -77,7 +77,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
         <div className='block lg:hidden'>
           <NavLink to="/">
-            <img src={mobileLogo} alt="mobileLogo" className='w-28' />
+            <img src={logoIcon} alt="logoIcon" className='w-[30px]' />
           </NavLink>
         </div>
         <div className='hidden lg:block'>
@@ -212,7 +212,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Manage Users --> */}
               <li className='mb-0'>
                 <NavLink
-                  to="/team-comparisions"
+                  to="/Stats-comparisions"
                   onClick={() => setSidebarOpen(!sidebarOpen)}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
@@ -222,7 +222,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   <RiTeamLine className='text-4xl' />
-                  Team Comparisions
+                  Stats Comparisions
                 </NavLink>
               </li>
               {/* <!-- Menu Item Manage Users --> */}
@@ -257,7 +257,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       className="inline-block w-6 h-6 ml-1"
                     />
                    }
-                  UFFA Champions
+                  UEFA Champions
                 </NavLink>
               </li>
               {/* <!-- Menu Item Settings --> */}
@@ -321,6 +321,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     className="inline-block w-6 h-6 ml-1"
                   />
                   Serie A
+                </NavLink>
+              </li>
+              {/* <!-- Menu Item Logs --> */}
+
+               {/* <!-- Menu Item Logs --> */}
+               <li className='mb-3'>
+                <NavLink
+                  to="/bundesliga"
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('ligue') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <img
+                    src={LigueIcon}
+                    alt="LigueIcon"
+                    className="inline-block w-6 h-6 ml-1"
+                  />
+                  Bundesliga
                 </NavLink>
               </li>
               {/* <!-- Menu Item Logs --> */}

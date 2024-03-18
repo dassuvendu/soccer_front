@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getLeagues({})).then((res) => {
-      if(res?.payload?.status === true){
+      if (res?.payload?.status === true) {
         setLoadingDash(false);
       }
     });
@@ -58,8 +58,7 @@ const Dashboard = () => {
                 </span>
               </div>
               <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
-                Explore different slips containing multiple matches for best
-                odds.
+                Explore different slips containing multiple matches
               </p>
               <div
                 className={` ${

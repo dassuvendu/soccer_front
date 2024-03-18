@@ -12,7 +12,6 @@ export const SearchCompo = ({ onError }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
-  const [league, setLeague] = useState("");
   const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isseason, setIsSeason] = useState();
@@ -20,16 +19,14 @@ export const SearchCompo = ({ onError }) => {
 
   const handleDateChange = (e) => {
     console.log(e);
-    setLeague(e);
     setLoading(true);
-    const date = e.toISOString().split("T")[0];
-    dispatch(getFixtures({ date: date })).then((res) => {
+    const year = e.getFullYear();
+  const month = String(e.getMonth() + 1).padStart(2, "0");
+  const day = String(e.getDate()).padStart(2, "0");
+  const newDate = `${year}-${month}-${day}`
+    dispatch(getFixtures({})).then((res) => {
       if (res?.payload?.status === true) {
-        dispatch(getFixturesByleague({})).then((res) => {
-          if (res?.payload?.status === true) {
-            setLoading(false);
-          }
-        });
+        dispatch(getFixturesByleague({}))
       }
     });
   };
@@ -115,30 +112,13 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_League"
             }`}
           >
-            {loading ? (
+          
               <Select
-                isDisabled={league}
-                placeholder={
-                  <div className="text-center">
-                    <Spinner
-                      color="success"
-                      aria-label="Warning spinner example"
-                      size="sm"
-                    />
-                    <span className="pl-3">Loading...</span>
-                  </div>
-                }
-                value="Loading..."
-              />
-            ) : (
-              <Select
-                isDisabled={!league}
                 placeholder="Select or Search League"
                 options={options}
                 onChange={handleLeagueChange}
                 value={options.label} // Step 3: Corrected 'Value' to 'value'
               />
-            )}
           </div>
         </div>
       </div>

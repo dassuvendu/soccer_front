@@ -7,10 +7,16 @@ import { BuyTokenIcon } from "../../assets/images/images";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Label, Select } from "flowbite-react";
+import { Label, Button, Modal, TextInput } from "flowbite-react";
+import ViewComparisonDetails from "./ViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
 
 const TeamComparisions = () => {
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const loginHandler = () => {
+    setOpenLoginModal(true);
+  };
+
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { teams } = useSelector((state) => state.teamComparision);
   const dispatch = useDispatch();
@@ -262,8 +268,10 @@ const TeamComparisions = () => {
                         </div>
                       </div>
                     </div>
-
-                    <button className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4">
+                    <button
+                      onClick={loginHandler}
+                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                    >
                       View comparison
                     </button>
                   </div>
@@ -310,6 +318,23 @@ const TeamComparisions = () => {
           </div>
         </div>
       </div>
+      {/* Login Modal start here */}
+      {openLoginModal && (
+        <Modal
+          show={openLoginModal}
+          size="7xl"
+          onClose={() => setOpenLoginModal(false)}
+          popup
+        >
+          <Modal.Header className="absolute right-0 top-0" />
+          <Modal.Body>
+            <div className="pt-6">
+              <ViewComparisonDetails />
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+      {/* Login Modal ends here */}
     </div>
   );
 };

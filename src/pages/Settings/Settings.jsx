@@ -3,7 +3,11 @@ import { FiArrowRight } from "react-icons/fi";
 
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { settingBanner, userFace } from "../../assets/images/images";
+import {
+  requestPredictionBanner,
+  settingBanner,
+  userFace,
+} from "../../assets/images/images";
 import { Button, FileInput, TextInput } from "flowbite-react";
 import { FaRegCopy } from "react-icons/fa6";
 import { AiFillEdit } from "react-icons/ai";
@@ -22,20 +26,20 @@ const Settings = () => {
             Settings
           </h1>
           <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
-            Request Predictions <FiArrowRight className="text-white ml-0.5" />
+            Match Predictions <FiArrowRight className="text-white ml-0.5" />
           </Link>
         </div>
         {/* Banner start here */}
         <div
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
-          style={{ backgroundImage: `url(${settingBanner})` }}
+          style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-full md:w-9/12 py-6 pl-10 pr-2">
-            <h1 className="font-Bebas text-4xl tracking-normal text-black mb-2">
+          <div className="w-full md:w-9/12 py-14 pl-10 pr-2">
+            <h1 className="font-Bebas text-4xl tracking-normal text-white mb-2">
               Referral Link
             </h1>
             <div className="md:flex items-center mb-5">
-              <div className="copy_link_box bg-black rounded-full max-w-sm flex justify-between mr-4">
+              <div className="copy_link_box bg-black rounded-full max-w-sm flex justify-between mr-4 mb-4 md:mb-0">
                 <TextInput
                   id="base"
                   type="text"
@@ -46,11 +50,11 @@ const Settings = () => {
                   <FaRegCopy className="mr-1" /> Copy
                 </Button>
               </div>
-              <h3 className="text-black text-[24px] leading-[24px] font-medium">
+              <h3 className="text-white text-[24px] leading-[24px] font-medium">
                 Total Referrals : 12
               </h3>
             </div>
-            <p className="text-black text-[16px] leading-[24px] font-medium">
+            <p className="text-white text-[16px] leading-[24px] font-medium">
               Get ready for some easy wins! Just refer as many friends as you
               can, and you'll score free tokens for making predictions. Have
               your pals use your referral link when signing up, and when they

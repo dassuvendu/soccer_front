@@ -50,7 +50,12 @@ import planIcon from "../imagesource/plan_icon.jpg";
 import mobileLogo from "../imagesource/mobile_logo.png";
 import PlaycopeLogoPopup from "../imagesource/Playcope_Logo_popup.png";
 
+import fieldOne from "../imagesource/field01.png";
+import fieldTwo from "../imagesource/field02.png";
+
 export {
+  fieldOne,
+  fieldTwo,
   PlaycopeLogoPopup,
   mobileLogo,
   paymentIcon,
