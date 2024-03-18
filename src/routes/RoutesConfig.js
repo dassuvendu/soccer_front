@@ -23,6 +23,7 @@ import NewsBlog from '../pages/NewsBlog/NewsBlog.jsx';
 import ChoosePlan from '../pages/ChoosePlan/ChoosePlan.jsx';
 import Payment from '../pages/Payment/Payment.jsx';
 import PaymentRedirect from '../pages/Payment/PaymentRedirect.jsx';
+import Bundesliga from '../pages/Bundesliga/Bundesliga.jsx';
 
 const allRoutes = [
   {
@@ -212,6 +213,16 @@ const allRoutes = [
       {
         index: true,
         element: <SerieA />
+      },
+    ],
+  },
+  {
+    path: '/bundesliga',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <Bundesliga />
       },
     ],
   },

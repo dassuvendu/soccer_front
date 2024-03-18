@@ -325,6 +325,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Logs --> */}
 
+               {/* <!-- Menu Item Logs --> */}
+               <li className='mb-3'>
+                <NavLink
+                  to="/bundesliga"
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('ligue') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <img
+                    src={LigueIcon}
+                    alt="LigueIcon"
+                    className="inline-block w-6 h-6 ml-1"
+                  />
+                  Bundesliga
+                </NavLink>
+              </li>
+              {/* <!-- Menu Item Logs --> */}
+
               {/* <!-- Menu Item Logs --> */}
               <li className='mb-3'>
                 <NavLink
