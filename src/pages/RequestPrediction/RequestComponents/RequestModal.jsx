@@ -27,10 +27,6 @@ export const RequestModal = ({
   const [time, setTime] = useState(null);
   console.log(time);
 
-  const [homeResult, setHomeResult] = useState();
-  console.log(homeResult);
-  const [awayResult, setAwayResult] = useState();
-
 
   useEffect(() => {
     setDate(matchDateList);
@@ -83,6 +79,10 @@ export const RequestModal = ({
 
   const handleModal = () => {
     onClose();
+    setHomeDataImg(null)
+    setAwayDataImg(null)
+    setHomeName(null)
+    setAwayName(null)
   };
 
   return (
@@ -110,7 +110,7 @@ export const RequestModal = ({
                    
                     <img
                       src={homeDataImg}
-                      alt="DeportivoPastoIcon"
+                      alt={homeName}
                       className="inline-block mb-2"
                     />
                      
@@ -139,7 +139,7 @@ export const RequestModal = ({
                   <div className="text-center">
                     <img
                       src={awayDataImg}
-                      alt="EnvigadoIcon"
+                      alt={awayName}
                       className="inline-block mb-2"
                     />
                     <p
@@ -168,7 +168,7 @@ export const RequestModal = ({
                             <div className="text-center">
                               <img
                                 src={data?.teams?.home?.logo}
-                                alt="DeportivoPastoIcon"
+                                alt={data?.teams?.home?.name}
                                 className="inline-block mb-2 w-10"
                               />
                             </div>
@@ -182,7 +182,7 @@ export const RequestModal = ({
                             <div className="text-center">
                               <img
                                 src={data?.teams?.away?.logo}
-                                alt="EnvigadoIcon"
+                                alt={data?.teams?.away?.name}
                                 className="inline-block mb-2 w-10"
                               />
                             </div>
@@ -204,7 +204,7 @@ export const RequestModal = ({
                             <div className="text-center">
                               <img
                                 src={data?.teams?.home?.logo}
-                                alt="DeportivoPastoIcon"
+                                alt={data?.teams?.home?.name}
                                 className="inline-block mb-2 w-10"
                               />
                             </div>
@@ -218,7 +218,7 @@ export const RequestModal = ({
                             <div className="text-center">
                               <img
                                 src={data?.teams?.away?.logo}
-                                alt="EnvigadoIcon"
+                                alt={data?.teams?.away?.name}
                                 className="inline-block mb-2 w-10"
                               />
                             </div>
@@ -236,7 +236,7 @@ export const RequestModal = ({
                             <li>
                               <img
                                 src={homeDataImg}
-                                alt="DeportivoPastoIcon"
+                                alt={homeName}
                                 className="inline-block mb-2 w-8"
                               />
                             </li>
@@ -313,7 +313,7 @@ export const RequestModal = ({
                             <li>
                               <img
                                 src={awayDataImg}
-                                alt="EnvigadoIcon"
+                                alt={awayName}
                                 className="inline-block mb-2 w-8 ml-2"
                               />
                             </li>
