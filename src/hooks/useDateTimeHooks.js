@@ -12,44 +12,26 @@ export const useDateList = (date) => {
     fixtures?.data?.forEach((item) => {
       let dateString = item?.fixture.date;
       let date = new Date(dateString);
-      let months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
-      let day = date?.getDate();
-      let monthIndex = date?.getMonth();
-      let year = date?.getFullYear();
-
-      let daysOfWeek = [
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu",
-        "Fri",
-        "Sat",
-      ];
-      let dayOfWeekIndex = date?.getDay();
-      let dayOfWeek = daysOfWeek[dayOfWeekIndex];
-      // formatted date
-      let formattedDate =
-        dayOfWeek + ", " + day + " " + months[monthIndex] + ", " + year;
+  
+      // Define the timezone (e.g., 'UTC', 'America/New_York', etc.)
+      let timezone = 'UTC'; // Change this to the desired timezone
+  
+      let options = {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: timezone,
+      };
+  
+      let formattedDate = date.toLocaleString('en-US', options);
+  
       matchDateList.push({
         label: formattedDate,
       });
     });
   }
-
+  
   useEffect(() => {
     dispatch(getFixtures(date));
   }, []);

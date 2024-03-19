@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BuyTokenIcon } from "../../assets/images/images";
 
@@ -9,6 +9,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Label, Button, Modal, TextInput } from "flowbite-react";
 import ViewComparisonDetails from "./ViewComparisonDetails";
+import { serachTeam } from "../../reducers/TeamComparisonSlice";
 
 const TeamComparisions = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -17,6 +18,63 @@ const TeamComparisions = () => {
   };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
+  const { teams } = useSelector((state) => state.teamComparision);
+  const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState("");
+  const [searchImgInput, setSearchImgInput] = useState(true);
+  const [filteredTeams, setFilteredTeams] = useState([]);
+  const [searchInput1, setSearchInput1] = useState("");
+  const [searchImgInput1, setSearchImgInput1] = useState(true);
+  const [filteredTeams1, setFilteredTeams1] = useState([]);
+  useEffect(() => {
+    dispatch(serachTeam({ name: searchInput }));
+  }, [dispatch, searchInput]);
+  useEffect(() => {
+    dispatch(serachTeam({ name: searchInput1 }));
+  }, [dispatch, searchInput1]);
+  useEffect(() => {
+    // Filter teams based on search input
+    setFilteredTeams(
+      Array.isArray(teams) &&
+        teams?.filter((team) =>
+          team.team.name.toLowerCase().includes(searchInput.toLowerCase())
+        )
+    );
+  }, [teams, searchInput]);
+  useEffect(() => {
+    // Filter teams based on search input
+    setFilteredTeams1(
+      Array.isArray(teams) &&
+        teams?.filter((team) =>
+          team.team.name.toLowerCase().includes(searchInput1.toLowerCase())
+        )
+    );
+  }, [teams, searchInput1]);
+  console.log("teams: ", teams);
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+  const handleInputChange1 = (e) => {
+    setSearchInput1(e.target.value);
+  };
+  const handleteam = (e) => {
+    document.getElementById("listItem").style.display = "none";
+    console.log(e);
+
+    let name = e.split("_")[0];
+    let logo = e.split("_")[1];
+    setSearchInput(name);
+    setSearchImgInput(logo);
+  };
+  const handleteam1 = (e) => {
+    document.getElementById("listItems").style.display = "none";
+    console.log(e);
+
+    let name = e.split("_")[0];
+    let logo = e.split("_")[1];
+    setSearchInput1(name);
+    setSearchImgInput1(logo);
+  };
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -67,16 +125,56 @@ const TeamComparisions = () => {
                           themeMode === "light" ? "text-black" : "text-white"
                         } pb-1 block`}
                       >
-                        Eearch for First Team
+                        Search for First Team
                       </Label>
                       <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                        {searchImgInput && searchInput && (
+                          <img
+                            id="img"
+                            src={searchImgInput}
+                            alt={searchInput}
+                            className="inline-block w-6 h-6 m-2"
+                            width={5}
+                            height={5}
+                          />
+                        )}
                         <input
                           type="text"
                           id="simple-search"
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="First Team"
                           required
+                          value={`${searchInput}`}
+                          onChange={handleInputChange}
                         />
+
+                        <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
+                          {filteredTeams.length > 0 && (
+                            <div>
+                              {filteredTeams.map((team) => (
+                                <li
+                                  id="listItem"
+                                  key={team.id}
+                                  className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
+                                  onClick={() =>
+                                    handleteam(
+                                      `${team.team?.name}_${team.team?.logo}`
+                                    )
+                                  }
+                                >
+                                  <span className="text-sm ">
+                                    <img
+                                      src={team.team?.logo}
+                                      alt={team.team?.name}
+                                      className="inline-block w-6 h-6 mr-2"
+                                    />
+                                    {team.team?.name}
+                                  </span>
+                                </li>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                         <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
                           <svg
                             className="w-5 h-5 text-[#606060]"
@@ -105,13 +203,52 @@ const TeamComparisions = () => {
                         Search for Second Team
                       </Label>
                       <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                        {searchImgInput1 && searchInput1 && (
+                          <img
+                            id="img"
+                            src={searchImgInput1}
+                            alt={searchInput1}
+                            className="inline-block w-6 h-6 m-2"
+                            width={5}
+                            height={5}
+                          />
+                        )}
                         <input
                           type="text"
                           id="simple-search"
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="Second Team"
                           required
+                          value={`${searchInput1}`}
+                          onChange={handleInputChange1}
                         />
+                        <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
+                          {filteredTeams1.length > 0 && (
+                            <div>
+                              {filteredTeams1.map((team) => (
+                                <li
+                                  id="listItems"
+                                  key={team.id}
+                                  className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
+                                  onClick={() =>
+                                    handleteam1(
+                                      `${team.team?.name}_${team.team?.logo}`
+                                    )
+                                  }
+                                >
+                                  <span className="text-sm ">
+                                    <img
+                                      src={team.team?.logo}
+                                      alt={team.team?.name}
+                                      className="inline-block w-6 h-6 mr-2"
+                                    />
+                                    {team.team?.name}
+                                  </span>
+                                </li>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                         <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
                           <svg
                             className="w-5 h-5 text-[#606060]"

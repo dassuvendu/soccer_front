@@ -1,7 +1,7 @@
 import { Modal, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useReqPredicDateHook } from "../../../hooks/UseReqPredicDateHook";
+import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 
 export const RequestModal = ({
   openViewDetailsModal,
@@ -12,11 +12,21 @@ export const RequestModal = ({
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastHomeResult } = useSelector((state) => state.prediction);
   const { lastAwayResult } = useSelector((state) => state.prediction);
-
+const { fixtures } = useSelector((state) => state.prediction);
   const [homeData, setHomeData] = useState();
+  console.log(homeData);
   const [awayData, setAwayData] = useState();
 
-  const [predicDate] = useReqPredicDateHook();
+  const [matchDateList] = useDateList();
+  const [matchTimeList] = useTimeList();
+  const [date, setDate] = useState(null);
+  const [time, setTime] = useState(null);
+  console.log(time);
+
+  useEffect(() => {
+    setDate(matchDateList);
+    setTime(matchTimeList);
+  }, [fixtures]);
 
   useEffect(() => {
     if (
@@ -60,8 +70,8 @@ export const RequestModal = ({
               <h2 className="font-Bebas text-3xl tracking-normal text-[#2aa9e1] mb-4">
                 Match Details
               </h2>
-              {!modalLoader && modalData ? (
-                <>
+              
+                
                   <div className="pt-6 pb-4 px-3 mb-4 border-b border-gray-300">
                     <div className="grid grid-cols-3 gap-4 mb-4">
                       <div className="text-center">
@@ -85,10 +95,10 @@ export const RequestModal = ({
                             Kick Off
                           </p>
                           <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
-                            Tue, 12 March, 2024
+                            {date?.label}
                           </h3>
                           <h3 className="text-black text-[18px] leading-[24px] font-medium">
-                            1:30 PM
+                            {time?.label}
                           </h3>
                         </div>
                       </div>
@@ -110,9 +120,10 @@ export const RequestModal = ({
                     </div>
                   </div>
                   <div className="mb-4">
+                  {!modalLoader && modalData ? (
+                  <div>
                     <div className="grid grid-cols-2 gap-8 ">
                       {/* team1 */}
-
                       <div>
                         <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
                           Home History
@@ -168,7 +179,7 @@ export const RequestModal = ({
                             <div className="text-center">
                               <div className="bg-[#2aa9e1] py-2 rounded-full">
                                 <h3 className="text-white text-base">
-                                  {data?.goals.home}-{data?.goals.away}
+                                  {data?.goals?.home}-{data?.goals?.away}
                                 </h3>
                               </div>
                             </div>
@@ -183,7 +194,6 @@ export const RequestModal = ({
                         ))}
                       </div>
                     </div>
-
                     <div className="mb-0">
                       <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
                         Last 5 matches
@@ -201,17 +211,17 @@ export const RequestModal = ({
                             {lastHomeResult?.data?.map((resH) => {
                               return (
                                 <>
-                                  {resH?.teams?.home?.winner === null && (
+                                  {resH?.goals.home === resH?.goals.away && (
                                     <li className="ml-1.5 bg-[#1f2937] text-[14px] text-white px-2 rounded">
                                       D
                                     </li>
                                   )}
-                                  {resH?.teams?.home?.winner === false && (
+                                  {resH?.goals?.home < resH?.goals?.away || resH?.teams?.home?.winner === true &&(
                                     <li className="ml-1.5 bg-[#ff0000] text-[14px] text-white px-2 rounded">
                                       L
                                     </li>
                                   )}
-                                  {resH?.teams?.home?.winner === true && (
+                                  {resH?.goals.home > resH?.goals.away || resH?.teams?.home?.winner === true &&(
                                     <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
                                       W
                                     </li>
@@ -255,14 +265,19 @@ export const RequestModal = ({
                         </div>
                       </div>
                     </div>
+                    </div>
+                   ) : (
+                    <div className="text-center mt-40 mb-80">
+                      <Spinner
+                        color="success"
+                        size="xl"
+                      />
+                      <span className="pl-3 ">Loading...</span>
+                    </div>
+                  )}
                   </div>
-                </>
-              ) : (
-                <div className="text-center">
-                  <Spinner color="success" size="md" />
-                  <span className="pl-3">Loading...</span>
-                </div>
-              )}
+               
+              
             </div>
           </Modal.Body>
         </Modal>

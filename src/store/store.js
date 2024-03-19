@@ -7,6 +7,7 @@ import profileSlice from '../reducers/profileSlice';
 import authSlice from '../reducers/authSlice';
 import planSlice from '../reducers/planSlice';
 import paymentSlice from '../reducers/paymentSlice';
+import TeamComparisonSlice from '../reducers/TeamComparisonSlice';
 
 
 const store = configureStore({
@@ -20,6 +21,7 @@ const store = configureStore({
     profile: profileSlice,
     plans: planSlice,
     payment: paymentSlice,
+    teamComparision: TeamComparisonSlice
   },
   devTools: import.meta.env.DEV,
 });
