@@ -65,7 +65,7 @@ const PlayerViewComparisonDetails = () => {
 
       {/* mid part start here */}
       <div className="pt-6 pb-4 px-3 mb-4">
-        <div className="grid grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
           <div className="text-center">
             <img
               src={playerCompareOne}
