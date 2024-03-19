@@ -15,6 +15,7 @@ import {
   LastAwayResult,
   LastHomeResult,
   getFixtures,
+  getFixturesByleague,
 } from "../../../reducers/PredictionsSlice";
 
 const RequestPredictionList = ({ errorMessage }) => {
@@ -25,9 +26,13 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [modalLoader, setModalLoader] = useState(true);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
+  const [homeTeamId,setHomeTeamId] = useState(null)
+  const [awayTeamId,setAwayTeamId] = useState(null)
 
   const viewDetailsModalHandler = (id) => {
     setOpenViewDetailsModal(true);
+      setHomeTeamId(id.split(":")[0])
+      setAwayTeamId(id.split(":")[1])
     Promise.all([
       dispatch(LastHomeResult({ team: id.split(":")[0], last: "5" })),
       dispatch(LastAwayResult({ team: id.split(":")[1], last: "5" })),
@@ -71,8 +76,10 @@ const RequestPredictionList = ({ errorMessage }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
+        
         setLoadingData(false);
         setHide(true);
       } else {
@@ -306,13 +313,14 @@ const RequestPredictionList = ({ errorMessage }) => {
               </p>
             )}
           </div>
-          <div className="min-w-[450px]">
+          <div className="md:min-w-[450px]">
             <div className="md:flex justify-between items-center">
-              <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
+              <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
                   <li>
                     <Link
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
+                      flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => paginate(1)}
                     >
                       <BsChevronDoubleLeft />
@@ -331,8 +339,9 @@ const RequestPredictionList = ({ errorMessage }) => {
                   {pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
                       <Link
-                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white ${currentPage === pageNumber ? "bg-[#0868f4]" : ""
-                          }`}
+                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
+                        flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
+                        ${currentPage === pageNumber ? "bg-[#0053CD]" : "black"}`}
                         onClick={() => handlePageChange(pageNumber)}
                       >
                         {pageNumber}
@@ -393,6 +402,8 @@ const RequestPredictionList = ({ errorMessage }) => {
         onClose={handleModalClose}
         modalLoader={modalLoader}
         modalData={modalData}
+        homeId={homeTeamId}
+        awayId={awayTeamId}
       />
       {/* modal section ends here */}
     </div>

@@ -14,7 +14,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getLeagues({})).then((res) => {
+    dispatch(getLeagues({ids: '39,140,135,78,61,2'})).then((res) => {
       if (res?.payload?.status === true) {
         setLoadingDash(false);
       }

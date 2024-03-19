@@ -5,7 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from "../layout/SidebarLinkGroup";
 import { LaLiya, LigueIcon, NewItemIcon, PremierLeague, SerieA, UEFAChampionsLeagueDarkIcon, UEFAChampionsLeagueIcon, logo, logoIcon, mobileLogo } from '../../assets/images/images';
 
-import { AiFillSetting, AiFillTag, AiFillTags, AiOutlineDashboard, AiOutlineLogout, AiOutlineNotification, AiOutlineUser, BsPersonWorkspace, FaChartPie, GiChampions, GrTemplate, HiTemplate, MdManageAccounts, PiGitPullRequestBold, PiLightbulbLight, RiTeamLine, RxDashboard, SiPremierleague } from "../../assets/icons/index";
+import { AiFillSetting, AiFillTag, AiFillTags, AiOutlineDashboard, AiOutlineLogout, AiOutlineNotification, AiOutlineTeam, AiOutlineUser, BsPersonWorkspace, FaChartPie, GiChampions, GrTemplate, HiTemplate, MdManageAccounts, PiGitPullRequestBold, PiLightbulbLight, RiTeamLine, RxDashboard, SiPremierleague } from "../../assets/icons/index";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -223,6 +223,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <RiTeamLine className='text-4xl' />
                   Stats Comparisions
+                </NavLink>
+              </li>
+              {/* <!-- Menu Item Manage Users --> */}
+
+              {/* <!-- Menu Item Manage Users --> */}
+              <li className='mb-0'>
+                <NavLink
+                  to="/player-comparisions"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('team-comparisions') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <AiOutlineTeam className='text-4xl' />
+                  Player Comparisions
                 </NavLink>
               </li>
               {/* <!-- Menu Item Manage Users --> */}
