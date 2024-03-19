@@ -76,10 +76,10 @@ const RequestPredictionList = ({ errorMessage }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-   
+    
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
-        dispatch(getFixturesByleague({}))
+        
         setLoadingData(false);
         setHide(true);
       } else {

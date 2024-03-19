@@ -1,7 +1,7 @@
 import { Datepicker, Spinner } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getFixtures,
   getFixturesByleague,
@@ -15,7 +15,8 @@ export const SearchCompo = ({ onError }) => {
   const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isseason, setIsSeason] = useState();
-
+  const [isRequired, setIsRequired] = useState();
+  console.log(isRequired);
 
   const handleDateChange = (e) => {
     console.log(e);
@@ -26,10 +27,14 @@ export const SearchCompo = ({ onError }) => {
   const newDate = `${year}-${month}-${day}`
     dispatch(getFixtures({ date : newDate}));
   };
-
+ useEffect(()=>{
+  dispatch(getFixturesByleague({}))
+ },[dispatch])
   const handleLeagueChange = (selectedOption) => {
     setIsLoading(true);
     setIsSeason(selectedOption);
+    let requried = 'required*'
+    setIsRequired(requried)
     dispatch(getSeasons({})).then((res) => {
       if (res?.payload?.status === true) {
         setIsLoading(false);
@@ -37,10 +42,11 @@ export const SearchCompo = ({ onError }) => {
     });
   };
   const handleSearch = (season) => {
+    setIsRequired(null)
     dispatch(
       getFixtures({ league: isseason.value, season: season.target.value })
     ).then((response) => {
-      if (
+     if (
         response?.payload?.message ===
         "Something went wrong. Please try again later"
       ) {
@@ -127,7 +133,8 @@ export const SearchCompo = ({ onError }) => {
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
           } pb-2`}
         >
-          Select Season
+           Select Season
+           <span className="text-red-500"> {isRequired}</span>
         </p>
         <div className="mb-4 md:mb-0">
           <div
@@ -151,6 +158,9 @@ export const SearchCompo = ({ onError }) => {
                 ))}
               </select>
             )}
+            
+           
+            
           </div>
         </div>
       </div>
