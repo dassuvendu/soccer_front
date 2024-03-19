@@ -16,8 +16,8 @@ export const RequestModal = ({
   const { lastHomeResult } = useSelector((state) => state.prediction);
   const { lastAwayResult } = useSelector((state) => state.prediction);
   const { fixtures } = useSelector((state) => state.prediction);
-  const [homeData, setHomeData] = useState();
-  const [awayData, setAwayData] = useState();
+  const [homeDataImg, setHomeDataImg] = useState();
+  const [awayDataImg, setAwayDataImg] = useState();
 
   const [matchDateList] = useDateList();
   const [matchTimeList] = useTimeList();
@@ -42,12 +42,14 @@ export const RequestModal = ({
       lastHomeResult.data.length > 0
     ) {
       let data = lastHomeResult?.data[0];
-      setHomeData(data);
-
-      lastHomeResult?.data.forEach((data) => {
-        const id = data?.teams?.home?.id
-        setHomeResult(id)
-      })
+      let homeImgData;
+      if (homeId == data?.teams?.home?.id) {
+        homeImgData = data?.teams?.home?.logo;
+      }
+      else if (homeId == data?.teams?.away?.id) {
+        homeImgData = data?.teams?.away?.logo;
+      }
+      setHomeDataImg(homeImgData)
     }
 
   }, [lastHomeResult]);
@@ -59,7 +61,15 @@ export const RequestModal = ({
       lastAwayResult.data.length > 0
     ) {
       let data = lastAwayResult?.data[0];
-      setAwayData(data);
+      let awayImgData;
+      if (awayId == data?.teams?.away?.id) {
+        awayImgData = data?.teams?.away?.logo;
+      }
+      else if (awayId == data?.teams?.home?.id) {
+        awayImgData = data?.teams?.home?.logo;
+      }
+      setAwayDataImg(awayImgData)
+      
     }
   }, [lastAwayResult]);
 
@@ -88,16 +98,19 @@ export const RequestModal = ({
               <div className="pt-6 pb-4 px-3 mb-4 border-b border-gray-300">
                 <div className="grid grid-cols-3 gap-4 mb-4">
                   <div className="text-center">
+                    
+                   
                     <img
-                      src={homeData?.teams?.home?.logo}
+                      src={homeDataImg}
                       alt="DeportivoPastoIcon"
                       className="inline-block mb-2"
                     />
+                     
                     <p
                       className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
                         }`}
                     >
-                      {homeData?.teams?.home?.name}
+                      {/* {homeData?.teams?.home?.name} */}
                     </p>
                   </div>
 
@@ -117,7 +130,7 @@ export const RequestModal = ({
 
                   <div className="text-center">
                     <img
-                      src={awayData?.teams?.away?.logo}
+                      src={awayDataImg}
                       alt="EnvigadoIcon"
                       className="inline-block mb-2"
                     />
@@ -125,7 +138,7 @@ export const RequestModal = ({
                       className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
                         }`}
                     >
-                      {awayData?.teams?.away?.name}
+                      {/* {awayData?.teams?.away?.name} */}
                     </p>
                   </div>
                 </div>
@@ -214,7 +227,7 @@ export const RequestModal = ({
                           <ul className="flex items-center">
                             <li>
                               <img
-                                src={homeData?.teams?.home?.logo}
+                                src={homeDataImg}
                                 alt="DeportivoPastoIcon"
                                 className="inline-block mb-2 w-8"
                               />
@@ -291,7 +304,7 @@ export const RequestModal = ({
                             })}
                             <li>
                               <img
-                                src={awayData?.teams?.away?.logo}
+                                src={awayDataImg}
                                 alt="EnvigadoIcon"
                                 className="inline-block mb-2 w-8 ml-2"
                               />
