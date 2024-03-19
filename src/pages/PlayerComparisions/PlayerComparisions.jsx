@@ -8,13 +8,14 @@ import { BuyTokenIcon } from "../../assets/images/images";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Label, Button, Modal, TextInput } from "flowbite-react";
-import ViewComparisonDetails from "./ViewComparisonDetails";
+import PlayerViewComparisonDetails from "../PlayerComparisions/PlayerViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
 
-const TeamComparisions = () => {
-  const [openLoginModal, setOpenLoginModal] = useState(false);
-  const loginHandler = () => {
-    setOpenLoginModal(true);
+const PlayerComparisions = () => {
+  const [openPlayerComparisionsModal, setOpenPlayerComparisionsModal] =
+    useState(false);
+  const playerComparisionsModalHandler = () => {
+    setOpenPlayerComparisionsModal(true);
   };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -84,7 +85,7 @@ const TeamComparisions = () => {
               themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
             } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
-            Stats Comparisions
+            Player Comparisions
           </h1>
           <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             Match Predictions <FiArrowRight className="text-white ml-0.5" />
@@ -108,7 +109,7 @@ const TeamComparisions = () => {
                       themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
                     }`}
                   >
-                    Compare Stats
+                    Compare Players
                   </h2>
                   <p
                     className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
@@ -269,10 +270,10 @@ const TeamComparisions = () => {
                       </div>
                     </div>
                     <button
-                      onClick={loginHandler}
+                      onClick={playerComparisionsModalHandler}
                       className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
-                      View comparison
+                      View player comparison
                     </button>
                   </div>
                 </div>
@@ -319,17 +320,17 @@ const TeamComparisions = () => {
         </div>
       </div>
       {/* Login Modal start here */}
-      {openLoginModal && (
+      {openPlayerComparisionsModal && (
         <Modal
-          show={openLoginModal}
+          show={openPlayerComparisionsModal}
           size="7xl"
-          onClose={() => setOpenLoginModal(false)}
+          onClose={() => setOpenPlayerComparisionsModal(false)}
           popup
         >
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="pt-6">
-              <ViewComparisonDetails />
+              <PlayerViewComparisonDetails />
             </div>
           </Modal.Body>
         </Modal>
@@ -339,4 +340,4 @@ const TeamComparisions = () => {
   );
 };
 
-export default TeamComparisions;
+export default PlayerComparisions;

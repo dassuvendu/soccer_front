@@ -24,6 +24,7 @@ import ChoosePlan from '../pages/ChoosePlan/ChoosePlan.jsx';
 import Payment from '../pages/Payment/Payment.jsx';
 import PaymentRedirect from '../pages/Payment/PaymentRedirect.jsx';
 import Bundesliga from '../pages/Bundesliga/Bundesliga.jsx';
+import PlayerComparisions from '../pages/PlayerComparisions/PlayerComparisions.jsx';
 
 const allRoutes = [
   {
@@ -173,6 +174,16 @@ const allRoutes = [
       {
         index: true,
         element: <TeamComparisions />
+      },
+    ],
+  },
+  {
+    path: '/player-comparisions',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <PlayerComparisions />
       },
     ],
   },
