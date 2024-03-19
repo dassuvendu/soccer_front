@@ -53,7 +53,12 @@ import PlaycopeLogoPopup from "../imagesource/Playcope_Logo_popup.png";
 import fieldOne from "../imagesource/field01.png";
 import fieldTwo from "../imagesource/field02.png";
 
+import playerCompareOne from "../imagesource/player_compare_01.png";
+import playerCompareTwo from "../imagesource/player_compare_02.png";
+
 export {
+  playerCompareOne,
+  playerCompareTwo,
   fieldOne,
   fieldTwo,
   PlaycopeLogoPopup,

@@ -26,6 +26,7 @@ import {
   AiFillPlusCircle,
   AiFillEdit,
   AiOutlineLogin,
+  AiOutlineTeam,
 } from "react-icons/ai";
 import {
   BsChevronLeft,
@@ -70,6 +71,7 @@ import { FcGoogle } from "react-icons/fc";
 import { HiChevronUp } from "react-icons/hi2";
 
 export {
+  AiOutlineTeam,
   HiChevronUp,
   FcGoogle,
   AiOutlineLogin,
