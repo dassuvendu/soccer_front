@@ -1117,9 +1117,9 @@ const CookedSlips = () => {
                 {oddsData.length} entries
               </p>
             </div>
-            <div className="min-w-[450px]">
+            <div className="md:min-w-[450px]">
               <div className="md:flex justify-between items-center">
-                <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
+                <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                   <ul className="flex">
                     <li>
                       <Link
