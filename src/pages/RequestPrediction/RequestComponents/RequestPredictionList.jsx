@@ -15,6 +15,7 @@ import {
   LastAwayResult,
   LastHomeResult,
   getFixtures,
+  getFixturesByleague,
 } from "../../../reducers/PredictionsSlice";
 
 const RequestPredictionList = ({ errorMessage }) => {
@@ -25,9 +26,13 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [modalLoader, setModalLoader] = useState(true);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
+  const [homeTeamId,setHomeTeamId] = useState(null)
+  const [awayTeamId,setAwayTeamId] = useState(null)
 
   const viewDetailsModalHandler = (id) => {
     setOpenViewDetailsModal(true);
+      setHomeTeamId(id.split(":")[0])
+      setAwayTeamId(id.split(":")[1])
     Promise.all([
       dispatch(LastHomeResult({ team: id.split(":")[0], last: "5" })),
       dispatch(LastAwayResult({ team: id.split(":")[1], last: "5" })),
@@ -71,8 +76,10 @@ const RequestPredictionList = ({ errorMessage }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+   
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
+        dispatch(getFixturesByleague({}))
         setLoadingData(false);
         setHide(true);
       } else {
@@ -393,6 +400,8 @@ const RequestPredictionList = ({ errorMessage }) => {
         onClose={handleModalClose}
         modalLoader={modalLoader}
         modalData={modalData}
+        homeId={homeTeamId}
+        awayId={awayTeamId}
       />
       {/* modal section ends here */}
     </div>
