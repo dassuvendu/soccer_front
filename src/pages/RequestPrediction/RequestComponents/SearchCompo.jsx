@@ -24,11 +24,7 @@ export const SearchCompo = ({ onError }) => {
   const month = String(e.getMonth() + 1).padStart(2, "0");
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
-    dispatch(getFixtures({})).then((res) => {
-      if (res?.payload?.status === true) {
-        dispatch(getFixturesByleague({}))
-      }
-    });
+    dispatch(getFixtures({ date : newDate}));
   };
 
   const handleLeagueChange = (selectedOption) => {
