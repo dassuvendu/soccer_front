@@ -10,28 +10,49 @@ import "react-tabs/style/react-tabs.css";
 import { Label, Button, Modal, TextInput } from "flowbite-react";
 import ViewComparisonDetails from "./ViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
+import debounce from "../../utils/debounce";
 
 const TeamComparisions = () => {
-  const [openLoginModal, setOpenLoginModal] = useState(false);
-  const loginHandler = () => {
-    setOpenLoginModal(true);
-  };
+  const [openTeamComparisionsModal, setOpenTeamComparisionsModal] =
+    useState(false);
+  // const teamComparisionsModalHandler = () => {
+  //   setOpenTeamComparisionsModal(true);
+  // };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { teams } = useSelector((state) => state.teamComparision);
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
+  const [searchInputDep, setSearchInputDep] = useState("");
   const [searchImgInput, setSearchImgInput] = useState(true);
   const [filteredTeams, setFilteredTeams] = useState([]);
   const [searchInput1, setSearchInput1] = useState("");
   const [searchImgInput1, setSearchImgInput1] = useState(true);
   const [filteredTeams1, setFilteredTeams1] = useState([]);
-  useEffect(() => {
-    dispatch(serachTeam({ name: searchInput }));
-  }, [dispatch, searchInput]);
+  const [team1Id, setTeam1Id] = useState("");
+  const [team2Id, setTeam2Id] = useState("");
+
+  const teamComparisionsModalHandler = (team1Id, team2Id) => {
+    setOpenTeamComparisionsModal(true);
+    console.log("team1Id: ", team1Id);
+    console.log("team2Id: ", team2Id);
+  };
+  // function debounceIng(func, delay = 1000) {
+  //   let timeOutId;
+  //   return function () {
+  //     if (timeOutId) {
+  //       clearTimeout(timeOutId);
+  //     }
+  //     timeOutId = setTimeout(() => {
+  //       func();
+  //     }, delay);
+  //   };
+  // }
+
   useEffect(() => {
     dispatch(serachTeam({ name: searchInput1 }));
   }, [dispatch, searchInput1]);
+
   useEffect(() => {
     // Filter teams based on search input
     setFilteredTeams(
@@ -40,7 +61,8 @@ const TeamComparisions = () => {
           team.team.name.toLowerCase().includes(searchInput.toLowerCase())
         )
     );
-  }, [teams, searchInput]);
+  }, [teams]);
+
   useEffect(() => {
     // Filter teams based on search input
     setFilteredTeams1(
@@ -50,31 +72,82 @@ const TeamComparisions = () => {
         )
     );
   }, [teams, searchInput1]);
-  console.log("teams: ", teams);
-  const handleInputChange = (e) => {
-    setSearchInput(e.target.value);
+
+  //console.log("teams: ", teams[0]?.team?.id);
+  // Search employee filter section
+  const searchTeamListHandler = (e) => {
+    let searchValue = e?.target?.value ? e?.target?.value.trim() : "";
+    setSearchInput(searchValue);
   };
-  const handleInputChange1 = (e) => {
-    setSearchInput1(e.target.value);
+  const searchSecondTeamListHandler = (e) => {
+    let searchValue = e?.target?.value ? e?.target?.value.trim() : "";
+    setSearchInput1(searchValue);
   };
+  const handleInputChange = debounce((e) => {
+    // setSearchInput(e.target.value?.trim());
+    // setFilteredTeams([]);
+
+    searchTeamListHandler(e);
+  });
+  useEffect(() => {
+    console.log(
+      "searchInput.length - searchInputDep.length",
+      searchInput.length - searchInputDep.length
+    );
+    if (searchInput.length - searchInputDep.length <= 1)
+      setSearchInputDep(searchInput);
+  }, [searchInput]);
+  const handleInputChange1 = debounce((e) => {
+    // setSearchInput(e.target.value?.trim());
+    // setFilteredTeams([]);
+    searchSecondTeamListHandler(e);
+  });
+
+  useEffect(() => {
+    if (searchInput !== "") {
+      console.log("searchInput", searchInput);
+
+      dispatch(serachTeam({ name: searchInput }));
+    }
+  }, [searchInputDep]);
+
+  useEffect(() => {
+    if (searchInput1 !== "") dispatch(serachTeam({ name: searchInput1 }));
+  }, [searchInput1]);
+
+  // const handleInputChange1 = (e) => {
+  //   setSearchInput1(e.target.value);
+  //   setFilteredTeams1([]);
+  // };
   const handleteam = (e) => {
-    document.getElementById("listItem").style.display = "none";
-    console.log(e);
+    // document.getElementById("listItem").style.display = "none";
+    setFilteredTeams([]);
+    console.log("team1 e", e);
 
     let name = e.split("_")[0];
     let logo = e.split("_")[1];
+    let id = e.split("_")[2];
     setSearchInput(name);
     setSearchImgInput(logo);
+    console.log("team1 ", id);
+    setTeam1Id(id);
   };
   const handleteam1 = (e) => {
-    document.getElementById("listItems").style.display = "none";
+    // document.getElementById("listItems").style.display = "none";
+    setFilteredTeams1([]);
     console.log(e);
 
     let name = e.split("_")[0];
     let logo = e.split("_")[1];
+    let id = e.split("_")[2];
+    // console.log("name", name1);
+    // console.log("logo1", logo1);
     setSearchInput1(name);
     setSearchImgInput1(logo);
+    console.log("team2 id: ", e.split("_"));
+    setTeam2Id(id);
   };
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -144,21 +217,22 @@ const TeamComparisions = () => {
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="First Team"
                           required
-                          value={`${searchInput}`}
+                          // value={searchInput}
                           onChange={handleInputChange}
                         />
 
-                        <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
-                          {filteredTeams.length > 0 && (
+                        <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10 ">
+                          {filteredTeams?.length > 0 && (
                             <div>
-                              {filteredTeams.map((team) => (
+                              {console.log("filteredTeams", filteredTeams)}
+                              {filteredTeams?.map((team) => (
                                 <li
                                   id="listItem"
-                                  key={team.id}
+                                  key={team.team?.id}
                                   className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
                                   onClick={() =>
                                     handleteam(
-                                      `${team.team?.name}_${team.team?.logo}`
+                                      `${team.team?.name}_${team.team?.logo}_${team.team?.id}`
                                     )
                                   }
                                 >
@@ -185,9 +259,9 @@ const TeamComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>
@@ -219,30 +293,30 @@ const TeamComparisions = () => {
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="Second Team"
                           required
-                          value={`${searchInput1}`}
+                          // value={`${searchInput1}`}
                           onChange={handleInputChange1}
                         />
                         <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
                           {filteredTeams1.length > 0 && (
                             <div>
-                              {filteredTeams1.map((team) => (
+                              {filteredTeams1.map((team1) => (
                                 <li
                                   id="listItems"
-                                  key={team.id}
+                                  key={team1.id}
                                   className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
                                   onClick={() =>
                                     handleteam1(
-                                      `${team.team?.name}_${team.team?.logo}`
+                                      `${team1.team?.name}_${team1.team?.logo}_${team1.team?.id}`
                                     )
                                   }
                                 >
                                   <span className="text-sm ">
                                     <img
-                                      src={team.team?.logo}
-                                      alt={team.team?.name}
+                                      src={team1.team?.logo}
+                                      alt={team1.team?.name}
                                       className="inline-block w-6 h-6 mr-2"
                                     />
-                                    {team.team?.name}
+                                    {team1.team?.name}
                                   </span>
                                 </li>
                               ))}
@@ -269,7 +343,9 @@ const TeamComparisions = () => {
                       </div>
                     </div>
                     <button
-                      onClick={loginHandler}
+                      onClick={() => {
+                        teamComparisionsModalHandler(team1Id, team2Id);
+                      }}
                       className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View comparison
@@ -319,17 +395,17 @@ const TeamComparisions = () => {
         </div>
       </div>
       {/* Login Modal start here */}
-      {openLoginModal && (
+      {openTeamComparisionsModal && (
         <Modal
-          show={openLoginModal}
+          show={openTeamComparisionsModal}
           size="7xl"
-          onClose={() => setOpenLoginModal(false)}
+          onClose={() => setOpenTeamComparisionsModal(false)}
           popup
         >
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="pt-6">
-              <ViewComparisonDetails />
+              <ViewComparisonDetails id1={team1Id} id2={team2Id} />
             </div>
           </Modal.Body>
         </Modal>
