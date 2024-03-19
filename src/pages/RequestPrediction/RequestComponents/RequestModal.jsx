@@ -18,6 +18,8 @@ export const RequestModal = ({
   const { fixtures } = useSelector((state) => state.prediction);
   const [homeDataImg, setHomeDataImg] = useState();
   const [awayDataImg, setAwayDataImg] = useState();
+  const [homeName, setHomeName] = useState();
+  const [awayName, setAwayName] = useState();
 
   const [matchDateList] = useDateList();
   const [matchTimeList] = useTimeList();
@@ -43,15 +45,18 @@ export const RequestModal = ({
     ) {
       let data = lastHomeResult?.data[0];
       let homeImgData;
+      let homeName;
       if (homeId == data?.teams?.home?.id) {
         homeImgData = data?.teams?.home?.logo;
+        homeName = data?.teams?.home?.name;
       }
       else if (homeId == data?.teams?.away?.id) {
         homeImgData = data?.teams?.away?.logo;
+        homeName = data?.teams?.away?.name;
       }
       setHomeDataImg(homeImgData)
+      setHomeName(homeName)
     }
-
   }, [lastHomeResult]);
 
   useEffect(() => {
@@ -62,14 +67,17 @@ export const RequestModal = ({
     ) {
       let data = lastAwayResult?.data[0];
       let awayImgData;
+      let awayName;
       if (awayId == data?.teams?.away?.id) {
         awayImgData = data?.teams?.away?.logo;
+        awayName = data?.teams?.away?.name;
       }
       else if (awayId == data?.teams?.home?.id) {
         awayImgData = data?.teams?.home?.logo;
+        awayName = data?.teams?.home?.name;
       }
       setAwayDataImg(awayImgData)
-      
+      setAwayName(awayName)
     }
   }, [lastAwayResult]);
 
@@ -110,7 +118,7 @@ export const RequestModal = ({
                       className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
                         }`}
                     >
-                      {/* {homeData?.teams?.home?.name} */}
+                      {homeName}
                     </p>
                   </div>
 
@@ -138,7 +146,7 @@ export const RequestModal = ({
                       className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
                         }`}
                     >
-                      {/* {awayData?.teams?.away?.name} */}
+                      {awayName}
                     </p>
                   </div>
                 </div>
