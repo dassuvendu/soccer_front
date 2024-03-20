@@ -12,8 +12,7 @@ import {
   BsChevronRight,
 } from "react-icons/bs";
 import {
-  LastAwayResult,
-  LastHomeResult,
+  LastResult,
   getFixtures,
   getFixturesByleague,
 } from "../../../reducers/PredictionsSlice";
@@ -30,22 +29,14 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [awayTeamId,setAwayTeamId] = useState(null)
 
   const viewDetailsModalHandler = (id) => {
+    console.log("id",id);
     setOpenViewDetailsModal(true);
-      setHomeTeamId(id.split(":")[0])
-      setAwayTeamId(id.split(":")[1])
-    Promise.all([
-      dispatch(LastHomeResult({ team: id.split(":")[0], last: "5" })),
-      dispatch(LastAwayResult({ team: id.split(":")[1], last: "5" })),
-    ]).then(([homeRes, awayRes]) => {
-      if (homeRes?.payload?.status === true) {
+
+      dispatch(LastResult({fixture : id }))
+  .then((res) => {
+      if (res?.payload?.status === true) {
         setModalLoader(false);
-        setModalData(homeRes?.payload?.data);
-      } else {
-        setModalLoader(true);
-      }
-      if (awayRes?.payload?.status === true) {
-        setModalData(awayRes?.payload?.data);
-        setModalLoader(false);
+        setModalData(res?.payload?.data);
       } else {
         setModalLoader(true);
       }
@@ -106,7 +97,7 @@ const RequestPredictionList = ({ errorMessage }) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
+console.log("c",currentItems);
   const isDataFound = currentItems && currentItems.length > 0;
 
   const totalPages = fixtures?.data
@@ -251,11 +242,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                         >
                           <Link
                             className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                            onClick={() =>
-                              viewDetailsModalHandler(
-                                `${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`
-                              )
-                            }
+                            onClick={() =>viewDetailsModalHandler(dat?.fixture?.id)}
                           >
                             View Prediction{" "}
                             <FiArrowRight className="text-[#08a5f5] ml-0.5" />
