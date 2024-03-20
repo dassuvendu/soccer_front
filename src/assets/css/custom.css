@@ -155,7 +155,7 @@ body {
 /* add css for tab section ends here */
 
 /*  */
-.team_comparisions_tab_section ul {
+.team_comparisions_tab_section ul.tab_bar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,7 +164,7 @@ body {
     padding: 3px 5px 5px;
     border-bottom: none;
 }
-.team_comparisions_tab_section ul li {
+.team_comparisions_tab_section ul.tab_bar li {
     font-family: 'Syne', sans-serif;
     font-size: 15px;
     line-height: 34px;
@@ -173,7 +173,7 @@ body {
     width: 50%;
     text-align: center;
 }
-.team_comparisions_tab_section ul li.react-tabs__tab--selected {
+.team_comparisions_tab_section ul.tab_bar li.react-tabs__tab--selected {
     background: #2aa9e1;
     border-radius: 25px;
     border: none;

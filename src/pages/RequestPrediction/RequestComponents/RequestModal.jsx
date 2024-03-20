@@ -1,7 +1,13 @@
-import { Modal, Spinner } from "flowbite-react";
+import { Label, Modal, Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
+
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
+import { DeportivoPastoIcon } from "../../../assets/images/images/";
+import { fieldOne } from "../../../assets/images/images";
 
 export const RequestModal = ({
   openViewDetailsModal,
@@ -9,9 +15,8 @@ export const RequestModal = ({
   modalLoader,
   modalData,
   homeId,
-  awayId
+  awayId,
 }) => {
-
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastHomeResult } = useSelector((state) => state.prediction);
   const { lastAwayResult } = useSelector((state) => state.prediction);
@@ -29,7 +34,6 @@ export const RequestModal = ({
   console.log(homeResult);
   const [awayResult, setAwayResult] = useState();
 
-
   useEffect(() => {
     setDate(matchDateList);
     setTime(matchTimeList);
@@ -45,11 +49,10 @@ export const RequestModal = ({
       setHomeData(data);
 
       lastHomeResult?.data.forEach((data) => {
-        const id = data?.teams?.home?.id
-        setHomeResult(id)
-      })
+        const id = data?.teams?.home?.id;
+        setHomeResult(id);
+      });
     }
-
   }, [lastHomeResult]);
 
   useEffect(() => {
@@ -84,7 +87,6 @@ export const RequestModal = ({
                 Match Details
               </h2>
 
-
               <div className="pt-6 pb-4 px-3 mb-4 border-b border-gray-300">
                 <div className="grid grid-cols-3 gap-4 mb-4">
                   <div className="text-center">
@@ -94,8 +96,9 @@ export const RequestModal = ({
                       className="inline-block mb-2"
                     />
                     <p
-                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
-                        }`}
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
                     >
                       {homeData?.teams?.home?.name}
                     </p>
@@ -122,197 +125,401 @@ export const RequestModal = ({
                       className="inline-block mb-2"
                     />
                     <p
-                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
-                        }`}
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
                     >
                       {awayData?.teams?.away?.name}
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="mb-4">
-                {!modalLoader && modalData ? (
-                  <div>
-                    <div className="grid grid-cols-2 gap-8 ">
-                      {/* team1 */}
+
+              <div
+                className={` ${
+                  themeMode === "light" ? "bg-[#ffffff]" : "bg-[#191D23]"
+                } rounded-xl p-0`}
+              >
+                <div className="max-w-5xl mx-auto">
+                  <Tabs className="team_comparisions_tab_section">
+                    <TabList className="tab_bar">
+                      <Tab>Prediction Statistics</Tab>
+                      <Tab>Correct Scores</Tab>
+                      <Tab>History</Tab>
+                      <Tab>Formation</Tab>
+                    </TabList>
+                    <TabPanel>
                       <div>
-                        <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
-                          Home History
-                        </h4>
-                        {lastHomeResult?.data?.map((data) => (
-                          <div
-                            className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
-                            key={data?.id}
-                          >
-                            <div className="text-center">
-                              <img
-                                src={data?.teams?.home?.logo}
-                                alt="DeportivoPastoIcon"
-                                className="inline-block mb-2 w-10"
-                              />
-                            </div>
-                            <div className="text-center">
-                              <div className="bg-[#2aa9e1] py-2 rounded-full">
-                                <h3 className="text-white text-base">
-                                  {data?.goals.home}-{data?.goals.away}
-                                </h3>
+                        <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                          <div className="text-center pt-10">
+                            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
+                              Outcome
+                            </h4>
+                            <p className="text-base text-[#08a1f8] font-medium">
+                              Win, Mushuc Runa SC
+                            </p>
+                          </div>
+                          <div className="text-center">
+                            <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
+                              Advice
+                            </h4>
+                          </div>
+                          <div className="text-center pt-10">
+                            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
+                              Over/Under
+                            </h4>
+                            <p className="text-base text-[#08a1f8] font-medium">
+                              Under 4.5
+                            </p>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                          <div className="text-center pt-10">
+                            <div className="flex justify-between px-4">
+                              <div className="text-left">
+                                <p className="text-base text-[#08a1f8] font-medium">
+                                  Win
+                                </p>
+                                <p className="text-base text-[#08a1f8] font-medium">
+                                  Lose
+                                </p>
+                                <p className="text-base text-[#08a1f8] font-medium">
+                                  Win/Draw
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-base text-black font-medium">
+                                  0.89%
+                                </p>
+                                <p className="text-base text-black font-medium">
+                                  99.11%
+                                </p>
+                                <p className="text-base text-black font-medium">
+                                  4.05%
+                                </p>
                               </div>
                             </div>
-                            <div className="text-center">
-                              <img
-                                src={data?.teams?.away?.logo}
-                                alt="EnvigadoIcon"
-                                className="inline-block mb-2 w-10"
-                              />
+                          </div>
+                          <div className="text-center">
+                            <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
+                              Chances
+                            </h4>
+                            <div>
+                              <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-0 mt-4">
+                                Draw
+                              </h4>
+                              <p className="text-base text-black font-medium">
+                                3.15%
+                              </p>
                             </div>
                           </div>
-                        ))}
-                      </div>
-
-                      {/* team2 */}
-
-                      <div>
-                        <h4 className="font-Bebas text-xl tracking-normal text-black mb-4 text-center mb-4 mt-4">
-                          Away History
-                        </h4>
-                        {lastAwayResult.data?.map((data) => (
-                          <div
-                            className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
-                            key={data.id}
-                          >
-                            <div className="text-center">
-                              <img
-                                src={data?.teams?.home?.logo}
-                                alt="DeportivoPastoIcon"
-                                className="inline-block mb-2 w-10"
-                              />
-                            </div>
-                            <div className="text-center">
-                              <div className="bg-[#2aa9e1] py-2 rounded-full">
-                                <h3 className="text-white text-base">
-                                  {data?.goals?.home}-{data?.goals?.away}
-                                </h3>
+                          <div className="text-center pt-10">
+                            <div className="flex justify-between px-4">
+                              <div className="text-left">
+                                <p className="text-base text-[#08a1f8] font-medium">
+                                  Win
+                                </p>
+                                <p className="text-base text-[#08a1f8] font-medium">
+                                  Lose
+                                </p>
+                                <p className="text-base text-[#08a1f8] font-medium">
+                                  Win/Draw
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-base text-black font-medium">
+                                  0.89%
+                                </p>
+                                <p className="text-base text-black font-medium">
+                                  99.11%
+                                </p>
+                                <p className="text-base text-black font-medium">
+                                  4.05%
+                                </p>
                               </div>
                             </div>
-                            <div className="text-center">
-                              <img
-                                src={data?.teams?.away?.logo}
-                                alt="EnvigadoIcon"
-                                className="inline-block mb-2 w-10"
-                              />
+                          </div>
+                        </div>
+                        <div className="mt-8">
+                          <button className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+                            Add to Pridiction slip
+                          </button>
+                        </div>
+                      </div>
+                    </TabPanel>
+                    <TabPanel>
+                      <div>
+                        <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                          <div className="text-center pt-10">
+                            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
+                              Outcome
+                            </h4>
+                            <p className="text-base text-[#08a1f8] font-medium">
+                              Win, Mushuc Runa SC
+                            </p>
+                          </div>
+                          <div className="text-center">
+                            <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
+                              Advice
+                            </h4>
+                          </div>
+                          <div className="text-center pt-10">
+                            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
+                              Over/Under
+                            </h4>
+                            <p className="text-base text-[#08a1f8] font-medium">
+                              Under 4.5
+                            </p>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                          <div className="text-center pt-10">
+                            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
+                              Outcome
+                            </h4>
+                            <p className="text-base text-[#08a1f8] font-medium">
+                              Win, Mushuc Runa SC
+                            </p>
+                          </div>
+                          <div className="text-center">
+                            <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
+                              Chances
+                            </h4>
+                          </div>
+                          <div className="text-center pt-10">
+                            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
+                              Over/Under
+                            </h4>
+                            <p className="text-base text-[#08a1f8] font-medium">
+                              Under 4.5
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </TabPanel>
+                    <TabPanel>
+                      <div className="mb-4">
+                        {!modalLoader && modalData ? (
+                          <div>
+                            <div className="grid grid-cols-1 gap-8 ">
+                              {/* team1 */}
+                              <div>
+                                <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
+                                  Home History
+                                </h4>
+                                {lastHomeResult?.data?.map((data) => (
+                                  <div
+                                    className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
+                                    key={data?.id}
+                                  >
+                                    <div className="text-center">
+                                      <img
+                                        src={data?.teams?.home?.logo}
+                                        alt="DeportivoPastoIcon"
+                                        className="inline-block mb-2 w-10"
+                                      />
+                                    </div>
+                                    <div className="text-center">
+                                      <div className="bg-[#2aa9e1] py-2 rounded-full">
+                                        <h3 className="text-white text-base">
+                                          {data?.goals.home}-{data?.goals.away}
+                                        </h3>
+                                      </div>
+                                    </div>
+                                    <div className="text-center">
+                                      <img
+                                        src={data?.teams?.away?.logo}
+                                        alt="EnvigadoIcon"
+                                        className="inline-block mb-2 w-10"
+                                      />
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="mb-0">
+                              <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
+                                Last 5 matches
+                              </h4>
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <ul className="flex items-center">
+                                    <li>
+                                      <img
+                                        src={homeData?.teams?.home?.logo}
+                                        alt="DeportivoPastoIcon"
+                                        className="inline-block mb-2 w-8"
+                                      />
+                                    </li>
+                                    {lastHomeResult?.data?.map((resH) => {
+                                      const homeTeamId = resH.teams.home.id;
+                                      const awayTeamId = resH.teams.away.id;
+
+                                      let homeTeamWinner;
+                                      if (homeId == homeTeamId) {
+                                        homeTeamWinner = resH.teams.home.winner;
+                                      }
+
+                                      if (homeId == awayTeamId) {
+                                        homeTeamWinner = resH.teams.away.winner;
+                                      }
+
+                                      return (
+                                        <>
+                                          {homeTeamWinner === true && (
+                                            <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
+                                              W
+                                            </li>
+                                          )}
+                                          {homeTeamWinner === false && (
+                                            <li className="ml-1.5 bg-[#ff0808] text-[14px] text-white px-2 rounded">
+                                              L
+                                            </li>
+                                          )}
+                                          {homeTeamWinner === null && (
+                                            <li className="ml-1.5 bg-[#2e2c2c] text-[14px] text-white px-2 rounded">
+                                              D
+                                            </li>
+                                          )}
+                                        </>
+                                      );
+                                    })}
+                                  </ul>
+                                </div>
+                                <div>
+                                  <ul className="flex items-center">
+                                    {lastAwayResult?.data?.map((res) => {
+                                      const homeTeamId = res.teams.home.id;
+                                      const awayTeamId = res.teams.away.id;
+
+                                      let awayTeamWinner;
+                                      if (awayId == homeTeamId) {
+                                        awayTeamWinner = res.teams.home.winner;
+                                      }
+
+                                      if (awayId == awayTeamId) {
+                                        awayTeamWinner = res.teams.away.winner;
+                                      }
+
+                                      return (
+                                        <>
+                                          {awayTeamWinner === true && (
+                                            <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
+                                              W
+                                            </li>
+                                          )}
+                                          {awayTeamWinner === false && (
+                                            <li className="ml-1.5 bg-[#ff0808] text-[14px] text-white px-2 rounded">
+                                              L
+                                            </li>
+                                          )}
+                                          {awayTeamWinner === null && (
+                                            <li className="ml-1.5 bg-[#2e2c2c] text-[14px] text-white px-2 rounded">
+                                              D
+                                            </li>
+                                          )}
+                                        </>
+                                      );
+                                    })}
+                                    <li>
+                                      <img
+                                        src={awayData?.teams?.away?.logo}
+                                        alt="EnvigadoIcon"
+                                        className="inline-block mb-2 w-8 ml-2"
+                                      />
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        ))}
+                        ) : (
+                          <div className="text-center mt-40 mb-80">
+                            <Spinner color="success" size="xl" />
+                            <span className="pl-3 ">Loading...</span>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                    <div className="mb-0">
-                      <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
-                        Last 5 matches
-                      </h4>
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <ul className="flex items-center">
-                            <li>
-                              <img
-                                src={homeData?.teams?.home?.logo}
-                                alt="DeportivoPastoIcon"
-                                className="inline-block mb-2 w-8"
-                              />
-                            </li>
-                            {lastHomeResult?.data?.map((resH) => {
-                              const homeTeamId = resH.teams.home.id;
-                              const awayTeamId = resH.teams.away.id;
-
-                              let homeTeamWinner;
-                              if (homeId == homeTeamId) {
-                                homeTeamWinner = resH.teams.home.winner;
-                              }
-
-                              if (homeId == awayTeamId) {
-                                homeTeamWinner = resH.teams.away.winner;
-                              }
-
-                              return (
-                                <>
-                                  {homeTeamWinner === true &&
-                                    <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
-                                      W
-                                    </li>
-                                  }
-                                  {homeTeamWinner === false &&
-                                    <li className="ml-1.5 bg-[#ff0808] text-[14px] text-white px-2 rounded">
-                                      L
-                                    </li>
-                                  }
-                                  {homeTeamWinner === null &&
-                                    <li className="ml-1.5 bg-[#2e2c2c] text-[14px] text-white px-2 rounded">
-                                      D
-                                    </li>
-                                  }
-                                </>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                        <div>
-                          <ul className="flex items-center">
-                            {lastAwayResult?.data?.map((res) => {
-                              const homeTeamId = res.teams.home.id;
-                              const awayTeamId = res.teams.away.id;
-
-                              let awayTeamWinner;
-                              if (awayId == homeTeamId) {
-                                awayTeamWinner = res.teams.home.winner;
-                              }
-
-                              if (awayId == awayTeamId) {
-                                awayTeamWinner = res.teams.away.winner;
-                              }
-
-                              return (
-                                <>
-                                  {awayTeamWinner === true &&
-                                    <li className="ml-1.5 bg-[#08a1f8] text-[14px] text-white px-2 rounded">
-                                      W
-                                    </li>
-                                  }
-                                  {awayTeamWinner === false &&
-                                    <li className="ml-1.5 bg-[#ff0808] text-[14px] text-white px-2 rounded">
-                                      L
-                                    </li>
-                                  }
-                                  {awayTeamWinner === null &&
-                                    <li className="ml-1.5 bg-[#2e2c2c] text-[14px] text-white px-2 rounded">
-                                      D
-                                    </li>
-                                  }
-                                </>
-                              );
-                            })}
-                            <li>
-                              <img
-                                src={awayData?.teams?.away?.logo}
-                                alt="EnvigadoIcon"
-                                className="inline-block mb-2 w-8 ml-2"
-                              />
-                            </li>
-                          </ul>
+                    </TabPanel>
+                    <TabPanel>
+                      <div>
+                        <h4 className="font-Bebas text-2xl tracking-normal text-black text-center mb-4 mt-4">
+                          Select Aucas's Formation
+                        </h4>
+                        <div className="max-w-5xl mx-auto">
+                          <Tabs className="team_comparisions_tab_section">
+                            <TabList className="tab_bar">
+                              <Tab>4-3-3</Tab>
+                              <Tab>5-3-2</Tab>
+                              <Tab>4-2-3-1</Tab>
+                              <Tab>4-4-2</Tab>
+                              <Tab>3-3-3-1</Tab>
+                              <Tab>3-2-4-1</Tab>
+                            </TabList>
+                            <TabPanel>
+                              <div className="py-4">
+                                <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
+                                  Custom formation
+                                </h3>
+                                <div className="max-w-xl mx-auto my-4 flex">
+                                  <TextInput
+                                    id="text"
+                                    type="text"
+                                    className="mr-2 w-full"
+                                  />
+                                  <button
+                                    className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
+                                    type="submit"
+                                  >
+                                    Apply
+                                  </button>
+                                </div>
+                                <div className="max-w-3xl mx-auto my-8">
+                                  <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
+                                    <div className="text-center flex items-center">
+                                      <img
+                                        src={DeportivoPastoIcon}
+                                        alt="DeportivoPastoIcon"
+                                        className="inline-block mr-2 w-12"
+                                      />
+                                      <p
+                                        className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                          themeMode === "light"
+                                            ? "text-black"
+                                            : "text-white"
+                                        }`}
+                                      >
+                                        Aucas
+                                      </p>
+                                    </div>
+                                    <p
+                                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      4-4-2
+                                    </p>
+                                  </div>
+                                  <div className="my-4 flex justify-center items-center">
+                                    <img src={fieldOne} alt="fieldOne" />
+                                  </div>
+                                </div>
+                              </div>
+                            </TabPanel>
+                            <TabPanel>2</TabPanel>
+                            <TabPanel>3</TabPanel>
+                            <TabPanel>4</TabPanel>
+                            <TabPanel>5</TabPanel>
+                            <TabPanel>6</TabPanel>
+                          </Tabs>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center mt-40 mb-80">
-                    <Spinner
-                      color="success"
-                      size="xl"
-                    />
-                    <span className="pl-3 ">Loading...</span>
-                  </div>
-                )}
+                    </TabPanel>
+                  </Tabs>
+                </div>
               </div>
-
-
             </div>
           </Modal.Body>
         </Modal>
