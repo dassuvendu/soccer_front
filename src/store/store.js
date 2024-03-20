@@ -8,6 +8,7 @@ import authSlice from '../reducers/authSlice';
 import planSlice from '../reducers/planSlice';
 import paymentSlice from '../reducers/paymentSlice';
 import TeamComparisonSlice from '../reducers/TeamComparisonSlice';
+import PlayerComparision from '../reducers/PlayerComparision';
 
 
 const store = configureStore({
@@ -15,13 +16,13 @@ const store = configureStore({
     darkmode: darkModeSlice,
     league: LeagueSlice,
     prediction: PredictionsSlice,
-
     cookedSlips: CookedSlipSlice,
     auth: authSlice,
     profile: profileSlice,
     plans: planSlice,
     payment: paymentSlice,
-    teamComparision: TeamComparisonSlice
+    teamComparision: TeamComparisonSlice,
+    playerComparision : PlayerComparision
   },
   devTools: import.meta.env.DEV,
 });
