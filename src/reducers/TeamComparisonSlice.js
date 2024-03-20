@@ -30,7 +30,7 @@ export const serachTeam = createAsyncThunk(
             const response = await api.post('/api/search_team', name);
             if (response.status) {
 
-                return response.data?.data?.response;
+                return response.data?.data;
             } else {
                 let errors = errorHandler(response);
                 return rejectWithValue(errors);
