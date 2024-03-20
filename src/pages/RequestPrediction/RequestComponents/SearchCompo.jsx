@@ -74,7 +74,7 @@ export const SearchCompo = ({ onError }) => {
       };
     }) || []),
   ];
-
+console.log("opt",options);
   return (
     <>
       <div className="mb-4 md:mb-0 w-1/1">
@@ -114,7 +114,6 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_League"
             }`}
           >
-          
               <Select
                 placeholder="Select or Search League"
                 options={options}

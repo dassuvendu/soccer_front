@@ -27,7 +27,7 @@ const TeamComparisions = () => {
   };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { teams } = useSelector((state) => state.teamComparision);
+  const team  = useSelector((state) => state.teamComparision);
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const [searchInputDep, setSearchInputDep] = useState("");
