@@ -29,6 +29,8 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
+  const [homeWin, setHomeWin] = useState();
+  const [awayWin, setAwayWin] = useState();
 
   const [matchDateList] = useDateList();
   const [matchTimeList] = useTimeList();
@@ -56,8 +58,10 @@ export const RequestModal = ({
       setAwayData(data)
       let homeImgData;
       let homeName;
+      let homeWin;
       let awayImgData;
       let awayName;
+      let awayWin;
       if (data?.teams?.home?.id == data?.teams?.home?.id) {
         homeImgData = data?.teams?.home?.logo;
         homeName = data?.teams?.home?.name;
@@ -65,6 +69,7 @@ export const RequestModal = ({
         homeImgData = data?.teams?.away?.logo;
         homeName = data?.teams?.away?.name;
       }
+
       if (data?.teams?.away?.id == data?.teams?.away?.id) {
         awayImgData = data?.teams?.away?.logo;
         awayName = data?.teams?.away?.name;
@@ -74,10 +79,16 @@ export const RequestModal = ({
       }
       setHomeDataImg(homeImgData);
       setHomeName(homeName);
+      setHomeWin(homeWin)
       setAwayDataImg(awayImgData);
       setAwayName(awayName);
+      setAwayWin(awayWin)
     }
   }, [lastResult]);
+
+  useEffect(()=>{
+
+  },[h2h])
 
   // useEffect(() => {
   //   if (
@@ -437,7 +448,7 @@ export const RequestModal = ({
                                         awayTeamWinner = res.teams.home.winner;
                                       }
 
-                                      if (res.teams.away.id == awayTeamId) {
+                                     else if (res.teams.away.id == awayTeamId) {
                                         awayTeamWinner = res.teams.away.winner;
                                       }
 
