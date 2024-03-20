@@ -12,7 +12,7 @@ import ViewComparisonDetails from "./ViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
 import debounce from "../../utils/debounce";
 import ViewTeamInformationDetails from "./ViewTeamInformationDetails";
-
+import Select from "react-select";
 const TeamComparisions = () => {
   const [openTeamComparisionsModal, setOpenTeamComparisionsModal] =
     useState(false);
@@ -39,71 +39,146 @@ const TeamComparisions = () => {
   const [team1Id, setTeam1Id] = useState("");
   const [team2Id, setTeam2Id] = useState("");
   const [searchCompleted, setSearchCompleted] = useState(false);
-
+  const [firstteamselectedOption, setFirstTeamSelectedOption] = useState(null);
+  const [isFirstTeamMenuOpen, setIsFirstTeamMenuOpen] = useState(false);
+  const [secondselectedTeamOption, setSecondSelectedTeamOption] =
+    useState(null);
+  const [isSecondTeamMenuOpen, setIsSecondTeamMenuOpen] = useState(false);
   const teamComparisionsModalHandler = (team1Id, team2Id) => {
     setOpenTeamComparisionsModal(true);
     console.log("team1Id: ", team1Id);
     console.log("team2Id: ", team2Id);
   };
-  useEffect(() => {
-    if (searchInput && searchInput.length >= 3)
-      dispatch(serachTeam({ name: searchInput }));
-  }, [dispatch, searchInput]);
-  useEffect(() => {
-    setFilteredTeams(
-      Array.isArray(teams) &&
-        teams?.filter((team) =>
-          team?.team?.name.toLowerCase().includes(searchInput.toLowerCase())
-        )
-    );
-  }, [teams, searchInput]);
-  const handleInputChange = (e) => {
-    setSearchInput(e.target.value);
+  // useEffect(() => {
+  //   if (searchInput && searchInput.length >= 3)
+  //     dispatch(serachTeam({ name: searchInput }));
+  // }, [dispatch, searchInput]);
+  // useEffect(() => {
+  //   setFilteredTeams(
+  //     Array.isArray(teams) &&
+  //       teams?.filter((team) =>
+  //         team?.team?.name.toLowerCase().includes(searchInput.toLowerCase())
+  //       )
+  //   );
+  // }, [teams, searchInput]);
+  // const handleInputChange = (e) => {
+  //   setSearchInput(e.target.value);
+  // };
+
+  // //second search
+
+  // useEffect(() => {
+  //   if (searchInput1 && searchCompleted)
+  //     dispatch(serachTeam({ name: searchInput1 }));
+  // }, [dispatch, searchInput1, searchCompleted]);
+  // useEffect(() => {
+  //   setFilteredTeams1(
+  //     Array.isArray(teams) &&
+  //       teams?.filter((team) =>
+  //         team?.team?.name.toLowerCase().includes(searchInput1.toLowerCase())
+  //       )
+  //   );
+  // }, [teams, searchInput1]);
+  // const handleInputChange1 = (e) => {
+  //   setSearchInput1(e.target.value);
+  // };
+  // const handleteam = (e) => {
+  //   setFilteredTeams([]);
+  //   console.log("team1 e", e);
+  //   let name = e.split("_")[0];
+  //   let logo = e.split("_")[1];
+  //   let id = e.split("_")[2];
+  //   setSearchInput(name);
+  //   setSearchImgInput(logo);
+  //   console.log("team1 ", id);
+  //   setTeam1Id(id);
+  //   setSearchCompleted(true);
+  // };
+  // const handleteam1 = (e) => {
+  //   setFilteredTeams1([]);
+  //   console.log(e);
+
+  //   let name = e.split("_")[0];
+  //   let logo = e.split("_")[1];
+  //   let id = e.split("_")[2];
+
+  //   setSearchInput1(name);
+  //   setSearchImgInput1(logo);
+  //   console.log("team2 id: ", e.split("_"));
+  //   setTeam2Id(id);
+  // };
+  const handleTeamChange = (firstteamselectedOption) => {
+    setFirstTeamSelectedOption(firstteamselectedOption.id);
+    setTeam1Id(firstteamselectedOption.id);
+    console.log("id1: ", firstteamselectedOption.id);
+    setIsFirstTeamMenuOpen(false);
   };
 
-  //second search
-
-  useEffect(() => {
-    if (searchInput1 && searchCompleted)
-      dispatch(serachTeam({ name: searchInput1 }));
-  }, [dispatch, searchInput1, searchCompleted]);
-  useEffect(() => {
-    setFilteredTeams1(
-      Array.isArray(teams) &&
-        teams?.filter((team) =>
-          team?.team?.name.toLowerCase().includes(searchInput1.toLowerCase())
-        )
-    );
-  }, [teams, searchInput1]);
-  const handleInputChange1 = (e) => {
-    setSearchInput1(e.target.value);
-  };
-  const handleteam = (e) => {
-    setFilteredTeams([]);
-    console.log("team1 e", e);
-    let name = e.split("_")[0];
-    let logo = e.split("_")[1];
-    let id = e.split("_")[2];
-    setSearchInput(name);
-    setSearchImgInput(logo);
-    console.log("team1 ", id);
-    setTeam1Id(id);
-    setSearchCompleted(true);
-  };
-  const handleteam1 = (e) => {
-    setFilteredTeams1([]);
-    console.log(e);
-
-    let name = e.split("_")[0];
-    let logo = e.split("_")[1];
-    let id = e.split("_")[2];
-
-    setSearchInput1(name);
-    setSearchImgInput1(logo);
-    console.log("team2 id: ", e.split("_"));
-    setTeam2Id(id);
+  const handleInputTeamChange = (inputValue) => {
+    if (inputValue.length > 3) {
+      dispatch(serachTeam({ name: inputValue })).then(() => {
+        setIsFirstTeamMenuOpen(true);
+      });
+    } else {
+      setIsFirstTeamMenuOpen(false);
+    }
   };
 
+  const handleTeamSecondChange = (secondselectedOption) => {
+    setSecondSelectedTeamOption(secondselectedOption.id);
+    setTeam2Id(secondselectedOption.id);
+    console.log("id1: ", secondselectedOption.id);
+    setIsSecondTeamMenuOpen(false);
+    // console.log(`Option selected:`, secondselectedOption);
+  };
+
+  const handleInputTeamSecondChange = (inputValue) => {
+    if (inputValue.length > 3) {
+      dispatch(serachTeam({ name: inputValue })).then(() => {
+        setIsSecondTeamMenuOpen(true);
+      });
+    } else {
+      setIsSecondTeamMenuOpen(false);
+    }
+  };
+
+  const optionsFirstTeam = [
+    ...(teams?.response?.map((dlist) => {
+      return {
+        value: dlist?.team?.name,
+        id: dlist?.team?.id,
+        label: (
+          <div style={{ display: "flex" }}>
+            <img
+              src={dlist?.team?.logo}
+              alt="League Logo"
+              style={{ width: 20, height: 20 }}
+            />
+            <span style={{ paddingLeft: "10px" }}>{dlist?.team?.name}</span>
+          </div>
+        ),
+      };
+    }) || []),
+  ];
+
+  const optionsSecondTeam = [
+    ...(teams?.response?.map((dlist) => {
+      return {
+        value: dlist?.team?.name,
+        id: dlist?.team?.id,
+        label: (
+          <div style={{ display: "flex" }}>
+            <img
+              src={dlist?.team?.logo}
+              alt="League Logo"
+              style={{ width: 20, height: 20 }}
+            />
+            <span style={{ paddingLeft: "10px" }}>{dlist?.team?.name}</span>
+          </div>
+        ),
+      };
+    }) || []),
+  ];
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -156,8 +231,8 @@ const TeamComparisions = () => {
                       >
                         Search for First Team
                       </Label>
-                      <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
-                        {searchImgInput && searchInput && (
+                      {/* <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                         {searchImgInput && searchInput && (
                           <img
                             id="img"
                             src={searchImgInput}
@@ -175,8 +250,8 @@ const TeamComparisions = () => {
                           required
                           value={searchInput}
                           onChange={handleInputChange}
-                        />
-
+                        /> 
+                         
                         <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10 ">
                           {filteredTeams?.length > 0 && (
                             <div>
@@ -207,7 +282,8 @@ const TeamComparisions = () => {
                               ))}
                             </div>
                           )}
-                        </div>
+                        </div> 
+
                         <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
                           <svg
                             className="w-5 h-5 text-[#606060]"
@@ -225,7 +301,14 @@ const TeamComparisions = () => {
                             />
                           </svg>
                         </div>
-                      </div>
+                      </div> */}
+                      <Select
+                        options={optionsFirstTeam}
+                        value={optionsFirstTeam.value}
+                        onChange={handleTeamChange}
+                        onInputChange={handleInputTeamChange}
+                        menuIsOpen={isFirstTeamMenuOpen}
+                      />
                     </div>
                     <div className="mb-4">
                       <Label
@@ -235,7 +318,7 @@ const TeamComparisions = () => {
                       >
                         Search for Second Team
                       </Label>
-                      <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                      {/* <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
                         {searchImgInput1 && searchInput1 && (
                           <img
                             id="img"
@@ -253,7 +336,7 @@ const TeamComparisions = () => {
                           placeholder="Second Team"
                           required
                           value={searchInput1}
-                          onChange={handleInputChange1}
+                          // onChange={handleInputChange1}
                         />
                         <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
                           {filteredTeams1.length > 0 && (
@@ -263,11 +346,11 @@ const TeamComparisions = () => {
                                   id="listItems"
                                   key={team1.team?.id}
                                   className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
-                                  onClick={() =>
-                                    handleteam1(
-                                      `${team1.team?.name}_${team1.team?.logo}_${team1.team?.id}`
-                                    )
-                                  }
+                                  // onClick={() =>
+                                  //   handleteam1(
+                                  //     `${team1.team?.name}_${team1.team?.logo}_${team1.team?.id}`
+                                  //   )
+                                  // }
                                 >
                                   <span className="text-sm ">
                                     <img
@@ -299,7 +382,14 @@ const TeamComparisions = () => {
                             />
                           </svg>
                         </div>
-                      </div>
+                      </div> */}
+                      <Select
+                        options={optionsSecondTeam}
+                        value={optionsSecondTeam.value}
+                        onChange={handleTeamSecondChange}
+                        onInputChange={handleInputTeamSecondChange}
+                        menuIsOpen={isSecondTeamMenuOpen}
+                      />
                     </div>
                     <button
                       onClick={() => {
@@ -355,8 +445,8 @@ const TeamComparisions = () => {
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="Team"
                           required
-                          value={searchInput}
-                          onChange={handleInputChange}
+                          // value={searchInput}
+                          // onChange={handleInputChange}
                         />
 
                         <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10 ">
