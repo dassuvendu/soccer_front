@@ -92,7 +92,7 @@ const handleInputTeamSecondChange = (inputValue) => {
 
   const handleInputSecondChange = (inputValue) => {
     if (inputValue.length > 3) {
-      dispatch(getPlayerName({search : inputValue , team : secondselectedOption})).then(()=>{
+      dispatch(getPlayerName({search : inputValue , team : secondselectedTeamOption})).then(()=>{
         setIsSecondMenuOpen(true);  
       })
     }else {

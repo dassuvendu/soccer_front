@@ -123,6 +123,23 @@ export const LastAwayResult = createAsyncThunk(
     }
   }
 );
+export const LastResult = createAsyncThunk(
+  'user/LastawayResult',
+  async (userInput, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/predictions',userInput);
+      if (response?.status === 200) { 
+        return response.data;
+      } else {
+        let errors = errorHandler(response);
+        return rejectWithValue(errors);
+      }
+    } catch (err) {
+      let errors = errorHandler(err);
+      return rejectWithValue(errors);
+    }
+  }
+);
 const initialState = {
   message: null,
   error: null,
@@ -132,7 +149,7 @@ const initialState = {
   seasons:[],
   // page:[],
   lastHomeResult:[],
-  lastAwayResult:[]
+  lastAwayResult:[],
 };
 
 const PredictionsSlice = createSlice({
@@ -225,6 +242,7 @@ const PredictionsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.lastHomeResult = payload; 
+     
       })
       .addCase(LastHomeResult.rejected, (state, { payload }) => {
         state.isLoading = false;

@@ -18,9 +18,13 @@ export const RequestModal = ({
   awayId,
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { lastHomeResult } = useSelector((state) => state.prediction);
-  const { lastAwayResult } = useSelector((state) => state.prediction);
+  const { lastResult } = useSelector((state) => state.prediction);
+
+  // const { lastAwayResult } = useSelector((state) => state.prediction);
+  console.log("last", lastResult);
   const { fixtures } = useSelector((state) => state.prediction);
+  const [homeData, setHomeData] = useState()
+  const [awayData, setAwayData] = useState()
   const [homeDataImg, setHomeDataImg] = useState();
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
@@ -43,40 +47,58 @@ export const RequestModal = ({
 
   useEffect(() => {
     if (
-      lastHomeResult &&
-      lastHomeResult.data &&
-      lastHomeResult.data.length > 0
+      lastResult &&
+      lastResult.data &&
+      lastResult.data.length > 0
     ) {
-      let data = lastHomeResult?.data[0];
+      let data = lastResult?.data[0];
       setHomeData(data);
-
-      lastHomeResult?.data.forEach((data) => {
-        const id = data?.teams?.home?.id;
-        setHomeResult(id);
-      });
-    }
-  }, [lastHomeResult]);
-
-  useEffect(() => {
-    if (
-      lastAwayResult &&
-      lastAwayResult.data &&
-      lastAwayResult.data.length > 0
-    ) {
-      let data = lastAwayResult?.data[0];
+      let homeImgData;
+      let homeName;
       let awayImgData;
       let awayName;
-      if (awayId == data?.teams?.away?.id) {
+      if (data?.teams?.home?.id == data?.teams?.home?.id) {
+        homeImgData = data?.teams?.home?.logo;
+        homeName = data?.teams?.home?.name;
+      } else if (data?.teams?.away?.id == data?.teams?.away?.id) {
+        homeImgData = data?.teams?.away?.logo;
+        homeName = data?.teams?.away?.name;
+      }
+      if (data?.teams?.away?.id == data?.teams?.away?.id) {
         awayImgData = data?.teams?.away?.logo;
         awayName = data?.teams?.away?.name;
-      } else if (awayId == data?.teams?.home?.id) {
+      } else if (data?.teams?.home?.id == data?.teams?.home?.id) {
         awayImgData = data?.teams?.home?.logo;
         awayName = data?.teams?.home?.name;
       }
+      setHomeDataImg(homeImgData);
+      setHomeName(homeName);
       setAwayDataImg(awayImgData);
       setAwayName(awayName);
     }
-  }, [lastAwayResult]);
+  }, [lastResult]);
+
+  // useEffect(() => {
+  //   if (
+  //     lastAwayResult &&
+  //     lastAwayResult.data &&
+  //     lastAwayResult.data.length > 0
+  //   ) {
+  //     let data = lastAwayResult?.data[0];
+  //     setAwayData(data)
+  //     let awayImgData;
+  //     let awayName;
+  //     if (data?.teams?.away?.id == data?.teams?.away?.id) {
+  //       awayImgData = data?.teams?.away?.logo;
+  //       awayName = data?.teams?.away?.name;
+  //     } else if (data?.teams?.home?.id == data?.teams?.home?.id) {
+  //       awayImgData = data?.teams?.home?.logo;
+  //       awayName = data?.teams?.home?.name;
+  //     }
+  //     setAwayDataImg(awayImgData);
+  //     setAwayName(awayName);
+  //   }
+  // }, [lastAwayResult]);
 
   const handleModal = () => {
     onClose();
@@ -113,9 +135,8 @@ export const RequestModal = ({
                     />
 
                     <p
-                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      }`}
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
+                        }`}
                     >
                       {homeName}
                     </p>
@@ -142,9 +163,8 @@ export const RequestModal = ({
                       className="inline-block mb-2"
                     />
                     <p
-                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      }`}
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
+                        }`}
                     >
                       {awayName}
                     </p>
@@ -153,9 +173,8 @@ export const RequestModal = ({
               </div>
 
               <div
-                className={` ${
-                  themeMode === "light" ? "bg-[#ffffff]" : "bg-[#191D23]"
-                } rounded-xl p-0`}
+                className={` ${themeMode === "light" ? "bg-[#ffffff]" : "bg-[#191D23]"
+                  } rounded-xl p-0`}
               >
                 <div className="max-w-5xl mx-auto">
                   <Tabs className="team_comparisions_tab_section">
@@ -337,11 +356,15 @@ export const RequestModal = ({
                                       />
                                     </div>
                                     <div className="text-center">
-                                      <div className="bg-[#2aa9e1] py-2 rounded-full">
-                                        <h3 className="text-white text-base">
-                                          {data?.goals.home}-{data?.goals.away}
-                                        </h3>
-                                      </div>
+                                      {data?.h2h.map(goal => (
+                                        console.log(goal)
+                                        // <div className="bg-[#2aa9e1] py-2 rounded-full">
+                                        //   <h3 className="text-white text-base">
+                                        //     {goal?.goals?.home}-{goal?.goals?.away}
+                                        //   </h3>
+                                        // </div>
+                                      ))}
+
                                     </div>
                                     <div className="text-center">
                                       <img
@@ -500,21 +523,19 @@ export const RequestModal = ({
                                         className="inline-block mr-2 w-12"
                                       />
                                       <p
-                                        className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                                          themeMode === "light"
+                                        className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light"
                                             ? "text-black"
                                             : "text-white"
-                                        }`}
+                                          }`}
                                       >
                                         Aucas
                                       </p>
                                     </div>
                                     <p
-                                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                                        themeMode === "light"
+                                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light"
                                           ? "text-black"
                                           : "text-white"
-                                      }`}
+                                        }`}
                                     >
                                       4-4-2
                                     </p>
