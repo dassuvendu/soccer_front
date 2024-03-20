@@ -27,7 +27,7 @@ const TeamComparisions = () => {
   };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const teams = useSelector((state) => state.teamComparision);
+  const { teams } = useSelector((state) => state.teamComparision);
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const [searchInputDep, setSearchInputDep] = useState("");
@@ -97,8 +97,7 @@ const TeamComparisions = () => {
     let name = e.split("_")[0];
     let logo = e.split("_")[1];
     let id = e.split("_")[2];
-    // console.log("name", name1);
-    // console.log("logo1", logo1);
+
     setSearchInput1(name);
     setSearchImgInput1(logo);
     console.log("team2 id: ", e.split("_"));
@@ -188,21 +187,21 @@ const TeamComparisions = () => {
                               {filteredTeams?.map((team) => (
                                 <li
                                   id="listItem"
-                                  key={team.team?.id}
+                                  key={team?.team?.id}
                                   className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
                                   onClick={() =>
                                     handleteam(
-                                      `${team.team?.name}_${team.team?.logo}_${team.team?.id}`
+                                      `${team?.team?.name}_${team?.team?.logo}_${team?.team?.id}`
                                     )
                                   }
                                 >
                                   <span className="text-sm ">
                                     <img
-                                      src={team.team?.logo}
-                                      alt={team.team?.name}
+                                      src={team?.team?.logo}
+                                      alt={team?.team?.name}
                                       className="inline-block w-6 h-6 mr-2"
                                     />
-                                    {team.team?.name}
+                                    {team?.team?.name}
                                   </span>
                                 </li>
                               ))}
@@ -356,7 +355,7 @@ const TeamComparisions = () => {
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="Team"
                           required
-                          // value={searchInput}
+                          value={searchInput}
                           onChange={handleInputChange}
                         />
 
