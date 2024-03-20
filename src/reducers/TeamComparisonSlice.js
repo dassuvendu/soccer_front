@@ -8,7 +8,7 @@ export const CompTeams = createAsyncThunk(
     'comTeams',
     async (h2h, { rejectWithValue }) => {
         try {
-            const response = await api.post('/api/team_comparison', { h2h: "37-34" });
+            const response = await api.post('/api/team_comparison', h2h);
             if (response.status) {
 
                 return response.data.data;

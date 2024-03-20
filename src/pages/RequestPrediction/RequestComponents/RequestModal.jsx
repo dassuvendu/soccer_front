@@ -21,8 +21,10 @@ export const RequestModal = ({
   const { lastHomeResult } = useSelector((state) => state.prediction);
   const { lastAwayResult } = useSelector((state) => state.prediction);
   const { fixtures } = useSelector((state) => state.prediction);
-  const [homeData, setHomeData] = useState();
-  const [awayData, setAwayData] = useState();
+  const [homeDataImg, setHomeDataImg] = useState();
+  const [awayDataImg, setAwayDataImg] = useState();
+  const [homeName, setHomeName] = useState();
+  const [awayName, setAwayName] = useState();
 
   const [matchDateList] = useDateList();
   const [matchTimeList] = useTimeList();
@@ -62,12 +64,26 @@ export const RequestModal = ({
       lastAwayResult.data.length > 0
     ) {
       let data = lastAwayResult?.data[0];
-      setAwayData(data);
+      let awayImgData;
+      let awayName;
+      if (awayId == data?.teams?.away?.id) {
+        awayImgData = data?.teams?.away?.logo;
+        awayName = data?.teams?.away?.name;
+      } else if (awayId == data?.teams?.home?.id) {
+        awayImgData = data?.teams?.home?.logo;
+        awayName = data?.teams?.home?.name;
+      }
+      setAwayDataImg(awayImgData);
+      setAwayName(awayName);
     }
   }, [lastAwayResult]);
 
   const handleModal = () => {
     onClose();
+    setHomeDataImg(null);
+    setAwayDataImg(null);
+    setHomeName(null);
+    setAwayName(null);
   };
 
   return (
@@ -91,16 +107,17 @@ export const RequestModal = ({
                 <div className="grid grid-cols-3 gap-4 mb-4">
                   <div className="text-center">
                     <img
-                      src={homeData?.teams?.home?.logo}
-                      alt="DeportivoPastoIcon"
+                      src={homeDataImg}
+                      alt={homeName}
                       className="inline-block mb-2"
                     />
+
                     <p
                       className={`font-Syne text-[15px] leading-[20px] font-bold ${
                         themeMode === "light" ? "text-black" : "text-white"
                       }`}
                     >
-                      {homeData?.teams?.home?.name}
+                      {homeName}
                     </p>
                   </div>
 
@@ -120,8 +137,8 @@ export const RequestModal = ({
 
                   <div className="text-center">
                     <img
-                      src={awayData?.teams?.away?.logo}
-                      alt="EnvigadoIcon"
+                      src={awayDataImg}
+                      alt={awayName}
                       className="inline-block mb-2"
                     />
                     <p
@@ -129,7 +146,7 @@ export const RequestModal = ({
                         themeMode === "light" ? "text-black" : "text-white"
                       }`}
                     >
-                      {awayData?.teams?.away?.name}
+                      {awayName}
                     </p>
                   </div>
                 </div>
