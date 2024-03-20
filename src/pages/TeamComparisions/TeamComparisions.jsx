@@ -31,99 +31,49 @@ const TeamComparisions = () => {
   const [filteredTeams1, setFilteredTeams1] = useState([]);
   const [team1Id, setTeam1Id] = useState("");
   const [team2Id, setTeam2Id] = useState("");
+  const [searchCompleted, setSearchCompleted] = useState(false);
 
   const teamComparisionsModalHandler = (team1Id, team2Id) => {
     setOpenTeamComparisionsModal(true);
     console.log("team1Id: ", team1Id);
     console.log("team2Id: ", team2Id);
   };
-  // function debounceIng(func, delay = 1000) {
-  //   let timeOutId;
-  //   return function () {
-  //     if (timeOutId) {
-  //       clearTimeout(timeOutId);
-  //     }
-  //     timeOutId = setTimeout(() => {
-  //       func();
-  //     }, delay);
-  //   };
-  // }
-
   useEffect(() => {
-    dispatch(serachTeam({ name: searchInput1 }));
-  }, [dispatch, searchInput1]);
-
+    if (searchInput && searchInput.length >= 3)
+      dispatch(serachTeam({ name: searchInput }));
+  }, [dispatch, searchInput]);
   useEffect(() => {
-    // Filter teams based on search input
     setFilteredTeams(
       Array.isArray(teams) &&
         teams?.filter((team) =>
-          team.team.name.toLowerCase().includes(searchInput.toLowerCase())
+          team?.team?.name.toLowerCase().includes(searchInput.toLowerCase())
         )
     );
-  }, [teams]);
+  }, [teams, searchInput]);
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  //second search
 
   useEffect(() => {
-    // Filter teams based on search input
+    if (searchInput1 && searchCompleted)
+      dispatch(serachTeam({ name: searchInput1 }));
+  }, [dispatch, searchInput1, searchCompleted]);
+  useEffect(() => {
     setFilteredTeams1(
       Array.isArray(teams) &&
         teams?.filter((team) =>
-          team.team.name.toLowerCase().includes(searchInput1.toLowerCase())
+          team?.team?.name.toLowerCase().includes(searchInput1.toLowerCase())
         )
     );
   }, [teams, searchInput1]);
-
-  //console.log("teams: ", teams[0]?.team?.id);
-  // Search employee filter section
-  const searchTeamListHandler = (e) => {
-    let searchValue = e?.target?.value ? e?.target?.value.trim() : "";
-    setSearchInput(searchValue);
+  const handleInputChange1 = (e) => {
+    setSearchInput1(e.target.value);
   };
-  const searchSecondTeamListHandler = (e) => {
-    let searchValue = e?.target?.value ? e?.target?.value.trim() : "";
-    setSearchInput1(searchValue);
-  };
-  const handleInputChange = debounce((e) => {
-    // setSearchInput(e.target.value?.trim());
-    // setFilteredTeams([]);
-
-    searchTeamListHandler(e);
-  });
-  useEffect(() => {
-    console.log(
-      "searchInput.length - searchInputDep.length",
-      searchInput.length - searchInputDep.length
-    );
-    if (searchInput.length - searchInputDep.length <= 1)
-      setSearchInputDep(searchInput);
-  }, [searchInput]);
-  const handleInputChange1 = debounce((e) => {
-    // setSearchInput(e.target.value?.trim());
-    // setFilteredTeams([]);
-    searchSecondTeamListHandler(e);
-  });
-
-  useEffect(() => {
-    if (searchInput !== "") {
-      console.log("searchInput", searchInput);
-
-      dispatch(serachTeam({ name: searchInput }));
-    }
-  }, [searchInputDep]);
-
-  useEffect(() => {
-    if (searchInput1 !== "") dispatch(serachTeam({ name: searchInput1 }));
-  }, [searchInput1]);
-
-  // const handleInputChange1 = (e) => {
-  //   setSearchInput1(e.target.value);
-  //   setFilteredTeams1([]);
-  // };
   const handleteam = (e) => {
-    // document.getElementById("listItem").style.display = "none";
     setFilteredTeams([]);
     console.log("team1 e", e);
-
     let name = e.split("_")[0];
     let logo = e.split("_")[1];
     let id = e.split("_")[2];
@@ -131,9 +81,9 @@ const TeamComparisions = () => {
     setSearchImgInput(logo);
     console.log("team1 ", id);
     setTeam1Id(id);
+    setSearchCompleted(true);
   };
   const handleteam1 = (e) => {
-    // document.getElementById("listItems").style.display = "none";
     setFilteredTeams1([]);
     console.log(e);
 
@@ -217,14 +167,17 @@ const TeamComparisions = () => {
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="First Team"
                           required
-                          // value={searchInput}
+                          value={searchInput}
                           onChange={handleInputChange}
                         />
 
                         <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10 ">
                           {filteredTeams?.length > 0 && (
                             <div>
-                              {console.log("filteredTeams", filteredTeams)}
+                              {console.log(
+                                "filteredTeams",
+                                filteredTeams?.team?.name
+                              )}
                               {filteredTeams?.map((team) => (
                                 <li
                                   id="listItem"
@@ -293,7 +246,7 @@ const TeamComparisions = () => {
                           className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
                           placeholder="Second Team"
                           required
-                          // value={`${searchInput1}`}
+                          value={searchInput1}
                           onChange={handleInputChange1}
                         />
                         <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
@@ -302,7 +255,7 @@ const TeamComparisions = () => {
                               {filteredTeams1.map((team1) => (
                                 <li
                                   id="listItems"
-                                  key={team1.id}
+                                  key={team1.team?.id}
                                   className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
                                   onClick={() =>
                                     handleteam1(

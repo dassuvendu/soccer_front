@@ -67,7 +67,7 @@ const TeamComparisonSlice = createSlice(
                         ? payload.message
                         : 'Something went wrong. Try again later.';
             }).addCase(serachTeam.pending, (state) => {
-                state.isLoading = false
+                state.isLoading = true;
             }).addCase(serachTeam.fulfilled, (state, { payload }) => {
                 state.isLoading = false
                 console.log("search Teams: ", payload);
