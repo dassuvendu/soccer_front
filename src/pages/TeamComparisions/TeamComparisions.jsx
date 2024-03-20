@@ -27,7 +27,7 @@ const TeamComparisions = () => {
   };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const team  = useSelector((state) => state.teamComparision);
+  const teams = useSelector((state) => state.teamComparision);
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const [searchInputDep, setSearchInputDep] = useState("");
@@ -489,7 +489,7 @@ const TeamComparisions = () => {
         <Modal
           show={openTeamInformationModal}
           size="7xl"
-          onClose={() => teamInformationModalHandler(false)}
+          onClose={() => setOpenTeamInformationModal(false)}
           popup
         >
           <Modal.Header className="absolute right-0 top-0" />
