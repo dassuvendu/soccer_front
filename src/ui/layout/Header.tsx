@@ -46,12 +46,12 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                 <Link className="block flex-shrink-0 lg:hidden" to="/">
                     <img src={logoIcon} alt="Logo" />
                 </Link>
-                <div className='w-12/12 mr-3 my-1'>
+                {/* <div className='w-12/12 mr-3 my-1'>
                     <Link className="max-w-[125px] bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-3 text-[12px] leading-[34px] rounded-3xl flex items-center">
                         <img src={dollerIcon} alt='dollerIcon' className='mr-1 w-4' />
                         10 Coins 
                     </Link>
-                </div>
+                </div> */}
             </div>
 
             <div className="hidden lg:block w-full">
@@ -65,13 +65,13 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                             <h3 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[16px] leading-[42px]`}>Go To Website</h3>
                         </div>
                     </div>
-                    <div className='w-7/12 flex mt-1.5'>
-                        <div className='w-4/12 mr-3 my-1'>
+                    <div className='w-7/12 flex justify-end mt-1.5'>
+                        {/* <div className='w-4/12 mr-3 my-1'>
                             <Link className="max-w-[125px] bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-3 text-[14px] leading-[40px] rounded-3xl flex items-center">
                                 <img src={dollerIcon} alt='dollerIcon' className='mr-1' />
                                 10 Coins 
                             </Link>
-                        </div>
+                        </div> */}
                         <div className='w-8/12 pr-4'>
                             <form className="flex items-center max-w-sm mx-auto">   
                                 <div 
