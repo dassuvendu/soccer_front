@@ -204,7 +204,7 @@ const handleInputTeamSecondChange = (inputValue) => {
         >
           <div className="max-w-2xl mx-auto">
             <Tabs className="team_comparisions_tab_section">
-              <TabList>
+              <TabList className="tab_bar">
                 <Tab>Past Matches</Tab>
                 <Tab>Single Team Info</Tab>
               </TabList>
