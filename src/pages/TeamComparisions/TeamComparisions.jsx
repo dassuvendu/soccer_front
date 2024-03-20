@@ -11,6 +11,7 @@ import { Label, Button, Modal, TextInput } from "flowbite-react";
 import ViewComparisonDetails from "./ViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
 import debounce from "../../utils/debounce";
+import ViewTeamInformationDetails from "./ViewTeamInformationDetails";
 
 const TeamComparisions = () => {
   const [openTeamComparisionsModal, setOpenTeamComparisionsModal] =
@@ -18,6 +19,12 @@ const TeamComparisions = () => {
   // const teamComparisionsModalHandler = () => {
   //   setOpenTeamComparisionsModal(true);
   // };
+
+  const [openTeamInformationModal, setOpenTeamInformationModal] =
+    useState(false);
+  const teamInformationModalHandler = () => {
+    setOpenTeamInformationModal(true);
+  };
 
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { teams } = useSelector((state) => state.teamComparision);
@@ -175,7 +182,7 @@ const TeamComparisions = () => {
                 <Tab>Single Team Info</Tab>
               </TabList>
               <TabPanel>
-                <div>
+                <div className="pt-4">
                   <h2
                     className={`font-Bebas text-[35px] tracking-normal  ${
                       themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
@@ -354,47 +361,113 @@ const TeamComparisions = () => {
                 </div>
               </TabPanel>
               <TabPanel>
-                <div className="mt-6">
-                  <p
-                    className={`${
-                      themeMode === "light" ? "text-black" : "text-white"
-                    } pb-4 text-[14px]`}
+                <div className="pt-4">
+                  <h2
+                    className={`font-Bebas text-[35px] tracking-normal  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    }`}
                   >
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
+                    Team Information
+                  </h2>
+                  <p
+                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    }`}
+                  >
+                    View full analysis, starting XI, statistics and historical
+                    data for a single team
                   </p>
-                  <p
-                    className={`${
-                      themeMode === "light" ? "text-black" : "text-white"
-                    } pb-4 text-[14px]`}
-                  >
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
-                  </p>{" "}
-                  <p
-                    className={`${
-                      themeMode === "light" ? "text-black" : "text-white"
-                    } pb-4 text-[14px]`}
-                  >
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book.
-                  </p>
+                  <div className="mt-8">
+                    <div className="mb-4">
+                      <Label
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
+                      >
+                        Search for Team
+                      </Label>
+                      <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                        {searchImgInput && searchInput && (
+                          <img
+                            id="img"
+                            src={searchImgInput}
+                            alt={searchInput}
+                            className="inline-block w-6 h-6 m-2"
+                            width={5}
+                            height={5}
+                          />
+                        )}
+                        <input
+                          type="text"
+                          id="simple-search"
+                          className="ml-3 h-[40px] bg-transparent text-[#606060] border-0 text-[14px] focus:ring-[#151718] focus:border-[#151718] block w-ful ps- p-0 w-full"
+                          placeholder="Team"
+                          required
+                          // value={searchInput}
+                          onChange={handleInputChange}
+                        />
+
+                        <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10 ">
+                          {filteredTeams?.length > 0 && (
+                            <div>
+                              {console.log("filteredTeams", filteredTeams)}
+                              {filteredTeams?.map((team) => (
+                                <li
+                                  id="listItem"
+                                  key={team.team?.id}
+                                  className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
+                                  onClick={() =>
+                                    handleteam(
+                                      `${team.team?.name}_${team.team?.logo}_${team.team?.id}`
+                                    )
+                                  }
+                                >
+                                  <span className="text-sm ">
+                                    <img
+                                      src={team.team?.logo}
+                                      alt={team.team?.name}
+                                      className="inline-block w-6 h-6 mr-2"
+                                    />
+                                    {team.team?.name}
+                                  </span>
+                                </li>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
+                          <svg
+                            className="w-5 h-5 text-[#606060]"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={teamInformationModalHandler}
+                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                    >
+                      View Team Information
+                    </button>
+                  </div>
                 </div>
               </TabPanel>
             </Tabs>
           </div>
         </div>
       </div>
-      {/* Login Modal start here */}
+      {/* Team Comparisions Modal start here */}
       {openTeamComparisionsModal && (
         <Modal
           show={openTeamComparisionsModal}
@@ -410,7 +483,24 @@ const TeamComparisions = () => {
           </Modal.Body>
         </Modal>
       )}
-      {/* Login Modal ends here */}
+      {/* Team Comparisions Modal ends here */}
+      {/* Team Information Modal start here */}
+      {openTeamInformationModal && (
+        <Modal
+          show={openTeamInformationModal}
+          size="7xl"
+          onClose={() => teamInformationModalHandler(false)}
+          popup
+        >
+          <Modal.Header className="absolute right-0 top-0" />
+          <Modal.Body>
+            <div className="pt-6">
+              <ViewTeamInformationDetails />
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+      {/* Team Information Modal ends here */}
     </div>
   );
 };
