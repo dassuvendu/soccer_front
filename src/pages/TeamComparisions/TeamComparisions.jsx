@@ -9,7 +9,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Label, Button, Modal, TextInput } from "flowbite-react";
 import ViewComparisonDetails from "./ViewComparisonDetails";
-import { serachTeam } from "../../reducers/TeamComparisonSlice";
+import { getLeague, serachTeam } from "../../reducers/TeamComparisonSlice";
 import debounce from "../../utils/debounce";
 import ViewTeamInformationDetails from "./ViewTeamInformationDetails";
 import Select from "react-select";
@@ -38,17 +38,22 @@ const TeamComparisions = () => {
   const [filteredTeams1, setFilteredTeams1] = useState([]);
   const [team1Id, setTeam1Id] = useState("");
   const [team2Id, setTeam2Id] = useState("");
+  const [singleTeamId, setSingleTeamId] = useState("");
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [firstteamselectedOption, setFirstTeamSelectedOption] = useState(null);
   const [isFirstTeamMenuOpen, setIsFirstTeamMenuOpen] = useState(false);
   const [secondselectedTeamOption, setSecondSelectedTeamOption] =
     useState(null);
   const [isSecondTeamMenuOpen, setIsSecondTeamMenuOpen] = useState(false);
+  const [singleteamselectedOption, setSingleTeamSelectedOption] =
+    useState(null);
+  const [isSingleTeamMenuOpen, setIsSingleTeamMenuOpen] = useState(false);
   const teamComparisionsModalHandler = (team1Id, team2Id) => {
     setOpenTeamComparisionsModal(true);
     console.log("team1Id: ", team1Id);
     console.log("team2Id: ", team2Id);
   };
+
   // useEffect(() => {
   //   if (searchInput && searchInput.length >= 3)
   //     dispatch(serachTeam({ name: searchInput }));
@@ -141,7 +146,24 @@ const TeamComparisions = () => {
       setIsSecondTeamMenuOpen(false);
     }
   };
+  //single team
+  const handleSingleTeamChange = (singleteamselectedOption) => {
+    setSingleTeamSelectedOption(singleteamselectedOption.id);
+    setSingleTeamId(singleteamselectedOption.id);
+    console.log("single: ", singleteamselectedOption.id);
+    setIsSingleTeamMenuOpen(false);
+  };
 
+  const handleSingleInputTeamChange = (inputValue) => {
+    if (inputValue.length > 3) {
+      dispatch(serachTeam({ name: inputValue })).then(() => {
+        setIsSingleTeamMenuOpen(true);
+      });
+    } else {
+      setIsSingleTeamMenuOpen(false);
+    }
+  };
+  //single team end
   const optionsFirstTeam = [
     ...(teams?.response?.map((dlist) => {
       return {
@@ -162,6 +184,26 @@ const TeamComparisions = () => {
   ];
 
   const optionsSecondTeam = [
+    ...(teams?.response?.map((dlist) => {
+      return {
+        value: dlist?.team?.name,
+        id: dlist?.team?.id,
+        label: (
+          <div style={{ display: "flex" }}>
+            <img
+              src={dlist?.team?.logo}
+              alt="League Logo"
+              style={{ width: 20, height: 20 }}
+            />
+            <span style={{ paddingLeft: "10px" }}>{dlist?.team?.name}</span>
+          </div>
+        ),
+      };
+    }) || []),
+  ];
+
+  //single team
+  const optionsSingleTeam = [
     ...(teams?.response?.map((dlist) => {
       return {
         value: dlist?.team?.name,
@@ -428,7 +470,7 @@ const TeamComparisions = () => {
                       >
                         Search for Team
                       </Label>
-                      <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                      {/* <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
                         {searchImgInput && searchInput && (
                           <img
                             id="img"
@@ -494,7 +536,14 @@ const TeamComparisions = () => {
                             />
                           </svg>
                         </div>
-                      </div>
+                      </div> */}
+                      <Select
+                        options={optionsSingleTeam}
+                        value={optionsSingleTeam.value}
+                        onChange={handleSingleTeamChange}
+                        onInputChange={handleSingleInputTeamChange}
+                        menuIsOpen={isSingleTeamMenuOpen}
+                      />
                     </div>
                     <button
                       onClick={teamInformationModalHandler}
@@ -537,7 +586,7 @@ const TeamComparisions = () => {
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="pt-6">
-              <ViewTeamInformationDetails />
+              <ViewTeamInformationDetails singleId={singleTeamId} />
             </div>
           </Modal.Body>
         </Modal>
