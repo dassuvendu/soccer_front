@@ -327,6 +327,20 @@ body {
   }
 
 
+  /*  */
+
+
+  .css-13cymwt-control {
+    border-radius: 25px !important;
+  }
+  .css-t3ipsp-control {
+    border-radius: 25px !important;
+  }
+
+
+  /*  */
+
+
 @media only screen and (max-width:767px) {
 
     .date_picker_box_light.Select_Season select {
@@ -394,6 +408,12 @@ body {
         }
         .plan_tab_area .react-tabs ul.react-tabs__tab-list {
             width: 270px;
+        }
+
+
+        .team_comparisions_tab_section ul.tab_bar li {
+            font-size: 12px;
+            line-height: 25px;
         }
 
 }

@@ -9,7 +9,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Label, Button, Modal, TextInput } from "flowbite-react";
 import ViewComparisonDetails from "./ViewComparisonDetails";
-import { serachTeam } from "../../reducers/TeamComparisonSlice";
+import { getLeague, serachTeam } from "../../reducers/TeamComparisonSlice";
 import debounce from "../../utils/debounce";
 import ViewTeamInformationDetails from "./ViewTeamInformationDetails";
 import Select from "react-select";
@@ -38,17 +38,22 @@ const TeamComparisions = () => {
   const [filteredTeams1, setFilteredTeams1] = useState([]);
   const [team1Id, setTeam1Id] = useState("");
   const [team2Id, setTeam2Id] = useState("");
+  const [singleTeamId, setSingleTeamId] = useState("");
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [firstteamselectedOption, setFirstTeamSelectedOption] = useState(null);
   const [isFirstTeamMenuOpen, setIsFirstTeamMenuOpen] = useState(false);
   const [secondselectedTeamOption, setSecondSelectedTeamOption] =
     useState(null);
   const [isSecondTeamMenuOpen, setIsSecondTeamMenuOpen] = useState(false);
+  const [singleteamselectedOption, setSingleTeamSelectedOption] =
+    useState(null);
+  const [isSingleTeamMenuOpen, setIsSingleTeamMenuOpen] = useState(false);
   const teamComparisionsModalHandler = (team1Id, team2Id) => {
     setOpenTeamComparisionsModal(true);
     console.log("team1Id: ", team1Id);
     console.log("team2Id: ", team2Id);
   };
+
   // useEffect(() => {
   //   if (searchInput && searchInput.length >= 3)
   //     dispatch(serachTeam({ name: searchInput }));
@@ -141,7 +146,24 @@ const TeamComparisions = () => {
       setIsSecondTeamMenuOpen(false);
     }
   };
+  //single team
+  const handleSingleTeamChange = (singleteamselectedOption) => {
+    setSingleTeamSelectedOption(singleteamselectedOption.id);
+    setSingleTeamId(singleteamselectedOption.id);
+    console.log("single: ", singleteamselectedOption.id);
+    setIsSingleTeamMenuOpen(false);
+  };
 
+  const handleSingleInputTeamChange = (inputValue) => {
+    if (inputValue.length > 3) {
+      dispatch(serachTeam({ name: inputValue })).then(() => {
+        setIsSingleTeamMenuOpen(true);
+      });
+    } else {
+      setIsSingleTeamMenuOpen(false);
+    }
+  };
+  //single team end
   const optionsFirstTeam = [
     ...(teams?.response?.map((dlist) => {
       return {
@@ -179,10 +201,30 @@ const TeamComparisions = () => {
       };
     }) || []),
   ];
+
+  //single team
+  const optionsSingleTeam = [
+    ...(teams?.response?.map((dlist) => {
+      return {
+        value: dlist?.team?.name,
+        id: dlist?.team?.id,
+        label: (
+          <div style={{ display: "flex" }}>
+            <img
+              src={dlist?.team?.logo}
+              alt="League Logo"
+              style={{ width: 20, height: 20 }}
+            />
+            <span style={{ paddingLeft: "10px" }}>{dlist?.team?.name}</span>
+          </div>
+        ),
+      };
+    }) || []),
+  ];
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
-        <div className="flex justify-between mb-8">
+        <div className="flex justify-between items-center mb-8">
           <h1
             className={`${
               themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
@@ -190,7 +232,7 @@ const TeamComparisions = () => {
           >
             Stats Comparisions
           </h1>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[12px] md:text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             Match Predictions <FiArrowRight className="text-white ml-0.5" />
           </Link>
         </div>
@@ -208,14 +250,14 @@ const TeamComparisions = () => {
               <TabPanel>
                 <div className="pt-4">
                   <h2
-                    className={`font-Bebas text-[35px] tracking-normal  ${
+                    className={`font-Bebas text-[25px] md:text-[35px] tracking-normal  ${
                       themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
                     }`}
                   >
                     Compare Stats
                   </h2>
                   <p
-                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
+                    className={`font-Montserrat text-[15px] md:text-[19px] leading-[25px] font-medium ${
                       themeMode === "light" ? "text-black" : "text-white"
                     }`}
                   >
@@ -395,7 +437,7 @@ const TeamComparisions = () => {
                       onClick={() => {
                         teamComparisionsModalHandler(team1Id, team2Id);
                       }}
-                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                      className="bg-[#2aa9e1] rounded-full text-[15px] leading-[40px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View comparison
                     </button>
@@ -405,14 +447,14 @@ const TeamComparisions = () => {
               <TabPanel>
                 <div className="pt-4">
                   <h2
-                    className={`font-Bebas text-[35px] tracking-normal  ${
+                    className={`font-Bebas text-[25px] md:text-[35px] tracking-normal  ${
                       themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
                     }`}
                   >
                     Team Information
                   </h2>
                   <p
-                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
+                    className={`font-Montserrat text-[15px] md:text-[19px] leading-[25px] font-medium ${
                       themeMode === "light" ? "text-black" : "text-white"
                     }`}
                   >
@@ -428,7 +470,7 @@ const TeamComparisions = () => {
                       >
                         Search for Team
                       </Label>
-                      <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
+                      {/* <div className="relative w-full bg-[#151718] rounded-[25px] p-1 flex border border-[#606060]">
                         {searchImgInput && searchInput && (
                           <img
                             id="img"
@@ -494,11 +536,18 @@ const TeamComparisions = () => {
                             />
                           </svg>
                         </div>
-                      </div>
+                      </div> */}
+                      <Select
+                        options={optionsSingleTeam}
+                        value={optionsSingleTeam.value}
+                        onChange={handleSingleTeamChange}
+                        onInputChange={handleSingleInputTeamChange}
+                        menuIsOpen={isSingleTeamMenuOpen}
+                      />
                     </div>
                     <button
                       onClick={teamInformationModalHandler}
-                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                      className="bg-[#2aa9e1] rounded-full text-[15px] leading-[40px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View Team Information
                     </button>
@@ -537,7 +586,7 @@ const TeamComparisions = () => {
           <Modal.Header className="absolute right-0 top-0" />
           <Modal.Body>
             <div className="pt-6">
-              <ViewTeamInformationDetails />
+              <ViewTeamInformationDetails singleId={singleTeamId} />
             </div>
           </Modal.Body>
         </Modal>

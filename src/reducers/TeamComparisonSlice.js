@@ -41,11 +41,52 @@ export const serachTeam = createAsyncThunk(
         }
     }
 )
+export const teamStats = createAsyncThunk(
+    'stats',
+    async (userInput, { rejectWithValue }) => {
+        try {
+
+            const response = await api.post('/api/team_statistics', userInput);
+            if (response.status) {
+
+                return response.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
+export const getLeague = createAsyncThunk(
+    'lea',
+    async (userInput, { rejectWithValue }) => {
+        try {
+
+            const response = await api.post('/api/leagues', userInput);
+            if (response.status) {
+
+                return response.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
+
 const initialState = {
     isLoading: false,
     error: false,
     comparisons: [],
-    teams: []
+    teams: [],
+    statistics: [],
+    leaguesData: []
 }
 const TeamComparisonSlice = createSlice(
     {
@@ -74,6 +115,32 @@ const TeamComparisonSlice = createSlice(
                 state.teams = payload
                 state.error = false
             }).addCase(serachTeam.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            }).addCase(getLeague.pending, (state) => {
+                state.isLoading = true
+            }).addCase(getLeague.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                console.log("xxxx", payload.data);
+                state.leaguesData = payload.data
+
+                state.error = false
+            }).addCase(getLeague.rejected, (state, { payload }) => {
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            }).addCase(teamStats.pending, (state) => {
+                state.isLoading = true
+            }).addCase(teamStats.fulfilled, (state, { payload }) => {
+                if (payload?.data?.results != 0) { state.isLoading = false }
+                state.statistics = payload?.data
+                state.error = false
+            }).addCase(teamStats.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 state.message =
                     payload !== undefined && payload.message

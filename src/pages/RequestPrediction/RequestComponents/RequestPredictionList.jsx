@@ -72,10 +72,8 @@ const RequestPredictionList = ({ errorMessage }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
-        
         setLoadingData(false);
         setHide(true);
       } else {
@@ -134,30 +132,34 @@ const RequestPredictionList = ({ errorMessage }) => {
   return (
     <div>
       {!loadingData ? (
-        <div >
+        <div>
           {error ? (
             <div className="w-full">
               <div
-                className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-                  } text-2xl flex justify-center items-center`}
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-2xl flex justify-center items-center`}
               >
                 No Data Found
               </div>
             </div>
           ) : (
-
             <>
               {currentItems && currentItems.length > 0 ? (
-                <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {currentItems.map((dat) => (
                     <div
                       key={dat.id}
-                      className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                        } rounded-2xl shadow-xl`}
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } rounded-2xl shadow-xl`}
                     >
                       <div
-                        className={`flex justify-between items-center ${themeMode === "light" ? "bg-[#2aa9e1]" : "bg-[#2E3B4D]"
-                          } px-5 py-3 rounded-t-2xl h-16`}
+                        className={`flex justify-between items-center ${
+                          themeMode === "light"
+                            ? "bg-[#2aa9e1]"
+                            : "bg-[#2E3B4D]"
+                        } px-5 py-3 rounded-t-2xl h-16`}
                       >
                         <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
                           {dat?.league?.name}
@@ -172,10 +174,11 @@ const RequestPredictionList = ({ errorMessage }) => {
                         </div>
                       </div>
                       <div
-                        className={`pt-6 pb-4 px-3 border-2  ${themeMode === "light"
-                          ? "border-[#2aa9e1]"
-                          : "border-[#2E3B4D]"
-                          } rounded-b-2xl`}
+                        className={`pt-6 pb-4 px-3 border-2  ${
+                          themeMode === "light"
+                            ? "border-[#2aa9e1]"
+                            : "border-[#2E3B4D]"
+                        } rounded-b-2xl`}
                       >
                         <div className="grid grid-cols-3 gap-4 mb-4 h-32">
                           <div className="text-center">
@@ -187,10 +190,11 @@ const RequestPredictionList = ({ errorMessage }) => {
                               height={58}
                             />
                             <p
-                              className={`font-Syne text-[14px] leading-[20px] font-bold ${themeMode === "light"
-                                ? "text-black"
-                                : "text-white"
-                                }`}
+                              className={`font-Syne text-[14px] leading-[20px] font-bold ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
                             >
                               {dat?.teams?.home?.name}
                             </p>
@@ -198,23 +202,27 @@ const RequestPredictionList = ({ errorMessage }) => {
                           <div className="flex justify-center items-center">
                             <div className="mb-4 text-center">
                               <p
-                                className={`${themeMode === "light"
-                                  ? "text-black"
-                                  : "text-white"
-                                  } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
+                                className={`${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                } font-semibold text-[12px] leading-[16px] font-Montserrat pb-1`}
                               >
                                 Venue
                               </p>
                               <span
-                                className={`${themeMode === "light"
-                                  ? "text-black"
-                                  : "text-white"
-                                  } font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-0`}
+                                className={`${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                } font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-0`}
                               >
                                 <b>
                                   {dat?.fixture?.venue?.name?.length > 30
-                                    ? dat?.fixture?.venue?.name.substring(0, 30) +
-                                    "..."
+                                    ? dat?.fixture?.venue?.name.substring(
+                                        0,
+                                        30
+                                      ) + "..."
                                     : dat?.fixture?.venue?.name}
                                 </b>
                               </span>
@@ -229,20 +237,22 @@ const RequestPredictionList = ({ errorMessage }) => {
                               height={58}
                             />
                             <p
-                              className={`font-Syne text-[14px] leading-[20px] font-bold ${themeMode === "light"
-                                ? "text-black"
-                                : "text-white"
-                                }`}
+                              className={`font-Syne text-[14px] leading-[20px] font-bold ${
+                                themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                              }`}
                             >
                               {dat?.teams?.away?.name}
                             </p>
                           </div>
                         </div>
                         <div
-                          className={` ${themeMode === "light"
-                            ? "bg-gray-800 hover:bg-black"
-                            : "bg-black hover:bg-gray-800"
-                            } block rounded-full text-center mb-0`}
+                          className={` ${
+                            themeMode === "light"
+                              ? "bg-gray-800 hover:bg-black"
+                              : "bg-black hover:bg-gray-800"
+                          } block rounded-full text-center mb-0`}
                         >
                           <Link
                             className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
@@ -259,8 +269,11 @@ const RequestPredictionList = ({ errorMessage }) => {
               ) : (
                 <div className=" w-full">
                   <div
-                    className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-                      } text-2xl flex justify-center items-center`}
+                    className={`${
+                      themeMode === "light"
+                        ? "text-[#0d0f11]"
+                        : "text-[#989ca0]"
+                    } text-2xl flex justify-center items-center`}
                   >
                     No More Data
                   </div>
@@ -286,8 +299,9 @@ const RequestPredictionList = ({ errorMessage }) => {
           <div className="mb-2 md:mb-0 text-center">
             {isDataFound ? (
               <p
-                className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-                  } text-xs`}
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-xs`}
               >
                 Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
                 {Math.min(currentPage * itemsPerPage, fixtures?.data?.length)}{" "}
@@ -295,8 +309,9 @@ const RequestPredictionList = ({ errorMessage }) => {
               </p>
             ) : (
               <p
-                className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-                  } text-xs`}
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-xs`}
               >
                 Showing {(currentPage - 0) * itemsPerPage + 0} to{" "}
                 {Math.min(currentPage * itemsPerPage, fixtures?.data?.length)}{" "}
@@ -332,7 +347,9 @@ const RequestPredictionList = ({ errorMessage }) => {
                       <Link
                         className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
-                        ${currentPage === pageNumber ? "bg-[#0053CD]" : "black"}`}
+                        ${
+                          currentPage === pageNumber ? "bg-[#0053CD]" : "black"
+                        }`}
                         onClick={() => handlePageChange(pageNumber)}
                       >
                         {pageNumber}
@@ -364,8 +381,9 @@ const RequestPredictionList = ({ errorMessage }) => {
               </div>
               <div className="flex items-center justify-center">
                 <p
-                  className={`text-[12px] ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                    } mr-1.5`}
+                  className={`text-[12px] ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                  } mr-1.5`}
                 >
                   Go to page
                 </p>
