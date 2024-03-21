@@ -137,7 +137,7 @@ const TeamComparisonSlice = createSlice(
             }).addCase(teamStats.pending, (state) => {
                 state.isLoading = true
             }).addCase(teamStats.fulfilled, (state, { payload }) => {
-                state.isLoading = false
+                if (payload?.data?.results != 0) { state.isLoading = false }
                 state.statistics = payload?.data
                 state.error = false
             }).addCase(teamStats.rejected, (state, { payload }) => {
