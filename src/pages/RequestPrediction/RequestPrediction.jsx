@@ -15,8 +15,9 @@ const RequestPrediction = () => {
     console.log(errorMessage);
   }, [errorMessage]);
 
-  let { id } = useParams();
-  console.log("id",id);
+  let { rid } = useParams();
+
+
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -35,7 +36,7 @@ const RequestPrediction = () => {
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompo onError={handleError} id={id}/>
+          <SearchCompo onError={handleError} rid={rid}/>
           <Prediction />
         </div>
       </div>

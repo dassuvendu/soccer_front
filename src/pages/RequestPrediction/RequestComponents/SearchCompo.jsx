@@ -8,8 +8,8 @@ import {
   getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompo = ({ onError ,id }) => {
-  console.log("sear",id);
+export const SearchCompo = ({ onError , rid }) => {
+  // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
@@ -18,8 +18,7 @@ export const SearchCompo = ({ onError ,id }) => {
   const [isseason, setIsSeason] = useState();
   const [isRequired, setIsRequired] = useState();
   const [leagueName, setleagueName] = useState();
- 
-
+console.log(leagueName);
 
   const handleDateChange = (e) => {
     console.log(e);
@@ -47,11 +46,15 @@ export const SearchCompo = ({ onError ,id }) => {
   };
 
   useEffect(() => {
-    if (allLeague && id) {
-      const league = allLeague?.data?.filter(data => console.log());
-      console.log("li", league);
+    if (allLeague && rid) {
+      // Flatten the nested arrays and then filter
+      const filteredLeagues = allLeague?.data?.filter(data =>  data?.league?.id == rid);
+      console.log("Filtered Leagues:", filteredLeagues);
+      if(Array.isArray(filteredLeagues)&&filteredLeagues){
+        setleagueName(filteredLeagues[0]?.league?.name)
+      }
     }
-  }, [allLeague, id]);
+  }, [allLeague, rid]);
 
   const handleSearch = (season) => {
     setIsRequired(null)
@@ -80,7 +83,10 @@ export const SearchCompo = ({ onError ,id }) => {
               alt="League Logo"
               style={{ width: 20, height: 20 }}
             />
+            
             <span style={{ paddingLeft: "10px" }}>{dlist?.league?.name}</span>
+           
+        
           </div>
         ),
       };
@@ -127,10 +133,12 @@ export const SearchCompo = ({ onError ,id }) => {
             }`}
           >
               <Select
-                placeholder="Select or Search League"
+                // placeholder="Select or Search League"
                 options={options}
                 onChange={handleLeagueChange}
-                value={options.label} // Step 3: Corrected 'Value' to 'value'
+                value={options.label 
+                  || 
+                  options.filter(option => option.label.props.children[1].props.children === leagueName)} 
               />
           </div>
         </div>

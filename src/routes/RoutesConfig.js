@@ -148,7 +148,7 @@ const allRoutes = [
     ],
   },
   {
-    path: '/match-prediction/:id',
+    path: '/match-prediction/:rid',
     element: <InsideLayout />,
     children: [
       {
