@@ -10,102 +10,115 @@ import "react-tabs/style/react-tabs.css";
 import { Label, Button, Modal, TextInput } from "flowbite-react";
 import PlayerViewComparisonDetails from "../PlayerComparisions/PlayerViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
-import Select from 'react-select';
-import { getPlayerName, getTeam } from "../../reducers/PlayerComparision";
+import Select from "react-select";
+import {
+  getFPlayerDetails,
+  getPlayerName,
+  getSPlayerDetails,
+  getTeam,
+} from "../../reducers/PlayerComparision";
 
 const PlayerComparisions = () => {
-
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const {team , playerList} = useSelector((state) => state.playerComparision);
- console.log(playerList);
+  const { team, playerList } = useSelector((state) => state.playerComparision);
+  console.log(playerList);
 
   //For Teams
   const [firstteamselectedOption, setFirstTeamSelectedOption] = useState(null);
   const [isFirstTeamMenuOpen, setIsFirstTeamMenuOpen] = useState(false);
 
-  const [secondselectedTeamOption, setSecondSelectedTeamOption] = useState(null);
+  const [secondselectedTeamOption, setSecondSelectedTeamOption] =
+    useState(null);
   const [isSecondTeamMenuOpen, setIsSecondTeamMenuOpen] = useState(false);
 
-   //For Players
+  //For Players
   const [firstselectedOption, setFirstSelectedOption] = useState(null);
+  const [isFirstselectedOption, setIsFirstSelectedOption] = useState(false);
   const [isFirstMenuOpen, setIsFirstMenuOpen] = useState(false);
 
   const [secondselectedOption, setSecondSelectedOption] = useState(null);
+  const [isSecondselectedOption, setIsSecondSelectedOption] = useState(false);
   const [isSecondMenuOpen, setIsSecondMenuOpen] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-//For Teams
-const handleTeamChange = firstteamselectedOption => {
-  setFirstTeamSelectedOption(firstteamselectedOption.id);
-  setIsFirstTeamMenuOpen(false);
-};
+  //For Teams
+  const handleTeamChange = (firstteamselectedOption) => {
+    setFirstTeamSelectedOption(firstteamselectedOption.id);
+    setIsFirstTeamMenuOpen(false);
+    setIsFirstSelectedOption(true);
+  };
 
-const handleInputTeamChange = (inputValue) => {
-  if (inputValue.length > 3) {
-    dispatch(getTeam({name : inputValue})).then(()=>{
-      setIsFirstTeamMenuOpen(true);  
-    })
-  }else {
-    setIsFirstTeamMenuOpen(false); 
-  }
-};
+  const handleInputTeamChange = (inputValue) => {
+    if (inputValue.length > 3) {
+      dispatch(getTeam({ name: inputValue })).then(() => {
+        setIsFirstTeamMenuOpen(true);
+      });
+    } else {
+      setIsFirstTeamMenuOpen(false);
+    }
+  };
 
-const handleTeamSecondChange = secondselectedOption => {
-  setSecondSelectedTeamOption(secondselectedOption.id);
-  setIsSecondTeamMenuOpen(false);
-  // console.log(`Option selected:`, secondselectedOption);
-};
+  const handleTeamSecondChange = (secondselectedOption) => {
+    setSecondSelectedTeamOption(secondselectedOption.id);
+    setIsSecondTeamMenuOpen(false);
+    setIsSecondSelectedOption(true);
+    // console.log(`Option selected:`, secondselectedOption);
+  };
 
-const handleInputTeamSecondChange = (inputValue) => {
-  if (inputValue.length > 3) {
-    dispatch(getTeam({name : inputValue})).then(()=>{
-      setIsSecondTeamMenuOpen(true);  
-    })
-  }else {
-    setIsSecondTeamMenuOpen(false); 
-  }
-};
+  const handleInputTeamSecondChange = (inputValue) => {
+    if (inputValue.length > 3) {
+      dispatch(getTeam({ name: inputValue })).then(() => {
+        setIsSecondTeamMenuOpen(true);
+      });
+    } else {
+      setIsSecondTeamMenuOpen(false);
+    }
+  };
 
   //For Players
-  const handleChange = firstselectedOption => {
-    setFirstSelectedOption(firstselectedOption);
+  const handleChange = (firstselectedOption) => {
+    setFirstSelectedOption(firstselectedOption.id);
     setIsFirstMenuOpen(false);
     console.log(`Option selected:`, firstselectedOption);
   };
 
   const handleInputChange = (inputValue) => {
     if (inputValue.length > 3) {
-      dispatch(getPlayerName({search : inputValue , team : firstteamselectedOption})).then(()=>{
-        setIsFirstMenuOpen(true);  
-      })
-    }else {
-      setIsFirstMenuOpen(false); 
+      dispatch(
+        getPlayerName({ search: inputValue, team: firstteamselectedOption })
+      ).then(() => {
+        setIsFirstMenuOpen(true);
+      });
+    } else {
+      setIsFirstMenuOpen(false);
     }
   };
 
-  const handleSecondChange = secondselectedOption => {
-    setSecondSelectedOption(secondselectedOption);
+  const handleSecondChange = (secondselectedOption) => {
+    setSecondSelectedOption(secondselectedOption.id);
     setIsSecondMenuOpen(false);
     // console.log(`Option selected:`, secondselectedOption);
   };
 
   const handleInputSecondChange = (inputValue) => {
     if (inputValue.length > 3) {
-      dispatch(getPlayerName({search : inputValue , team : secondselectedTeamOption})).then(()=>{
-        setIsSecondMenuOpen(true);  
-      })
-    }else {
-      setIsSecondMenuOpen(false); 
+      dispatch(
+        getPlayerName({ search: inputValue, team: secondselectedTeamOption })
+      ).then(() => {
+        setIsSecondMenuOpen(true);
+      });
+    } else {
+      setIsSecondMenuOpen(false);
     }
   };
 
   //option Team
   const optionsFirstTeam = [
-    ...(team?.response?.map((dlist)=> {
+    ...(team?.response?.map((dlist) => {
       return {
         value: dlist?.team?.name,
-        id:dlist?.team?.id,
+        id: dlist?.team?.id,
         label: (
           <div style={{ display: "flex" }}>
             <img
@@ -121,10 +134,10 @@ const handleInputTeamSecondChange = (inputValue) => {
   ];
 
   const optionsSecondTeam = [
-    ...(team?.response?.map((dlist)=> {
+    ...(team?.response?.map((dlist) => {
       return {
         value: dlist?.team?.name,
-        id:dlist?.team?.id,
+        id: dlist?.team?.id,
         label: (
           <div style={{ display: "flex" }}>
             <img
@@ -141,11 +154,11 @@ const handleInputTeamSecondChange = (inputValue) => {
 
   //option Player
   const optionsFirstPlayer = [
-    ...(playerList?.response?.map((plist)=> {
+    ...(playerList?.response?.map((plist) => {
       // console.log("p",plist?.player?.name);
       return {
         value: plist?.player?.name,
-        id:plist?.player?.id,
+        id: plist?.player?.id,
         label: (
           <div style={{ display: "flex" }}>
             <img
@@ -161,11 +174,11 @@ const handleInputTeamSecondChange = (inputValue) => {
   ];
 
   const optionsSecondPlayer = [
-    ...(playerList?.response?.map((plist)=> {
+    ...(playerList?.response?.map((plist) => {
       // console.log("p",plist?.player?.name);
       return {
         value: plist?.player?.name,
-        id:plist?.player?.id,
+        id: plist?.player?.id,
         label: (
           <div style={{ display: "flex" }}>
             <img
@@ -179,18 +192,27 @@ const handleInputTeamSecondChange = (inputValue) => {
       };
     }) || []),
   ];
-  // const [openPlayerComparisionsModal, setOpenPlayerComparisionsModal] =
-  //   useState(false);
-  // const playerComparisionsModalHandler = () => {
-  //   setOpenPlayerComparisionsModal(true);
-  // };
+  const [openPlayerComparisionsModal, setOpenPlayerComparisionsModal] =
+    useState(false);
+
+  const playerComparisionsModalHandler = () => {
+    Promise.all([
+      dispatch(getFPlayerDetails({ id: firstselectedOption, season: 2024 })),
+      dispatch(
+        getSPlayerDetails({ id: secondselectedOption, season: 2024 })
+      ).then(() => {
+        setOpenPlayerComparisionsModal(true);
+      }),
+    ]);
+  };
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
         <div className="flex justify-between mb-8">
           <h1
-            className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-              } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+            className={`${
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Player Comparisions
           </h1>
@@ -199,8 +221,9 @@ const handleInputTeamSecondChange = (inputValue) => {
           </Link>
         </div>
         <div
-          className={` ${themeMode === "light" ? "bg-[#e2e2e2]" : "bg-[#191D23]"
-            } rounded-xl p-6 md:py-[60px]`}
+          className={` ${
+            themeMode === "light" ? "bg-[#e2e2e2]" : "bg-[#191D23]"
+          } rounded-xl p-6 md:py-[60px]`}
         >
           <div className="max-w-2xl mx-auto">
             <Tabs className="team_comparisions_tab_section">
@@ -209,34 +232,37 @@ const handleInputTeamSecondChange = (inputValue) => {
                 <Tab>Single Team Info</Tab>
               </TabList>
               <TabPanel>
-                <div>
+                <div className="pt-4">
                   <h2
-                    className={`font-Bebas text-[35px] tracking-normal  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      }`}
+                    className={`font-Bebas text-[25px] md:text-[35px] tracking-normal  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    }`}
                   >
                     Compare Players
                   </h2>
                   <p
-                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${themeMode === "light" ? "text-black" : "text-white"
-                      }`}
+                    className={`font-Montserrat text-[15px] md:text-[19px] leading-[25px] font-medium ${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    }`}
                   >
                     View statistics, head to head information, team analysis and
                     simple predictions
                   </p>
                   <div className="mt-8">
-                  <div className="mb-2">
+                    <div className="mb-2">
                       <Label
-                        className={`text-[14px] font-medium ${themeMode === "light" ? "text-black" : "text-white"
-                          } pb-1 block`}
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
                       >
                         Search for First Team
                       </Label>
-                      <div >
-
+                      <div className="relative mb-4">
                         <Select
+                          placeholder="search team"
                           options={optionsFirstTeam}
                           value={optionsFirstTeam.value}
-                          onChange={handleTeamChange }
+                          onChange={handleTeamChange}
                           onInputChange={handleInputTeamChange}
                           menuIsOpen={isFirstTeamMenuOpen}
                         />
@@ -268,7 +294,7 @@ const handleInputTeamSecondChange = (inputValue) => {
                             </div>
                           )}
                         </div> */}
-                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
                             aria-hidden="true"
@@ -288,16 +314,17 @@ const handleInputTeamSecondChange = (inputValue) => {
                       </div>
                     </div>
                     <div className="mb-4">
-                      
                       <Label
-                        className={`text-[14px] font-medium ${themeMode === "light" ? "text-black" : "text-white"
-                          } pb-1 block`}
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
                       >
                         Search for First Player
                       </Label>
-                      <div >
-
+                      <div className="relative mb-4">
                         <Select
+                          placeholder="search player"
+                          isDisabled={!isFirstselectedOption}
                           options={optionsFirstPlayer}
                           value={optionsFirstPlayer.value}
                           onChange={handleChange}
@@ -332,7 +359,7 @@ const handleInputTeamSecondChange = (inputValue) => {
                             </div>
                           )}
                         </div> */}
-                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
                             aria-hidden="true"
@@ -353,13 +380,15 @@ const handleInputTeamSecondChange = (inputValue) => {
                     </div>
                     <div className="mb-2">
                       <Label
-                        className={`text-[14px] font-medium ${themeMode === "light" ? "text-black" : "text-white"
-                          } pb-1 block`}
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
                       >
                         Search for Second Team
                       </Label>
-                      <div >
-                         <Select
+                      <div className="relative mb-4">
+                        <Select
+                          placeholder="search team"
                           options={optionsSecondTeam}
                           value={optionsSecondTeam.value}
                           onChange={handleTeamSecondChange}
@@ -393,7 +422,7 @@ const handleInputTeamSecondChange = (inputValue) => {
                             </div>
                           )}
                         </div> */}
-                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
                             aria-hidden="true"
@@ -414,13 +443,16 @@ const handleInputTeamSecondChange = (inputValue) => {
                     </div>
                     <div className="mb-4">
                       <Label
-                        className={`text-[14px] font-medium ${themeMode === "light" ? "text-black" : "text-white"
-                          } pb-1 block`}
+                        className={`text-[14px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } pb-1 block`}
                       >
                         Search for Second Player
                       </Label>
-                      <div >
-                         <Select
+                      <div className="relative">
+                        <Select
+                          placeholder="search player"
+                          isDisabled={!isSecondselectedOption}
                           options={optionsSecondPlayer}
                           value={optionsSecondPlayer.value}
                           onChange={handleSecondChange}
@@ -454,7 +486,7 @@ const handleInputTeamSecondChange = (inputValue) => {
                             </div>
                           )}
                         </div> */}
-                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full">
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
                             aria-hidden="true"
@@ -474,8 +506,8 @@ const handleInputTeamSecondChange = (inputValue) => {
                       </div>
                     </div>
                     <button
-                      // onClick={playerComparisionsModalHandler}
-                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                      onClick={playerComparisionsModalHandler}
+                      className="bg-[#2aa9e1] rounded-full text-[15px] leading-[40px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View player comparison
                     </button>
@@ -485,8 +517,9 @@ const handleInputTeamSecondChange = (inputValue) => {
               <TabPanel>
                 <div className="mt-6">
                   <p
-                    className={`${themeMode === "light" ? "text-black" : "text-white"
-                      } pb-4 text-[14px]`}
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } pb-4 text-[14px]`}
                   >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -495,8 +528,9 @@ const handleInputTeamSecondChange = (inputValue) => {
                     type specimen book.
                   </p>
                   <p
-                    className={`${themeMode === "light" ? "text-black" : "text-white"
-                      } pb-4 text-[14px]`}
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } pb-4 text-[14px]`}
                   >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -505,8 +539,9 @@ const handleInputTeamSecondChange = (inputValue) => {
                     type specimen book.
                   </p>{" "}
                   <p
-                    className={`${themeMode === "light" ? "text-black" : "text-white"
-                      } pb-4 text-[14px]`}
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } pb-4 text-[14px]`}
                   >
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -521,7 +556,7 @@ const handleInputTeamSecondChange = (inputValue) => {
         </div>
       </div>
       {/* Login Modal start here */}
-      {/* {openPlayerComparisionsModal && (
+      {openPlayerComparisionsModal && (
         <Modal
           show={openPlayerComparisionsModal}
           size="7xl"
@@ -535,7 +570,7 @@ const handleInputTeamSecondChange = (inputValue) => {
             </div>
           </Modal.Body>
         </Modal>
-      )} */}
+      )}
       {/* Login Modal ends here */}
     </div>
   );

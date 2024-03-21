@@ -118,6 +118,16 @@ const allRoutes = [
     ],
   },
   {
+    path: '/dashboard/:id',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />
+      },
+    ],
+  },
+  {
     path: '/coped-slips',
     element: <InsideLayout />,
     children: [

@@ -127,6 +127,7 @@ const Dashboard = () => {
           {!loadingdash ? (
             <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
               {league?.data?.map((data) => (
+                 <Link to={`/match-prediction/${data.league.id}`}>
                 <div
                   className={`${
                     themeMode === "light" ? "bg-white" : "bg-[#191D23]"
@@ -134,17 +135,21 @@ const Dashboard = () => {
                   key={data.id}
                 >
                   {themeMode === "light" ? (
-                    <img
+                   
+                     <img
                       src={data.league.logo}
-                      alt="UEFAChampionsLeagueDarkIcon"
+                      alt={data.league.name}
                       className="mb-4 inline-block"
                     />
                   ) : (
+                 
                     <img
                       src={data.league.logo}
-                      alt="UEFAChampionsLeagueIcon"
+                      alt={data.league.name}
                       className="mb-4 inline-block"
                     />
+                  
+                    
                   )}
                   <h3
                     className={`font-Montserrat ${
@@ -157,6 +162,7 @@ const Dashboard = () => {
                     {data.country.name}
                   </p>
                 </div>
+                </Link>
               ))}
             </div>
           ) : (

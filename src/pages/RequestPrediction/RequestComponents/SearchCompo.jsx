@@ -8,19 +8,22 @@ import {
   getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompo = ({ onError }) => {
+export const SearchCompo = ({ onError ,id }) => {
+  console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isseason, setIsSeason] = useState();
   const [isRequired, setIsRequired] = useState();
-  console.log(isRequired);
+  const [leagueName, setleagueName] = useState();
+ 
+
 
   const handleDateChange = (e) => {
     console.log(e);
-    setLoading(true);
+    // setLoading(true);
     const year = e.getFullYear();
   const month = String(e.getMonth() + 1).padStart(2, "0");
   const day = String(e.getDate()).padStart(2, "0");
@@ -30,6 +33,7 @@ export const SearchCompo = ({ onError }) => {
  useEffect(()=>{
   dispatch(getFixturesByleague({}))
  },[dispatch])
+
   const handleLeagueChange = (selectedOption) => {
     setIsLoading(true);
     setIsSeason(selectedOption);
@@ -41,6 +45,14 @@ export const SearchCompo = ({ onError }) => {
       }
     });
   };
+
+  useEffect(() => {
+    if (allLeague && id) {
+      const league = allLeague?.data?.filter(data => console.log());
+      console.log("li", league);
+    }
+  }, [allLeague, id]);
+
   const handleSearch = (season) => {
     setIsRequired(null)
     dispatch(
@@ -74,7 +86,7 @@ export const SearchCompo = ({ onError }) => {
       };
     }) || []),
   ];
-console.log("opt",options);
+
   return (
     <>
       <div className="mb-4 md:mb-0 w-1/1">

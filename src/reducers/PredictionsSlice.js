@@ -140,6 +140,23 @@ export const LastResult = createAsyncThunk(
     }
   }
 );
+export const Formation = createAsyncThunk(
+  'user/formation',
+  async (userInput, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/fixture_formation',userInput);
+      if (response?.status === 200) { 
+        return response.data;
+      } else {
+        let errors = errorHandler(response);
+        return rejectWithValue(errors);
+      }
+    } catch (err) {
+      let errors = errorHandler(err);
+      return rejectWithValue(errors);
+    }
+  }
+);
 const initialState = {
   message: null,
   error: null,
@@ -151,7 +168,8 @@ const initialState = {
   lastHomeResult:[],
   lastAwayResult:[],
   lastResult:[],
-  h2h:[]
+  h2h:[],
+  format:[]
 };
 
 const PredictionsSlice = createSlice({
@@ -279,6 +297,23 @@ const PredictionsSlice = createSlice({
         
       })
       .addCase(LastResult.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = payload?.message || 'Something went wrong. Try again later.';
+      })
+      .addCase(Formation.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(Formation.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        // state.h2h = payload.data[0].h2h;
+        state.format = payload; 
+        
+      })
+      .addCase(Formation.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';
