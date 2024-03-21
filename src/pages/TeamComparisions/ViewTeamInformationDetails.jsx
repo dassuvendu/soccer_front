@@ -45,10 +45,13 @@ const ViewTeamInformationDetails = ({ singleId }) => {
   return (
     <div className="pt-2 pb-2">
       <div className="flex justify-between items-center">
-        <h2 className="font-Bebas text-2xl md:text-3xl tracking-normal text-[#2aa9e1] mb-0">
+        {/* <h2 className="font-Bebas text-2xl md:text-3xl tracking-normal text-[#2aa9e1] mb-0">
           View Team Information Details
-        </h2>
-        <img src={DeportivoPastoIcon} alt="DeportivoPastoIcon" />
+        </h2> */}
+        {/* <img
+          src={statistics?.response?.team?.logo}
+          alt={statistics?.response?.team?.name}
+        /> */}
       </div>
       {isLoading ? (
         <div class="text-center">
@@ -74,6 +77,15 @@ const ViewTeamInformationDetails = ({ singleId }) => {
         </div>
       ) : (
         <>
+          <div className="flex flex-col items-center">
+            <img
+              src={statistics?.response?.team?.logo}
+              alt={statistics?.response?.team?.name}
+            />
+            <h2 className="font-Bebas text-2xl md:text-3xl tracking-normal text-[#2aa9e1]">
+              {statistics?.response?.team?.name}
+            </h2>
+          </div>
           <div className="mt-8">
             <div className="mb-2">
               <h3 className="font-Bebas text-xl tracking-normal">Statistics</h3>
