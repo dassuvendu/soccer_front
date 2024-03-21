@@ -224,7 +224,7 @@ const TeamComparisions = () => {
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
-        <div className="flex justify-between mb-8">
+        <div className="flex justify-between items-center mb-8">
           <h1
             className={`${
               themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
@@ -232,7 +232,7 @@ const TeamComparisions = () => {
           >
             Stats Comparisions
           </h1>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[12px] md:text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             Match Predictions <FiArrowRight className="text-white ml-0.5" />
           </Link>
         </div>
@@ -250,14 +250,14 @@ const TeamComparisions = () => {
               <TabPanel>
                 <div className="pt-4">
                   <h2
-                    className={`font-Bebas text-[35px] tracking-normal  ${
+                    className={`font-Bebas text-[25px] md:text-[35px] tracking-normal  ${
                       themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
                     }`}
                   >
                     Compare Stats
                   </h2>
                   <p
-                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
+                    className={`font-Montserrat text-[15px] md:text-[19px] leading-[25px] font-medium ${
                       themeMode === "light" ? "text-black" : "text-white"
                     }`}
                   >
@@ -437,7 +437,7 @@ const TeamComparisions = () => {
                       onClick={() => {
                         teamComparisionsModalHandler(team1Id, team2Id);
                       }}
-                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                      className="bg-[#2aa9e1] rounded-full text-[15px] leading-[40px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View comparison
                     </button>
@@ -447,14 +447,14 @@ const TeamComparisions = () => {
               <TabPanel>
                 <div className="pt-4">
                   <h2
-                    className={`font-Bebas text-[35px] tracking-normal  ${
+                    className={`font-Bebas text-[25px] md:text-[35px] tracking-normal  ${
                       themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
                     }`}
                   >
                     Team Information
                   </h2>
                   <p
-                    className={`font-Montserrat text-[19px] leading-[25px] font-medium ${
+                    className={`font-Montserrat text-[15px] md:text-[19px] leading-[25px] font-medium ${
                       themeMode === "light" ? "text-black" : "text-white"
                     }`}
                   >
@@ -547,7 +547,7 @@ const TeamComparisions = () => {
                     </div>
                     <button
                       onClick={teamInformationModalHandler}
-                      className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
+                      className="bg-[#2aa9e1] rounded-full text-[15px] leading-[40px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View Team Information
                     </button>

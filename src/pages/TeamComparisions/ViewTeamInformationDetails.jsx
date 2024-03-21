@@ -44,9 +44,12 @@ const ViewTeamInformationDetails = ({ singleId }) => {
   };
   return (
     <div className="pt-2 pb-2">
-      <h2 className="font-Bebas text-3xl tracking-normal text-[#2aa9e1] mb-4">
-        View Team Information Details
-      </h2>
+      <div className="flex justify-between items-center">
+        <h2 className="font-Bebas text-2xl md:text-3xl tracking-normal text-[#2aa9e1] mb-0">
+          View Team Information Details
+        </h2>
+        <img src={DeportivoPastoIcon} alt="DeportivoPastoIcon" />
+      </div>
       {isLoading ? (
         <div class="text-center">
           <div role="status">
@@ -75,13 +78,13 @@ const ViewTeamInformationDetails = ({ singleId }) => {
             <div className="mb-2">
               <h3 className="font-Bebas text-xl tracking-normal">Statistics</h3>
             </div>
-            <div class="flex gap-4 mb-4">
-              <div class="border border-[#d1d5db] p-4 rounded-xl flex">
+            <div class="lg:flex gap-4 mb-4">
+              <div class="border border-[#d1d5db] p-4 rounded-xl flex mb-2 lg:mb-0">
                 <div>
                   <h3 className="font-Bebas text-xl tracking-normal pb-2">
                     Goals
                   </h3>
-                  <div className="flex">
+                  <div className="md:flex">
                     <div className="flex items-center mr-8">
                       <h2 className="text-[#2aa9e1] text-[28px] leading-[28px] font-semibold mr-4">
                         For
@@ -89,13 +92,13 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Home
                       </p>
-                      <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                      <h3 className="text-[#2aa9e1] text-[20px] leading-[35px] font-medium px-3">
                         {statistics?.response?.goals?.for?.total?.home}
                       </h3>
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Away
                       </p>
-                      <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                      <h3 className="text-[#2aa9e1] text-[20px] leading-[35px] font-medium px-3">
                         {statistics?.response?.goals?.for?.total?.away}
                       </h3>
                     </div>
@@ -106,13 +109,13 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Home
                       </p>
-                      <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                      <h3 className="text-[#2aa9e1] text-[20px] leading-[35px] font-medium px-3">
                         {statistics?.response?.goals?.against?.total?.home}
                       </h3>
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Away
                       </p>
-                      <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                      <h3 className="text-[#2aa9e1] text-[20px] leading-[35px] font-medium px-3">
                         {statistics?.response?.goals?.against?.total?.away}
                       </h3>
                     </div>
@@ -124,7 +127,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                   <h3 className="font-Bebas text-xl tracking-normal pb-2">
                     Streak
                   </h3>
-                  <div className="flex">
+                  <div className="md:flex">
                     <div className="flex items-center mr-8">
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Wins
@@ -135,13 +138,13 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Loses
                       </p>
-                      <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                      <h3 className="text-[#2aa9e1] text-[20px] leading-[35px] font-medium px-3">
                         {statistics?.response?.biggest?.streak?.loses}
                       </h3>
                       <p className="text-black text-[14px] leading-[24px] font-medium">
                         Draws
                       </p>
-                      <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                      <h3 className="text-[#2aa9e1] text-[20px] leading-[35px] font-medium px-3">
                         {statistics?.response?.biggest?.streak?.draws}
                       </h3>
                     </div>
@@ -157,7 +160,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                 Clean Sheet
               </h3>
             </div>
-            <div className="grid grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               <div className="border border-[#d1d5db] p-4 rounded-xl flex items-center justify-center">
                 <p className="text-black text-[14px] leading-[24px] font-medium">
                   Total
@@ -168,13 +171,13 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                 <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
                   Home
                 </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
+                <h3 className="text-black text-[20px] leading-[35px] font-medium">
                   {statistics?.response?.clean_sheet?.home}
                 </h3>
                 <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
                   Away
                 </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
+                <h3 className="text-black text-[20px] leading-[35px] font-medium">
                   {statistics?.response?.clean_sheet?.away}
                 </h3>
               </div>
@@ -185,86 +188,98 @@ const ViewTeamInformationDetails = ({ singleId }) => {
             <div className="mb-2">
               <h3 className="font-Bebas text-xl tracking-normal">Fixtures</h3>
             </div>
-            <div className="grid grid-cols-4 gap-4 mb-4">
-              <div className="border border-[#d1d5db] p-4 rounded-xl flex items-center justify-center">
-                <p className="text-black text-[14px] leading-[24px] font-medium">
-                  Total
-                </p>
-                <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
-                  {statistics?.response?.fixtures?.draws?.total}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Home
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.draws?.home}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Away
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.draws?.away}
-                </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              <div className="border border-[#d1d5db] p-4 rounded-xl">
+                <h3 class="font-Bebas text-xl tracking-normal pb-2">Draws</h3>
+                <div className="flex items-center justify-center">
+                  <p className="text-black text-[14px] leading-[24px] font-medium">
+                    Total
+                  </p>
+                  <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                    {statistics?.response?.fixtures?.draws?.total}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Home
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.draws?.home}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Away
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.draws?.away}
+                  </h3>
+                </div>
               </div>
-              <div className="border border-[#d1d5db] p-4 rounded-xl flex items-center justify-center">
-                <p className="text-black text-[14px] leading-[24px] font-medium">
-                  Total
-                </p>
-                <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
-                  {statistics?.response?.fixtures?.loses?.total}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Home
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.loses?.home}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Away
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.loses?.away}
-                </h3>
+              <div className="border border-[#d1d5db] p-4 rounded-xl">
+                <h3 class="font-Bebas text-xl tracking-normal pb-2">Loses</h3>
+                <div className="flex items-center justify-center">
+                  <p className="text-black text-[14px] leading-[24px] font-medium">
+                    Total
+                  </p>
+                  <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                    {statistics?.response?.fixtures?.loses?.total}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Home
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.loses?.home}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Away
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.loses?.away}
+                  </h3>
+                </div>
               </div>
-              <div className="border border-[#d1d5db] p-4 rounded-xl flex items-center justify-center">
-                <p className="text-black text-[14px] leading-[24px] font-medium">
-                  Total
-                </p>
-                <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
-                  {statistics?.response?.fixtures?.played?.total}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Home
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.played?.home}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Away
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.played?.away}
-                </h3>
+              <div className="border border-[#d1d5db] p-4 rounded-xl">
+                <h3 class="font-Bebas text-xl tracking-normal pb-2">Played</h3>
+                <div className="flex items-center justify-center">
+                  <p className="text-black text-[14px] leading-[24px] font-medium">
+                    Total
+                  </p>
+                  <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                    {statistics?.response?.fixtures?.played?.total}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Home
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.played?.home}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Away
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.played?.away}
+                  </h3>
+                </div>
               </div>
-              <div className="border border-[#d1d5db] p-4 rounded-xl flex items-center justify-center">
-                <p className="text-black text-[14px] leading-[24px] font-medium">
-                  Total
-                </p>
-                <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
-                  {statistics?.response?.fixtures?.wins?.total}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Home
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.wins?.home}
-                </h3>
-                <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
-                  Away
-                </p>
-                <h3 className="text-black text-[35px] leading-[35px] font-medium">
-                  {statistics?.response?.fixtures?.wins?.away}
-                </h3>
+              <div className="border border-[#d1d5db] p-4 rounded-xl">
+                <h3 class="font-Bebas text-xl tracking-normal pb-2">Wins</h3>
+                <div className="flex items-center justify-center">
+                  <p className="text-black text-[14px] leading-[24px] font-medium">
+                    Total
+                  </p>
+                  <h3 className="text-[#2aa9e1] text-[35px] leading-[35px] font-medium px-3">
+                    {statistics?.response?.fixtures?.wins?.total}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Home
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.wins?.home}
+                  </h3>
+                  <p className="text-[#868686] text-[14px] leading-[24px] font-medium px-3">
+                    Away
+                  </p>
+                  <h3 className="text-black text-[20px] leading-[35px] font-medium">
+                    {statistics?.response?.fixtures?.wins?.away}
+                  </h3>
+                </div>
               </div>
             </div>
           </div>
