@@ -124,7 +124,7 @@ export const LastAwayResult = createAsyncThunk(
   }
 );
 export const LastResult = createAsyncThunk(
-  'user/LastawayResult',
+  'user/LastResult',
   async (userInput, { rejectWithValue }) => {
     try {
       const response = await api.post('/api/predictions',userInput);
@@ -150,6 +150,8 @@ const initialState = {
   // page:[],
   lastHomeResult:[],
   lastAwayResult:[],
+  lastResult:[],
+  h2h:[]
 };
 
 const PredictionsSlice = createSlice({
@@ -260,6 +262,23 @@ const PredictionsSlice = createSlice({
         state.lastAwayResult = payload; 
       })
       .addCase(LastAwayResult.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = payload?.message || 'Something went wrong. Try again later.';
+      })
+      .addCase(LastResult.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(LastResult.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.h2h = payload.data[0].h2h;
+        state.lastResult = payload; 
+        
+      })
+      .addCase(LastResult.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';

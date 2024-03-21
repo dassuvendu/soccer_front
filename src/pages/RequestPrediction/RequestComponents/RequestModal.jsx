@@ -18,10 +18,10 @@ export const RequestModal = ({
   awayId,
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { lastResult } = useSelector((state) => state.prediction);
-
+  const { lastResult, h2h } = useSelector((state) => state.prediction);
+  console.log("last", h2h);
   // const { lastAwayResult } = useSelector((state) => state.prediction);
-  console.log("last", lastResult);
+
   const { fixtures } = useSelector((state) => state.prediction);
   const [homeData, setHomeData] = useState()
   const [awayData, setAwayData] = useState()
@@ -29,6 +29,8 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
+  const [homeWin, setHomeWin] = useState();
+  const [awayWin, setAwayWin] = useState();
 
   const [matchDateList] = useDateList();
   const [matchTimeList] = useTimeList();
@@ -53,10 +55,13 @@ export const RequestModal = ({
     ) {
       let data = lastResult?.data[0];
       setHomeData(data);
+      setAwayData(data)
       let homeImgData;
       let homeName;
+      let homeWin;
       let awayImgData;
       let awayName;
+      let awayWin;
       if (data?.teams?.home?.id == data?.teams?.home?.id) {
         homeImgData = data?.teams?.home?.logo;
         homeName = data?.teams?.home?.name;
@@ -64,6 +69,7 @@ export const RequestModal = ({
         homeImgData = data?.teams?.away?.logo;
         homeName = data?.teams?.away?.name;
       }
+
       if (data?.teams?.away?.id == data?.teams?.away?.id) {
         awayImgData = data?.teams?.away?.logo;
         awayName = data?.teams?.away?.name;
@@ -73,10 +79,16 @@ export const RequestModal = ({
       }
       setHomeDataImg(homeImgData);
       setHomeName(homeName);
+      setHomeWin(homeWin)
       setAwayDataImg(awayImgData);
       setAwayName(awayName);
+      setAwayWin(awayWin)
     }
   }, [lastResult]);
+
+  useEffect(()=>{
+
+  },[h2h])
 
   // useEffect(() => {
   //   if (
@@ -343,38 +355,37 @@ export const RequestModal = ({
                                 <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
                                   Home History
                                 </h4>
-                                {lastHomeResult?.data?.map((data) => (
+                                {h2h?.map((goal) => (
                                   <div
                                     className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
-                                    key={data?.id}
+                                   
                                   >
                                     <div className="text-center">
                                       <img
-                                        src={data?.teams?.home?.logo}
+                                        src={goal?.teams?.home?.logo}
                                         alt="DeportivoPastoIcon"
                                         className="inline-block mb-2 w-10"
                                       />
                                     </div>
                                     <div className="text-center">
-                                      {data?.h2h.map(goal => (
-                                        console.log(goal)
-                                        // <div className="bg-[#2aa9e1] py-2 rounded-full">
-                                        //   <h3 className="text-white text-base">
-                                        //     {goal?.goals?.home}-{goal?.goals?.away}
-                                        //   </h3>
-                                        // </div>
-                                      ))}
+                                      
+                                        <div className="bg-[#2aa9e1] py-2 rounded-full mb-4">
+                                          <h3 className="text-white text-base">
+                                            {goal?.goals?.home}-{goal?.goals?.away}
+                                          </h3>
+                                        </div>
+                                      
 
                                     </div>
                                     <div className="text-center">
                                       <img
-                                        src={data?.teams?.away?.logo}
+                                        src={goal?.teams?.away?.logo}
                                         alt="EnvigadoIcon"
                                         className="inline-block mb-2 w-10"
                                       />
                                     </div>
                                   </div>
-                                ))}
+                              ))}
                               </div>
                             </div>
                             <div className="mb-0">
@@ -391,16 +402,16 @@ export const RequestModal = ({
                                         className="inline-block mb-2 w-8"
                                       />
                                     </li>
-                                    {lastHomeResult?.data?.map((resH) => {
+                                    {h2h?.map((resH) => {
                                       const homeTeamId = resH.teams.home.id;
                                       const awayTeamId = resH.teams.away.id;
 
                                       let homeTeamWinner;
-                                      if (homeId == homeTeamId) {
+                                      if (resH.teams.home.id == homeTeamId) {
                                         homeTeamWinner = resH.teams.home.winner;
                                       }
 
-                                      if (homeId == awayTeamId) {
+                                      if (resH.teams.away.id == awayTeamId) {
                                         homeTeamWinner = resH.teams.away.winner;
                                       }
 
@@ -428,16 +439,16 @@ export const RequestModal = ({
                                 </div>
                                 <div>
                                   <ul className="flex items-center">
-                                    {lastAwayResult?.data?.map((res) => {
+                                    {h2h?.map((res) => {
                                       const homeTeamId = res.teams.home.id;
                                       const awayTeamId = res.teams.away.id;
 
                                       let awayTeamWinner;
-                                      if (awayId == homeTeamId) {
+                                      if (res.teams.away.id == homeTeamId) {
                                         awayTeamWinner = res.teams.home.winner;
                                       }
 
-                                      if (awayId == awayTeamId) {
+                                     else if (res.teams.away.id == awayTeamId) {
                                         awayTeamWinner = res.teams.away.winner;
                                       }
 
@@ -462,6 +473,7 @@ export const RequestModal = ({
                                       );
                                     })}
                                     <li>
+
                                       <img
                                         src={awayData?.teams?.away?.logo}
                                         alt="EnvigadoIcon"
@@ -524,8 +536,8 @@ export const RequestModal = ({
                                       />
                                       <p
                                         className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light"
-                                            ? "text-black"
-                                            : "text-white"
+                                          ? "text-black"
+                                          : "text-white"
                                           }`}
                                       >
                                         Aucas
@@ -533,8 +545,8 @@ export const RequestModal = ({
                                     </div>
                                     <p
                                       className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light"
-                                          ? "text-black"
-                                          : "text-white"
+                                        ? "text-black"
+                                        : "text-white"
                                         }`}
                                     >
                                       4-4-2
