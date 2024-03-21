@@ -38,13 +38,48 @@ export const getPlayerName = createAsyncThunk(
     }
   }
 );
-
+export const getFPlayerDetails = createAsyncThunk(
+  'user/getFPlayerDetails',
+  async (userInput, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/player_statistics',userInput);
+      if (response.status === 200) {
+        return response?.data?.data;
+      } else {
+        let errors = errorHandler(response);
+        return rejectWithValue(errors);
+      }
+    } catch (err) {
+      let errors = errorHandler(err);
+      return rejectWithValue(errors);
+    }
+  }
+);
+export const getSPlayerDetails = createAsyncThunk(
+  'user/getSPlayerDetails',
+  async (userInput, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/player_statistics',userInput);
+      if (response.status === 200) {
+        return response?.data?.data;
+      } else {
+        let errors = errorHandler(response);
+        return rejectWithValue(errors);
+      }
+    } catch (err) {
+      let errors = errorHandler(err);
+      return rejectWithValue(errors);
+    }
+  }
+);
 const initialState = {
   message: null,
   error: null,
   isLoading: false,
   team:[],
-  playerList: []
+  playerList: [],
+  playerFDetails : [],
+  playerSDetails : []
 };
 
 const PlayerListSlice = createSlice({
@@ -79,7 +114,31 @@ const PlayerListSlice = createSlice({
             payload !== undefined && payload.message
                 ? payload.message
                 : 'Something went wrong. Try again later.';
-    })
+    }).addCase(getFPlayerDetails.pending, (state) => {
+      state.isLoading = false
+  }).addCase(getFPlayerDetails.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+      state.playerFDetails = payload
+      state.error = false
+  }).addCase(getFPlayerDetails.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.message =
+          payload !== undefined && payload.message
+              ? payload.message
+              : 'Something went wrong. Try again later.';
+  }).addCase(getSPlayerDetails.pending, (state) => {
+    state.isLoading = false
+}).addCase(getSPlayerDetails.fulfilled, (state, { payload }) => {
+    state.isLoading = false
+    state.playerSDetails = payload
+    state.error = false
+}).addCase(getSPlayerDetails.rejected, (state, { payload }) => {
+    state.isLoading = false;
+    state.message =
+        payload !== undefined && payload.message
+            ? payload.message
+            : 'Something went wrong. Try again later.';
+})
   },
 });
 

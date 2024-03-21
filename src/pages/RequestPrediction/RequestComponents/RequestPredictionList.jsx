@@ -2,7 +2,7 @@ import { Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RequestModal } from "./RequestModal";
 import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import {
@@ -12,6 +12,7 @@ import {
   BsChevronRight,
 } from "react-icons/bs";
 import {
+  Formation,
   LastResult,
   getFixtures,
   getFixturesByleague,
@@ -25,18 +26,22 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [modalLoader, setModalLoader] = useState(true);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-  const [homeTeamId,setHomeTeamId] = useState(null)
-  const [awayTeamId,setAwayTeamId] = useState(null)
+  const [homeId,setHomeId] = useState(null)
+  const [awayId,setAwayId] = useState(null)
+
 
   const viewDetailsModalHandler = (id) => {
-    console.log("id",id);
+  //  console.log("det",id);
+     setHomeId(id.split(':')[1])
+     setAwayId(id.split(':')[2])
+     const fixturesId = id.split(':')[0]
     setOpenViewDetailsModal(true);
-
-      dispatch(LastResult({fixture : id }))
+      dispatch(LastResult({fixture : fixturesId }))
   .then((res) => {
       if (res?.payload?.status === true) {
         setModalLoader(false);
         setModalData(res?.payload?.data);
+        dispatch(Formation({fixture : fixturesId }))
       } else {
         setModalLoader(true);
       }
@@ -97,7 +102,6 @@ const RequestPredictionList = ({ errorMessage }) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-console.log("c",currentItems);
   const isDataFound = currentItems && currentItems.length > 0;
 
   const totalPages = fixtures?.data
@@ -242,7 +246,7 @@ console.log("c",currentItems);
                         >
                           <Link
                             className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                            onClick={() =>viewDetailsModalHandler(dat?.fixture?.id)}
+                            onClick={() =>viewDetailsModalHandler(`${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`)}
                           >
                             View Prediction{" "}
                             <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -389,8 +393,8 @@ console.log("c",currentItems);
         onClose={handleModalClose}
         modalLoader={modalLoader}
         modalData={modalData}
-        homeId={homeTeamId}
-        awayId={awayTeamId}
+        homeId={homeId}
+        awayId={awayId}
       />
       {/* modal section ends here */}
     </div>

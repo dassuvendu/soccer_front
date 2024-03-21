@@ -11,7 +11,7 @@ import { Label, Button, Modal, TextInput } from "flowbite-react";
 import PlayerViewComparisonDetails from "../PlayerComparisions/PlayerViewComparisonDetails";
 import { serachTeam } from "../../reducers/TeamComparisonSlice";
 import Select from 'react-select';
-import { getPlayerName, getTeam } from "../../reducers/PlayerComparision";
+import { getFPlayerDetails, getPlayerName, getSPlayerDetails, getTeam } from "../../reducers/PlayerComparision";
 
 const PlayerComparisions = () => {
 
@@ -28,10 +28,14 @@ const PlayerComparisions = () => {
 
    //For Players
   const [firstselectedOption, setFirstSelectedOption] = useState(null);
+  const [isFirstselectedOption, setIsFirstSelectedOption] = useState(false);
   const [isFirstMenuOpen, setIsFirstMenuOpen] = useState(false);
 
   const [secondselectedOption, setSecondSelectedOption] = useState(null);
+  const [isSecondselectedOption, setIsSecondSelectedOption] = useState(false);
   const [isSecondMenuOpen, setIsSecondMenuOpen] = useState(false);
+
+
 
   const dispatch = useDispatch()
 
@@ -39,12 +43,13 @@ const PlayerComparisions = () => {
 const handleTeamChange = firstteamselectedOption => {
   setFirstTeamSelectedOption(firstteamselectedOption.id);
   setIsFirstTeamMenuOpen(false);
+  setIsFirstSelectedOption(true) 
 };
 
 const handleInputTeamChange = (inputValue) => {
   if (inputValue.length > 3) {
     dispatch(getTeam({name : inputValue})).then(()=>{
-      setIsFirstTeamMenuOpen(true);  
+      setIsFirstTeamMenuOpen(true);
     })
   }else {
     setIsFirstTeamMenuOpen(false); 
@@ -54,13 +59,14 @@ const handleInputTeamChange = (inputValue) => {
 const handleTeamSecondChange = secondselectedOption => {
   setSecondSelectedTeamOption(secondselectedOption.id);
   setIsSecondTeamMenuOpen(false);
+  setIsSecondSelectedOption(true)
   // console.log(`Option selected:`, secondselectedOption);
 };
 
 const handleInputTeamSecondChange = (inputValue) => {
   if (inputValue.length > 3) {
     dispatch(getTeam({name : inputValue})).then(()=>{
-      setIsSecondTeamMenuOpen(true);  
+      setIsSecondTeamMenuOpen(true); 
     })
   }else {
     setIsSecondTeamMenuOpen(false); 
@@ -69,7 +75,7 @@ const handleInputTeamSecondChange = (inputValue) => {
 
   //For Players
   const handleChange = firstselectedOption => {
-    setFirstSelectedOption(firstselectedOption);
+    setFirstSelectedOption(firstselectedOption.id);
     setIsFirstMenuOpen(false);
     console.log(`Option selected:`, firstselectedOption);
   };
@@ -85,7 +91,7 @@ const handleInputTeamSecondChange = (inputValue) => {
   };
 
   const handleSecondChange = secondselectedOption => {
-    setSecondSelectedOption(secondselectedOption);
+    setSecondSelectedOption(secondselectedOption.id);
     setIsSecondMenuOpen(false);
     // console.log(`Option selected:`, secondselectedOption);
   };
@@ -179,11 +185,17 @@ const handleInputTeamSecondChange = (inputValue) => {
       };
     }) || []),
   ];
-  // const [openPlayerComparisionsModal, setOpenPlayerComparisionsModal] =
-  //   useState(false);
-  // const playerComparisionsModalHandler = () => {
-  //   setOpenPlayerComparisionsModal(true);
-  // };
+  const [openPlayerComparisionsModal, setOpenPlayerComparisionsModal] =useState(false);
+
+  const playerComparisionsModalHandler = () => {
+    Promise.all([
+      dispatch(getFPlayerDetails({id:firstselectedOption , season : 2024})),
+      dispatch(getSPlayerDetails({id:secondselectedOption , season : 2024}))
+      .then(()=>{
+        setOpenPlayerComparisionsModal(true);
+      })
+    ])
+  };
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -234,11 +246,13 @@ const handleInputTeamSecondChange = (inputValue) => {
                       <div >
 
                         <Select
+                        placeholder='search team'
                           options={optionsFirstTeam}
                           value={optionsFirstTeam.value}
                           onChange={handleTeamChange }
                           onInputChange={handleInputTeamChange}
                           menuIsOpen={isFirstTeamMenuOpen}
+                          
                         />
 
                         {/* <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
@@ -298,6 +312,8 @@ const handleInputTeamSecondChange = (inputValue) => {
                       <div >
 
                         <Select
+                        placeholder='search player'
+                        isDisabled={!isFirstselectedOption}
                           options={optionsFirstPlayer}
                           value={optionsFirstPlayer.value}
                           onChange={handleChange}
@@ -360,6 +376,7 @@ const handleInputTeamSecondChange = (inputValue) => {
                       </Label>
                       <div >
                          <Select
+                         placeholder='search team'
                           options={optionsSecondTeam}
                           value={optionsSecondTeam.value}
                           onChange={handleTeamSecondChange}
@@ -421,6 +438,8 @@ const handleInputTeamSecondChange = (inputValue) => {
                       </Label>
                       <div >
                          <Select
+                         placeholder='search player'
+                         isDisabled={!isSecondselectedOption}
                           options={optionsSecondPlayer}
                           value={optionsSecondPlayer.value}
                           onChange={handleSecondChange}
@@ -474,7 +493,7 @@ const handleInputTeamSecondChange = (inputValue) => {
                       </div>
                     </div>
                     <button
-                      // onClick={playerComparisionsModalHandler}
+                      onClick={playerComparisionsModalHandler}
                       className="bg-[#2aa9e1] rounded-full text-[18px] leading-[50px] w-full text-white hover:bg-[#2854b7] mt-4"
                     >
                       View player comparison
@@ -521,7 +540,7 @@ const handleInputTeamSecondChange = (inputValue) => {
         </div>
       </div>
       {/* Login Modal start here */}
-      {/* {openPlayerComparisionsModal && (
+      {openPlayerComparisionsModal && (
         <Modal
           show={openPlayerComparisionsModal}
           size="7xl"
@@ -535,7 +554,7 @@ const handleInputTeamSecondChange = (inputValue) => {
             </div>
           </Modal.Body>
         </Modal>
-      )} */}
+      )}
       {/* Login Modal ends here */}
     </div>
   );

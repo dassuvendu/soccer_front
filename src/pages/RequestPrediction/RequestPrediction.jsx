@@ -3,6 +3,7 @@ import { SearchCompo } from "./RequestComponents/SearchCompo";
 import { Prediction } from "./RequestComponents/Prediction";
 import RequestPredictionList from "./RequestComponents/RequestPredictionList";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const RequestPrediction = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,6 +14,9 @@ const RequestPrediction = () => {
   useEffect(() => {
     console.log(errorMessage);
   }, [errorMessage]);
+
+  let { id } = useParams();
+  console.log("id",id);
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -31,7 +35,7 @@ const RequestPrediction = () => {
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompo onError={handleError} />
+          <SearchCompo onError={handleError} id={id}/>
           <Prediction />
         </div>
       </div>
