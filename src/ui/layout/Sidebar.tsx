@@ -77,7 +77,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
         <div className='block lg:hidden'>
           <NavLink to="/">
-            <img src={logoIcon} alt="logoIcon" className='w-[30px]' />
+            <img src={mobileLogo} alt="mobileLogo" className='w-28' />
           </NavLink>
         </div>
         <div className='hidden lg:block'>
