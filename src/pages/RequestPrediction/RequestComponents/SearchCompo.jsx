@@ -16,6 +16,7 @@ export const SearchCompo = ({ onError , rid }) => {
   // const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isseason, setIsSeason] = useState();
+  const [season,setSeason] = useState()
   const [isRequired, setIsRequired] = useState();
   const [leagueName, setleagueName] = useState();
 console.log(leagueName);
@@ -47,17 +48,24 @@ console.log(leagueName);
 
   useEffect(() => {
     if (allLeague && rid) {
-      // Flatten the nested arrays and then filter
       const filteredLeagues = allLeague?.data?.filter(data =>  data?.league?.id == rid);
       console.log("Filtered Leagues:", filteredLeagues);
       if(Array.isArray(filteredLeagues)&&filteredLeagues){
         setleagueName(filteredLeagues[0]?.league?.name)
+        setIsSeason(true)
+        dispatch(getSeasons({})).then((res) => {
+          if (res?.payload?.status === true) {
+            setIsLoading(false);
+          }
+        });
       }
     }
   }, [allLeague, rid]);
 
   const handleSearch = (season) => {
     setIsRequired(null)
+   
+    setSeason(season)
     dispatch(
       getFixtures({ league: isseason.value, season: season.target.value })
     ).then((response) => {
