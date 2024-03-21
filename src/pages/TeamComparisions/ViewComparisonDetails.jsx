@@ -385,7 +385,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
             </div>
 
             {/*  */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
               <div className="border border-[#d1d5db] p-4 rounded-xl flex items-center justify-center">
                 <p className="text-black text-[18px] leading-[24px] font-medium">
                   Played
@@ -433,7 +433,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
 
           {/* bottom part start here */}
           <div className="mb-4">
-            <div className="grid grid-cols-2 gap-8 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
               {/* team1 */}
 
               <div>

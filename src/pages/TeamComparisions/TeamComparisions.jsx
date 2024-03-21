@@ -344,15 +344,16 @@ const TeamComparisions = () => {
                           </svg>
                         </div>
                       </div> */}
-            
-                      <Select
-                        options={optionsFirstTeam}
-                        value={optionsFirstTeam.value}
-                        onChange={handleTeamChange}
-                        onInputChange={handleInputTeamChange}
-                        menuIsOpen={isFirstTeamMenuOpen}
-                      />
-                      <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
+
+                      <div className="relative">
+                        <Select
+                          options={optionsFirstTeam}
+                          value={optionsFirstTeam.value}
+                          onChange={handleTeamChange}
+                          onInputChange={handleInputTeamChange}
+                          menuIsOpen={isFirstTeamMenuOpen}
+                        />
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
                             aria-hidden="true"
@@ -369,6 +370,7 @@ const TeamComparisions = () => {
                             />
                           </svg>
                         </div>
+                      </div>
                     </div>
                     <div className="mb-4">
                       <Label
@@ -443,14 +445,15 @@ const TeamComparisions = () => {
                           </svg>
                         </div>
                       </div> */}
-                      <Select
-                        options={optionsSecondTeam}
-                        value={optionsSecondTeam.value}
-                        onChange={handleTeamSecondChange}
-                        onInputChange={handleInputTeamSecondChange}
-                        menuIsOpen={isSecondTeamMenuOpen}
-                      />
-                     <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
+                      <div className="relative">
+                        <Select
+                          options={optionsSecondTeam}
+                          value={optionsSecondTeam.value}
+                          onChange={handleTeamSecondChange}
+                          onInputChange={handleInputTeamSecondChange}
+                          menuIsOpen={isSecondTeamMenuOpen}
+                        />
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
                             aria-hidden="true"
@@ -467,6 +470,7 @@ const TeamComparisions = () => {
                             />
                           </svg>
                         </div>
+                      </div>
                     </div>
                     <button
                       onClick={() => {
@@ -572,13 +576,32 @@ const TeamComparisions = () => {
                           </svg>
                         </div>
                       </div> */}
-                      <Select
-                        options={optionsSingleTeam}
-                        value={optionsSingleTeam.value}
-                        onChange={handleSingleTeamChange}
-                        onInputChange={handleSingleInputTeamChange}
-                        menuIsOpen={isSingleTeamMenuOpen}
-                      />
+                      <div className="relative">
+                        <Select
+                          options={optionsSingleTeam}
+                          value={optionsSingleTeam.value}
+                          onChange={handleSingleTeamChange}
+                          onInputChange={handleSingleInputTeamChange}
+                          menuIsOpen={isSingleTeamMenuOpen}
+                        />
+                        <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
+                          <svg
+                            className="w-5 h-5 text-[#606060]"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                     <button
                       onClick={teamInformationModalHandler}
