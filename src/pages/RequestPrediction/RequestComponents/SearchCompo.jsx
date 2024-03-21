@@ -19,6 +19,7 @@ export const SearchCompo = ({ onError , rid }) => {
   const [season,setSeason] = useState()
   const [isRequired, setIsRequired] = useState();
   const [leagueName, setleagueName] = useState();
+  const [leagueId,setLeagueId] = useState()
 console.log(leagueName);
 
   const handleDateChange = (e) => {
@@ -52,20 +53,37 @@ console.log(leagueName);
       console.log("Filtered Leagues:", filteredLeagues);
       if(Array.isArray(filteredLeagues)&&filteredLeagues){
         setleagueName(filteredLeagues[0]?.league?.name)
+        setLeagueId(filteredLeagues[0]?.league?.name)
         setIsSeason(true)
-        dispatch(getSeasons({})).then((res) => {
-          if (res?.payload?.status === true) {
-            setIsLoading(false);
-          }
-        });
+        if (isseason === true) {
+          dispatch(getSeasons({})).then((res) => {
+            if (res?.payload?.status === true) {
+              setIsLoading(false);
+            }
+          });
+        }
       }
     }
-  }, [allLeague, rid]);
+  }, [allLeague]);
 
   const handleSearch = (season) => {
     setIsRequired(null)
-   
+    
     setSeason(season)
+    if (isseason === true) {
+      dispatch(
+        getFixtures({ league: rid , season: season.target.value })
+      ).then((response) => {
+       if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
     dispatch(
       getFixtures({ league: isseason.value, season: season.target.value })
     ).then((response) => {
@@ -145,7 +163,7 @@ console.log(leagueName);
                 options={options}
                 onChange={handleLeagueChange}
                 value={options.label 
-                  || 
+                  &&
                   options.filter(option => option.label.props.children[1].props.children === leagueName)} 
               />
           </div>
