@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCheck } from '../../../reducers/CheckUnlockSlice';
 
-export const PredictionStats = ({isUnlock}) => {
+export const PredictionStats = ({isfixturesId}) => {
   const { lastResult } = useSelector((state) => state.prediction);
-
   const [lossHPercent, setLossHPercent] = useState();
   const [lossAPercent, setLossAPercent] = useState();
 
@@ -27,22 +27,56 @@ export const PredictionStats = ({isUnlock}) => {
 
   }, [lastResult]);
 
-  
+  const {status} = useSelector((state)=> state.IsunLock)
+  // const navigate = useNavigate()
+
+  // const token = localStorage.getItem("userToken");
+
+  const [isUnlock,setIsUnlock] = useState(false)
+  console.log("is",isUnlock);
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getCheck({fixture: isfixturesId })).then((res) => {
+      if (res?.payload?.status === false) {
+        setIsUnlock(false)
+      }
+    })
+    },[dispatch,isfixturesId])
+
+  const handleClick = () =>{
+    // let access = 592872
+    // dispatch(getCheck({fixture: access})).then((res) => {
+    //   if (res?.payload?.status === true) {
+        setIsUnlock(true)
+      
+}
+
+
   return (
      <div>
-      {!isUnlock ?
-      <div className="flex justify-center mt-10">
+      {!isUnlock &&
+    <>
+    <div className="flex justify-center mt-10">
         <button  
         type="button" 
         class="text-white bg-blue-700 
         hover:bg-blue-800 font-medium 
         rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
+        onClick={handleClick}
         >
           Unlock Prediction
           </button>
+         
       </div>
-      :
-      <div className='hidden'>
+       <p className='text-red-600 flex justify-center'>
+       {status?.message}
+     </p>
+     </>
+}
+{isUnlock &&
+      <div >
 
       
       {lastResult?.data?.map((res) => (
@@ -157,7 +191,8 @@ export const PredictionStats = ({isUnlock}) => {
       </div>
 
       </div>
-      }
+}
     </div>
+   
   )
 }

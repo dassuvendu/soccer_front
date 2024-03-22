@@ -21,15 +21,15 @@ const {status} = useSelector((state)=> state.IsunLock)
       if (res?.payload?.status === false) {
         setIsUnlock(false)
       }
-    })
+    },[dispatch,isfixturesId])
   },[dispatch,isfixturesId])
   const handleClick = () =>{
-    let access = 592872
-    dispatch(getCheck({fixture: access})).then((res) => {
-      if (res?.payload?.status === true) {
+    // let access = 592872
+    // dispatch(getCheck({fixture: access})).then((res) => {
+    //   if (res?.payload?.status === true) {
         setIsUnlock(true)
-      }
-  })
+      
+  
 }
   return (
     <div>

@@ -39,6 +39,7 @@ export const SearchCompoId = ({ onError , rid }) => {
 //     setIsRequired(requried)
 //   };
 
+
   useEffect(() => {
     if (allLeague && rid) {
       const filteredLeagues = allLeague?.data?.filter(data =>  data?.league?.id == rid);
@@ -60,8 +61,11 @@ export const SearchCompoId = ({ onError , rid }) => {
     }
   }, [allLeague]);
 
+ 
+
   const handleSearch = (season) => {
     setIsRequired(null)
+    
     if (leagueName === leagueName) {
       dispatch(
         getFixtures({ league: rid , season: season.target.value })

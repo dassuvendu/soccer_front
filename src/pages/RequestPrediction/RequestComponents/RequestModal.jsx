@@ -33,10 +33,6 @@ export const RequestModal = ({
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null)
-  
-
-
-  const [isUnlock, setIsUnlock] = useState(false);
 
   const dispatch = useDispatch();
   const { fetchedPredictions } = useSelector((state) => state.myPredictions);
@@ -412,11 +408,11 @@ export const RequestModal = ({
                           </div>
                         </TabPanel>
                         <TabPanel>
-                          <PredictionStats isUnlock={isUnlock} />
+                          <PredictionStats isfixturesId={isfixturesId} />
                         </TabPanel>
 
                         <TabPanel>
-                          <CorrectScores isUnlock={isUnlock} />
+                          <CorrectScores isfixturesId={isfixturesId} />
                         </TabPanel>
                       </>
                     ) : (
