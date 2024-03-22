@@ -25,6 +25,7 @@ import Payment from '../pages/Payment/Payment.jsx';
 import PaymentRedirect from '../pages/Payment/PaymentRedirect.jsx';
 import Bundesliga from '../pages/Bundesliga/Bundesliga.jsx';
 import PlayerComparisions from '../pages/PlayerComparisions/PlayerComparisions.jsx';
+import RequestPredictionId from '../pages/RequestPrediction/RequestPredictionId.jsx';
 
 const allRoutes = [
   {
@@ -153,7 +154,7 @@ const allRoutes = [
     children: [
       {
         index: true,
-        element: <RequestPrediction />
+        element: <RequestPredictionId/>
       },
     ],
   },

@@ -79,7 +79,7 @@ const RequestPredictionList = ({ errorMessage }) => {
         setHide(false);
       }
     });
-  }, [dispatch, changeDateformate]);
+  }, [dispatch]);
 
   const [matchDateList] = useDateList({ date: changeDateformate });
 
