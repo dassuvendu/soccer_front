@@ -1,21 +1,22 @@
 import { Modal, Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { DeportivoPastoIcon } from "../../../assets/images/images/";
 import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
 import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
+import { getCheck } from "../../../reducers/CheckUnlockSlice";
+import { LastResult } from "../../../reducers/PredictionsSlice";
 
 
 export const RequestModal = ({
   openViewDetailsModal,
   onClose,
-  modalLoader,
-  modalData,
   homeId,
-  awayId
+  awayId,
+  fixturesId,
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
@@ -31,7 +32,36 @@ export const RequestModal = ({
   const [matchTimeList] = useTimeList();
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
+  const [modalData, setModalData] = useState(null);
+  const [modalLoader, setModalLoader] = useState(true);
 
+  const [isUnlock,setIsUnlock] = useState(false)
+
+
+  const dispatch = useDispatch()
+
+  const token = localStorage.getItem("userToken");
+  console.log("token: ", token);
+  useEffect(() => {
+    if (token) {
+      dispatch(getPredictions());
+    } else {
+      console.log("Unauthorize");
+    }
+  }, []);
+  console.log("prediction: ",);
+
+  useEffect(()=>{
+    dispatch(LastResult({ fixture: fixturesId })).then((res) => {
+      if (res?.payload?.status === true) {
+        setModalLoader(false);
+        setModalData(res?.payload?.data);
+        dispatch(Formation({ fixture: fixturesId }));
+      } else {
+        setModalLoader(true);
+      }
+    });
+  },[dispatch,fixturesId])
 
   useEffect(() => {
     setDate(matchDateList);
@@ -76,6 +106,7 @@ export const RequestModal = ({
 
   const handleModal = () => {
     onClose();
+    setModalData(null);
     setHomeDataImg(null);
     setAwayDataImg(null);
     setHomeName(null);
@@ -380,11 +411,11 @@ export const RequestModal = ({
                           </div>
                         </TabPanel>
                         <TabPanel>
-                         <PredictionStats/>
+                         <PredictionStats isUnlock={isUnlock}/>
                         </TabPanel>
 
                         <TabPanel>
-                        <CorrectScores/>
+                        <CorrectScores isUnlock={isUnlock}/>
                         </TabPanel>
 
                       </>

@@ -22,32 +22,22 @@ const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
-  const [modalData, setModalData] = useState(null);
-  const [modalLoader, setModalLoader] = useState(true);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
+  const [fixturesId, setFixturesId] = useState(null)
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);
     setHomeId(id.split(":")[1]);
     setAwayId(id.split(":")[2]);
-    const fixturesId = id.split(":")[0];
+    const fixtureId = id.split(":")[0];
+    setFixturesId(fixtureId)
     setOpenViewDetailsModal(true);
-    dispatch(LastResult({ fixture: fixturesId })).then((res) => {
-      if (res?.payload?.status === true) {
-        setModalLoader(false);
-        setModalData(res?.payload?.data);
-        dispatch(Formation({ fixture: fixturesId }));
-      } else {
-        setModalLoader(true);
-      }
-    });
   };
 
   const handleModalClose = () => {
-    setModalData(null);
     setOpenViewDetailsModal(false);
   };
 
@@ -410,9 +400,8 @@ const RequestPredictionList = ({ errorMessage }) => {
       {/* modal section start here */}
       <RequestModal
         openViewDetailsModal={openViewDetailsModal}
+        fixturesId={fixturesId}
         onClose={handleModalClose}
-        modalLoader={modalLoader}
-        modalData={modalData}
         homeId={homeId}
         awayId={awayId}
       />
