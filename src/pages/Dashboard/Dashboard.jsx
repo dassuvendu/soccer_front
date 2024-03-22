@@ -12,14 +12,18 @@ const Dashboard = () => {
   const { league } = useSelector((state) => state.league);
   const [loadingdash, setLoadingDash] = useState(true);
   const dispatch = useDispatch();
+  const [apiCalled, setApiCalled] = useState(false);
 
   useEffect(() => {
-    dispatch(getLeagues({ids: '39,140,135,78,61,2'})).then((res) => {
-      if (res?.payload?.status === true) {
-        setLoadingDash(false);
-      }
-    });
-  }, [dispatch]);
+    if (!apiCalled) { // Check if the API call has already been made
+      dispatch(getLeagues({ids: '39,140,135,78,61,2'})).then((res) => {
+        if (res?.payload?.status === true) {
+          setLoadingDash(false);
+          setApiCalled(true); // Set apiCalled to true after the API call
+        }
+      });
+    }
+  }, [dispatch, apiCalled]);
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">

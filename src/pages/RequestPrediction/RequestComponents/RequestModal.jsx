@@ -1,13 +1,12 @@
-import { Label, Modal, Spinner, TextInput } from "flowbite-react";
+import { Modal, Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
-
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-
 import { DeportivoPastoIcon } from "../../../assets/images/images/";
-import { fieldOne } from "../../../assets/images/images";
+import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
+import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
 
 
 export const RequestModal = ({
@@ -21,8 +20,6 @@ export const RequestModal = ({
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
 
-  // const { lastAwayResult } = useSelector((state) => state.prediction);
-
   const { fixtures } = useSelector((state) => state.prediction);
   const [homeData, setHomeData] = useState()
   const [awayData, setAwayData] = useState()
@@ -30,10 +27,6 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
-  // const [WinResult, setWinResult] = useState();
-  const [lossHPercent, setLossHPercent] = useState();
-  const [lossAPercent, setLossAPercent] = useState();
-
   const [matchDateList] = useDateList();
   const [matchTimeList] = useTimeList();
   const [date, setDate] = useState(null);
@@ -77,21 +70,9 @@ export const RequestModal = ({
       setHomeName(homeName);
       setAwayDataImg(awayImgData);
       setAwayName(awayName);
-
-      let fullPercent = 100
-      let homeWinPercent = data?.predictions?.percent?.home
-      let awayWinPercent = data?.predictions?.percent?.away
-      let Hpoint = homeWinPercent.split('%')[0]
-      let Apoint = awayWinPercent.split('%')[0]
-      let lossHResult = fullPercent - Hpoint
-      let lossAResult = fullPercent - Apoint
-      setLossHPercent(lossHResult)
-      setLossAPercent(lossAResult)
     }
 
   }, [lastResult]);
-
- 
 
   const handleModal = () => {
     onClose();
@@ -172,175 +153,13 @@ export const RequestModal = ({
                 <div className="max-w-5xl mx-auto">
                   <Tabs className="team_comparisions_tab_section">
                     <TabList className="tab_bar">
-                      <Tab>Prediction Statistics</Tab>
-                      <Tab>Correct Scores</Tab>
                       <Tab>History</Tab>
                       <Tab>Formation</Tab>
+                      <Tab>Prediction Statistics</Tab>
+                      <Tab>Correct Scores</Tab>
                     </TabList>
                     {!modalLoader && modalData ? (
                       <>
-                        <TabPanel>
-                          <div>
-                            {lastResult?.data?.map((res) => (
-                              <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={res.id}>
-                                <div className="text-center pt-10">
-                                  <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-                                    Outcome
-                                  </h4>
-                                  <p className="text-base text-[#08a1f8] font-medium">
-                                    win,{res?.predictions?.winner?.name}
-                                  </p>
-                                </div>
-                                <div className="text-center">
-                                  <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
-                                    Advice
-                                  </h4>
-                                  <p className="text-base text-[#08a1f8] font-medium">
-                                    {res?.predictions?.advice}
-                                  </p>
-                                </div>
-                                <div className="text-center pt-10">
-                                  <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-                                    Over/Under
-                                  </h4>
-                                  <p className="text-base text-[#08a1f8] font-medium">
-                                    {res?.predictions?.under_over}
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
-
-                            <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
-                              {lastResult?.data?.map((res) => (
-                                <>
-                                  <div className="text-center pt-10">
-                                    <div className="flex justify-between px-4">
-                                      <div className="text-left">
-                                        <p className="text-base text-[#08a1f8] font-medium">
-                                          Win
-                                        </p>
-                                        <p className="text-base text-[#08a1f8] font-medium">
-                                          Lose
-                                        </p>
-                                        <p className="text-base text-[#08a1f8] font-medium">
-                                          Win/Draw
-                                        </p>
-                                      </div>
-                                      <div className="text-right">
-                                        <p className="text-base text-black font-medium">
-                                          {res?.predictions?.percent?.home}
-                                        </p>
-                                        <p className="text-base text-black font-medium">
-                                          {lossHPercent}%
-                                        </p>
-                                        <p className="text-base text-black font-medium">
-                                          {lossAPercent}%
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div className="text-center">
-                                    <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
-                                      Chances
-                                    </h4>
-                                    <div>
-                                      <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-0 mt-4">
-                                        Draw
-                                      </h4>
-                                      <p className="text-base text-black font-medium">
-                                        {res?.predictions?.percent?.draw}
-                                      </p>
-                                    </div>
-                                  </div>
-
-                                  <div className="text-center pt-10">
-                                    <div className="flex justify-between px-4">
-                                      <div className="text-left">
-                                        <p className="text-base text-[#08a1f8] font-medium">
-                                          Win
-                                        </p>
-                                        <p className="text-base text-[#08a1f8] font-medium">
-                                          Lose
-                                        </p>
-                                        <p className="text-base text-[#08a1f8] font-medium">
-                                          Win/Draw
-                                        </p>
-                                      </div>
-                                      <div className="text-right">
-                                        <p className="text-base text-black font-medium">
-                                          {res?.predictions?.percent?.away}
-                                        </p>
-                                        <p className="text-base text-black font-medium">
-                                          {lossAPercent}%
-                                        </p>
-                                        <p className="text-base text-black font-medium">
-                                          {lossHPercent}%
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </>
-                              ))}
-                            </div>
-
-                            <div className="mt-8">
-                              <button className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
-                                Add to Pridiction slip
-                              </button>
-                            </div>
-                          </div>
-                        </TabPanel>
-                        <TabPanel>
-                          <div>
-                            <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
-                              <div className="text-center pt-10">
-                                <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-                                  Outcome
-                                </h4>
-                                <p className="text-base text-[#08a1f8] font-medium">
-                                  Win, Mushuc Runa SC
-                                </p>
-                              </div>
-                              <div className="text-center">
-                                <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
-                                  Advice
-                                </h4>
-                              </div>
-                              <div className="text-center pt-10">
-                                <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-                                  Over/Under
-                                </h4>
-                                <p className="text-base text-[#08a1f8] font-medium">
-                                  Under 4.5
-                                </p>
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
-                              <div className="text-center pt-10">
-                                <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-                                  Outcome
-                                </h4>
-                                <p className="text-base text-[#08a1f8] font-medium">
-                                  Win, Mushuc Runa SC
-                                </p>
-                              </div>
-                              <div className="text-center">
-                                <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
-                                  Chances
-                                </h4>
-                              </div>
-                              <div className="text-center pt-10">
-                                <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-                                  Over/Under
-                                </h4>
-                                <p className="text-base text-[#08a1f8] font-medium">
-                                  Under 4.5
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </TabPanel>
                         <TabPanel>
                           <div className="mb-4">
 
@@ -485,6 +304,7 @@ export const RequestModal = ({
 
                           </div>
                         </TabPanel>
+
                         <TabPanel>
                           <div>
                             <h4 className="font-Bebas text-2xl tracking-normal text-black text-center mb-4 mt-4">
@@ -559,6 +379,14 @@ export const RequestModal = ({
                             </div>
                           </div>
                         </TabPanel>
+                        <TabPanel>
+                         <PredictionStats/>
+                        </TabPanel>
+
+                        <TabPanel>
+                        <CorrectScores/>
+                        </TabPanel>
+
                       </>
                     ) : (
                       <div className="text-center mt-40 mb-80">

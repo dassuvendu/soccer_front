@@ -8,48 +8,65 @@ import {
   getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompo = ({ onError}) => {
+export const SearchCompoId = ({ onError , rid }) => {
+  // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
-  const [isseason, setIsSeason] = useState();
+  const [isSeason, setIsSeason] = useState(false);
   const [isRequired, setIsRequired] = useState();
+  const [leagueName, setleagueName] = useState('');
 
   const handleDateChange = (e) => {
     // console.log(e);
     // setLoading(true);
     const year = e.getFullYear();
-    const month = String(e.getMonth() + 1).padStart(2, "0");
-    const day = String(e.getDate()).padStart(2, "0");
-    const newDate = `${year}-${month}-${day}`
-    dispatch(getFixtures({ date: newDate }));
+  const month = String(e.getMonth() + 1).padStart(2, "0");
+  const day = String(e.getDate()).padStart(2, "0");
+  const newDate = `${year}-${month}-${day}`
+    dispatch(getFixtures({ date : newDate}));
   };
-  
-  useEffect(() => {
-    dispatch(getFixturesByleague({}))
-  }, [dispatch])
 
-  const handleLeagueChange = (selectedOption) => {
-    setIsLoading(true);
-    setIsSeason(selectedOption);
-    let requried = 'required*'
-    setIsRequired(requried)
-    dispatch(getSeasons({})).then((res) => {
-      if (res?.payload?.status === true) {
-        setIsLoading(false);
+ useEffect(()=>{
+  dispatch(getFixturesByleague({}))
+ },[dispatch])
+
+//   const handleLeagueChange = () => {
+//     setIsLoading(true);
+//     let requried = 'required*'
+//     setIsRequired(requried)
+//   };
+
+  useEffect(() => {
+    if (allLeague && rid) {
+      const filteredLeagues = allLeague?.data?.filter(data =>  data?.league?.id == rid);
+      console.log("Filtered Leagues:", filteredLeagues);
+      if(Array.isArray(filteredLeagues)&&filteredLeagues){
+        setleagueName(filteredLeagues[0]?.league?.name)
+        let requried = 'required*'
+        setIsRequired(requried)
+      
+        if (isSeason === false) {
+          dispatch(getSeasons({})).then((res) => {
+            if (res?.payload?.status === true) {
+              setIsLoading(false);
+              setIsSeason(true);
+            }
+          });
+        }
       }
-    });
-  };
+    }
+  }, [allLeague]);
 
   const handleSearch = (season) => {
     setIsRequired(null)
-    if (isseason === true) {
+    if (leagueName === leagueName) {
       dispatch(
-        getFixtures({ league: rid, season: season.target.value })
+        getFixtures({ league: rid , season: season.target.value })
       ).then((response) => {
-        if (
+       if (
           response?.payload?.message ===
           "Something went wrong. Please try again later"
         ) {
@@ -59,25 +76,15 @@ export const SearchCompo = ({ onError}) => {
         }
       });
     }
-    dispatch(
-      getFixtures({ league: isseason.value, season: season.target.value })
-    ).then((response) => {
-      if (
-        response?.payload?.message ===
-        "Something went wrong. Please try again later"
-      ) {
-        onError(400);
-      } else {
-        onError(null);
-      }
-    });
+   
   };
 
   const options = [
     ...(allLeague?.data?.map((dlist) => {
       return {
         value: dlist?.league?.id,
-        label: (
+        label: 
+        (
           <div style={{ display: "flex" }}>
             <img
               src={dlist?.league?.logo}
@@ -95,14 +102,16 @@ export const SearchCompo = ({ onError}) => {
     <>
       <div className="mb-4 md:mb-0 w-1/1">
         <p
-          className={`text-[14px] leading-[20px] font-medium ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } pb-2`}
+          className={`text-[14px] leading-[20px] font-medium ${
+            themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+          } pb-2`}
         >
           Select Date
         </p>
         <div
-          className={` ${themeMode === "light" ? "date_picker_box_light" : "date_picker_box"
-            }`}
+          className={` ${
+            themeMode === "light" ? "date_picker_box_light" : "date_picker_box"
+          }`}
         >
           <div>
             <Datepicker onSelectedDateChanged={handleDateChange} />
@@ -114,24 +123,27 @@ export const SearchCompo = ({ onError}) => {
 
       <div className="mb-4 md:mb-0 w-2/2">
         <p
-          className={`text-[14px] leading-[20px] font-medium ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } pb-2`}
+          className={`text-[14px] leading-[20px] font-medium ${
+            themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+          } pb-2`}
         >
           Select League
         </p>
         <div className="mb-4 md:mb-0">
           <div
-            className={` ${themeMode === "light"
+            className={` ${
+              themeMode === "light"
                 ? "date_picker_box_light Select_League"
                 : "date_picker_box Select_League"
-              }`}
+            }`}
           >
-            <Select
-              // placeholder="Select or Search League"
-              options={options}
-              onChange={handleLeagueChange}
-              value={options.label}
-            />
+              <Select
+                // placeholder="Select or Search League"
+                // options={options}
+                // onChange={handleLeagueChange}
+                value={options.filter(option => option.label.props.children[1].props.children === leagueName)} 
+                menuIsOpen={false}
+              />
           </div>
         </div>
       </div>
@@ -140,25 +152,27 @@ export const SearchCompo = ({ onError}) => {
 
       <div className="mb-4 md:mb-0 w-3/3">
         <p
-          className={`text-[14px] leading-[20px] font-medium ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-            } pb-2`}
+          className={`text-[14px] leading-[20px] font-medium ${
+            themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+          } pb-2`}
         >
-          Select Season
-          <span className="text-red-500"> {isRequired}</span>
+           Select Season
+           <span className="text-red-500"> {isRequired}</span>
         </p>
         <div className="mb-4 md:mb-0">
           <div
-            className={` ${themeMode === "light"
+            className={` ${
+              themeMode === "light"
                 ? "date_picker_box_light Select_Season"
                 : "date_picker_box Select_Season"
-              }`}
+            }`}
           >
             {isloading ? (
               <select name="sel" disabled>
                 <option>Loading...</option>
               </select>
             ) : (
-              <select disabled={!isseason} onChange={handleSearch}>
+              <select disabled={!isSeason} onChange={handleSearch}>
                 <option value="">Select</option>
                 {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
@@ -167,9 +181,9 @@ export const SearchCompo = ({ onError}) => {
                 ))}
               </select>
             )}
-
-
-
+            
+           
+            
           </div>
         </div>
       </div>
