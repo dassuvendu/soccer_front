@@ -10,6 +10,7 @@ import paymentSlice from '../reducers/paymentSlice';
 import TeamComparisonSlice from '../reducers/TeamComparisonSlice';
 import PlayerComparision from '../reducers/PlayerComparision';
 import MyPredictionSlice from '../reducers/MyPredictionSlice';
+import CheckUnlockSlice from '../reducers/CheckUnlockSlice';
 
 
 const store = configureStore({
@@ -24,7 +25,8 @@ const store = configureStore({
     payment: paymentSlice,
     teamComparision: TeamComparisonSlice,
     playerComparision: PlayerComparision,
-    myPredictions: MyPredictionSlice
+    myPredictions: MyPredictionSlice,
+    IsunLock : CheckUnlockSlice,
   },
   devTools: import.meta.env.DEV,
 });

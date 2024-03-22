@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
-export const PredictionStats = () => {
+export const PredictionStats = ({isUnlock}) => {
   const { lastResult } = useSelector((state) => state.prediction);
 
   const [lossHPercent, setLossHPercent] = useState();
@@ -28,9 +28,26 @@ export const PredictionStats = () => {
   }, [lastResult]);
 
   return (
-    <div>
+     <div>
+      {!isUnlock ?
+      <div className="flex justify-center mt-10">
+        <button  
+        type="button" 
+        class="text-white bg-blue-700 
+        hover:bg-blue-800 font-medium 
+        rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
+        >
+          Unlock Prediction
+          </button>
+      </div>
+      :
+      <div className='hidden'>
+
+      
       {lastResult?.data?.map((res) => (
+
         <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={res.id}>
+
           <div className="text-center pt-10">
             <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
               Outcome
@@ -137,6 +154,9 @@ export const PredictionStats = () => {
           Add to Pridiction slip
         </button>
       </div>
+
+      </div>
+      }
     </div>
   )
 }
