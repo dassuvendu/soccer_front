@@ -27,6 +27,7 @@ export const PredictionStats = ({isUnlock}) => {
 
   }, [lastResult]);
 
+  
   return (
      <div>
       {!isUnlock ?

@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Login from '../../Auth/Login/Login'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCheck } from '../../../reducers/CheckUnlockSlice'
 
-export const CorrectScores = ({isUnlock}) => {
+export const CorrectScores = ({isfixturesId}) => {
 
-  const navigate = useNavigate()
+const {status} = useSelector((state)=> state.IsunLock)
+  // const navigate = useNavigate()
 
+  // const token = localStorage.getItem("userToken");
+
+  const [isUnlock,setIsUnlock] = useState(false)
+  console.log("is",isUnlock);
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getCheck({fixture: isfixturesId })).then((res) => {
+      if (res?.payload?.status === false) {
+        setIsUnlock(false)
+      }
+    })
+  },[dispatch,isfixturesId])
   const handleClick = () =>{
-   
-  }
+    let access = 592872
+    dispatch(getCheck({fixture: access})).then((res) => {
+      if (res?.payload?.status === true) {
+        setIsUnlock(true)
+      }
+  })
+}
   return (
     <div>
     
-    {!isUnlock ?
+    {!isUnlock &&
+    <>
     <div className="flex justify-center mt-10">
         <button  
         type="button" 
@@ -23,9 +46,15 @@ export const CorrectScores = ({isUnlock}) => {
         >
           Unlock Prediction
           </button>
+         
       </div>
-:
-    <div className='hidden'>
+       <p className='text-red-600 flex justify-center'>
+       {status?.message}
+     </p>
+     </>
+}
+{isUnlock &&
+    <div >
     <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
       <div className="text-center pt-10">
         <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">

@@ -19,7 +19,6 @@ export const RequestModal = ({
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
-
   const { fixtures } = useSelector((state) => state.prediction);
   const [homeData, setHomeData] = useState();
   const [awayData, setAwayData] = useState();
@@ -33,6 +32,9 @@ export const RequestModal = ({
   const [time, setTime] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
+  const [isfixturesId, setIsFixturesId] = useState(null)
+  
+
 
   const [isUnlock, setIsUnlock] = useState(false);
 
@@ -50,6 +52,10 @@ export const RequestModal = ({
   // console.log("prediction: ",);
 
   useEffect(() => {
+   setIsFixturesId(fixturesId)
+  }, [dispatch,fixturesId]);
+
+  useEffect(()=>{
     dispatch(LastResult({ fixture: fixturesId })).then((res) => {
       if (res?.payload?.status === true) {
         setModalLoader(false);
