@@ -24,10 +24,16 @@ import "react-tabs/style/react-tabs.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPredictions } from "../../reducers/MyPredictionSlice";
+import Login from "../Auth/Login/Login";
+import { RequestModal } from "../RequestPrediction/RequestComponents/RequestModal";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fetchedPredictions } = useSelector((state) => state.myPredictions);
+  const [fixturesId, setFixturesId] = useState();
+  const [homeId, setHomeId] = useState();
+  const [awayId, setAwayId] = useState();
+  const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const dispatch = useDispatch();
   const nevigate = useNavigate();
 
@@ -36,11 +42,20 @@ const MyPrediction = () => {
   useEffect(() => {
     if (token) {
       dispatch(getPredictions());
-    } else {
-      console.log("Unauthorize");
     }
   }, []);
-
+  const viewDetailsModalHandler = (id, hid, aid) => {
+    setFixturesId(id);
+    setHomeId(hid);
+    setAwayId(aid);
+    setOpenViewDetailsModal(true);
+    console.log("fixture id: ", id);
+    console.log("home id: ", hid);
+    console.log("away id: ", aid);
+  };
+  const handleModalClose = () => {
+    setOpenViewDetailsModal(false);
+  };
   console.log("prediction: ", fetchedPredictions?.data);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -267,7 +282,11 @@ const MyPrediction = () => {
                             <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                               <MdMoreHoriz
                                 onClick={() =>
-                                  viewDetailsModalHandler(predict?.fixture?.id)
+                                  viewDetailsModalHandler(
+                                    predict?.fixture?.id,
+                                    predict?.teams?.home?.id,
+                                    predict?.teams?.away?.id
+                                  )
                                 }
                               />
                             </Table.Cell>
@@ -3565,6 +3584,13 @@ const MyPrediction = () => {
         </div>
         {/* Pagination section ends here */}
       </div>
+      <RequestModal
+        openViewDetailsModal={openViewDetailsModal}
+        onClose={handleModalClose}
+        fixturesId={fixturesId}
+        homeId={homeId}
+        awayId={awayId}
+      />
     </div>
   );
 };

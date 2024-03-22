@@ -10,7 +10,6 @@ import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
 import { getCheck } from "../../../reducers/CheckUnlockSlice";
 import { LastResult } from "../../../reducers/PredictionsSlice";
 
-
 export const RequestModal = ({
   openViewDetailsModal,
   onClose,
@@ -22,8 +21,8 @@ export const RequestModal = ({
   const { lastResult, h2h } = useSelector((state) => state.prediction);
 
   const { fixtures } = useSelector((state) => state.prediction);
-  const [homeData, setHomeData] = useState()
-  const [awayData, setAwayData] = useState()
+  const [homeData, setHomeData] = useState();
+  const [awayData, setAwayData] = useState();
   const [homeDataImg, setHomeDataImg] = useState();
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
@@ -35,33 +34,32 @@ export const RequestModal = ({
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
 
-  const [isUnlock,setIsUnlock] = useState(false)
+  const [isUnlock, setIsUnlock] = useState(false);
 
+  const dispatch = useDispatch();
+  const { fetchedPredictions } = useSelector((state) => state.myPredictions);
+  // const token = localStorage.getItem("userToken");
+  // console.log("token: ", token);
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(getPredictions());
+  //   } else {
+  //     console.log("Unauthorize");
+  //   }
+  // }, []);
+  // console.log("prediction: ",);
 
-  const dispatch = useDispatch()
-
-  const token = localStorage.getItem("userToken");
-  console.log("token: ", token);
   useEffect(() => {
-    if (token) {
-      dispatch(getPredictions());
-    } else {
-      console.log("Unauthorize");
-    }
-  }, []);
-  console.log("prediction: ",);
-
-  useEffect(()=>{
     dispatch(LastResult({ fixture: fixturesId })).then((res) => {
       if (res?.payload?.status === true) {
         setModalLoader(false);
         setModalData(res?.payload?.data);
-        dispatch(Formation({ fixture: fixturesId }));
+        // dispatch(Formation({ fixture: fixturesId }));
       } else {
         setModalLoader(true);
       }
     });
-  },[dispatch,fixturesId])
+  }, [dispatch, fixturesId]);
 
   useEffect(() => {
     setDate(matchDateList);
@@ -69,14 +67,10 @@ export const RequestModal = ({
   }, [fixtures]);
 
   useEffect(() => {
-    if (
-      lastResult &&
-      lastResult.data &&
-      lastResult.data.length > 0
-    ) {
+    if (lastResult && lastResult.data && lastResult.data.length > 0) {
       let data = lastResult?.data[0];
       setHomeData(data);
-      setAwayData(data)
+      setAwayData(data);
       let homeImgData;
       let homeName;
       let awayImgData;
@@ -101,7 +95,6 @@ export const RequestModal = ({
       setAwayDataImg(awayImgData);
       setAwayName(awayName);
     }
-
   }, [lastResult]);
 
   const handleModal = () => {
@@ -140,8 +133,9 @@ export const RequestModal = ({
                     />
 
                     <p
-                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
-                        }`}
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
                     >
                       {homeName}
                     </p>
@@ -168,8 +162,9 @@ export const RequestModal = ({
                       className="inline-block mb-2"
                     />
                     <p
-                      className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light" ? "text-black" : "text-white"
-                        }`}
+                      className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
                     >
                       {awayName}
                     </p>
@@ -178,8 +173,9 @@ export const RequestModal = ({
               </div>
 
               <div
-                className={` ${themeMode === "light" ? "bg-[#ffffff]" : "bg-[#191D23]"
-                  } rounded-xl p-0`}
+                className={` ${
+                  themeMode === "light" ? "bg-[#ffffff]" : "bg-[#191D23]"
+                } rounded-xl p-0`}
               >
                 <div className="max-w-5xl mx-auto">
                   <Tabs className="team_comparisions_tab_section">
@@ -193,7 +189,6 @@ export const RequestModal = ({
                       <>
                         <TabPanel>
                           <div className="mb-4">
-
                             <div>
                               <div className="grid grid-cols-1 gap-8 ">
                                 {/* team1 */}
@@ -202,10 +197,7 @@ export const RequestModal = ({
                                     Home History
                                   </h4>
                                   {h2h?.map((goal) => (
-                                    <div
-                                      className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
-
-                                    >
+                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
                                       <div className="text-center">
                                         <img
                                           src={goal?.teams?.home?.logo}
@@ -214,14 +206,12 @@ export const RequestModal = ({
                                         />
                                       </div>
                                       <div className="text-center">
-
                                         <div className="bg-[#2aa9e1] py-2 rounded-full mb-4">
                                           <h3 className="text-white text-base">
-                                            {goal?.goals?.home}-{goal?.goals?.away}
+                                            {goal?.goals?.home}-
+                                            {goal?.goals?.away}
                                           </h3>
                                         </div>
-
-
                                       </div>
                                       <div className="text-center">
                                         <img
@@ -249,16 +239,20 @@ export const RequestModal = ({
                                         />
                                       </li>
                                       {h2h?.map((resH) => {
-                                        const homeTeamId = resH?.teams?.home?.id;
-                                        const awayTeamId = resH?.teams?.away?.id;
+                                        const homeTeamId =
+                                          resH?.teams?.home?.id;
+                                        const awayTeamId =
+                                          resH?.teams?.away?.id;
 
                                         let homeTeamWinner;
                                         if (homeId == homeTeamId) {
-                                          homeTeamWinner = resH?.teams?.home?.winner;
+                                          homeTeamWinner =
+                                            resH?.teams?.home?.winner;
                                         }
 
                                         if (homeId == awayTeamId) {
-                                          homeTeamWinner = resH?.teams?.away?.winner;
+                                          homeTeamWinner =
+                                            resH?.teams?.away?.winner;
                                         }
 
                                         return (
@@ -289,14 +283,15 @@ export const RequestModal = ({
                                         const awayTeamId = res?.teams?.away?.id;
                                         const homeTeamId = res?.teams?.home?.id;
 
-
                                         let awayTeamWinner;
                                         if (awayId == homeTeamId) {
-                                          awayTeamWinner = res?.teams?.home?.winner;
+                                          awayTeamWinner =
+                                            res?.teams?.home?.winner;
                                         }
 
                                         if (awayId == awayTeamId) {
-                                          awayTeamWinner = res?.teams?.away?.winner;
+                                          awayTeamWinner =
+                                            res?.teams?.away?.winner;
                                         }
 
                                         return (
@@ -320,7 +315,6 @@ export const RequestModal = ({
                                         );
                                       })}
                                       <li>
-
                                         <img
                                           src={awayData?.teams?.away?.logo}
                                           alt="EnvigadoIcon"
@@ -332,7 +326,6 @@ export const RequestModal = ({
                                 </div>
                               </div>
                             </div>
-
                           </div>
                         </TabPanel>
 
@@ -378,25 +371,27 @@ export const RequestModal = ({
                                             className="inline-block mr-2 w-12"
                                           />
                                           <p
-                                            className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light"
-                                              ? "text-black"
-                                              : "text-white"
-                                              }`}
+                                            className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                              themeMode === "light"
+                                                ? "text-black"
+                                                : "text-white"
+                                            }`}
                                           >
                                             Aucas
                                           </p>
                                         </div>
                                         <p
-                                          className={`font-Syne text-[15px] leading-[20px] font-bold ${themeMode === "light"
-                                            ? "text-black"
-                                            : "text-white"
-                                            }`}
+                                          className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                            themeMode === "light"
+                                              ? "text-black"
+                                              : "text-white"
+                                          }`}
                                         >
                                           4-4-2
                                         </p>
                                       </div>
                                       <div className="my-4 flex justify-center items-center">
-                                      {/* <canvas id="formationCanvas" width="800" height="400"></canvas> */}
+                                        {/* <canvas id="formationCanvas" width="800" height="400"></canvas> */}
                                       </div>
                                     </div>
                                   </div>
@@ -411,13 +406,12 @@ export const RequestModal = ({
                           </div>
                         </TabPanel>
                         <TabPanel>
-                         <PredictionStats isUnlock={isUnlock}/>
+                          <PredictionStats isUnlock={isUnlock} />
                         </TabPanel>
 
                         <TabPanel>
-                        <CorrectScores isUnlock={isUnlock}/>
+                          <CorrectScores isUnlock={isUnlock} />
                         </TabPanel>
-
                       </>
                     ) : (
                       <div className="text-center mt-40 mb-80">
