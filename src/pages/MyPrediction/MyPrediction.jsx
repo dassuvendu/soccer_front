@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BarcelonaIcon,
   BayernMunichIcon,
@@ -22,10 +22,24 @@ import { MdMoreHoriz } from "react-icons/md";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getPredictions } from "../../reducers/MyPredictionSlice";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
+  const { fetchedPredictions } = useSelector((state) => state.myPredictions);
+  const dispatch = useDispatch();
+  const nevigate = useNavigate();
+  const token = localStorage.getItem("userToken");
+  console.log("token: ", token);
+  useEffect(() => {
+    if (token) {
+      dispatch(getPredictions());
+    } else {
+      console.log("Unauthorize");
+    }
+  }, []);
+  console.log("prediction: ", fetchedPredictions?.data);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">

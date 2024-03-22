@@ -9,6 +9,7 @@ import planSlice from '../reducers/planSlice';
 import paymentSlice from '../reducers/paymentSlice';
 import TeamComparisonSlice from '../reducers/TeamComparisonSlice';
 import PlayerComparision from '../reducers/PlayerComparision';
+import MyPredictionSlice from '../reducers/MyPredictionSlice';
 
 
 const store = configureStore({
@@ -22,7 +23,8 @@ const store = configureStore({
     plans: planSlice,
     payment: paymentSlice,
     teamComparision: TeamComparisonSlice,
-    playerComparision : PlayerComparision
+    playerComparision: PlayerComparision,
+    myPredictions: MyPredictionSlice
   },
   devTools: import.meta.env.DEV,
 });
