@@ -26,22 +26,20 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [modalLoader, setModalLoader] = useState(true);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-  const [homeId,setHomeId] = useState(null)
-  const [awayId,setAwayId] = useState(null)
-
+  const [homeId, setHomeId] = useState(null);
+  const [awayId, setAwayId] = useState(null);
 
   const viewDetailsModalHandler = (id) => {
-  //  console.log("det",id);
-     setHomeId(id.split(':')[1])
-     setAwayId(id.split(':')[2])
-     const fixturesId = id.split(':')[0]
+    //  console.log("det",id);
+    setHomeId(id.split(":")[1]);
+    setAwayId(id.split(":")[2]);
+    const fixturesId = id.split(":")[0];
     setOpenViewDetailsModal(true);
-      dispatch(LastResult({fixture : fixturesId }))
-  .then((res) => {
+    dispatch(LastResult({ fixture: fixturesId })).then((res) => {
       if (res?.payload?.status === true) {
         setModalLoader(false);
         setModalData(res?.payload?.data);
-        dispatch(Formation({fixture : fixturesId }))
+        dispatch(Formation({ fixture: fixturesId }));
       } else {
         setModalLoader(true);
       }
@@ -256,7 +254,11 @@ const RequestPredictionList = ({ errorMessage }) => {
                         >
                           <Link
                             className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                            onClick={() =>viewDetailsModalHandler(`${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`)}
+                            onClick={() =>
+                              viewDetailsModalHandler(
+                                `${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`
+                              )
+                            }
                           >
                             View Prediction{" "}
                             <FiArrowRight className="text-[#08a5f5] ml-0.5" />

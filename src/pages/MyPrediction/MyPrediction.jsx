@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   BarcelonaIcon,
@@ -24,12 +24,16 @@ import "react-tabs/style/react-tabs.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPredictions } from "../../reducers/MyPredictionSlice";
+import { RequestModal } from "../RequestPrediction/RequestComponents/RequestModal";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fetchedPredictions } = useSelector((state) => state.myPredictions);
   const dispatch = useDispatch();
   const nevigate = useNavigate();
+  const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
+  const [fixtureId, setFixtureId] = useState();
+
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
   useEffect(() => {
@@ -39,6 +43,11 @@ const MyPrediction = () => {
       console.log("Unauthorize");
     }
   }, []);
+  const viewDetailsModalHandler = (id) => {
+    setFixtureId(id);
+    setOpenViewDetailsModal(true);
+    console.log("fixture id: ", id);
+  };
   console.log("prediction: ", fetchedPredictions?.data);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -176,7 +185,104 @@ const MyPrediction = () => {
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    <Table.Row
+                    {fetchedPredictions?.data?.map((predict) => {
+                      return (
+                        <>
+                          <Table.Row
+                            className={`${
+                              themeMode === "light"
+                                ? "bg-white"
+                                : "bg-[#191D23]"
+                            } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                          >
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
+                              <div className="flex items-center">
+                                <div className="flex items-center">
+                                  <img
+                                    src={predict?.teams?.home?.logo}
+                                    alt={predict?.teams?.home?.name}
+                                    className="mr-2"
+                                    height={35}
+                                    width={35}
+                                  />
+                                  <div>
+                                    <p
+                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      {predict?.teams?.home?.name}
+                                    </p>
+                                    <span className="text-[#8EA2AB] text-[9px]">
+                                      {predict?.teams?.home?.name},{" "}
+                                      {predict?.league?.country}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="text-[12px] text-white px-6">
+                                  VS
+                                </div>
+                                <div className="flex items-center">
+                                  <div>
+                                    <p
+                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      {predict?.teams?.away?.name}
+                                    </p>
+                                    <span className="text-[#8EA2AB] text-[9px]">
+                                      {predict?.teams?.away?.name},{" "}
+                                      {predict?.league?.country}
+                                    </span>
+                                  </div>
+                                  <img
+                                    src={predict?.teams?.away?.logo}
+                                    alt={predict?.teams?.away?.name}
+                                    className="ml-2"
+                                    height={35}
+                                    width={35}
+                                  />
+                                </div>
+                              </div>
+                            </Table.Cell>
+                            <Table.Cell className="w-[17%]">
+                              <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                {predict?.goals?.home}-{predict?.goals?.away}
+                              </span>
+                            </Table.Cell>
+                            <Table.Cell className="w-[17%]">
+                              <span
+                                className={`text-base font-bold ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
+                                {predict?.predictions?.under_over}
+                              </span>
+                            </Table.Cell>
+                            <Table.Cell className="w-[17%]">
+                              <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                0-2
+                              </span>
+                            </Table.Cell>
+                            <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
+                              <MdMoreHoriz
+                                onClick={() =>
+                                  viewDetailsModalHandler(predict?.fixture?.id)
+                                }
+                              />
+                            </Table.Cell>
+                          </Table.Row>
+                        </>
+                      );
+                    })}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -250,8 +356,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -325,8 +431,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -400,8 +506,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -475,8 +581,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -550,8 +656,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -625,8 +731,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -700,8 +806,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -775,8 +881,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -850,8 +956,8 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
+                    </Table.Row> */}
+                    {/* <Table.Row
                       className={`${
                         themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                       } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
@@ -925,7 +1031,7 @@ const MyPrediction = () => {
                       <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                         <MdMoreHoriz />
                       </Table.Cell>
-                    </Table.Row>
+                    </Table.Row> */}
                   </Table.Body>
                 </Table>
               </div>
@@ -967,7 +1073,7 @@ const MyPrediction = () => {
                           : "text-[#96A5B8]"
                       } font-medium capitalize w-[17%]`}
                     >
-                      Over Under
+                      Under Over
                     </Table.HeadCell>
                     <Table.HeadCell
                       className={`${
@@ -3466,6 +3572,11 @@ const MyPrediction = () => {
         </div>
         {/* Pagination section ends here */}
       </div>
+      <RequestModal
+        openViewDetailsModal={openViewDetailsModal}
+        // onClose={handleModalClose}
+        fixturesId={fixtureId}
+      />
     </div>
   );
 };
