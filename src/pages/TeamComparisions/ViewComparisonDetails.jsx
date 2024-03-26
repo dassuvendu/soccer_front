@@ -24,6 +24,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
   const dispatch = useDispatch();
   console.log("team1id Modal: ", id1);
   console.log("team2id Modal: ", id2);
+
   useEffect(() => {
     dispatch(LastHomeResult({ team: id1, last: 5 }));
     dispatch(LastAwayResult({ team: id2, last: 5 }));
@@ -442,7 +443,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                     <h3 className="font-Bebas tracking-normal text-xl text-black font-medium">
                       Formation
                     </h3>
-                    <p className="text-base text-black font-medium">4-4-2</p>
+                    <p className="text-base text-black font-medium">{comparisons[0]?.left_team_formation}</p>
                   </div>
                   <img
                     src={fieldOne}
@@ -502,7 +503,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                     <h3 className="font-Bebas tracking-normal text-xl text-black font-medium">
                       Formation
                     </h3>
-                    <p className="text-base text-black font-medium">4-4-2</p>
+                    <p className="text-base text-black font-medium">{comparisons[0]?.right_team_formation}</p>
                   </div>
                   <img
                     src={fieldTwo}
