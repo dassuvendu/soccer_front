@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Login from '../../Auth/Login/Login'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCheck } from '../../../reducers/CheckUnlockSlice'
+import { getCheck, getUnlockCheck } from '../../../reducers/CheckUnlockSlice'
 
 export const CorrectScores = ({isfixturesId}) => {
 
 const {status} = useSelector((state)=> state.IsunLock)
-  // const navigate = useNavigate()
-
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   // const token = localStorage.getItem("userToken");
 
   const [isUnlock,setIsUnlock] = useState(false)
-  console.log("is",isUnlock);
-
-  const dispatch = useDispatch()
+  // console.log("is",isUnlock);
 
   useEffect(()=>{
     dispatch(getCheck({fixture: isfixturesId })).then((res) => {
@@ -24,12 +22,10 @@ const {status} = useSelector((state)=> state.IsunLock)
     },[dispatch,isfixturesId])
   },[dispatch,isfixturesId])
   const handleClick = () =>{
-    // let access = 592872
-    // dispatch(getCheck({fixture: access})).then((res) => {
-    //   if (res?.payload?.status === true) {
-        setIsUnlock(true)
-      
-  
+    dispatch(getUnlockCheck({fixture: isfixturesId })).then((res)=>{
+      setIsUnlock(res.payload.status);
+      navigate('/my-prediction')
+     })
 }
   return (
     <div>

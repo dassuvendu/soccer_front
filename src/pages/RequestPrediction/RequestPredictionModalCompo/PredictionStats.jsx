@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getCheck } from '../../../reducers/CheckUnlockSlice';
+import { getCheck, getUnlockCheck } from '../../../reducers/CheckUnlockSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const PredictionStats = ({isfixturesId}) => {
   const { lastResult } = useSelector((state) => state.prediction);
@@ -28,7 +29,7 @@ export const PredictionStats = ({isfixturesId}) => {
   }, [lastResult]);
 
   const {status} = useSelector((state)=> state.IsunLock)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   // const token = localStorage.getItem("userToken");
 
@@ -46,10 +47,10 @@ export const PredictionStats = ({isfixturesId}) => {
     },[dispatch,isfixturesId])
 
   const handleClick = () =>{
-    // let access = 592872
-    // dispatch(getCheck({fixture: access})).then((res) => {
-    //   if (res?.payload?.status === true) {
-        setIsUnlock(true)
+   dispatch(getUnlockCheck({fixture: isfixturesId })).then((res)=>{
+    setIsUnlock(res.payload.status);
+    navigate('/my-prediction')
+   })
       
 }
 
