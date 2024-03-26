@@ -39,10 +39,8 @@ export const getUnlockCheck = createAsyncThunk(
     }
 )
 const initialState = {
-    isLoading: false,
+    isLoading:false,
     error: false,
-    status: [],
-    userStatus:[]
 }
 const CheckUnlockSlice = createSlice(
     {
@@ -51,11 +49,10 @@ const CheckUnlockSlice = createSlice(
         reducers: {},
         extraReducers: (builder) => {
             builder
-            .addCase(getCheck.pending, (state) => {
+            .addCase(getCheck.pending, (state, { payload }) => {
                 state.isLoading = true
             }).addCase(getCheck.fulfilled, (state, { payload }) => {
                 state.isLoading = false
-                state.status = payload
                 state.error = false
             }).addCase(getCheck.rejected, (state, { payload }) => {
                 state.error = true;
@@ -68,7 +65,6 @@ const CheckUnlockSlice = createSlice(
                 state.isLoading = true
             }).addCase(getUnlockCheck.fulfilled, (state, { payload }) => {
                 state.isLoading = false
-                state.userStatus = payload
                 state.error = false
             }).addCase(getUnlockCheck.rejected, (state, { payload }) => {
                 state.error = true;

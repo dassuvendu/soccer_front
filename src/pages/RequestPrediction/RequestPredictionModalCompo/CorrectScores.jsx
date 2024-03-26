@@ -5,22 +5,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getCheck, getUnlockCheck } from '../../../reducers/CheckUnlockSlice'
 
 export const CorrectScores = ({isfixturesId}) => {
+const {isLoading} = useSelector((state) => state.IsunLock)
 
-const {status} = useSelector((state)=> state.IsunLock)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   // const token = localStorage.getItem("userToken");
-
+  const [check,setCheck] = useState(false)
   const [isUnlock,setIsUnlock] = useState(false)
   // console.log("is",isUnlock);
+  const [message , setMessage] = useState()
+  console.log(message);
 
   useEffect(()=>{
     dispatch(getCheck({fixture: isfixturesId })).then((res) => {
-      if (res?.payload?.status === false) {
-        setIsUnlock(false)
-      }
+      console.log(res);
+      setCheck(res?.payload?.status)
+      setMessage(res.payload.message)
+    })
     },[dispatch,isfixturesId])
-  },[dispatch,isfixturesId])
+
   const handleClick = () =>{
     dispatch(getUnlockCheck({fixture: isfixturesId })).then((res)=>{
       setIsUnlock(res.payload.status);
@@ -30,7 +33,7 @@ const {status} = useSelector((state)=> state.IsunLock)
   return (
     <div>
     
-    {!isUnlock &&
+    {isUnlock === false && check === false &&
     <>
     <div className="flex justify-center mt-10">
         <button  
@@ -45,11 +48,18 @@ const {status} = useSelector((state)=> state.IsunLock)
          
       </div>
        <p className='text-red-600 flex justify-center'>
-       {status?.message}
+       {message}
      </p>
      </>
 }
-{isUnlock &&
+
+{isLoading === true && 
+  <p className='text-red-600 flex justify-center  mb-10'>
+       Checking..
+     </p>
+}
+
+{check === true &&
     <div >
     <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
       <div className="text-center pt-10">

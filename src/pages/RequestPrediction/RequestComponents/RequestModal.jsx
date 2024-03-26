@@ -9,6 +9,8 @@ import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats"
 import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
 import { getCheck } from "../../../reducers/CheckUnlockSlice";
 import { LastResult } from "../../../reducers/PredictionsSlice";
+import { getFormation } from "../../../reducers/formationSlice";
+import { useFirstTeamFormationhook } from "../../../hooks/useTeamFormationhook";
 
 export const RequestModal = ({
   openViewDetailsModal,
@@ -20,6 +22,8 @@ export const RequestModal = ({
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
   const { fixtures } = useSelector((state) => state.prediction);
+  const { format } = useSelector((state) => state.formation);
+  console.log(format);
   const [homeData, setHomeData] = useState();
   const [awayData, setAwayData] = useState();
   const [homeDataImg, setHomeDataImg] = useState();
@@ -33,19 +37,8 @@ export const RequestModal = ({
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null)
-
+  const firstTeam = useFirstTeamFormationhook()
   const dispatch = useDispatch();
-  const { fetchedPredictions } = useSelector((state) => state.myPredictions);
-  // const token = localStorage.getItem("userToken");
-  // console.log("token: ", token);
-  // useEffect(() => {
-  //   if (token) {
-  //     dispatch(getPredictions());
-  //   } else {
-  //     console.log("Unauthorize");
-  //   }
-  // }, []);
-  // console.log("prediction: ",);
 
   useEffect(() => {
    setIsFixturesId(fixturesId)
@@ -56,13 +49,16 @@ export const RequestModal = ({
       if (res?.payload?.status === true) {
         setModalLoader(false);
         setModalData(res?.payload?.data);
-        // dispatch(Formation({ fixture: fixturesId }));
+        dispatch(getFormation({ fixture: fixturesId }))
       } else {
         setModalLoader(true);
       }
     });
+    
   }, [dispatch, fixturesId]);
+const handleFormation = () =>{
 
+}
   useEffect(() => {
     setDate(matchDateList);
     setTime(matchTimeList);
@@ -107,7 +103,9 @@ export const RequestModal = ({
     setHomeName(null);
     setAwayName(null);
   };
-
+  useEffect(() => {
+ 
+  }, [format]);
   return (
     <div>
       {openViewDetailsModal && (
@@ -183,7 +181,7 @@ export const RequestModal = ({
                   <Tabs className="team_comparisions_tab_section">
                     <TabList className="tab_bar">
                       <Tab>History</Tab>
-                      <Tab>Formation</Tab>
+                      <Tab onClick={handleFormation}>Formation</Tab>
                       <Tab>Prediction Statistics</Tab>
                       <Tab>Correct Scores</Tab>
                     </TabList>
@@ -332,46 +330,57 @@ export const RequestModal = ({
                         </TabPanel>
 
                         <TabPanel>
-                          <div>
-                            <h4 className="font-Bebas text-2xl tracking-normal text-black text-center mb-4 mt-4">
-                              Select Aucas's Formation
-                            </h4>
-                            <div className="max-w-5xl mx-auto">
-                              <Tabs className="team_comparisions_tab_section">
-                                <TabList className="tab_bar">
-                                  <Tab>4-3-3</Tab>
-                                  <Tab>5-3-2</Tab>
-                                  <Tab>4-2-3-1</Tab>
-                                  <Tab>4-4-2</Tab>
-                                  <Tab>3-3-3-1</Tab>
-                                  <Tab>3-2-4-1</Tab>
-                                </TabList>
-                                <TabPanel>
-                                  <div className="py-4">
-                                    <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
-                                      Custom formation
-                                    </h3>
-                                    <div className="max-w-xl mx-auto my-4 flex">
-                                      <TextInput
-                                        id="text"
-                                        type="text"
-                                        className="mr-2 w-full"
-                                      />
-                                      <button
-                                        className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
-                                        type="submit"
-                                      >
-                                        Apply
-                                      </button>
-                                    </div>
-                                    <div className="max-w-3xl mx-auto my-8">
-                                      <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
-                                        <div className="text-center flex items-center">
-                                          <img
-                                            src={DeportivoPastoIcon}
-                                            alt="DeportivoPastoIcon"
-                                            className="inline-block mr-2 w-12"
-                                          />
+                        {format?.data?.response.map((data)=>(
+                              <div>
+                              {/* <h4 className="font-Bebas text-2xl tracking-normal text-black text-center mb-4 mt-4">
+                                Select Aucas's Formation
+                              </h4> */}
+                              <div className="max-w-5xl mx-auto">
+                                <Tabs className="team_comparisions_tab_section">
+                                  <TabList className="tab_bar mt-6">
+                                    <Tab>4-3-3</Tab>
+                                    <Tab>5-3-2</Tab>
+                                    <Tab>4-2-3-1</Tab>
+                                    <Tab>4-4-2</Tab>
+                                    <Tab>3-3-3-1</Tab>
+                                    <Tab>3-2-4-1</Tab>
+                                  </TabList>
+                                  <TabPanel>
+                                    <div className="py-4">
+                                      <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
+                                        Custom formation
+                                      </h3>
+                                      <div className="max-w-xl mx-auto my-4 flex">
+                                        <TextInput
+                                          id="text"
+                                          type="text"
+                                          className="mr-2 w-full"
+                                        />
+                                        <button
+                                          className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
+                                          type="submit"
+                                        >
+                                          Apply
+                                        </button>
+                                      </div>
+                                      <div className="max-w-3xl mx-auto my-8">
+                                        <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
+                                          <div className="text-center flex items-center">
+                                            <img
+                                              src={data?.team?.logo}
+                                              alt={data?.team?.name}
+                                              className="inline-block mr-2 w-12"
+                                            />
+                                            <p
+                                              className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                                themeMode === "light"
+                                                  ? "text-black"
+                                                  : "text-white"
+                                              }`}
+                                            >
+                                              {data?.team?.name}
+                                            </p>
+                                          </div>
                                           <p
                                             className={`font-Syne text-[15px] leading-[20px] font-bold ${
                                               themeMode === "light"
@@ -379,33 +388,27 @@ export const RequestModal = ({
                                                 : "text-white"
                                             }`}
                                           >
-                                            Aucas
+                                           {data.formation}
                                           </p>
                                         </div>
-                                        <p
-                                          className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                                            themeMode === "light"
-                                              ? "text-black"
-                                              : "text-white"
-                                          }`}
-                                        >
-                                          4-4-2
-                                        </p>
-                                      </div>
-                                      <div className="my-4 flex justify-center items-center">
-                                        {/* <canvas id="formationCanvas" width="800" height="400"></canvas> */}
+                                        <div className="my-4 flex justify-center items-center">
+                                          {/* <canvas id="formationCanvas" width="800" height="400"></canvas> */}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </TabPanel>
-                                <TabPanel>2</TabPanel>
-                                <TabPanel>3</TabPanel>
-                                <TabPanel>4</TabPanel>
-                                <TabPanel>5</TabPanel>
-                                <TabPanel>6</TabPanel>
-                              </Tabs>
+                                  </TabPanel>
+                                  <TabPanel>2</TabPanel>
+                                  <TabPanel>3</TabPanel>
+                                  <TabPanel>4</TabPanel>
+                                  <TabPanel>5</TabPanel>
+                                  <TabPanel>6</TabPanel>
+                                </Tabs>
+                              </div>
                             </div>
-                          </div>
+                          ))}
+                        
+                         
+                          
                         </TabPanel>
                         <TabPanel>
                           <PredictionStats isfixturesId={isfixturesId} />

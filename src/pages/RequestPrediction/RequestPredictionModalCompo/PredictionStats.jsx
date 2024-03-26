@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const PredictionStats = ({isfixturesId}) => {
   const { lastResult } = useSelector((state) => state.prediction);
+  const {isLoading} = useSelector((state) => state.IsunLock)
+
   const [lossHPercent, setLossHPercent] = useState();
   const [lossAPercent, setLossAPercent] = useState();
-
+  
   useEffect(() => {
     if (
       lastResult &&
@@ -34,15 +36,19 @@ export const PredictionStats = ({isfixturesId}) => {
   // const token = localStorage.getItem("userToken");
 
   const [isUnlock,setIsUnlock] = useState(false)
-  console.log("is",isUnlock);
+  
+  const [check,setCheck] = useState(false)
+
+  const [message , setMessage] = useState()
+  console.log(message);
 
   const dispatch = useDispatch()
 
   useEffect(()=>{
     dispatch(getCheck({fixture: isfixturesId })).then((res) => {
-      if (res?.payload?.status === false) {
-        setIsUnlock(false)
-      }
+      console.log(res);
+      setCheck(res?.payload?.status)
+      setMessage(res.payload.message)
     })
     },[dispatch,isfixturesId])
 
@@ -54,10 +60,10 @@ export const PredictionStats = ({isfixturesId}) => {
       
 }
 
-
   return (
      <div>
-      {!isUnlock &&
+    
+    {isUnlock === false && check === false &&
     <>
     <div className="flex justify-center mt-10">
         <button  
@@ -72,14 +78,19 @@ export const PredictionStats = ({isfixturesId}) => {
          
       </div>
        <p className='text-red-600 flex justify-center'>
-       {status?.message}
+       {message}
      </p>
      </>
 }
-{isUnlock &&
+{isLoading === true && 
+  <p className='text-red-600 flex justify-center  mb-10'>
+       Checking..
+     </p>
+}
+
+{ check === true &&
       <div >
 
-      
       {lastResult?.data?.map((res) => (
 
         <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={res.id}>
