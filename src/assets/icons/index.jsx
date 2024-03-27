@@ -43,6 +43,7 @@ import {
   BsArrowsAngleExpand,
   BsChevronDoubleRight,
   BsChevronDoubleLeft,
+  BsLightningCharge,
 } from "react-icons/bs";
 import { BiSolidUser, BiSolidContact, BiMenu } from "react-icons/bi";
 import { FaUsers, FaEye, FaInfoCircle } from "react-icons/fa";
@@ -81,6 +82,7 @@ import { TiTick } from "react-icons/ti";
 export {
   PiArrowUpRightLight,
   PiArrowDownRightLight,
+  BsLightningCharge,
   TiTick,
   FaEye,
   AiOutlineTeam,

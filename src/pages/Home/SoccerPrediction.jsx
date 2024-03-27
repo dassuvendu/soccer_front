@@ -21,6 +21,7 @@ import {
   PiArrowDownRightThin,
   PiArrowUpRightLight,
 } from "react-icons/pi";
+import { BsLightningCharge } from "react-icons/bs";
 const SoccerPrediction = () => {
   useEffect(() => {
     AOS.init();
@@ -198,8 +199,8 @@ const SoccerPrediction = () => {
                       <div className="bg-white rounded-lg p-4 shadow-xl">
                         <div className="flex justify-between items-center mb-3">
                           <div className="flex items-center">
-                            <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowUpRightLight className="text-white" />
+                            <div className="bg-[#9333ea] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                              <BsLightningCharge className="text-white" />
                             </div>
                             <p className="text-black text-[14px] font-medium mb-0">
                               All Active Predictions
@@ -217,8 +218,8 @@ const SoccerPrediction = () => {
                       <div className="bg-white rounded-lg p-4 shadow-xl">
                         <div className="flex justify-between items-center mb-3">
                           <div className="flex items-center">
-                            <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowDownRightLight className="text-white" />
+                            <div className="bg-[#a1a1aa] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                              <BsLightningCharge className="text-white" />
                             </div>
                             <p className="text-black text-[14px] font-medium mb-0">
                               All Inactive Predictions
