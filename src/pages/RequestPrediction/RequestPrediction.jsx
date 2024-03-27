@@ -15,7 +15,6 @@ const RequestPrediction = () => {
     console.log(errorMessage);
   }, [errorMessage]);
 
-  let { rid } = useParams();
 
 
 
@@ -36,7 +35,7 @@ const RequestPrediction = () => {
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompo onError={handleError} rid={rid}/>
+          <SearchCompo onError={handleError} />
           <Prediction />
         </div>
       </div>

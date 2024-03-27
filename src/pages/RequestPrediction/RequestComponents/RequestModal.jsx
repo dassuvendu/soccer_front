@@ -4,15 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import {fieldOne } from "../../../assets/images/images/";
+import { fieldOne } from "../../../assets/images/images/";
 import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
 import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
 import { getCheck } from "../../../reducers/CheckUnlockSlice";
 import { LastResult } from "../../../reducers/PredictionsSlice";
-import { getAFormation,  getHFormation, getPlayers } from "../../../reducers/formationSlice";
-import { useFirstTeamFormationhook } from "../../../hooks/useTeamFormationhook";
+import {
+  getAFormation,
+  getAPlayers,
+  getHFormation,
+  getHPlayers,
+} from "../../../reducers/formationSlice";
+import { useATeamFormationhook, useHTeamFormationhook } from "../../../hooks/useTeamFormationhook";
 import { Position } from "./Position";
-import SoccerLineUp from 'react-soccer-lineup'
+import SoccerLineUp from "react-soccer-lineup";
 import { Formatation } from "../RequestPredictionModalCompo/Formatation";
 export const RequestModal = ({
   openViewDetailsModal,
@@ -39,27 +44,30 @@ export const RequestModal = ({
   const [time, setTime] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
-  const [isfixturesId, setIsFixturesId] = useState(null)
-
+  const [isfixturesId, setIsFixturesId] = useState(null);
+  const HTeam = useHTeamFormationhook();
+  console.log("H", HTeam);
+  const ATeam = useATeamFormationhook();
+  console.log("k", ATeam);
   const dispatch = useDispatch();
 
   useEffect(() => {
-   setIsFixturesId(fixturesId)
-  }, [dispatch,fixturesId]);
+    setIsFixturesId(fixturesId);
+  }, [dispatch, fixturesId]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(LastResult({ fixture: fixturesId })).then((res) => {
       if (res?.payload?.status === true) {
         setModalLoader(false);
         setModalData(res?.payload?.data);
-        dispatch(getHFormation({ fixture: fixturesId , team: homeId }))
-        dispatch(getPlayers({ fixture: fixturesId , team: homeId }))
-        dispatch(getAFormation({ fixture: fixturesId , team: awayId }))
+        dispatch(getHFormation({ fixture: fixturesId, team: homeId }));
+        dispatch(getHPlayers({ fixture: fixturesId, team: homeId }));
+        dispatch(getAFormation({ fixture: fixturesId, team: awayId }));
+        dispatch(getAPlayers({ fixture: fixturesId, team: awayId }));
       } else {
         setModalLoader(true);
       }
     });
-    
   }, [dispatch, fixturesId]);
 
   useEffect(() => {
@@ -106,22 +114,22 @@ export const RequestModal = ({
     setHomeName(null);
     setAwayName(null);
   };
-  
+
   const formations = [
     { value: "4-4-2", label: "4-4-2" },
     { value: "4-3-3", label: "4-3-3" },
     { value: "4-5-1", label: "4-5-1" },
     { value: "3-5-2", label: "3-5-2" },
-    { value: "4-2-3-1", label: "4-2-3-1" }
+    { value: "4-2-3-1", label: "4-2-3-1" },
   ];
 
-    const [selectedOption, setSelectedOption] = useState();
-    console.log(selectedOption);
-   const handelOption = (e) =>{
+  const [selectedOption, setSelectedOption] = useState();
+  console.log(selectedOption);
+  const handelOption = (e) => {
     console.log(e.target.value);
-    setSelectedOption(e)
-   }
-  
+    setSelectedOption(e);
+  };
+
   return (
     <div>
       {openViewDetailsModal && (
@@ -197,7 +205,7 @@ export const RequestModal = ({
                   <Tabs className="team_comparisions_tab_section">
                     <TabList className="tab_bar">
                       <Tab>History</Tab>
-                      <Tab >Formation</Tab>
+                      <Tab>Formation</Tab>
                       <Tab>Prediction Statistics</Tab>
                       <Tab>Correct Scores</Tab>
                     </TabList>
@@ -346,175 +354,165 @@ export const RequestModal = ({
                         </TabPanel>
 
                         <TabPanel>
-                          {/* <Formatation homeid={homeId} awayid={awayId}/>             */}
+                        
                           <div>
-    {/* <h4 className="font-Bebas text-2xl tracking-normal text-black text-center mb-4 mt-4">
-      Select Aucas's Formation
-    </h4> */}
-    
-    {/* <select
-    defaultValue={selectedOption}
-    onChange={handelOption}
-    >
-      {Array.isArray(format)&&format.map((format)=>(
-        <option value={format.value}>{format.value}</option>
-      ))}
-      
-    </select> */}
 
-{Hformat?.data?.response.map((data)=>{
- console.log(data);
-//     const homeTeamFormate = data?.team?.id;
-//   const awayTeamFormate = data?.team?.id;
-
-//   let homeTeamFormatation;
-// console.log(homeTeamFormatation);
-
-//   if (homeId == homeTeamFormate) {
-//     homeTeamFormatation = 
-//     {
-//         logo: data?.team.logo,
-  
-//     }
-//   }
-
-//   // if (homeId == awayTeamFormate) {
-//   //   homeTeamFormatation = 
-//   //   {
-//   //       logo: data?.team?.logo,
-//   //       name: data?.team?.name,
-     
-
-//   //   }
-//   // }
-    return(
-<div className="max-w-5xl mx-auto">
-      <Tabs className="team_comparisions_tab_section">
-        <TabList className="tab_bar mt-6">
-          <Tab>4-3-3</Tab>
-          <Tab>5-3-2</Tab>
-          <Tab>4-2-3-1</Tab>
-          <Tab>4-4-2</Tab>
-          <Tab>3-3-3-1</Tab>
-          <Tab>3-2-4-1</Tab>
-        </TabList>
-        <TabPanel>
-          <div className="py-4">
-            <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
-              Custom formation
-            </h3>
-            <div className="max-w-xl mx-auto my-4 flex">
-              <TextInput
-                id="text"
-                type="text"
-                className="mr-2 w-full"
-              />
-              <button
-                className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
-                type="submit"
-              >
-                Apply
-              </button>
-            </div>
-            <div className="max-w-3xl mx-auto my-8">
-              <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
-                <div className="text-center flex items-center">
-                  <img
-                    src={Hformat.logo}
-                    alt={Hformat.name}
-                    className="inline-block mr-2 w-12"
-                  />
-                  <p
-                    className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                      themeMode === "light"
-                        ? "text-black"
-                        : "text-white"
-                    }`}
-                  >
-                    {Hformat.name}
-                  </p>
-                </div>
-                <p
-                  className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                    themeMode === "light"
-                      ? "text-black"
-                      : "text-white"
-                  }`}
-                >
-                 {Hformat.formation}
-                </p>
-              </div>
-              <div className="my-4 flex justify-center items-center">
-             
-              {Hplayers?.map((player)=>{
-                const gk = player?.player?.pos;
-                console.log("g",gk);
-                const def = player?.player?.pos  === 'D';
-                const md = player?.player?.pos === 'M';
-                const fw = player?.player?.pos === 'F';
-
-                return(
-                  <div className="App">
-                  <SoccerLineUp
-                  size={"small"}
-                  color={"green"}
-                  pattern={"lines"}
-                  homeTeam={{
-                  squad: {
-                  gk: { 
-                  name: 'John Doe', 
-                  number: <img src="https://your-image-url.com/goalkeeper.png"/> 
-                  },
-                  df: [
-                  { name: 'Jane Doe', number: 4 },
-                  { name: 'Jim Brown', number: 5 },
-                  { name: 'Jane Doe', number: 4 }
-                  ],
-                  cm: [
-                  { name: 'Amy Johnson', number: <img src="https://your-image-url.com/goalkeeper.png"/> },
-                  { name: 'Bob Williams', number: 14 },
-                  { name: 'Bob Williams', number: 14 }
-                  ],
-                  fw: [
-                  { name: 'Amy Johnson', number: <img src="https://your-image-url.com/goalkeeper.png"/> },
-                  { name: 'Bob Williams', number: 14 }
-                  ]
-                  }
-                  }}
-                  awayTeam={{
-                  squad: {
-                  gk: { name: 'Alex Smith', number: 12 },
-                  df: [
-                  { name: 'Amy Johnson', number: 13 },
-                  { name: 'Bob Williams', number: 14 }
-                  ],
-                  atk: [
-                  { name: 'Amy Johnson', number: 13 },
-                  { name: 'Bob Williams', number: 14 }
-                  ]
-                  }
-                  }}
-                  />
-                  </div>
-                )
-              })}
-             
-
-              </div>
-            </div>
-          </div>
-        </TabPanel>
-        <TabPanel>2</TabPanel>
-        <TabPanel>3</TabPanel>
-        <TabPanel>4</TabPanel>
-        <TabPanel>5</TabPanel>
-        <TabPanel>6</TabPanel>
-      </Tabs>
-    </div>
-    )
-})}
-    
-  </div>
+                            {Hplayers?.map((data) => {
+                              return (
+                                <div className="max-w-5xl mx-auto">
+                                  <Tabs className="team_comparisions_tab_section">
+                                    <TabList className="tab_bar mt-6">
+                                      <Tab>4-3-3</Tab>
+                                      <Tab>5-3-2</Tab>
+                                      <Tab>4-2-3-1</Tab>
+                                      <Tab>4-4-2</Tab>
+                                      <Tab>3-3-3-1</Tab>
+                                      <Tab>3-2-4-1</Tab>
+                                    </TabList>
+                                    <TabPanel>
+                                      <div className="py-4">
+                                        <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
+                                          Custom formation
+                                        </h3>
+                                        <div className="max-w-xl mx-auto my-4 flex">
+                                          <TextInput
+                                            id="text"
+                                            type="text"
+                                            className="mr-2 w-full"
+                                          />
+                                          <button
+                                            className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
+                                            type="submit"
+                                          >
+                                            Apply
+                                          </button>
+                                        </div>
+                                        <div className="max-w-3xl mx-auto my-8">
+                                          <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
+                                            <div className="text-center flex items-center">
+                                              <img
+                                                src={data?.team?.logo}
+                                                alt={data?.team?.name}
+                                                className="inline-block mr-2 w-12"
+                                              />
+                                              <p
+                                                className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                                  themeMode === "light"
+                                                    ? "text-black"
+                                                    : "text-white"
+                                                }`}
+                                              >
+                                                {data?.team?.name}
+                                              </p>
+                                            </div>
+                                            <p
+                                              className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                                                themeMode === "light"
+                                                  ? "text-black"
+                                                  : "text-white"
+                                              }`}
+                                            >
+                                              {data?.formation}
+                                            </p>
+                                          </div>
+                                          <div className="my-4 flex justify-center items-center">
+                                           
+                                              <SoccerLineUp
+                                                size="responsive"
+                                                color="green"
+                                                pattern="squares"
+                                                homeTeam={{
+                                                  squad: {
+                                                    gk: HTeam?.filter(
+                                                      (player) =>
+                                                        player?.Gk?.pPos ==
+                                                        "G"
+                                                    ).map((player) => ({
+                                                      name: player?.Gk?.pName,
+                                                      number:
+                                                        player?.Gk?.pNumber,
+                                                    })),
+                                                    df: HTeam?.filter(
+                                                      (player) =>
+                                                        player?.def?.pPos ===
+                                                        "D"
+                                                    ).map((player) => ({
+                                                      name: player?.def?.pName,
+                                                      number:
+                                                        player?.def?.pNumber,
+                                                    })),
+                                                    cm: HTeam?.filter(
+                                                      (player) =>
+                                                        player?.cm?.pPos === "M"
+                                                    ).map((player) => ({
+                                                      name: player?.cm?.pName,
+                                                      number:
+                                                        player?.cm?.pNumber,
+                                                    })),
+                                                    fw: HTeam?.filter(
+                                                      (player) =>
+                                                        player?.fw?.pPos === "F"
+                                                    ).map((player) => ({
+                                                      name: player?.fw?.pName,
+                                                      number:
+                                                        player?.fw?.pNumber,
+                                                    })),
+                                                  },
+                                                }}
+                                                awayTeam={{
+                                                  squad: {
+                                                    gk: ATeam?.filter(
+                                                      (player) =>
+                                                        player?.gk?.pPos ===
+                                                        "G"
+                                                    ).map((player) => ({
+                                                      name: player?.gk?.pName,
+                                                      number:
+                                                        player?.gk?.pNumber,
+                                                    })),
+                                                    df: ATeam?.filter(
+                                                      (player) =>
+                                                        player?.def?.pPos ===
+                                                        "D"
+                                                    ).map((player) => ({
+                                                      name: player?.def?.pName,
+                                                      number:
+                                                        player?.def?.pNumber,
+                                                    })),
+                                                    cm: ATeam?.filter(
+                                                      (player) =>
+                                                        player?.cm?.pPos === "M"
+                                                    ).map((player) => ({
+                                                      name: player?.cm?.pName,
+                                                      number:
+                                                        player?.cm?.pNumber,
+                                                    })),
+                                                    fw: ATeam?.filter(
+                                                      (player) =>
+                                                        player?.fw?.pPos === "F"
+                                                    ).map((player) => ({
+                                                      name: player?.fw?.pName,
+                                                      number:
+                                                        player?.fw?.pNumber,
+                                                    })),
+                                                  },
+                                                }}
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                      
+                                    </TabPanel>
+                                    <TabPanel>2</TabPanel>
+                                    <TabPanel>3</TabPanel>
+                                    <TabPanel>4</TabPanel>
+                                    <TabPanel>5</TabPanel>
+                                    <TabPanel>6</TabPanel>
+                                  </Tabs>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </TabPanel>
                         <TabPanel>
                           <PredictionStats isfixturesId={isfixturesId} />

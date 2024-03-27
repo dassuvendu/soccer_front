@@ -177,7 +177,7 @@ export const SearchCompoId = ({ onError , rid }) => {
               </select>
             ) : (
               <select disabled={!isSeason} onChange={handleSearch}>
-                <option value="">Select</option>
+                <option value="">2023</option>
                 {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}

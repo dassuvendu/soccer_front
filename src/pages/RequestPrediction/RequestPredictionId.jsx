@@ -3,7 +3,8 @@ import { Prediction } from "./RequestComponents/Prediction";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SearchCompoId } from "./RequestComponents/SearchCompoId";
-import RequestPredictionList from "./RequestComponents/RequestPredictionList";
+
+import RequestPredictionListId from "./RequestComponents/RequestPredictionListId";
 
 const RequestPredictionId = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,6 +17,13 @@ const RequestPredictionId = () => {
   }, [errorMessage]);
 
   let { rid } = useParams();
+
+const time = new Date()
+const timeYear = time.getFullYear()
+const timeMnth = time.getMonth()
+const timeDay = time.getDay()
+const ndate = `${timeYear}-${timeMnth}-${timeDay}`;
+
 
 
 
@@ -42,7 +50,7 @@ const RequestPredictionId = () => {
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionList errorMessage={errorMessage} />
+      <RequestPredictionListId errorMessage={errorMessage} ndate={ndate} rid={rid}/>
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}

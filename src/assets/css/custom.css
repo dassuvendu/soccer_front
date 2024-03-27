@@ -349,6 +349,16 @@ body {
 
   /*  */
 
+  .player-view .player .name{
+    color: black !important;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 5px;
+    height: 0%;
+  }
+  .team .lines .line{
+    height: 94%;
+  }
 
 @media only screen and (max-width:767px) {
 

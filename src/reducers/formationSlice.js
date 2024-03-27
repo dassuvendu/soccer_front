@@ -20,7 +20,7 @@ export const getHFormation = createAsyncThunk(
         }
     }
 )
-export const getPlayers = createAsyncThunk(
+export const getHPlayers = createAsyncThunk(
     'HPlayers',
     async (user, { rejectWithValue }) => {
         try {
@@ -56,6 +56,24 @@ export const getAFormation = createAsyncThunk(
         }
     }
 )
+export const getAPlayers = createAsyncThunk(
+    'APlayers',
+    async (user, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/api/fixture_formation',user);
+            if (response.status) {
+
+                return response.data.data.response;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
 const initialState = {
     isLoading:false,
     error: false,
@@ -76,8 +94,7 @@ const CheckUnlockSlice = createSlice(
             }).addCase(getHFormation.fulfilled, (state, { payload }) => {
                 state.isLoading = false
                 state.error = false
-                state.Hformat = payload
-                state.Hplayers = payload.response.startXI                
+                state.Hformat = payload         
             }).addCase(getHFormation.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
@@ -86,14 +103,13 @@ const CheckUnlockSlice = createSlice(
                         ? payload.message
                         : 'Something went wrong. Try again later.';
             })
-            .addCase(getPlayers.pending, (state,) => {
+            .addCase(getHPlayers.pending, (state,) => {
                 state.isLoading = true
-            }).addCase(getPlayers.fulfilled, (state, { payload }) => {
+            }).addCase(getHPlayers.fulfilled, (state, { payload }) => {
                 state.isLoading = false
                 state.error = false
-                state.Hplayers = payload  
-                console.log("k",payload);             
-            }).addCase(getPlayers.rejected, (state, { payload }) => {
+                state.Hplayers = payload             
+            }).addCase(getHPlayers.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
                 state.message =
@@ -109,6 +125,19 @@ const CheckUnlockSlice = createSlice(
                 state.Aformate = payload
                 state.Aplayers = payload.startXI 
             }).addCase(getAFormation.rejected, (state, { payload }) => {
+                state.error = true;
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            }).addCase(getAPlayers.pending, (state,) => {
+                state.isLoading = true
+            }).addCase(getAPlayers.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                state.error = false
+                state.Aplayers = payload             
+            }).addCase(getAPlayers.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
                 state.message =
