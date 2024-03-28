@@ -12,7 +12,9 @@ interface SidebarProps {
   setSidebarOpen: (arg: boolean) => void;
 }
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getLeagues } from '../../reducers/LeagueSlice';
+import { log } from 'console';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const themeMode = useSelector((state:any) => state.darkmode.mode);
@@ -26,8 +28,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   );
+  const { league } = useSelector((state:any ) => state.league);
+  const dispatch = useDispatch();
+  const [loadingDash, setLoadingDash] = useState<boolean>(true);
+  const [apiCalled, setApiCalled] = useState<boolean>(false);
 
   // close on click outside
+  useEffect(() => {
+    if (!apiCalled) { // Check if the API call has already been made
+      dispatch(getLeagues({ids: '39,140,135,78,61,2'})).then((res) => {
+        console.log("res: ",res);
+        
+        if (res?.payload?.status === true) {
+          setLoadingDash(false);
+          setApiCalled(true); // Set apiCalled to true after the API call
+        }
+      });
+    }
+  }, [dispatch, apiCalled]);
+  console.log("league",league?.data);
+  
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
@@ -252,7 +272,41 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
 
               {/* <!-- Menu Item Settings --> */}
-              <li className='mb-3'>
+{
+  league?.data?.map((le:any)=>{
+    return(
+      <>
+       <li className='mb-3'>
+                <NavLink
+                  to="/uffa-champions"
+                  className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                  } duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes('uffa-champions') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  { themeMode === "light" ? 
+                    <img
+                      src={le?.league?.logo}
+                      alt={le?.league?.name}
+                      className="inline-block w-6 h-6 ml-1"
+                    />
+                    : 
+                    <img
+                      src={le?.league?.logo}
+                      alt={le?.league?.name}
+                      className="inline-block w-6 h-6 ml-1"
+                    />
+                   }
+                  {le?.league?.name}
+                </NavLink>
+              </li>
+      </>
+    )
+  })
+}
+              {/* <li className='mb-3'>
                 <NavLink
                   to="/uffa-champions"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
@@ -277,11 +331,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                    }
                   UEFA Champions
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Settings --> */}
 
               {/* <!-- Menu Item Logs --> */}
-              <li className='mb-3'>
+              {/* <li className='mb-3'>
                 <NavLink
                   to="/premier-league"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
@@ -298,11 +352,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     />
                   Premier League
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-              <li className='mb-3'>
+              {/* <li className='mb-3'>
                 <NavLink
                   to="/la-liga"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
@@ -319,11 +373,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   />
                   La Liga
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-              <li className='mb-3'>
+              {/* <li className='mb-3'>
                 <NavLink
                   to="/serie-a"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
@@ -340,11 +394,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   />
                   Serie A
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Logs --> */}
 
                {/* <!-- Menu Item Logs --> */}
-               <li className='mb-3'>
+               {/* <li className='mb-3'>
                 <NavLink
                   to="/bundesliga"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
@@ -361,11 +415,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   />
                   Bundesliga
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
-              <li className='mb-3'>
+              {/* <li className='mb-3'>
                 <NavLink
                   to="/ligue"
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
@@ -382,7 +436,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   />
                   Ligue 1
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Logs --> */}
 
               {/* <!-- Menu Item Logs --> */}
