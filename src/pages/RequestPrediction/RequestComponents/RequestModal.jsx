@@ -346,7 +346,7 @@ export const RequestModal = ({
                         </TabPanel>
 
                         <TabPanel>
-                          <CorrectScores isfixturesId={isfixturesId} />
+                          <CorrectScores isfixturesId={isfixturesId} homeId={homeId} awayId={awayId}/>
                         </TabPanel>
                       </>
                     ) : (
