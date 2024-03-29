@@ -6,7 +6,7 @@ export const getLeagues = createAsyncThunk(
   'user/getLeagues',
   async (userInput, { rejectWithValue }) => {
     try {
-      const response = await api.post('/api/leagues',userInput);
+      const response = await api.post('/api/leagues', userInput);
       if (response.status === 200) {
         return response.data;
       } else {
@@ -41,7 +41,7 @@ const LeaguesSlice = createSlice({
       .addCase(getLeagues.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.league = payload; 
+        state.league = payload;
       })
       .addCase(getLeagues.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -52,3 +52,4 @@ const LeaguesSlice = createSlice({
 });
 
 export default LeaguesSlice.reducer;
+
