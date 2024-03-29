@@ -12,13 +12,13 @@ import {
   getHFormation,
   getHPlayers,
 } from "../../../reducers/formationSlice";
+import { PredictionFormatation } from "../PredictionModal/PredictionFormatation";
+import { MyPredictionStats } from "../PredictionModal/MyPredictionStats";
+import { PredictionCorrectScores } from "../PredictionModal/PredictionCorrectScores";
+import PredictionTeamFormation from "../PredictionModal/PredictionTeamFormation";
 
-
-import TeamFormation from "../RequestPredictionModalCompo/TeamFormation";
-import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
-import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
-export const RequestModal = ({
-  openViewDetailsModal,
+export const PredictionRequestModal = ({
+  openDetailsModal,
   onClose,
   homeId,
   awayId,
@@ -34,8 +34,6 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
-  const [matchDateList] = useDateList();
-  const [matchTimeList] = useTimeList();
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [modalData, setModalData] = useState(null);
@@ -62,6 +60,13 @@ export const RequestModal = ({
       }
     });
   }, [dispatch, fixturesId,homeId,awayId]);
+
+  const newdate = new Date();
+  const changeDateformate = newdate.toISOString().split("T")[0];
+
+  const [matchDateList] = useDateList({ date: changeDateformate });
+
+  const [matchTimeList] = useTimeList({ date: changeDateformate });
 
   useEffect(() => {
     setDate(matchDateList);
@@ -117,9 +122,9 @@ export const RequestModal = ({
 
   return (
     <div>
-      {openViewDetailsModal && (
+      {openDetailsModal && (
         <Modal
-          show={openViewDetailsModal}
+          show={openDetailsModal}
           size="7xl"
           onClose={handleModal}
           popup
@@ -339,14 +344,14 @@ export const RequestModal = ({
                         </TabPanel>
                         
                         <TabPanel>
-                        <TeamFormation Hplayers={Hplayers}/>
+                        <PredictionTeamFormation Hplayers={Hplayers}/>
                         </TabPanel>
                         <TabPanel>
-                          <PredictionStats isfixturesId={isfixturesId} />
+                          <MyPredictionStats isfixturesId={isfixturesId} />
                         </TabPanel>
 
                         <TabPanel>
-                          <CorrectScores isfixturesId={isfixturesId} />
+                          <PredictionCorrectScores isfixturesId={isfixturesId} />
                         </TabPanel>
                       </>
                     ) : (

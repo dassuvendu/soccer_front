@@ -25,7 +25,7 @@ import "react-tabs/style/react-tabs.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPredictions } from "../../reducers/MyPredictionSlice";
 import Login from "../Auth/Login/Login";
-import { RequestModal } from "../RequestPrediction/RequestComponents/RequestModal";
+import { PredictionRequestModal } from "./PredictionCompo/PredictionRequestModal";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -33,7 +33,7 @@ const MyPrediction = () => {
   const [fixturesId, setFixturesId] = useState();
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
-  const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
+  const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const dispatch = useDispatch();
   const nevigate = useNavigate();
 
@@ -48,15 +48,18 @@ const MyPrediction = () => {
     setFixturesId(id);
     setHomeId(hid);
     setAwayId(aid);
-    setOpenViewDetailsModal(true);
+    setOpenDetailsModal(true);
     console.log("fixture id: ", id);
     console.log("home id: ", hid);
     console.log("away id: ", aid);
   };
   const handleModalClose = () => {
-    setOpenViewDetailsModal(false);
+    setOpenDetailsModal(false);
   };
   console.log("prediction: ", fetchedPredictions?.data);
+
+  
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -3584,8 +3587,8 @@ const MyPrediction = () => {
         </div>
         {/* Pagination section ends here */}
       </div>
-      <RequestModal
-        openViewDetailsModal={openViewDetailsModal}
+      <PredictionRequestModal
+        openDetailsModal={openDetailsModal}
         onClose={handleModalClose}
         fixturesId={fixturesId}
         homeId={homeId}

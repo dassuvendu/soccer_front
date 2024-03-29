@@ -63,7 +63,7 @@ export const PredictionStats = ({isfixturesId}) => {
   return (
      <div>
     
-    {isUnlock === false && check === false &&
+    {isUnlock === false && 
     <>
     <div className="flex justify-center mt-10">
         <button  
@@ -77,132 +77,15 @@ export const PredictionStats = ({isfixturesId}) => {
           </button>
          
       </div>
-       <p className='text-red-600 flex justify-center'>
+       {/* <p className='text-red-600 flex justify-center'>
        {message}
-     </p>
+     </p> */}
      </>
 }
-{isLoading === true && 
+{isLoading === true && check === false &&
   <p className='text-red-600 flex justify-center  mb-10'>
        Checking..
      </p>
-}
-
-{ check === true &&
-      <div >
-
-      {lastResult?.data?.map((res) => (
-
-        <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={res.id}>
-
-          <div className="text-center pt-10">
-            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-              Outcome
-            </h4>
-            <p className="text-base text-[#08a1f8] font-medium">
-              win,{res?.predictions?.winner?.name}
-            </p>
-          </div>
-          <div className="text-center">
-            <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
-              Advice
-            </h4>
-            <p className="text-base text-[#08a1f8] font-medium">
-              {res?.predictions?.advice}
-            </p>
-          </div>
-          <div className="text-center pt-10">
-            <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
-              Over/Under
-            </h4>
-            <p className="text-base text-[#08a1f8] font-medium">
-              {res?.predictions?.under_over}
-            </p>
-          </div>
-        </div>
-      ))}
-
-      <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
-        {lastResult?.data?.map((res) => (
-          <>
-            <div className="text-center pt-10">
-              <div className="flex justify-between px-4">
-                <div className="text-left">
-                  <p className="text-base text-[#08a1f8] font-medium">
-                    Win
-                  </p>
-                  <p className="text-base text-[#08a1f8] font-medium">
-                    Lose
-                  </p>
-                  <p className="text-base text-[#08a1f8] font-medium">
-                    Win/Draw
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-base text-black font-medium">
-                    {res?.predictions?.percent?.home}
-                  </p>
-                  <p className="text-base text-black font-medium">
-                    {lossHPercent}%
-                  </p>
-                  <p className="text-base text-black font-medium">
-                    {lossAPercent}%
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
-                Chances
-              </h4>
-              <div>
-                <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-0 mt-4">
-                  Draw
-                </h4>
-                <p className="text-base text-black font-medium">
-                  {res?.predictions?.percent?.draw}
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center pt-10">
-              <div className="flex justify-between px-4">
-                <div className="text-left">
-                  <p className="text-base text-[#08a1f8] font-medium">
-                    Win
-                  </p>
-                  <p className="text-base text-[#08a1f8] font-medium">
-                    Lose
-                  </p>
-                  <p className="text-base text-[#08a1f8] font-medium">
-                    Win/Draw
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-base text-black font-medium">
-                    {res?.predictions?.percent?.away}
-                  </p>
-                  <p className="text-base text-black font-medium">
-                    {lossAPercent}%
-                  </p>
-                  <p className="text-base text-black font-medium">
-                    {lossHPercent}%
-                  </p>
-                </div>
-              </div>
-            </div>
-          </>
-        ))}
-      </div>
-
-      <div className="mt-8">
-        <button className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
-          Add to Pridiction slip
-        </button>
-      </div>
-
-      </div>
 }
     </div>
    
