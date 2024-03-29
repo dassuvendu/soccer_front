@@ -64,9 +64,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          1818{" "}
+                          0
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (90.63%)
+                            (100%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -86,9 +86,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          188
+                          0
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (9.37%)
+                            (100%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -114,9 +114,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          1383
+                          0
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (68.94%)
+                            (100%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -136,9 +136,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          623
+                          0
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (31.06%)
+                            (100%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -164,9 +164,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          1818
+                          0
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (90.63%)
+                            (100%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
@@ -186,9 +186,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          188
+                          0
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (9.37%)
+                            (100%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
