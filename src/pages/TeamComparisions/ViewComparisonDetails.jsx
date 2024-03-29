@@ -443,7 +443,9 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                     <h3 className="font-Bebas tracking-normal text-xl text-black font-medium">
                       Formation
                     </h3>
-                    <p className="text-base text-black font-medium">{comparisons[0]?.left_team_formation}</p>
+                    <p className="text-base text-black font-medium">
+                      {comparisons[0]?.left_team_formation}
+                    </p>
                   </div>
                   <img
                     src={fieldOne}
@@ -503,7 +505,9 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                     <h3 className="font-Bebas tracking-normal text-xl text-black font-medium">
                       Formation
                     </h3>
-                    <p className="text-base text-black font-medium">{comparisons[0]?.right_team_formation}</p>
+                    <p className="text-base text-black font-medium">
+                      {comparisons[0]?.right_team_formation}
+                    </p>
                   </div>
                   <img
                     src={fieldTwo}

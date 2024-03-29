@@ -33,19 +33,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [loadingDash, setLoadingDash] = useState<boolean>(true);
   const [apiCalled, setApiCalled] = useState<boolean>(false);
 
-  // close on click outside
-  useEffect(() => {
-    if (!apiCalled) { // Check if the API call has already been made
-      dispatch(getLeagues({ids: '39,140,135,78,61,2'})).then((res) => {
-        console.log("res: ",res);
-        
-        if (res?.payload?.status === true) {
-          setLoadingDash(false);
-          setApiCalled(true); // Set apiCalled to true after the API call
-        }
-      });
+useEffect(() => {
+  dispatch(getLeagues({ids: '39,140,135,78,61,2'})).then((res:any) => {
+    console.log("res: ",res);
+    
+    if (res?.payload?.status === true) {
+      setLoadingDash(false);
+      setApiCalled(true); // Set apiCalled to true after the API call
     }
-  }, [dispatch, apiCalled]);
+  });
+},[])
+    
+  
+  // close on click outside
   console.log("league",league?.data);
   
   useEffect(() => {
@@ -277,12 +277,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     return(
       <>
        <li className='mb-3'>
+        
                 <NavLink
-                  to="/uffa-champions"
+                  to={`/match-prediction/${le.league.id}`}
                   className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${
                     themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
                   } duration-300 ease-in-out hover:bg-graydark ${
-                    pathname.includes('uffa-champions') &&
+                    pathname.includes(`match-prediction/${le?.league?.id}`) &&
                     'bg-graydark dark:bg-meta-4'
                   }`}
                 >
