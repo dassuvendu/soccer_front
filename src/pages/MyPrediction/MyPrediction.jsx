@@ -43,7 +43,7 @@ const MyPrediction = () => {
   console.log("token: ", token);
   useEffect(() => {
     if (token) {
-      dispatch(getPredictions());
+      dispatch(getPredictions({}));
     }
   }, []);
   const viewDetailsModalHandler = (id, hid, aid) => {

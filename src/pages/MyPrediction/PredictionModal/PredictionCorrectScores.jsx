@@ -6,7 +6,7 @@ import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 
 export const PredictionCorrectScores = ({ isfixturesId }) => {
   const { isLoading } = useSelector((state) => state.IsunLock);
-  const { lastResult, h2h } = useSelector((state) => state.prediction);
+  const { h2h } = useSelector((state) => state.prediction);
 
   const dispatch = useDispatch();
   // const token = localStorage.getItem("userToken");

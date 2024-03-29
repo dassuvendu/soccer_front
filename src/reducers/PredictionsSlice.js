@@ -168,6 +168,7 @@ const initialState = {
   lastHomeResult:[],
   lastAwayResult:[],
   lastResult:[],
+  predict:[],
   h2h:[],
   format:[]
 };
@@ -293,8 +294,8 @@ const PredictionsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.h2h = payload.data[0].h2h;
+        state.predict=payload.data[0].prediction;
         state.lastResult = payload; 
-        
       })
       .addCase(LastResult.rejected, (state, { payload }) => {
         state.isLoading = false;
