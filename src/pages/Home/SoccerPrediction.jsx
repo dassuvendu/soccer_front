@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DeportivoPastoIcon,
   EnvigadoIcon,
@@ -22,10 +22,56 @@ import {
   PiArrowUpRightLight,
 } from "react-icons/pi";
 import { BsLightningCharge } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { getFixtures } from "../../reducers/PredictionsSlice";
+import { useDateList, useTimeList } from "../../hooks/useDateTimeHooks";
+import { PastMatch } from "./PastMatch";
 const SoccerPrediction = () => {
+  const { fixtures } = useSelector((state) => state.prediction);
+
+  const currentItems = fixtures?.data?.slice(0,6)
+  console.log(currentItems);
+
+  const [tDate, setTDate] = useState(null);
+  const [tTime, setTTime] = useState(null);
+  
+
+  const [loadingData, setLoadingData] = useState(true);
+  const [hide, setHide] = useState(false);
+
+  const today = new Date();
+
+const todaydayFormatted = today.toISOString().split("T")[0];
+console.log("today's date:",todaydayFormatted);
+
+
+const dispatch = useDispatch()
+
+// const handleUp = () =>{
+//    dispatch(getFixtures({ date: todaydayFormatted })).then((res) => {
+//       if (res?.payload?.status === true) {
+//         setLoadingData(false);
+//         setHide(true);
+//       } else {
+//         setLoadingData(true);
+//         setHide(false);
+//       }
+
+//     })
+// }
+
+
+// useEffect(() => {
+//   if (todaydayFormatted) {
+//     setTDate();
+//     setTTime();
+//     }
+// }, [fixtures]);
+
   useEffect(() => {
     AOS.init();
   }, []);
+
   return (
     <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
@@ -248,427 +294,10 @@ const SoccerPrediction = () => {
               <TabList className="tab_bar">
                 <Tab>Past Matches</Tab>
                 <Tab>Past Cooked Slips</Tab>
-                <Tab>Upcoming Matches</Tab>
+                <Tab >Upcoming Matches</Tab>
               </TabList>
               <TabPanel>
-                <div className="pt-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="bg-white rounded-2xl shadow-xl">
-                      <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
-                        <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                          Match Details
-                        </div>
-                        <div className="text-right">
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            Friendlies | Wednesday,
-                          </p>
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            March 27, 2024 2:30 AM
-                          </p>
-                        </div>
-                      </div>
-                      <div className="pt-6 pb-4 px-3 border-2 border-gray-800 rounded-b-2xl">
-                        <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                          <div className="text-center">
-                            <img
-                              src={DeportivoPastoIcon}
-                              alt="DeportivoPastoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Deportivo Pasto
-                            </p>
-                          </div>
-                          <div className="flex justify-center items-center">
-                            <div>
-                              <div className="mb-4 text-center">
-                                <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Score
-                                </p>
-                                <span className="bg-gray-800 text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                              <div className="mb-4 text-center">
-                                <p className="text-[#08a5f5] font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Prediction
-                                </p>
-                                <span className="bg-[#08a5f5] text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <img
-                              src={EnvigadoIcon}
-                              alt="EnvigadoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Envigado
-                            </p>
-                          </div>
-                        </div>
-                        <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                          <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                            View Details
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white rounded-2xl shadow-xl">
-                      <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
-                        <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                          Match Details
-                        </div>
-                        <div className="text-right">
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            Friendlies | Wednesday,
-                          </p>
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            March 27, 2024 2:30 AM
-                          </p>
-                        </div>
-                      </div>
-                      <div className="pt-6 pb-4 px-3 border-2 border-gray-800 rounded-b-2xl">
-                        <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                          <div className="text-center">
-                            <img
-                              src={DeportivoPastoIcon}
-                              alt="DeportivoPastoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Deportivo Pasto
-                            </p>
-                          </div>
-                          <div className="flex justify-center items-center">
-                            <div>
-                              <div className="mb-4 text-center">
-                                <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Score
-                                </p>
-                                <span className="bg-gray-800 text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                              <div className="mb-4 text-center">
-                                <p className="text-[#08a5f5] font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Prediction
-                                </p>
-                                <span className="bg-[#08a5f5] text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <img
-                              src={EnvigadoIcon}
-                              alt="EnvigadoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Envigado
-                            </p>
-                          </div>
-                        </div>
-                        <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                          <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                            View Details
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white rounded-2xl shadow-xl">
-                      <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
-                        <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                          Match Details
-                        </div>
-                        <div className="text-right">
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            Friendlies | Wednesday,
-                          </p>
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            March 27, 2024 2:30 AM
-                          </p>
-                        </div>
-                      </div>
-                      <div className="pt-6 pb-4 px-3 border-2 border-gray-800 rounded-b-2xl">
-                        <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                          <div className="text-center">
-                            <img
-                              src={DeportivoPastoIcon}
-                              alt="DeportivoPastoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Deportivo Pasto
-                            </p>
-                          </div>
-                          <div className="flex justify-center items-center">
-                            <div>
-                              <div className="mb-4 text-center">
-                                <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Score
-                                </p>
-                                <span className="bg-gray-800 text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                              <div className="mb-4 text-center">
-                                <p className="text-[#08a5f5] font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Prediction
-                                </p>
-                                <span className="bg-[#08a5f5] text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <img
-                              src={EnvigadoIcon}
-                              alt="EnvigadoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Envigado
-                            </p>
-                          </div>
-                        </div>
-                        <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                          <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                            View Details
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white rounded-2xl shadow-xl">
-                      <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
-                        <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                          Match Details
-                        </div>
-                        <div className="text-right">
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            Friendlies | Wednesday,
-                          </p>
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            March 27, 2024 2:30 AM
-                          </p>
-                        </div>
-                      </div>
-                      <div className="pt-6 pb-4 px-3 border-2 border-gray-800 rounded-b-2xl">
-                        <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                          <div className="text-center">
-                            <img
-                              src={DeportivoPastoIcon}
-                              alt="DeportivoPastoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Deportivo Pasto
-                            </p>
-                          </div>
-                          <div className="flex justify-center items-center">
-                            <div>
-                              <div className="mb-4 text-center">
-                                <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Score
-                                </p>
-                                <span className="bg-gray-800 text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                              <div className="mb-4 text-center">
-                                <p className="text-[#08a5f5] font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Prediction
-                                </p>
-                                <span className="bg-[#08a5f5] text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <img
-                              src={EnvigadoIcon}
-                              alt="EnvigadoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Envigado
-                            </p>
-                          </div>
-                        </div>
-                        <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                          <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                            View Details
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white rounded-2xl shadow-xl">
-                      <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
-                        <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                          Match Details
-                        </div>
-                        <div className="text-right">
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            Friendlies | Wednesday,
-                          </p>
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            March 27, 2024 2:30 AM
-                          </p>
-                        </div>
-                      </div>
-                      <div className="pt-6 pb-4 px-3 border-2 border-gray-800 rounded-b-2xl">
-                        <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                          <div className="text-center">
-                            <img
-                              src={DeportivoPastoIcon}
-                              alt="DeportivoPastoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Deportivo Pasto
-                            </p>
-                          </div>
-                          <div className="flex justify-center items-center">
-                            <div>
-                              <div className="mb-4 text-center">
-                                <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Score
-                                </p>
-                                <span className="bg-gray-800 text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                              <div className="mb-4 text-center">
-                                <p className="text-[#08a5f5] font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Prediction
-                                </p>
-                                <span className="bg-[#08a5f5] text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <img
-                              src={EnvigadoIcon}
-                              alt="EnvigadoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Envigado
-                            </p>
-                          </div>
-                        </div>
-                        <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                          <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                            View Details
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white rounded-2xl shadow-xl">
-                      <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
-                        <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
-                          Match Details
-                        </div>
-                        <div className="text-right">
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            Friendlies | Wednesday,
-                          </p>
-                          <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            March 27, 2024 2:30 AM
-                          </p>
-                        </div>
-                      </div>
-                      <div className="pt-6 pb-4 px-3 border-2 border-gray-800 rounded-b-2xl">
-                        <div className="grid grid-cols-3 gap-4 mb-4 h-32">
-                          <div className="text-center">
-                            <img
-                              src={DeportivoPastoIcon}
-                              alt="DeportivoPastoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Deportivo Pasto
-                            </p>
-                          </div>
-                          <div className="flex justify-center items-center">
-                            <div>
-                              <div className="mb-4 text-center">
-                                <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Score
-                                </p>
-                                <span className="bg-gray-800 text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                              <div className="mb-4 text-center">
-                                <p className="text-[#08a5f5] font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
-                                  Prediction
-                                </p>
-                                <span className="bg-[#08a5f5] text-white font-medium text-[15px] leading-[25px] font-Montserrat inline-block px-4 py-0 rounded">
-                                  <b>2 - 0</b>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <img
-                              src={EnvigadoIcon}
-                              alt="EnvigadoIcon"
-                              className="inline-block mb-2"
-                              width={58}
-                              height={58}
-                            />
-                            <p className="font-Syne text-[14px] leading-[20px] font-bold text-black">
-                              Envigado
-                            </p>
-                          </div>
-                        </div>
-                        <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                          <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                            View Details
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <PastMatch/>
               </TabPanel>
               <TabPanel>
                 <div className="pt-4">

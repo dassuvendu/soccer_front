@@ -10,6 +10,7 @@ export const getFixtures = createAsyncThunk(
       const response = await api.post('/api/fixtures',userInput);
       if (response.status === 200) {
         return response.data;
+        
       } else {
         let errors = errorHandler(response);
         return rejectWithValue(errors);

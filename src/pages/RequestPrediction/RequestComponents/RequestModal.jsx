@@ -26,6 +26,7 @@ export const RequestModal = ({
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
+  console.log("las",lastResult);
   const { fixtures } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
   const { Aplayers } = useSelector((state) => state.formation);
