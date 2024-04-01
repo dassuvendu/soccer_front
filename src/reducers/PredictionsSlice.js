@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import errorHandler from '../store/ErrorHandler';
-import api from '../store/Api';
+import api from '../store/api';
+import errorHandler from '../store/errorHandler';
+
 
 export const getFixtures = createAsyncThunk(
   'user/getFixtures',

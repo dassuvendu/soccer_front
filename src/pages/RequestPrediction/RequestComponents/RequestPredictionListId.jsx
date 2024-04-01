@@ -70,8 +70,10 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError }) => {
 
   const dispatch = useDispatch();
 
+
   useEffect(() => {
-    dispatch(getFixtures({league: rid, season:2023})).then((res) => {
+    if (rid) {
+      dispatch(getFixtures({league: rid, season:2023})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
@@ -88,7 +90,9 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError }) => {
             onError(null);
           }
       });
-  }, [dispatch]);
+    }
+   
+  }, [dispatch,rid]);
 
 
 

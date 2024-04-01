@@ -28,6 +28,7 @@ export const RequestModal = ({
   const { lastResult, h2h } = useSelector((state) => state.prediction);
   const { fixtures } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
+  const { Aplayers } = useSelector((state) => state.formation);
   const [homeData, setHomeData] = useState();
   const [awayData, setAwayData] = useState();
   const [homeDataImg, setHomeDataImg] = useState();
@@ -339,7 +340,7 @@ export const RequestModal = ({
                         </TabPanel>
                         
                         <TabPanel>
-                        <TeamFormation Hplayers={Hplayers}/>
+                        <TeamFormation Hplayers={Hplayers} Aplayers={Aplayers}/>
                         </TabPanel>
                         <TabPanel>
                           <PredictionStats isfixturesId={isfixturesId} />

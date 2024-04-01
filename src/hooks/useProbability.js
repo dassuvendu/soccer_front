@@ -29,10 +29,11 @@ const calculateProbability = (lambda,k) => {
 // }
 // Calculate probabilities for different scorelines
 const averageGoals = averageGoal;
+console.log(averageGoals);
 const scorelines = 
     h2h?.map((goal) => (
-    { scoreline: `${goal.goals.home}-${goal.goals.away}`, 
-    probability: calculateProbability(averageGoals, goal.goals.home) * calculateProbability(averageGoals,goal.goals.away) }
+    { scoreline: `${goal?.goals?.home}-${goal?.goals?.away}`, 
+    probability: calculateProbability(averageGoals,goal?.goals?.home) * calculateProbability(averageGoals,goal?.goals?.away)}
     ))
 
 console.log("sc",scorelines);

@@ -38,14 +38,15 @@ const MyPrediction = () => {
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const dispatch = useDispatch();
   const nevigate = useNavigate();
-
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
   useEffect(() => {
+
+
     if (token) {
       dispatch(getPredictions({}));
     }
-  }, []);
+  }, [dispatch,token]);
   const viewDetailsModalHandler = (id, hid, aid) => {
     setFixturesId(id);
     setHomeId(hid);

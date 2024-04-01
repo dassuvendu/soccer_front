@@ -34,12 +34,14 @@ export const CorrectScores = ({ isfixturesId }) => {
       console.log(res);
       setCheck(res?.payload?.status);
       setMessage(res.payload.message);
+     
     });
   }, [dispatch, isfixturesId]);
 
   const handleClick = () => {
     dispatch(getUnlockCheck({ fixture: isfixturesId })).then((res) => {
       setIsUnlock(res.payload.status);
+      setCheck(true)
     });
   };
   const winnerTeamId = predict?.winner?.id;
@@ -57,7 +59,7 @@ export const CorrectScores = ({ isfixturesId }) => {
         setTeamLogo(teamResult?.away?.logo);
         setALogohide(true);
         setHLogohide(false);
-        setAverageGoals(teamResult?.home?.last_5?.goals?.for?.total);
+        setAverageGoals(teamResult?.away?.last_5?.goals?.for?.total);
       }
     }
   }, [teamResult, winnerTeamId, hLogohide, aLogohide]);
