@@ -13,7 +13,6 @@ import {
   LastAwayResult,
   LastHomeResult,
 } from "../../reducers/PredictionsSlice";
-
 const ViewComparisonDetails = ({ id1, id2 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { comparisons, isLoading } = useSelector(

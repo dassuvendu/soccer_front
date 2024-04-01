@@ -45,7 +45,7 @@ const MyPrediction = () => {
     if (token) {
       dispatch(getPredictions({}));
     }
-  }, []);
+  }, [dispatch]);
   const viewDetailsModalHandler = (id, hid, aid) => {
     setFixturesId(id);
     setHomeId(hid);
