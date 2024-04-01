@@ -170,6 +170,7 @@ const initialState = {
   lastResult:[],
   predict:[],
   h2h:[],
+  teamResult:[],
   format:[]
 };
 
@@ -294,7 +295,8 @@ const PredictionsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.h2h = payload.data[0].h2h;
-        state.predict=payload.data[0].prediction;
+        state.predict = payload.data[0].predictions;
+        state.teamResult = payload.data[0].teams;
         state.lastResult = payload; 
       })
       .addCase(LastResult.rejected, (state, { payload }) => {

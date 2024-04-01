@@ -12,7 +12,7 @@ const Home = () => {
       <Banner />
       <HomeBannerMatchStartTime />
       <SoccerPrediction />
-      <LastMatchResult />
+      {/* <LastMatchResult /> */}
       <SelectPlan />
     </div>
   );
