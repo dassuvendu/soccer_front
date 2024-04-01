@@ -120,7 +120,7 @@ const TeamComparisions = () => {
   };
 
   const handleInputTeamChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(serachTeam({ name: inputValue })).then(() => {
         setIsFirstTeamMenuOpen(true);
       });
@@ -138,7 +138,7 @@ const TeamComparisions = () => {
   };
 
   const handleInputTeamSecondChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(serachTeam({ name: inputValue })).then(() => {
         setIsSecondTeamMenuOpen(true);
       });
@@ -155,7 +155,7 @@ const TeamComparisions = () => {
   };
 
   const handleSingleInputTeamChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(serachTeam({ name: inputValue })).then(() => {
         setIsSingleTeamMenuOpen(true);
       });
