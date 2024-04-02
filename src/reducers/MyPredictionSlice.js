@@ -5,9 +5,9 @@ import errorHandler from "../store/errorHandler";
 
 export const getPredictions = createAsyncThunk(
     'myPredict',
-    async (_, { rejectWithValue }) => {
+    async (userInput, { rejectWithValue }) => {
         try {
-            const response = await api.post('/api/my_predictions');
+            const response = await api.post('/api/my_predictions', userInput);
             if (response.status) {
 
                 return response.data;
