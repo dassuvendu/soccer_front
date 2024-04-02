@@ -358,7 +358,7 @@ body {
   }
   
   .team .lines .line{
-    height: 85%;
+    height: 85% !important;
     margin-top: 7%;
   }
 

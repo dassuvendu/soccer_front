@@ -24,7 +24,11 @@ const timeMnth = time.getMonth()
 const timeDay = time.getDay()
 const ndate = `${timeYear}-${timeMnth}-${timeDay}`;
 
+const [season, setSeason] = useState(null)
 
+useEffect(()=>{
+  console.log("sea",season);
+},[season])
 
 
   return (
@@ -44,13 +48,13 @@ const ndate = `${timeYear}-${timeMnth}-${timeDay}`;
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompoId onError={handleError} rid={rid}/>
+          <SearchCompoId onError={handleError} rid={rid} setSeason={setSeason}/>
           <Prediction />
         </div>
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionListId errorMessage={errorMessage} ndate={ndate} rid={rid}/>
+      <RequestPredictionListId errorMessage={errorMessage} ndate={ndate} rid={rid} season={season}/>
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}

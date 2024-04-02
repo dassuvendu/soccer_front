@@ -35,8 +35,8 @@ const MyPrediction = () => {
   const [fixturesId, setFixturesId] = useState();
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState();
   const [itemsPerPage] = useState(5);
   const [timeStamp, setTimeStamp] = useState(null);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
@@ -2820,19 +2820,22 @@ const MyPrediction = () => {
           <div className="min-w-[450px]">
             <div className="md:flex justify-between items-center">
               <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
-                <ul className="flex">
+              <ul className="flex">
                   <li>
                     <Link
-                      onClick={() => handlePageChange(1)}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
+                      flex justify-center items-center rounded-full text-[12px] text-white"
+                      onClick={() => paginate(1)}
                     >
                       <BsChevronDoubleLeft />
                     </Link>
                   </li>
                   <li>
                     <Link
-                      onClick={() => handlePageChange(currentPage - 1)}
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      onClick={() =>
+                        handlePageChange(Math.max(currentPage - 1, 1))
+                      }
                     >
                       <BsChevronLeft />
                     </Link>
@@ -2840,48 +2843,37 @@ const MyPrediction = () => {
                   {pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
                       <Link
-                        onClick={() => handlePageChange(pageNumber + 1)}
-                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
+                        flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
+                        ${
+                          currentPage === pageNumber ? "bg-[#0053CD]" : "black"
+                        }`}
+                        onClick={() => handlePageChange(pageNumber)}
                       >
                         {pageNumber}
                       </Link>
                     </li>
                   ))}
-                  {/* <li>
-                    <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
-                      1
-                    </Link>
-                  </li> */}
-                  {/* <li>
-                    <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
-                      2
-                    </Link>
-                  </li> */}
-                  {/* <li>
-                    <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
-                      3
-                    </Link>
-                  </li> */}
-                  {/* <li>
-                    <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
-                      23
-                    </Link>
-                  </li> */}
+
                   <li>
-                    <Link
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                    >
-                      <BsChevronRight />
-                    </Link>
+                   
+                      <Link
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                      >
+                        <BsChevronRight />
+                      </Link>
+                  
                   </li>
                   <li>
-                    <Link
-                      onClick={() => handlePageChange(totalPages)}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                    >
-                      <BsChevronDoubleRight />
-                    </Link>
+                   
+                      <Link
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        onClick={() => setCurrentPage(totalPages)}
+                      >
+                        <BsChevronDoubleRight />
+                      </Link>
+                  
                   </li>
                 </ul>
               </div>

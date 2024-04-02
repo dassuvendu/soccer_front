@@ -18,7 +18,7 @@ import {
   getFixturesByleague,
 } from "../../../reducers/PredictionsSlice";
 
-const RequestPredictionListId = ({ errorMessage,ndate,rid,onError }) => {
+const RequestPredictionListId = ({ errorMessage,ndate,rid,onError,season }) => {
     console.log(rid);
     console.log(ndate);
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -59,7 +59,7 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError }) => {
   const [loadingData, setLoadingData] = useState(true);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState(false);
-
+ 
   useEffect(() => {
     if (errorMessage === 400) {
       setError(true);
@@ -68,12 +68,20 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError }) => {
     }
   }, [errorMessage]);
 
+
+
+const today = new Date();
+const yesterday = new Date(today);
+yesterday.setFullYear(today.getFullYear() - 1);
+const yesterdayFormatted = yesterday.toISOString().split("T")[0];
+const prevYear = yesterdayFormatted.toString().split('-')[0]
+
+
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    if (rid) {
-      dispatch(getFixtures({league: rid, season:2023})).then((res) => {
+    if (season) {
+      dispatch(getFixtures({league: rid, season:season})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
@@ -81,21 +89,21 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError }) => {
           setLoadingData(true);
           setHide(false);
         }
-        if (
-            response?.payload?.message ===
-            "Something went wrong. Please try again later"
-          ) {
-            onError(400);
-          } else {
-            onError(null);
-          }
+      });
+    }else{
+      dispatch(getFixtures({league: rid, season:prevYear})).then((res) => {
+        if (res?.payload?.status === true) {
+          setLoadingData(false);
+          setHide(true);
+        } else {
+          setLoadingData(true);
+          setHide(false);
+        }
       });
     }
+      
    
-  }, [dispatch,rid]);
-
-
-
+  }, [dispatch,rid,prevYear]);
 
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
   const itemsPerPage = 9;

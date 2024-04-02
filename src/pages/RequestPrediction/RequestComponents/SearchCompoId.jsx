@@ -8,7 +8,7 @@ import {
   getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid }) => {
+export const SearchCompoId = ({ onError , rid, setSeason}) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
@@ -16,8 +16,9 @@ export const SearchCompoId = ({ onError , rid }) => {
   // const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [isSeason, setIsSeason] = useState(false);
-  const [isRequired, setIsRequired] = useState();
   const [leagueName, setleagueName] = useState('');
+ 
+ 
 
   const handleDateChange = (e) => {
     // console.log(e);
@@ -30,7 +31,9 @@ export const SearchCompoId = ({ onError , rid }) => {
   };
 
  useEffect(()=>{
-  dispatch(getFixturesByleague({}))
+ 
+    dispatch(getFixturesByleague({}))
+  
  },[dispatch])
 
 //   const handleLeagueChange = () => {
@@ -46,8 +49,6 @@ export const SearchCompoId = ({ onError , rid }) => {
       console.log("Filtered Leagues:", filteredLeagues);
       if(Array.isArray(filteredLeagues)&&filteredLeagues){
         setleagueName(filteredLeagues[0]?.league?.name)
-        let requried = 'required*'
-        setIsRequired(requried)
       
         if (isSeason === false) {
           dispatch(getSeasons({})).then((res) => {
@@ -64,8 +65,7 @@ export const SearchCompoId = ({ onError , rid }) => {
  
 
   const handleSearch = (season) => {
-    setIsRequired(null)
-    
+    setSeason(season.target.value )
     if (leagueName === leagueName) {
       dispatch(
         getFixtures({ league: rid , season: season.target.value })
@@ -161,7 +161,6 @@ export const SearchCompoId = ({ onError , rid }) => {
           } pb-2`}
         >
            Select Season
-           <span className="text-red-500"> {isRequired}</span>
         </p>
         <div className="mb-4 md:mb-0">
           <div
@@ -177,7 +176,7 @@ export const SearchCompoId = ({ onError , rid }) => {
               </select>
             ) : (
               <select disabled={!isSeason} onChange={handleSearch}>
-                <option value="">Select</option>
+                <option value="">2023</option>
                 {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
