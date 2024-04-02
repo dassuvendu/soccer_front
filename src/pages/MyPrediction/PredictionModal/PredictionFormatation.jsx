@@ -7,22 +7,8 @@ import SoccerLineUp from 'react-soccer-lineup'
 export const PredictionFormatation = ({homeid,awayid}) => {
     const themeMode = useSelector((state) => state.darkmode.mode);
     const { format } = useSelector((state) => state.formation);
-    console.log(format);
   return (
     <div>
-    {/* <h4 className="font-Bebas text-2xl tracking-normal text-black text-center mb-4 mt-4">
-      Select Aucas's Formation
-    </h4> */}
-    
-    {/* <select
-    defaultValue={selectedOption}
-    onChange={handelOption}
-    >
-      {Array.isArray(format)&&format.map((format)=>(
-        <option value={format.value}>{format.value}</option>
-      ))}
-      
-    </select> */}
 
 {format.data.response.map((data)=>{
     const homeTeamFormate = data?.teams?.home?.id;
@@ -33,22 +19,10 @@ console.log("home",homeTeamFormatation);
 
   if (homeid == homeTeamFormate) {
     homeTeamFormatation = data?.teams?.home?.logo
-    // {
-    //     logo: data?.teams?.home?.logo,
-    //     name: data?.teams?.home?.name,
-    //     formation: data?.teams?.home?.formation,
-
-    // }
   }
 
   if (homeid == awayTeamFormate) {
     homeTeamFormatation = data?.teams?.away?.logo
-    // {
-    //     logo: data?.teams?.away?.logo,
-    //     name: data?.teams?.away?.name,
-    //     formation: data?.teams?.away?.formation,
-
-    // }
   }
     return(
 <div className="max-w-5xl mx-auto">

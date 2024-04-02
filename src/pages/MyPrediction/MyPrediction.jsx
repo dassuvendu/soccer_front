@@ -35,6 +35,7 @@ const MyPrediction = () => {
   const [fixturesId, setFixturesId] = useState();
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
+  const [timeStamp, setTimeStamp] = useState(null)
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const dispatch = useDispatch();
   const nevigate = useNavigate();
@@ -47,14 +48,16 @@ const MyPrediction = () => {
       dispatch(getPredictions({}));
     }
   }, [dispatch,token]);
-  const viewDetailsModalHandler = (id, hid, aid) => {
+  const viewDetailsModalHandler = (id, hid, aid,timeId) => {
     setFixturesId(id);
     setHomeId(hid);
     setAwayId(aid);
+    setTimeStamp(timeId)
     setOpenDetailsModal(true);
     console.log("fixture id: ", id);
     console.log("home id: ", hid);
     console.log("away id: ", aid);
+    console.log("time id: ", timeId);
   };
   const handleModalClose = () => {
     setOpenDetailsModal(false);
@@ -314,7 +317,8 @@ const MyPrediction = () => {
                                       viewDetailsModalHandler(
                                         predict?.fixture?.id,
                                         predict?.teams?.home?.id,
-                                        predict?.teams?.away?.id
+                                        predict?.teams?.away?.id,
+                                        predict?.fixture?.timestamp
                                       )
                                     }
                                   />
@@ -3620,6 +3624,7 @@ const MyPrediction = () => {
         openDetailsModal={openDetailsModal}
         onClose={handleModalClose}
         fixturesId={fixturesId}
+        timeStamp={timeStamp}
         homeId={homeId}
         awayId={awayId}
       />

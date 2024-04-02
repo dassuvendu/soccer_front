@@ -1,149 +1,198 @@
-import React, { useEffect } from "react";
-import {  useDispatch, useSelector } from "react-redux";
-import { useATeamFormationhook, useHTeamFormationhook } from "../../../hooks/useTeamFormationhook";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useATeamFormationhook,
+  useHTeamFormationhook,
+} from "../../../hooks/useTeamFormationhook";
 import { TextInput } from "flowbite-react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import SoccerLineUp from 'react-soccer-lineup'
+import SoccerLineUp from "react-soccer-lineup";
 
-const PredictionTeamFormation = ({Hplayers}) => {
+const TeamFormation = ({ Hplayers, Aplayers }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const HTeam = useHTeamFormationhook();
   const ATeam = useATeamFormationhook();
-  
-  const dispatch = useDispatch()
+  const [gkName, setGkName] = useState()
+  console.log("gk",gkName);
+  const [gkNUm, setGkNum] = useState()
+  console.log("gk",gkNUm);
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (HTeam) {
+      HTeam?.filter(
+        (player) => player?.Gk?.pPos === "G"
+      ).map((player) => {
+        return(
+          setGkName(player?.gk?.pName),
+          setGkNum(player?.gk?.pNumber)
+        )
+      })
+    }
+  },[HTeam])
   
-  },[dispatch])
-
+ 
   return (
     <div>
-      {Hplayers?.map((data) => {
-        return (
-          <div className="max-w-5xl mx-auto">
-            <Tabs className="team_comparisions_tab_section">
-              <TabList className="tab_bar mt-6">
+      <div className="max-w-5xl mx-auto">
+        <Tabs className="team_comparisions_tab_section">
+          {/* <TabList className="tab_bar mt-6">
                 <Tab>4-3-3</Tab>
                 <Tab>5-3-2</Tab>
                 <Tab>4-2-3-1</Tab>
                 <Tab>4-4-2</Tab>
                 <Tab>3-3-3-1</Tab>
                 <Tab>3-2-4-1</Tab>
-              </TabList>
-              <TabPanel>
-                <div className="py-4">
-                  <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
-                    Custom formation
-                  </h3>
-                  <div className="max-w-xl mx-auto my-4 flex">
-                    <TextInput id="text" type="text" className="mr-2 w-full" />
-                    <button
-                      className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
-                      type="submit"
-                    >
-                      Apply
-                    </button>
-                  </div>
-                  <div className="max-w-3xl mx-auto my-8">
-                    <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
-                      <div className="text-center flex items-center">
-                        <img
-                          src={data?.team?.logo}
-                          alt={data?.team?.name}
-                          className="inline-block mr-2 w-12"
-                        />
+              </TabList> */}
+          <TabPanel>
+            <div className="py-4">
+              <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
+                Custom formation
+              </h3>
+              <div className="max-w-xl mx-auto my-4 flex">
+                <TextInput id="text" type="text" className="mr-2 w-full" />
+                <button
+                  className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
+                  type="submit"
+                >
+                  Apply
+                </button>
+              </div>
+              <div className="max-w-3xl mx-auto my-8">
+                <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
+                  {Hplayers?.map((data) => {
+                    return (
+                      <>
+                        <div className="text-center flex items-center">
+                          <img
+                            src={data?.team?.logo}
+                            alt={data?.team?.name}
+                            className="inline-block mr-2 w-12"
+                          />
+                          <p
+                            className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            }`}
+                          >
+                            {data?.team?.name}
+                          </p>
+                        </div>
                         <p
                           className={`font-Syne text-[15px] leading-[20px] font-bold ${
                             themeMode === "light" ? "text-black" : "text-white"
                           }`}
                         >
-                          {data?.team?.name}
+                          {data?.formation}
                         </p>
-                      </div>
-                      <p
-                        className={`font-Syne text-[15px] leading-[20px] font-bold ${
-                          themeMode === "light" ? "text-black" : "text-white"
-                        }`}
-                      >
-                        {data?.formation}
-                      </p>
-                    </div>
-                    <div className="my-4 flex justify-center items-center">
-                      <SoccerLineUp
-                        size="responsive"
-                        color="green"
-                        pattern="squares"
-                        homeTeam={{
-                          squad: {
-                            gk: HTeam?.filter(
-                              (player) => player?.Gk?.pPos == "G"
-                            ).map((player) => ({
-                              name: player?.Gk?.pName,
-                              number: player?.Gk?.pNumber,
-                            })),
-                            df: HTeam?.filter(
-                              (player) => player?.def?.pPos === "D"
-                            ).map((player) => ({
-                              name: player?.def?.pName,
-                              number: player?.def?.pNumber,
-                            })),
-                            cm: HTeam?.filter(
-                              (player) => player?.cm?.pPos === "M"
-                            ).map((player) => ({
-                              name: player?.cm?.pName,
-                              number: player?.cm?.pNumber,
-                            })),
-                            fw: HTeam?.filter(
-                              (player) => player?.fw?.pPos === "F"
-                            ).map((player) => ({
-                              name: player?.fw?.pName,
-                              number: player?.fw?.pNumber,
-                            })),
-                          },
-                        }}
-                        awayTeam={{
-                          squad: {
-                            gk: ATeam?.filter(
-                              (player) => player?.gk?.pPos === "G"
-                            ).map((player) => ({
-                              name: player?.gk?.pName,
-                              number: player?.gk?.pNumber,
-                            })),
-                            df: ATeam?.filter(
-                              (player) => player?.def?.pPos === "D"
-                            ).map((player) => ({
-                              name: player?.def?.pName,
-                              number: player?.def?.pNumber,
-                            })),
-                            cm: ATeam?.filter(
-                              (player) => player?.cm?.pPos === "M"
-                            ).map((player) => ({
-                              name: player?.cm?.pName,
-                              number: player?.cm?.pNumber,
-                            })),
-                            fw: ATeam?.filter(
-                              (player) => player?.fw?.pPos === "F"
-                            ).map((player) => ({
-                              name: player?.fw?.pName,
-                              number: player?.fw?.pNumber,
-                            })),
-                          },
-                        }}
-                      />
-                    </div>
-                  </div>
+                      </>
+                    );
+                  })}
+
+                  {Aplayers?.map((data) => {
+                    return (
+                      <>
+                        <div className="text-center flex items-center">
+                          <img
+                            src={data?.team?.logo}
+                            alt={data?.team?.name}
+                            className="inline-block mr-2 w-12"
+                          />
+                          <p
+                            className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            }`}
+                          >
+                            {data?.team?.name}
+                          </p>
+                        </div>
+                        <p
+                          className={`font-Syne text-[15px] leading-[20px] font-bold ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          }`}
+                        >
+                          {data?.formation}
+                        </p>
+                      </>
+                    );
+                  })}
                 </div>
-              </TabPanel>
-              <TabPanel>2</TabPanel>
+                <div className="my-4 flex justify-center items-center">
+                  <SoccerLineUp
+                    size="responsive"
+                    color="green"
+                    pattern="squares"
+                    homeTeam={{
+                      squad: {
+                        gk: HTeam?.filter(
+                          (player) => player?.Gk?.pPos === "G"
+                        ).map((player) => ({
+                          name: player?.Gk?.pName,
+                          number: player?.Gk?.pNumber,
+                        })),
+                        df: HTeam?.filter(
+                          (player) => player?.def?.pPos === "D"
+                        ).map((player) => ({
+                          name: player?.def?.pName,
+                          number: player?.def?.pNumber,
+                        })),
+                        cm: HTeam?.filter(
+                          (player) => player?.cm?.pPos === "M"
+                        ).map((player) => ({
+                          name: player?.cm?.pName,
+                          number: player?.cm?.pNumber,
+                        })),
+                        fw: HTeam?.filter(
+                          (player) => player?.fw?.pPos === "F"
+                        ).map((player) => ({
+                          name: player?.fw?.pName,
+                          number: player?.fw?.pNumber,
+                        })),
+                      },
+                    }}
+                    awayTeam={{
+                      squad: {
+                        gk: ATeam?.filter(
+                          (player) => player?.gk?.pPos === "G"
+                        ).map((player) => ({
+                          name: player?.gk?.pName,
+                          number: player?.gk?.pNumber,
+                        })),
+                        df: ATeam?.filter(
+                          (player) => player?.def?.pPos === "D"
+                        ).map((player) => ({
+                          name: player?.def?.pName,
+                          number: player?.def?.pNumber,
+                        })),
+                        cm: ATeam?.filter(
+                          (player) => player?.cm?.pPos === "M"
+                        ).map((player) => ({
+                          name: player?.cm?.pName,
+                          number: player?.cm?.pNumber,
+                        })),
+                        fw: ATeam?.filter(
+                          (player) => player?.fw?.pPos === "F"
+                        ).map((player) => ({
+                          name: player?.fw?.pName,
+                          number: player?.fw?.pNumber,
+                        })),
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </TabPanel>
+          {/* <TabPanel>2</TabPanel>
               <TabPanel>3</TabPanel>
               <TabPanel>4</TabPanel>
               <TabPanel>5</TabPanel>
-              <TabPanel>6</TabPanel>
-            </Tabs>
-          </div>
-        );
-      })}
+              <TabPanel>6</TabPanel> */}
+        </Tabs>
+      </div>
     </div>
   );
 };
-export default PredictionTeamFormation;
+export default TeamFormation;

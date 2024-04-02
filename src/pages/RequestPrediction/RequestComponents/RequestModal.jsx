@@ -1,7 +1,6 @@
 import { Modal, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -23,7 +22,9 @@ export const RequestModal = ({
   homeId,
   awayId,
   fixturesId,
+  timeStamp
 }) => {
+
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
   console.log("las",lastResult);
@@ -36,8 +37,6 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
-  const [matchDateList] = useDateList();
-  const [matchTimeList] = useTimeList();
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [modalData, setModalData] = useState(null);
@@ -65,10 +64,7 @@ export const RequestModal = ({
     });
   }, [dispatch, fixturesId,homeId,awayId]);
 
-  useEffect(() => {
-    setDate(matchDateList);
-    setTime(matchTimeList);
-  }, [fixtures]);
+
 
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
@@ -117,6 +113,26 @@ export const RequestModal = ({
     setSelectedOption(e);
   };
 
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return date.toLocaleTimeString("en-US", options);
+  };
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const options = {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    return date.toLocaleDateString("en-US", options);
+  };
+
   return (
     <div>
       {openViewDetailsModal && (
@@ -158,10 +174,10 @@ export const RequestModal = ({
                         Kick Off
                       </p>
                       <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
-                        {date?.label}
+                        {formatDate(timeStamp)}
                       </h3>
                       <h3 className="text-black text-[18px] leading-[24px] font-medium">
-                        {time?.label}
+                      {formatTime(timeStamp)}
                       </h3>
                     </div>
                   </div>
