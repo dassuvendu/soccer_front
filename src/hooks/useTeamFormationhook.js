@@ -69,13 +69,13 @@ export const useATeamFormationhook = () => {
     Aplayers?.forEach((item) => {
       item?.startXI.forEach((data)=>{
         if (data?.player?.pos === 'G') {
-          const gk = {
+          const Gk = {
                pName: data?.player?.name,
                pNumber:data?.player?.number,
                pPos: data?.player?.pos
            }
            ATeam.push({
-             gk: gk,
+            Gk: Gk,
            });
        }
                 if (data?.player?.pos === 'D') {

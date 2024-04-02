@@ -96,22 +96,10 @@ export const PredictionRequestModal = ({
 
   const handleModal = () => {
     onClose();
-    setModalData(null);
-    setHomeDataImg(null);
-    setAwayDataImg(null);
-    setHomeName(null);
-    setAwayName(null);
-  };
-
-  const [selectedOption, setSelectedOption] = useState();
-  console.log(selectedOption);
-  const handelOption = (e) => {
-    console.log(e.target.value);
-    setSelectedOption(e);
   };
 
   const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const date = new Date(timestamp * 1000); 
     const options = {
       hour: "numeric",
       minute: "numeric",
@@ -121,7 +109,7 @@ export const PredictionRequestModal = ({
   };
 
   const formatDate = (timestamp) => {
-    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const date = new Date(timestamp * 1000); 
     const options = {
       day: "2-digit",
       month: "short",
