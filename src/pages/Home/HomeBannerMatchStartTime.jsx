@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { dcUnitedIcon, fcDallaIcon } from "../../assets/images/images";
 
 const HomeBannerMatchStartTime = () => {
+
+  // const calculateTimeLeft = () => {
+  //   const difference = +new Date(matchStartTime) - +new Date();
+  //   let timeLeft = {};
+
+  //   if (difference > 0) {
+  //     timeLeft = {
+  //       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+  //       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+  //       minutes: Math.floor((difference / 1000 / 60) % 60),
+  //       seconds: Math.floor((difference / 1000) % 60),
+  //     };
+  //   }
+
+  //   return timeLeft;
+  // };
+
+  // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setTimeLeft(calculateTimeLeft());
+  //   }, 1000);
+
+  //   return () => clearTimeout(timer);
+  // });
+
+  // const formatTime = (time) => {
+  //   return time < 10 ? `0${time}` : time;
+  // };
+
   return (
     <div className="mt-20 mb-[20px] relative z-10 md:px-4 lg:px-0">
       <div className="max-full mx-auto">
@@ -22,10 +53,10 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    8
+                  4
                   </span>
                   <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    8
+                3
                   </span>
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Days</p>
@@ -34,10 +65,10 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    1
+                 0
                   </span>
                   <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    8
+                2
                   </span>
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Hours</p>
@@ -46,10 +77,10 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    5
+                  4
                   </span>
                   <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    9
+                  2
                   </span>
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Minutes</p>
@@ -58,10 +89,10 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas font-medium tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
-                    4
+                  2
                   </span>
                   <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                    7
+                  7
                   </span>
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Seconds</p>

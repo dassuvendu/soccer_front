@@ -55,6 +55,7 @@ export const PredictionStats = ({isfixturesId}) => {
   const handleClick = () =>{
    dispatch(getUnlockCheck({fixture: isfixturesId })).then((res)=>{
     setIsUnlock(res.payload.status);
+    setCheck(true)
    })
       
 }
@@ -87,7 +88,7 @@ export const PredictionStats = ({isfixturesId}) => {
      </p>
 }
 
-{ check &&
+{ check && 
       <div >
 
       {lastResult?.data?.map((res) => (

@@ -4,7 +4,6 @@ import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { RequestModal } from "./RequestModal";
-import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -22,16 +21,16 @@ const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
-  const [date, setDate] = useState(null);
-  const [time, setTime] = useState(null);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
+  const [timeStamp, setTimeStamp] = useState(null)
   const [fixturesId, setFixturesId] = useState(null)
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);
     setHomeId(id.split(":")[1]);
     setAwayId(id.split(":")[2]);
+    setTimeStamp(id.split(":")[3])
     const fixtureId = id.split(":")[0];
     setFixturesId(fixtureId)
     setOpenViewDetailsModal(true);
@@ -71,15 +70,6 @@ const RequestPredictionList = ({ errorMessage }) => {
     });
   }, [dispatch]);
 
-  const [matchDateList] = useDateList({ date: changeDateformate });
-
-  const [matchTimeList] = useTimeList({ date: changeDateformate });
-
-  useEffect(() => {
-    setDate(matchDateList);
-    setTime(matchTimeList);
-  }, [fixtures]);
-
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
   const itemsPerPage = 9;
   const [searchPage, setSearchPage] = useState(null);
@@ -115,6 +105,30 @@ const RequestPredictionList = ({ errorMessage }) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
+  };
+
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+     // Convert Unix timestamp to milliseconds
+    const options = {
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    
+    return date.toLocaleDateString("en-US", options);
+    
+  };
+ 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const options = {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    return date.toLocaleDateString("en-US", options);
   };
 
   return (
@@ -154,10 +168,10 @@ const RequestPredictionList = ({ errorMessage }) => {
                         </div>
                         <div className="text-right">
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            {date?.label}
+                            {formatDate(dat?.fixture?.timestamp)}
                           </p>
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            {time?.label}
+                          {formatTime(dat?.fixture?.timestamp)}
                           </p>
                         </div>
                       </div>
@@ -246,7 +260,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                             className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
                             onClick={() =>
                               viewDetailsModalHandler(
-                                `${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`
+                                `${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}:${dat?.fixture?.timestamp}`
                               )
                             }
                           >
@@ -400,6 +414,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       {/* modal section start here */}
       <RequestModal
         openViewDetailsModal={openViewDetailsModal}
+        timeStamp={timeStamp}
         fixturesId={fixturesId}
         onClose={handleModalClose}
         homeId={homeId}

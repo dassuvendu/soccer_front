@@ -69,7 +69,7 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
     <div>
       
       {isLoading === true && check === false && (
-        <p className="text-red-600 flex justify-center  mb-10">Checking..</p>
+        <p className="text-red-600 flex justify-center  mb-10">Please Wait...</p>
       )}
 
       {check && (

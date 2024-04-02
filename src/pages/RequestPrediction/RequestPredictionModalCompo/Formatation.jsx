@@ -53,14 +53,14 @@ console.log("home",homeTeamFormatation);
     return(
 <div className="max-w-5xl mx-auto">
       <Tabs className="team_comparisions_tab_section">
-        <TabList className="tab_bar mt-6">
+        {/* <TabList className="tab_bar mt-6">
           <Tab>4-3-3</Tab>
           <Tab>5-3-2</Tab>
           <Tab>4-2-3-1</Tab>
           <Tab>4-4-2</Tab>
           <Tab>3-3-3-1</Tab>
           <Tab>3-2-4-1</Tab>
-        </TabList>
+        </TabList> */}
         <TabPanel>
           <div className="py-4">
             <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">

@@ -54,7 +54,7 @@ export const MyPredictionStats = ({isfixturesId}) => {
      <div>
 {isLoading === true && 
   <p className='text-red-600 flex justify-center  mb-10'>
-       Checking..
+       Please Wait...
      </p>
 }
 { check &&

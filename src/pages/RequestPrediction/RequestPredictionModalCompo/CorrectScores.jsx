@@ -34,12 +34,14 @@ export const CorrectScores = ({ isfixturesId }) => {
       console.log(res);
       setCheck(res?.payload?.status);
       setMessage(res.payload.message);
+     
     });
   }, [dispatch, isfixturesId]);
 
   const handleClick = () => {
     dispatch(getUnlockCheck({ fixture: isfixturesId })).then((res) => {
       setIsUnlock(res.payload.status);
+      setCheck(true)
     });
   };
   const winnerTeamId = predict?.winner?.id;
@@ -51,18 +53,18 @@ export const CorrectScores = ({ isfixturesId }) => {
         setTeamLogo(teamResult?.home?.logo);
         setHLogohide(true);
         setALogohide(false);
-        setAverageGoals(teamResult?.home?.last_5?.goals?.for?.total);
+        setAverageGoals(teamResult?.home?.last_5?.goals?.for?.average);
       }
       if (teamResult?.away?.id === winnerTeamId) {
         setTeamLogo(teamResult?.away?.logo);
         setALogohide(true);
         setHLogohide(false);
-        setAverageGoals(teamResult?.home?.last_5?.goals?.for?.total);
+        setAverageGoals(teamResult?.away?.last_5?.goals?.for?.average);
       }
     }
   }, [teamResult, winnerTeamId, hLogohide, aLogohide]);
 
- 
+
  
 
   return (
@@ -111,7 +113,7 @@ export const CorrectScores = ({ isfixturesId }) => {
               <div className="grid grid-cols-3 gap-4 border-b border-gray-300 py-3">
                 <div className="text-center">
                   <h3 className="text-black text-base">
-                    {teamResult?.home?.last_5?.goals?.for?.total}
+                    {teamResult?.home?.last_5?.goals?.for?.average}
                   </h3>
                 </div>
 
@@ -123,7 +125,8 @@ export const CorrectScores = ({ isfixturesId }) => {
 
                 <div className="text-center">
                   <h3 className="text-black text-base">
-                    {teamResult?.away?.last_5?.goals?.for?.total}
+                  
+                    {teamResult?.away?.last_5?.goals?.for?.average}
                   </h3>
                 </div>
               </div>

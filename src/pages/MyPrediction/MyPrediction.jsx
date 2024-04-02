@@ -38,16 +38,17 @@ const MyPrediction = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [itemsPerPage] = useState(5);
+  const [timeStamp, setTimeStamp] = useState(null);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const dispatch = useDispatch();
   const nevigate = useNavigate();
-
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
   useEffect(() => {
     if (token) {
       fetchData(currentPage);
       console.log("total data: ", fetchedPredictions?.total_data);
+      setTotalPages(fetchedPredictions?.total_data);
     }
   }, [currentPage]);
   const fetchData = (page) => {
@@ -58,14 +59,20 @@ const MyPrediction = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  const viewDetailsModalHandler = (id, hid, aid) => {
+  const pageNumbers = Array.from(
+    { length: totalPages },
+    (_, index) => index + 1
+  );
+  const viewDetailsModalHandler = (id, hid, aid, timeId) => {
     setFixturesId(id);
     setHomeId(hid);
     setAwayId(aid);
+    setTimeStamp(timeId);
     setOpenDetailsModal(true);
     console.log("fixture id: ", id);
     console.log("home id: ", hid);
     console.log("away id: ", aid);
+    console.log("time id: ", timeId);
   };
   const handleModalClose = () => {
     setOpenDetailsModal(false);
@@ -325,7 +332,8 @@ const MyPrediction = () => {
                                       viewDetailsModalHandler(
                                         predict?.fixture?.id,
                                         predict?.teams?.home?.id,
-                                        predict?.teams?.away?.id
+                                        predict?.teams?.away?.id,
+                                        predict?.fixture?.timestamp
                                       )
                                     }
                                   />
@@ -2804,7 +2812,7 @@ const MyPrediction = () => {
                 themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
               } text-xs`}
             >
-              Showing {(currentPage - 1) * itemsPerPage || 0} to{" "}
+              Showing {(currentPage - 1) * itemsPerPage + 1 || 0} to{" "}
               {currentPage * itemsPerPage || 0} of{" "}
               {fetchedPredictions?.total_data || 0} entries
             </p>
@@ -2829,13 +2837,13 @@ const MyPrediction = () => {
                       <BsChevronLeft />
                     </Link>
                   </li>
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <li key={i}>
+                  {pageNumbers.slice(0, 5).map((pageNumber) => (
+                    <li key={pageNumber}>
                       <Link
-                        onClick={() => handlePageChange(i + 1)}
+                        onClick={() => handlePageChange(pageNumber + 1)}
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       >
-                        {i + 1}
+                        {pageNumber}
                       </Link>
                     </li>
                   ))}
@@ -2904,6 +2912,7 @@ const MyPrediction = () => {
         openDetailsModal={openDetailsModal}
         onClose={handleModalClose}
         fixturesId={fixturesId}
+        timeStamp={timeStamp}
         homeId={homeId}
         awayId={awayId}
       />

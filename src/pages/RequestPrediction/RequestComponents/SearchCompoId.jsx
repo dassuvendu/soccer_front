@@ -59,7 +59,7 @@ export const SearchCompoId = ({ onError , rid }) => {
         }
       }
     }
-  }, [allLeague]);
+  }, [allLeague,rid]);
 
  
 
@@ -177,7 +177,7 @@ export const SearchCompoId = ({ onError , rid }) => {
               </select>
             ) : (
               <select disabled={!isSeason} onChange={handleSearch}>
-                <option value="">2023</option>
+                <option value="">Select</option>
                 {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}

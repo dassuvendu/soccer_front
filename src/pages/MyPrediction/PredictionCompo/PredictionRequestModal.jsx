@@ -23,19 +23,18 @@ export const PredictionRequestModal = ({
   homeId,
   awayId,
   fixturesId,
+  timeStamp
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
-  const { fixtures } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
+  const { Aplayers } = useSelector((state) => state.formation);
   const [homeData, setHomeData] = useState();
   const [awayData, setAwayData] = useState();
   const [homeDataImg, setHomeDataImg] = useState();
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
-  const [date, setDate] = useState(null);
-  const [time, setTime] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null);
@@ -50,28 +49,19 @@ export const PredictionRequestModal = ({
       if (res?.payload?.status === true) {
         setModalLoader(false);
         setModalData(res?.payload?.data);
-        dispatch(getHFormation({ fixture: fixturesId, team: homeId }));
-        dispatch(getHPlayers({ fixture: fixturesId, team: homeId }));
-        dispatch(getAFormation({ fixture: fixturesId, team: awayId }));
-        dispatch(getAPlayers({ fixture: fixturesId, team: awayId }));
-       
+        Promise.all[
+          dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
+          dispatch(getHPlayers({ fixture: fixturesId, team: homeId })),
+          dispatch(getAFormation({ fixture: fixturesId, team: awayId })),
+          dispatch(getAPlayers({ fixture: fixturesId, team: awayId }))
+        ]
+        
       } else {
         setModalLoader(true);
       }
     });
   }, [dispatch, fixturesId,homeId,awayId]);
 
-  const newdate = new Date();
-  const changeDateformate = newdate.toISOString().split("T")[0];
-
-  const [matchDateList] = useDateList({ date: changeDateformate });
-
-  const [matchTimeList] = useTimeList({ date: changeDateformate });
-
-  useEffect(() => {
-    setDate(matchDateList);
-    setTime(matchTimeList);
-  }, [fixtures]);
 
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
@@ -120,6 +110,26 @@ export const PredictionRequestModal = ({
     setSelectedOption(e);
   };
 
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return date.toLocaleTimeString("en-US", options);
+  };
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const options = {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    return date.toLocaleDateString("en-US", options);
+  };
+
   return (
     <div>
       {openDetailsModal && (
@@ -161,10 +171,10 @@ export const PredictionRequestModal = ({
                         Kick Off
                       </p>
                       <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
-                        {date?.label}
+                      {formatDate(timeStamp)}
                       </h3>
                       <h3 className="text-black text-[18px] leading-[24px] font-medium">
-                        {time?.label}
+                        {formatTime(timeStamp)}
                       </h3>
                     </div>
                   </div>
@@ -344,7 +354,7 @@ export const PredictionRequestModal = ({
                         </TabPanel>
                         
                         <TabPanel>
-                        <PredictionTeamFormation Hplayers={Hplayers}/>
+                        <PredictionTeamFormation Hplayers={Hplayers} Aplayers={Aplayers}/>
                         </TabPanel>
                         <TabPanel>
                           <MyPredictionStats isfixturesId={isfixturesId} />
