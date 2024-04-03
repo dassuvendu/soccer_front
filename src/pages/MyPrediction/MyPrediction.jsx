@@ -16,7 +16,7 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import { TextInput, Table, Spinner } from "flowbite-react";
+import { TextInput, Table, Spinner, Button } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
