@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../store/api';
+import errorHandler from '../store/errorHandler';
 
 export const editProfile = createAsyncThunk(
     'user/edit-profile',
@@ -24,7 +25,24 @@ export const editProfile = createAsyncThunk(
     }
 );
 
-
+export const UpdateProfile = createAsyncThunk(
+    'user/UpdateProfile',
+    async (userInput, { rejectWithValue }) => {
+      try {
+        const response = await api.post('/user/UpdateProfile',userInput);
+        if (response.status === 200) {
+          return response.data;
+          
+        } else {
+          let errors = errorHandler(response);
+          return rejectWithValue(errors);
+        }
+      } catch (err) {
+        let errors = errorHandler(err);
+        return rejectWithValue(errors);
+      }
+    }
+  );
 
 const initialState = {
     message: null,
@@ -59,6 +77,24 @@ const ProfileSlice = createSlice({
                 };
             })
             .addCase(editProfile.rejected, (state, response) => {
+                state.loading = false;
+                state.error = true;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
+                        : 'Something went wrong. Try again later.';
+            }) .addCase(UpdateProfile.pending, (state) => {
+                state.loading = true;
+                state.message = null;
+            })
+            .addCase(UpdateProfile.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                const subscriptionDetails = payload[0].user_subscriptions[0];
+                state.userPlan = {
+                    details: subscriptionDetails,
+                };
+            })
+            .addCase(UpdateProfile.rejected, (state, response) => {
                 state.loading = false;
                 state.error = true;
                 state.message =
