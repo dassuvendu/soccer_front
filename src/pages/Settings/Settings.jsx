@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   requestPredictionBanner,
@@ -12,8 +12,15 @@ import { Button, FileInput, TextInput } from "flowbite-react";
 import { FaRegCopy } from "react-icons/fa6";
 import { AiFillEdit } from "react-icons/ai";
 import { MdVerifiedUser } from "react-icons/md";
+import { editProfile } from "../../reducers/profileSlice";
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
+  const { profile } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(editProfile());
+  }, [dispatch]);
+  console.log("user Profile: ", profile?.details);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-screen py-4 mb-16">
@@ -99,15 +106,18 @@ const Settings = () => {
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[19px] leading-[20px] text-medium`}
                 >
-                  Eureka Seken
+                  {profile?.details?.first_name}
                 </p>
-                <p className="text-[#898989] text-[14px]">eureka88@email.com</p>
+                <p className="text-[#898989] text-[14px]">
+                  {" "}
+                  {profile?.details?.username}
+                </p>
                 <p
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium`}
                 >
-                  Licence : #45678
+                  Licence :
                 </p>
               </div>
             </div>

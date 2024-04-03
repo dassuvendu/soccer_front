@@ -13,12 +13,19 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import { Datepicker, TextInput, Dropdown, Spinner } from "flowbite-react";
+import {
+  Datepicker,
+  TextInput,
+  Dropdown,
+  Spinner,
+  Modal,
+} from "flowbite-react";
 import { CiUnlock } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { getOddsSlips } from "../../reducers/CookedSlipSlice";
 import { useDateTimeSlip } from "../../hooks/useDateTimeSlip";
 import { useDateTimeSlipEnd } from "../../hooks/useDateTimeSlipEnd";
+import ViewSlipDetails from "./ViewSlipDetails";
 const CookedSlips = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { oddsData, isLoading } = useSelector((state) => state.cookedSlips);
@@ -26,6 +33,7 @@ const CookedSlips = () => {
   const [time, setTime] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
   const [timeEnd, setTimeEnd] = useState(null);
+  const [slipModal, setOpenSlipModal] = useState(false);
   const dispatch = useDispatch();
   const dates = new Date();
   const timeZoneOffset = dates.getTimezoneOffset();
@@ -38,7 +46,9 @@ const CookedSlips = () => {
   console.log("timelist", timeList);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState(false);
-
+  const slipModalHandler = () => {
+    setOpenSlipModal(true);
+  };
   useEffect(() => {
     setDate(dateList);
     setTime(timeList);
@@ -331,7 +341,10 @@ const CookedSlips = () => {
                           </div>
                         </div>
                         <div className="flex justify-between items-center mb-0">
-                          <button className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full">
+                          <button
+                            className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
+                            onClick={slipModalHandler}
+                          >
                             <CiUnlock className="text-base mr-0.5" />
                             Unlock Slip
                           </button>
@@ -1127,6 +1140,21 @@ const CookedSlips = () => {
             </div>
           </div>
         </div> */}
+        {slipModal && (
+          <Modal
+            show={slipModal}
+            size="7xl"
+            onClose={() => setOpenSlipModal(false)}
+            popup
+          >
+            <Modal.Header className="absolute right-0 top-0" />
+            <Modal.Body>
+              <div className="pt-6">
+                <ViewSlipDetails />
+              </div>
+            </Modal.Body>
+          </Modal>
+        )}
         {!error && (
           <div className="md:flex justify-between mt-8">
             <div className="mb-2 md:mb-0 text-center">
