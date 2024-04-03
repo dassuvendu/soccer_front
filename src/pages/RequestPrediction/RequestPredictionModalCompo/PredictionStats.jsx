@@ -108,7 +108,7 @@ export const PredictionStats = ({isfixturesId}) => {
               Advice
             </h4>
             <p className="text-base text-[#08a1f8] font-medium">
-              {res?.predictions?.advice}
+              {res?.predictions?.advice?.toString()?.split('-')}
             </p>
           </div>
           <div className="text-center pt-10">
@@ -116,7 +116,7 @@ export const PredictionStats = ({isfixturesId}) => {
               Over/Under
             </h4>
             <p className="text-base text-[#08a1f8] font-medium">
-              {res?.predictions?.under_over}
+              {res?.predictions?.under_over?.toString()?.split('-')}
             </p>
           </div>
         </div>

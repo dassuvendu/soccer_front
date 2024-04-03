@@ -24,16 +24,16 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError,season }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
-  const [date, setDate] = useState(null);
-  const [time, setTime] = useState(null);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
+  const [timeStamp, setTimeStamp] = useState(null)
   const [fixturesId, setFixturesId] = useState(null)
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);
     setHomeId(id.split(":")[1]);
     setAwayId(id.split(":")[2]);
+    setTimeStamp(id.split(":")[3])
     const fixtureId = id.split(":")[0];
     setFixturesId(fixtureId)
     setOpenViewDetailsModal(true);
@@ -42,19 +42,6 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError,season }) => {
   const handleModalClose = () => {
     setOpenViewDetailsModal(false);
   };
-
-  //date formate
-  const newdate = new Date();
-  const changeDateformate = newdate.toISOString().split("T")[0];
-
-  const [matchDateList] = useDateList({date : ndate});
-
-  const [matchTimeList] = useTimeList({date : ndate});
-
-  useEffect(() => {
-    setDate(matchDateList);
-    setTime(matchTimeList);
-  }, [fixtures]);
 
   const [loadingData, setLoadingData] = useState(true);
   const [hide, setHide] = useState(false);
@@ -101,9 +88,32 @@ const prevYear = yesterdayFormatted.toString().split('-')[0]
         }
       });
     }
-      
-   
   }, [dispatch,rid,prevYear]);
+
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+     // Convert Unix timestamp to milliseconds
+    const options = {
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    
+    return date.toLocaleDateString("en-US", options);
+    
+  };
+ 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const options = {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    return date.toLocaleDateString("en-US", options);
+  };
+
 
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
   const itemsPerPage = 9;
@@ -179,10 +189,10 @@ const prevYear = yesterdayFormatted.toString().split('-')[0]
                         </div>
                         <div className="text-right">
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            {date?.label}
+                          {formatDate(dat?.fixture?.timestamp)}
                           </p>
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            {time?.label}
+                          {formatTime(dat?.fixture?.timestamp)}
                           </p>
                         </div>
                       </div>
@@ -271,7 +281,7 @@ const prevYear = yesterdayFormatted.toString().split('-')[0]
                             className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
                             onClick={() =>
                               viewDetailsModalHandler(
-                                `${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}`
+                                `${dat?.fixture?.id}:${dat?.teams?.home?.id}:${dat?.teams?.away?.id}:${dat?.fixture?.timestamp}`
                               )
                             }
                           >
@@ -426,6 +436,7 @@ const prevYear = yesterdayFormatted.toString().split('-')[0]
       <RequestModal
         openViewDetailsModal={openViewDetailsModal}
         fixturesId={fixturesId}
+        timeStamp={timeStamp}
         onClose={handleModalClose}
         homeId={homeId}
         awayId={awayId}

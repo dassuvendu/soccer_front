@@ -50,7 +50,7 @@ const PlayerComparisions = () => {
   };
 
   const handleInputTeamChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(getTeam({ name: inputValue })).then(() => {
         setIsFirstTeamMenuOpen(true);
       });
@@ -67,7 +67,7 @@ const PlayerComparisions = () => {
   };
 
   const handleInputTeamSecondChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(getTeam({ name: inputValue })).then(() => {
         setIsSecondTeamMenuOpen(true);
       });
@@ -84,7 +84,7 @@ const PlayerComparisions = () => {
   };
 
   const handleInputChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(
         getPlayerName({ search: inputValue, team: firstteamselectedOption })
       ).then(() => {
@@ -102,7 +102,7 @@ const PlayerComparisions = () => {
   };
 
   const handleInputSecondChange = (inputValue) => {
-    if (inputValue.length > 3) {
+    if (inputValue.length >= 3) {
       dispatch(
         getPlayerName({ search: inputValue, team: secondselectedTeamOption })
       ).then(() => {
