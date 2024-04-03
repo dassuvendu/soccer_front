@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
+import { editProfile } from "../../../reducers/profileSlice";
 
 const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const dispatch = useDispatch();
@@ -30,7 +31,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(login(data));
+    dispatch(login(data)).then(() => {
+      dispatch(editProfile());
+    });
   };
 
   useEffect(() => {
@@ -50,7 +53,6 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   }, [message, error, isLoggedIn]);
 
   return (
-
     // <div className="my-0 lg:my-0 mx-4 lg:mx-0 flex justify-center items-center h-screen">
     //   <div className="w-full max-w-lg my-0 mx-auto">
     //     <div className="text-center mb-8">
@@ -166,7 +168,10 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                 <h3 className="mb-5 text-xl font-bold text-black">
                   Welcome to <span className="text-[#2aa9e1]">PlayCope</span>
                 </h3>
-                <form className="flex max-w-md flex-col gap-4 text-left" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  className="flex max-w-md flex-col gap-4 text-left"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <div>
                     {/* <TextInput
                       id="email1"
@@ -207,17 +212,14 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       <h6 className="text-danger">{errors.password.message}</h6>
                     )}
                   </div>
-                  <Button
-                    className="create_character_btn w-full"
-                    type="submit"
-                  >
+                  <Button className="create_character_btn w-full" type="submit">
                     Login
                   </Button>
                 </form>
                 <p className="py-4">OR</p>
                 <Link
                   className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-                // onClick={() => googleLogin()}
+                  // onClick={() => googleLogin()}
                 >
                   <FcGoogle className="text-3xl" />
                   Google
@@ -252,4 +254,3 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
 };
 
 export default Login;
-

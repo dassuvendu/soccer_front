@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -13,9 +13,14 @@ import { FaRegCopy } from "react-icons/fa6";
 import { AiFillEdit } from "react-icons/ai";
 import { MdVerifiedUser } from "react-icons/md";
 import { editProfile } from "../../reducers/profileSlice";
+import UpdateProfile from "./UpdateProfile";
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { profile } = useSelector((state) => state.profile);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const updateHandler = () => {
+    setOpenUpdateModal(true);
+  };
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(editProfile());
@@ -86,7 +91,7 @@ const Settings = () => {
               >
                 Overview
               </h3>
-              <button>
+              <button onClick={updateHandler}>
                 <AiFillEdit
                   className={`${
                     themeMode === "light"
@@ -98,7 +103,11 @@ const Settings = () => {
             </div>
             <div className="flex items-center border-b border-[#DCDCDC] pb-3 mb-6">
               <div className="mr-4">
-                <img src={userFace} alt="userFace" className="rounded-full" />
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={profile?.details?.avatar}
+                  alt={profile?.details?.first_name}
+                />
               </div>
               <div>
                 <p
@@ -135,7 +144,7 @@ const Settings = () => {
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-normal w-8/12`}
                 >
-                  +62 087867654670
+                  {profile?.details?.mobile}
                 </div>
               </div>
               <div className="flex mb-4">
@@ -194,7 +203,9 @@ const Settings = () => {
               >
                 Email Address
               </p>
-              <p className="text-[#898989] text-[14px]">eureka88@email.com</p>
+              <p className="text-[#898989] text-[14px]">
+                {profile?.details?.email}
+              </p>
             </div>
             <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
               <div className="w-9/12">
@@ -233,6 +244,10 @@ const Settings = () => {
           </div>
         </div>
         {/* Setting edit section ends here */}
+        <UpdateProfile
+          openUpdateModal={openUpdateModal}
+          setOpenUpdateModal={setOpenUpdateModal}
+        />
       </div>
     </div>
   );

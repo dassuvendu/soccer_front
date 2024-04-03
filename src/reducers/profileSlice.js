@@ -25,24 +25,24 @@ export const editProfile = createAsyncThunk(
     }
 );
 
-export const UpdateProfile = createAsyncThunk(
+export const Updateprofile = createAsyncThunk(
     'user/UpdateProfile',
     async (userInput, { rejectWithValue }) => {
-      try {
-        const response = await api.post('/user/UpdateProfile',userInput);
-        if (response.status === 200) {
-          return response.data;
-          
-        } else {
-          let errors = errorHandler(response);
-          return rejectWithValue(errors);
+        try {
+            const response = await api.post('/user/update-profile', userInput);
+            if (response.status === 200) {
+                return response.data;
+
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
         }
-      } catch (err) {
-        let errors = errorHandler(err);
-        return rejectWithValue(errors);
-      }
     }
-  );
+);
 
 const initialState = {
     message: null,
@@ -50,6 +50,7 @@ const initialState = {
     loading: false,
     profile: [],
     userPlan: [],
+    updatedProfile: []
 };
 
 const ProfileSlice = createSlice({
@@ -83,18 +84,19 @@ const ProfileSlice = createSlice({
                     response.payload !== undefined && response.payload.message
                         ? response.payload.message
                         : 'Something went wrong. Try again later.';
-            }) .addCase(UpdateProfile.pending, (state) => {
+            }).addCase(Updateprofile.pending, (state) => {
                 state.loading = true;
                 state.message = null;
             })
-            .addCase(UpdateProfile.fulfilled, (state, { payload }) => {
+            .addCase(Updateprofile.fulfilled, (state, { payload }) => {
                 state.loading = false;
-                const subscriptionDetails = payload[0].user_subscriptions[0];
-                state.userPlan = {
-                    details: subscriptionDetails,
-                };
+                // const subscriptionDetails = payload[0].user_subscriptions[0];
+                // state.userPlan = {
+                //     details: subscriptionDetails,
+                // };
+                state.updatedProfile = payload;
             })
-            .addCase(UpdateProfile.rejected, (state, response) => {
+            .addCase(Updateprofile.rejected, (state, response) => {
                 state.loading = false;
                 state.error = true;
                 state.message =
