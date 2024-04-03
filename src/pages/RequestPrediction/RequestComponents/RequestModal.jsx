@@ -27,8 +27,6 @@ export const RequestModal = ({
 
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
-  console.log("las",lastResult);
-  const { fixtures } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
   const { Aplayers } = useSelector((state) => state.formation);
   const [homeData, setHomeData] = useState();
@@ -37,11 +35,10 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
-  const [date, setDate] = useState(null);
-  const [time, setTime] = useState(null);
-  const [modalData, setModalData] = useState(null);
+  const [modalData,setModalData]= useState()
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,19 +46,22 @@ export const RequestModal = ({
   }, [dispatch, fixturesId]);
 
   useEffect(() => {
+    if (fixturesId) {
     dispatch(LastResult({ fixture: fixturesId })).then((res) => {
       if (res?.payload?.status === true) {
         setModalLoader(false);
-        setModalData(res?.payload?.data);
-        dispatch(getHFormation({ fixture: fixturesId, team: homeId }));
-        dispatch(getHPlayers({ fixture: fixturesId, team: homeId }));
-        dispatch(getAFormation({ fixture: fixturesId, team: awayId }));
-        dispatch(getAPlayers({ fixture: fixturesId, team: awayId }));
-       
+        setModalData(res?.payload?.data)
+        Promise.all[
+          dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
+          dispatch(getHPlayers({ fixture: fixturesId, team: homeId })),
+          dispatch(getAFormation({ fixture: fixturesId, team: awayId })),
+          dispatch(getAPlayers({ fixture: fixturesId, team: awayId }))
+        ]
       } else {
         setModalLoader(true);
       }
     });
+  }
   }, [dispatch, fixturesId,homeId,awayId]);
 
 
@@ -99,22 +99,20 @@ export const RequestModal = ({
 
   const handleModal = () => {
     onClose();
+    clearModalData();
+  };
+  const clearModalData = () => {
     setModalData(null);
     setHomeDataImg(null);
-    setAwayDataImg(null);
-    setHomeName(null);
-    setAwayName(null);
-  };
-
-  const [selectedOption, setSelectedOption] = useState();
-  console.log(selectedOption);
-  const handelOption = (e) => {
-    console.log(e.target.value);
-    setSelectedOption(e);
-  };
+      setHomeName(null);
+      setAwayDataImg(null);
+      setAwayName(null);
+    formatTime(null)
+    formatDate(null)
+};
 
   const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const date = new Date(timestamp * 1000); 
     const options = {
       hour: "numeric",
       minute: "numeric",
@@ -124,7 +122,7 @@ export const RequestModal = ({
   };
 
   const formatDate = (timestamp) => {
-    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    const date = new Date(timestamp * 1000); 
     const options = {
       day: "2-digit",
       month: "short",

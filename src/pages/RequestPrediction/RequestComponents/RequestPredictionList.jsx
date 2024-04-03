@@ -38,6 +38,10 @@ const RequestPredictionList = ({ errorMessage }) => {
 
   const handleModalClose = () => {
     setOpenViewDetailsModal(false);
+    setHomeId(null);
+    setAwayId(null);
+    setTimeStamp(null)
+    setFixturesId(null)
   };
 
   //date formate

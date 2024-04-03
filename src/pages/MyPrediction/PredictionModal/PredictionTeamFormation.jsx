@@ -12,23 +12,36 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const HTeam = useHTeamFormationhook();
   const ATeam = useATeamFormationhook();
-  const [gkName, setGkName] = useState()
-  console.log("gk",gkName);
-  const [gkNUm, setGkNum] = useState()
-  console.log("gk",gkNUm);
+  const [hgkName, setHGkName] = useState('');
+  const [hgkNum, setHGkNum] = useState('');
+  const [agkName, setAGkName] = useState('');
+  const [agkNum, setAGkNum] = useState('');
 
   useEffect(() => {
-    if (HTeam) {
-      HTeam?.filter(
-        (player) => player?.Gk?.pPos === "G"
-      ).map((player) => {
-        return(
-          setGkName(player?.gk?.pName),
-          setGkNum(player?.gk?.pNumber)
-        )
-      })
+    if (Array.isArray(HTeam)) {
+      const goalkeeper = HTeam.find(player => player?.Gk?.pPos === "G");
+      if (goalkeeper) {
+        setHGkName(goalkeeper?.Gk?.pName);
+        setHGkNum(goalkeeper?.Gk?.pNumber);
+      } else {
+        setHGkName('');
+        setHGkNum('');
+      }
     }
-  },[HTeam])
+  }, [HTeam]);
+
+  useEffect(() => {
+    if (Array.isArray(ATeam)) {
+      const goalkeeper = ATeam.find(player => player?.Gk?.pPos === "G");
+      if (goalkeeper) {
+        setAGkName(goalkeeper?.Gk?.pName);
+        setAGkNum(goalkeeper?.Gk?.pNumber);
+      } else {
+        setAGkName('');
+        setAGkNum('');
+      }
+    }
+  }, [ATeam]);
   
  
   return (
@@ -126,12 +139,10 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                     pattern="squares"
                     homeTeam={{
                       squad: {
-                        gk: HTeam?.filter(
-                          (player) => player?.Gk?.pPos === "G"
-                        ).map((player) => ({
-                          name: player?.Gk?.pName,
-                          number: player?.Gk?.pNumber,
-                        })),
+                        gk: {
+                          name : hgkName,
+                          number : hgkNum
+                        },
                         df: HTeam?.filter(
                           (player) => player?.def?.pPos === "D"
                         ).map((player) => ({
@@ -154,12 +165,10 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                     }}
                     awayTeam={{
                       squad: {
-                        gk: ATeam?.filter(
-                          (player) => player?.gk?.pPos === "G"
-                        ).map((player) => ({
-                          name: player?.gk?.pName,
-                          number: player?.gk?.pNumber,
-                        })),
+                        gk: {
+                          name : agkName,
+                          number : agkNum
+                        },
                         df: ATeam?.filter(
                           (player) => player?.def?.pPos === "D"
                         ).map((player) => ({
