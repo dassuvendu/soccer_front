@@ -16,7 +16,7 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import { TextInput, Table } from "flowbite-react";
+import { TextInput, Table, Button } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -36,7 +36,7 @@ const MyPrediction = () => {
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState();
   const [itemsPerPage] = useState(5);
   const [timeStamp, setTimeStamp] = useState(null);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
@@ -2822,29 +2822,30 @@ const MyPrediction = () => {
               <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
                   <li>
-                    <Link
+                    <Button
                       onClick={() => handlePageChange(1)}
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                     >
                       <BsChevronDoubleLeft />
-                    </Link>
+                    </Button>
                   </li>
                   <li>
-                    <Link
+                    <Button
                       onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                     >
                       <BsChevronLeft />
-                    </Link>
+                    </Button>
                   </li>
                   {pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
-                      <Link
-                        onClick={() => handlePageChange(pageNumber + 1)}
+                      <Button
+                        onClick={() => handlePageChange(pageNumber)}
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       >
                         {pageNumber}
-                      </Link>
+                      </Button>
                     </li>
                   ))}
                   {/* <li>
@@ -2868,20 +2869,21 @@ const MyPrediction = () => {
                     </Link>
                   </li> */}
                   <li>
-                    <Link
+                    <Button
                       onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                     >
                       <BsChevronRight />
-                    </Link>
+                    </Button>
                   </li>
                   <li>
-                    <Link
+                    <Button
                       onClick={() => handlePageChange(totalPages)}
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                     >
                       <BsChevronDoubleRight />
-                    </Link>
+                    </Button>
                   </li>
                 </ul>
               </div>
