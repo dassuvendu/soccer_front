@@ -65,7 +65,8 @@ console.log("Pro: ",profile);
 
         <span className="hidden text-right lg:block">
           <span className={`block text-[14px] font-normal ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"}`}>
-            {profile?.details?.first_name.toString().split(" ")[0]}
+            {profile?.details?.first_name!==null?( profile?.details?.first_name.toString().split(" ")[0]):("")
+           }
           </span>
         </span>
 

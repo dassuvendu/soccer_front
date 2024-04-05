@@ -103,11 +103,11 @@ const Settings = () => {
             </div>
             <div className="flex items-center border-b border-[#DCDCDC] pb-3 mb-6">
               <div className="mr-4">
-                <img
+                {/* <img
                   className="w-10 h-10 rounded-full"
                   src={profile?.details?.avatar}
                   alt={profile?.details?.first_name}
-                />
+                /> */}
               </div>
               <div>
                 <p
@@ -153,14 +153,15 @@ const Settings = () => {
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-4/12`}
                 >
-                  Address
+                  {/* Address */}Gender
                 </div>
                 <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-normal w-8/12`}
                 >
-                  23 Main Street, Anytown, USA 12345
+                  {/* 23 Main Street, Anytown, USA 12345 */}
+                  {profile?.details?.gender}
                 </div>
               </div>
               <div className="flex mb-0">
@@ -169,14 +170,14 @@ const Settings = () => {
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-4/12`}
                 >
-                  Time Zone
+                  {/* Time Zone */}
                 </div>
                 <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-normal w-8/12`}
                 >
-                  Jakarta (GMT+7)
+                  {/* Jakarta (GMT+7) */}
                 </div>
               </div>
             </div>
