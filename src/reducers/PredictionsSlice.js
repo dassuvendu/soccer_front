@@ -173,7 +173,8 @@ const initialState = {
   predict:[],
   h2h:[],
   teamResult:[],
-  format:[]
+  format:[],
+  minute:[]
 };
 
 const PredictionsSlice = createSlice({
@@ -227,36 +228,7 @@ const PredictionsSlice = createSlice({
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';
       })
-      // .addCase(postpredictions.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      //   state.message = null;
-      // })
-      // .addCase(postpredictions.fulfilled, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = null;
-      //   state.prediction = payload; 
-      // })
-      // .addCase(postpredictions.rejected, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = true;
-      //   state.message = payload?.message || 'Something went wrong. Try again later.';
-      // })
-      // .addCase(pagination.pending, (state) => {
-      //   state.isLoading = true;
-      //   state.error = null;
-      //   state.message = null;
-      // })
-      // .addCase(pagination.fulfilled, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = null;
-      //   state.page = payload; 
-      // })
-      // .addCase(pagination.rejected, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = true;
-      //   state.message = payload?.message || 'Something went wrong. Try again later.';
-      // })
+      
       .addCase(LastHomeResult.pending, (state) => {
         state.isLoading = true;
         state.error = null;
