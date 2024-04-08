@@ -25,10 +25,22 @@ export const CorrectScores = ({ isfixturesId }) => {
   const [aLogohide, setALogohide] = useState(false);
 
   const [averageGoal, setAverageGoals] = useState(null);
+  const [averagePercentage, setAveragePercentage] = useState(null);
 
  const probabilities = useProbability({averageGoal})
 
+ useEffect(() => {
+  if (teamResult?.home?.league?.goals?.for) {
+    console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
 
+    const data = teamResult?.home?.league?.goals?.for?.minute;
+
+    const percentages = Object.values(data).map((item) => item.percentage);
+
+    console.log("per :", percentages);
+    setAveragePercentage(percentages);
+  }
+}, [teamResult]);
 
   useEffect(() => {
     dispatch(getCheck({ fixture: isfixturesId })).then((res) => {
@@ -161,7 +173,7 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
                       <div className="bg-[#2aa9e1] py-2 rounded-full mb-4">
                     
                         <h3 className="text-black text-base">
-                        {probabilities && probabilities[index]?.probability}
+                        {averagePercentage[index] !== null ? (averagePercentage[index]):('N/A')}
                           </h3>
                   
                       </div>
