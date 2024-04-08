@@ -6,6 +6,8 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Updateprofile, editProfile } from "../../reducers/profileSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UpdateProfile = ({ openUpdateModal, setOpenUpdateModal }) => {
   const {
@@ -19,12 +21,24 @@ const UpdateProfile = ({ openUpdateModal, setOpenUpdateModal }) => {
   const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   function onSubmit(data) {
-    dispatch(Updateprofile(data)).then(() => {
+    dispatch(Updateprofile(data)).then((response) => {
+      console.log("resp: ", response?.payload?.status_code);
+      if (response?.payload?.status_code === 200) {
+        toast.success(response?.payload?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
       dispatch(editProfile());
     });
   }
   return (
     <>
+      <ToastContainer />
       {openUpdateModal && (
         <Modal
           show={openUpdateModal}
@@ -116,6 +130,27 @@ const UpdateProfile = ({ openUpdateModal, setOpenUpdateModal }) => {
                       {errors?.mobile?.message && (
                         <h6 className="text-danger">
                           {errors.mobile?.message}
+                        </h6>
+                      )}
+                    </div>
+                    <div>
+                      {/* <TextInput
+                                        id="password1"
+                                        type="password"
+                                        placeholder="Password"
+                                    /> */}
+                      <TextInput
+                        id="gender"
+                        type="tel"
+                        placeholder="Gender"
+                        defaultValue={profile?.details?.gender}
+                        {...register("gender", {
+                          required: "Gender Number is required",
+                        })}
+                      />
+                      {errors?.gender?.message && (
+                        <h6 className="text-danger">
+                          {errors.gender?.message}
                         </h6>
                       )}
                     </div>

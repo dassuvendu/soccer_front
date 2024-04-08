@@ -26,12 +26,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPredictions } from "../../reducers/MyPredictionSlice";
 import Login from "../Auth/Login/Login";
 import { PredictionRequestModal } from "./PredictionCompo/PredictionRequestModal";
+import { LastResult } from "../../reducers/PredictionsSlice";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fetchedPredictions, isLoading } = useSelector(
     (state) => state.myPredictions
   );
+  const { teamResult } = useSelector((state) => state.prediction);
+  console.log("team",teamResult);
   const [fixturesId, setFixturesId] = useState();
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
@@ -112,6 +115,24 @@ const MyPrediction = () => {
     setOpenDetailsModal(false);
   };
   console.log("prediction: ", fetchedPredictions?.data);
+
+  const [percentage, setPercentage] = useState();
+
+  useEffect(()=>{
+    dispatch(LastResult({fixture : 1174181}))
+  },[])
+  useEffect(() => {
+    if (teamResult?.home?.league?.goals?.for) {
+      console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
+
+      const data = teamResult?.home?.league?.goals?.for?.minute;
+
+      const percentages = Object.values(data).map((item) => item.percentage);
+
+      console.log("per :", percentages[0]);
+      setPercentage(percentages[1]);
+    }
+  }, [teamResult]);
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -359,7 +380,7 @@ const MyPrediction = () => {
                                 </Table.Cell>
                                 <Table.Cell className="w-[17%]">
                                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                    0-2
+                                  {percentage}
                                   </span>
                                 </Table.Cell>
                                 <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
