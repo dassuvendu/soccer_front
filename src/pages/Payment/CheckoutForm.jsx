@@ -21,7 +21,6 @@ const CheckoutForm = ({
   )}&subscription_id=${encodeURIComponent(
     subscription_id
   )}&plan_id=${plan_id}&user_id=${user_id}`;
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
