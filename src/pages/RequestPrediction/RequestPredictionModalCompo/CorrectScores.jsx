@@ -4,6 +4,7 @@ import Login from "../../Auth/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 import { useProbability } from "../../../hooks/useProbability";
+import { Spinner } from "flowbite-react";
 
 export const CorrectScores = ({ isfixturesId }) => {
   const { isLoading } = useSelector((state) => state.IsunLock);
@@ -69,27 +70,39 @@ export const CorrectScores = ({ isfixturesId }) => {
 
   return (
     <div>
-      {isUnlock === false && check === false && (
-        <>
-          <div className="flex justify-center mt-10">
-            <button
-              type="button"
-              class="text-white bg-blue-700 
-        hover:bg-blue-800 font-medium 
-        rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
-              onClick={handleClick}
-            >
-              Unlock Prediction
-            </button>
-          </div>
-          {/* <p className='text-red-600 flex justify-center'>
-       {message}
-     </p> */}
-        </>
-      )}
+      {isUnlock === false && check === false && isLoading === false ? (
+  <>
+    <div className="flex justify-center mt-10">
+      <button
+        type="button"
+        class="text-white bg-blue-700 
+hover:bg-blue-800 font-medium 
+rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
+        onClick={handleClick}
+      >
+        Unlock Prediction
+      </button>
+    </div>
+    {/* <p className='text-red-600 flex justify-center'>
+   {message}
+ </p> */}
+  </>
+) : (
+  null
+)}
+
 
       {isLoading === true && check === false && (
-        <p className="text-red-600 flex justify-center  mb-10">Checking..</p>
+        <>
+         <div className="flex justify-center text-center mt-6">
+        <Spinner color="success" aria-label="Center-aligned" size="md" />
+        <span>
+        <p className="text-red-600 flex justify-center mb-10 pl-2"> Checking..</p>
+        </span>
+      </div>
+        
+        </>
+       
       )}
 
       {check && (

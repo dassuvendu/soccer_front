@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCheck, getUnlockCheck } from '../../../reducers/CheckUnlockSlice';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'flowbite-react';
 
 export const PredictionStats = ({isfixturesId}) => {
   const { lastResult } = useSelector((state) => state.prediction);
@@ -63,31 +64,39 @@ export const PredictionStats = ({isfixturesId}) => {
   return (
      <div>
     
-    {isUnlock === false && check === false &&
-    <>
+    {isUnlock === false && check === false && isLoading === false ? (
+  <>
     <div className="flex justify-center mt-10">
-        <button  
-        type="button" 
+      <button
+        type="button"
         class="text-white bg-blue-700 
-        hover:bg-blue-800 font-medium 
-        rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
+hover:bg-blue-800 font-medium 
+rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
         onClick={handleClick}
-        >
-          Unlock Prediction
-          </button>
-         
+      >
+        Unlock Prediction
+      </button>
+    </div>
+    {/* <p className='text-red-600 flex justify-center'>
+   {message}
+ </p> */}
+  </>
+) : (
+  null
+)}
+{isLoading === true && check === false && (
+        <>
+         <div className="flex justify-center text-center mt-6">
+        <Spinner color="success" aria-label="Center-aligned" size="md" />
+        <span>
+        <p className="text-red-600 flex justify-center mb-10 pl-2"> Checking..</p>
+        </span>
       </div>
-       {/* <p className='text-red-600 flex justify-center'>
-       {message}
-     </p> */}
-     </>
-}
-{isLoading === true && check === false &&
-  <p className='text-red-600 flex justify-center  mb-10'>
-       Checking..
-     </p>
-}
-
+        
+        </>
+       
+      )}
+ 
 { check && 
       <div >
 
