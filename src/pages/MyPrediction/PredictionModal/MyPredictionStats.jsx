@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCheck } from '../../../reducers/CheckUnlockSlice';
+import { Spinner } from 'flowbite-react';
 
 
 export const MyPredictionStats = ({isfixturesId}) => {
@@ -53,9 +54,15 @@ export const MyPredictionStats = ({isfixturesId}) => {
   return (
      <div>
 {isLoading === true && 
-  <p className='text-red-600 flex justify-center  mb-10'>
-       Please Wait...
-     </p>
+  <>
+  <div className="flex justify-center text-center mt-6">
+ <Spinner color="success" aria-label="Center-aligned" size="md" />
+ <span>
+ <p className="text-red-600 flex justify-center mb-10 pl-2">Loading...</p>
+ </span>
+</div>
+ 
+ </>
 }
 { check &&
       <div >

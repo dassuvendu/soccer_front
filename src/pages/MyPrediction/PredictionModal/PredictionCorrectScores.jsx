@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 import { useProbability } from "../../../hooks/useProbability";
 import { LastResult } from "../../../reducers/PredictionsSlice";
+import { Spinner } from "flowbite-react";
 
 export const PredictionCorrectScores = ({ isfixturesId }) => {
   const { isLoading } = useSelector((state) => state.IsunLock);
@@ -84,7 +85,15 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
     <div>
 
       {isLoading === true && check === false && (
-        <p className="text-red-600 flex justify-center  mb-10">Checking..</p>
+        <>
+        <div className="flex justify-center text-center mt-6">
+       <Spinner color="success" aria-label="Center-aligned" size="md" />
+       <span>
+       <p className="text-red-600 flex justify-center mb-10 pl-2">Loading...</p>
+       </span>
+     </div>
+       
+       </>
       )}
 
       {check && (
