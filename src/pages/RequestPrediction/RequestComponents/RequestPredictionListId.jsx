@@ -72,7 +72,7 @@ const prevYear = yesterdayFormatted.toString().split('-')[0]
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
-        } else {
+        } else{
           setLoadingData(true);
           setHide(false);
         }
@@ -82,7 +82,8 @@ const prevYear = yesterdayFormatted.toString().split('-')[0]
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
-        } else {
+        }
+        else {
           setLoadingData(true);
           setHide(false);
         }

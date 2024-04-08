@@ -28,6 +28,7 @@ import Login from "../Auth/Login/Login";
 import { PredictionRequestModal } from "./PredictionCompo/PredictionRequestModal";
 import { LastResult } from "../../reducers/PredictionsSlice";
 
+
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fetchedPredictions, isLoading } = useSelector(
@@ -134,6 +135,26 @@ const MyPrediction = () => {
     }
   }, [teamResult]);
 
+  // useEffect(() => {
+  //   const addedAt = new Date();
+  //   const sortedData = fetchedPredictions?.data?.map((item, index) => {
+
+  //     return index.sort((a, b) => b - a); // Sorting logic
+  //   });
+  //   console.log("Sorted Data:", sortedData);
+  // }, [fetchedPredictions]);
+  // const [sortedData, setSortedData] = useState([]);
+
+  // useEffect(() => {
+  //   if (fetchedPredictions && fetchedPredictions.data) {
+  //     const dataCopy = [...fetchedPredictions.data]; // Create a copy of the array
+  //     const sortedData = dataCopy.reverse(); // Reverse the copy
+  //     setSortedData(sortedData); // Set the sorted data in state
+  //   }
+  // }, [fetchedPredictions]);
+
+  // console.log("Sorted Data:", sortedData);
+  
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">

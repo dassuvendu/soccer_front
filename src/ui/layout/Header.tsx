@@ -62,7 +62,7 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                             <p className='text-[#727377] text-xs italic'>Update on 23 may 2023</p>
                         </div>
                         <div className='pl-6'>
-                            <h3 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[16px] leading-[42px]`}>Go To Website</h3>
+                            {/* <h3 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[16px] leading-[42px]`}>Go To Website</h3> */}
                         </div>
                     </div>
                     <div className='w-7/12 flex justify-end mt-1.5'>
