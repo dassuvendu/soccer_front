@@ -28,7 +28,7 @@ import { getStatistics } from "../../reducers/StatisticsSlice";
 
 const Statistics = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { statistics } = useSelector((state) => state.statistics);
+  const { statistics, isLoading } = useSelector((state) => state.statistics);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getStatistics());

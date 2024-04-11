@@ -23,7 +23,7 @@ export const PredictionRequestModal = ({
   homeId,
   awayId,
   fixturesId,
-  timeStamp
+  timeStamp,
 }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
@@ -50,18 +50,16 @@ export const PredictionRequestModal = ({
         setModalLoader(false);
         setModalData(res?.payload?.data);
         Promise.all[
-          dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
+          (dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
           dispatch(getHPlayers({ fixture: fixturesId, team: homeId })),
           dispatch(getAFormation({ fixture: fixturesId, team: awayId })),
-          dispatch(getAPlayers({ fixture: fixturesId, team: awayId }))
-        ]
-        
+          dispatch(getAPlayers({ fixture: fixturesId, team: awayId })))
+        ];
       } else {
         setModalLoader(true);
       }
     });
-  }, [dispatch, fixturesId,homeId,awayId]);
-
+  }, [dispatch, fixturesId, homeId, awayId]);
 
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
@@ -98,35 +96,30 @@ export const PredictionRequestModal = ({
     onClose();
   };
 
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000); 
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
-    return date.toLocaleTimeString("en-US", options);
-  };
+  // const formatTime = (timestamp) => {
+  //   const date = new Date(timestamp * 1000);
+  //   const options = {
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //     hour12: true,
+  //   };
+  //   return date.toLocaleTimeString("en-US", options);
+  // };
 
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp * 1000); 
-    const options = {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    };
-    return date.toLocaleDateString("en-US", options);
-  };
+  // const formatDate = (timestamp) => {
+  //   const date = new Date(timestamp * 1000);
+  //   const options = {
+  //     day: "2-digit",
+  //     month: "short",
+  //     year: "numeric",
+  //   };
+  //   return date.toLocaleDateString("en-US", options);
+  // };
 
   return (
     <div>
       {openDetailsModal && (
-        <Modal
-          show={openDetailsModal}
-          size="7xl"
-          onClose={handleModal}
-          popup
-        >
+        <Modal show={openDetailsModal} size="7xl" onClose={handleModal} popup>
           <Modal.Header className="absolute right-0 top-0" />
 
           <Modal.Body>
@@ -159,10 +152,10 @@ export const PredictionRequestModal = ({
                         Kick Off
                       </p>
                       <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
-                      {formatDate(timeStamp)}
+                        {timeStamp}
                       </h3>
                       <h3 className="text-black text-[18px] leading-[24px] font-medium">
-                        {formatTime(timeStamp)}
+                        {/* {formatTime(timeStamp)} */}
                       </h3>
                     </div>
                   </div>
@@ -340,16 +333,21 @@ export const PredictionRequestModal = ({
                             </div>
                           </div>
                         </TabPanel>
-                        
+
                         <TabPanel>
-                        <PredictionTeamFormation Hplayers={Hplayers} Aplayers={Aplayers}/>
+                          <PredictionTeamFormation
+                            Hplayers={Hplayers}
+                            Aplayers={Aplayers}
+                          />
                         </TabPanel>
                         <TabPanel>
                           <MyPredictionStats isfixturesId={isfixturesId} />
                         </TabPanel>
 
                         <TabPanel>
-                          <PredictionCorrectScores isfixturesId={isfixturesId} />
+                          <PredictionCorrectScores
+                            isfixturesId={isfixturesId}
+                          />
                         </TabPanel>
                       </>
                     ) : (

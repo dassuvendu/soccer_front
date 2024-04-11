@@ -28,7 +28,6 @@ import Login from "../Auth/Login/Login";
 import { PredictionRequestModal } from "./PredictionCompo/PredictionRequestModal";
 import { LastResult } from "../../reducers/PredictionsSlice";
 
-
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fetchedPredictions, isLoading } = useSelector(
@@ -154,7 +153,7 @@ const MyPrediction = () => {
   // }, [fetchedPredictions]);
 
   // console.log("Sorted Data:", sortedData);
-  
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -409,10 +408,10 @@ const MyPrediction = () => {
                                   <MdMoreHoriz
                                     onClick={() =>
                                       viewDetailsModalHandler(
-                                        predict?.fixture?.id,
+                                        predict?.fixture_id,
                                         predict?.teams?.home?.id,
                                         predict?.teams?.away?.id,
-                                        predict?.fixture?.timestamp
+                                        predict?.fixture_date
                                       )
                                     }
                                   />
