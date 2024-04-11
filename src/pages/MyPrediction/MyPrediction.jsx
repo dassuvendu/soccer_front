@@ -34,13 +34,13 @@ const MyPrediction = () => {
     (state) => state.myPredictions
   );
   const { teamResult } = useSelector((state) => state.prediction);
-  console.log("team",teamResult);
+  console.log("team", teamResult);
   const [fixturesId, setFixturesId] = useState();
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(10);
   const [timeStamp, setTimeStamp] = useState(null);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [searchPage, setSearchPage] = useState(null);
@@ -118,9 +118,9 @@ const MyPrediction = () => {
 
   const [percentage, setPercentage] = useState();
 
-  useEffect(()=>{
-    dispatch(LastResult({fixture : 1174181}))
-  },[])
+  useEffect(() => {
+    dispatch(LastResult({ fixture: 1174181 }));
+  }, []);
   useEffect(() => {
     if (teamResult?.home?.league?.goals?.for) {
       console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
@@ -309,13 +309,13 @@ const MyPrediction = () => {
                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                                   <div className="flex items-center">
                                     <div className="flex items-center">
-                                      <img
-                                        src={predict?.teams?.home?.logo}
-                                        alt={predict?.teams?.home?.name}
+                                      {/* <img
+                                        // src={predict?.teams?.home?.logo}
+                                        // alt={predict?.teams?.home?.name}
                                         className="mr-2"
                                         height={35}
                                         width={35}
-                                      />
+                                      /> */}
                                       <div>
                                         <p
                                           className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
@@ -324,16 +324,16 @@ const MyPrediction = () => {
                                               : "text-white"
                                           }`}
                                         >
-                                          {predict?.teams?.home?.name}
+                                          {predict?.fixture_vrs}
                                         </p>
                                         <span className="text-[#8EA2AB] text-[9px]">
-                                          {predict?.teams?.home?.name},{" "}
-                                          {predict?.league?.country}
+                                          {/* {predict?.teams?.home?.name},{" "}
+                                          {predict?.league?.country} */}
                                         </span>
                                       </div>
                                     </div>
                                     <div className="text-[12px] text-white px-6">
-                                      VS
+                                      {/* VS */}
                                     </div>
                                     <div className="flex items-center">
                                       <div>
@@ -344,27 +344,28 @@ const MyPrediction = () => {
                                               : "text-white"
                                           }`}
                                         >
-                                          {predict?.teams?.away?.name}
+                                          {/* {predict?.teams?.away?.name} */}
                                         </p>
                                         <span className="text-[#8EA2AB] text-[9px]">
-                                          {predict?.teams?.away?.name},{" "}
-                                          {predict?.league?.country}
+                                          {/* {predict?.teams?.away?.name},{" "}
+                                          {predict?.league?.country} */}
                                         </span>
                                       </div>
-                                      <img
+                                      {/* <img
                                         src={predict?.teams?.away?.logo}
                                         alt={predict?.teams?.away?.name}
                                         className="ml-2"
                                         height={35}
                                         width={35}
-                                      />
+                                      /> */}
                                     </div>
                                   </div>
                                 </Table.Cell>
                                 <Table.Cell className="w-[17%]">
                                   <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                    {predict?.goals?.home}-
-                                    {predict?.goals?.away}
+                                    {/* {predict?.goals?.home}-
+                                    {predict?.goals?.away} */}
+                                    {predict?.fixture_score}
                                   </span>
                                 </Table.Cell>
                                 <Table.Cell className="w-[17%]">
@@ -375,12 +376,12 @@ const MyPrediction = () => {
                                         : "text-white"
                                     }`}
                                   >
-                                    {predict?.predictions?.under_over}
+                                    {predict?.over_under_line}
                                   </span>
                                 </Table.Cell>
                                 <Table.Cell className="w-[17%]">
                                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                  {percentage}
+                                    {predict?.accuracy}%
                                   </span>
                                 </Table.Cell>
                                 <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">

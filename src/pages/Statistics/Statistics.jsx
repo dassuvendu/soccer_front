@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   ActiveBG,
@@ -15,7 +15,7 @@ import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Table, TextInput } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 import {
@@ -24,9 +24,16 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
+import { getStatistics } from "../../reducers/StatisticsSlice";
 
 const Statistics = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
+  const { statistics } = useSelector((state) => state.statistics);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getStatistics());
+  }, []);
+  console.log("get statistics", statistics);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -54,10 +61,16 @@ const Statistics = () => {
                 High Accuracy
               </h2>
               <p className="text-white text-[11px] font-normal flex items-center">
-                <FiArrowUpRight className="text-xs" /> +5.23%
+                <FiArrowUpRight className="text-xs" />{" "}
+                {Array.isArray(statistics?.data) &&
+                  statistics?.data[0]?.percentage_high_accuracy.toFixed(2)}
+                %
               </p>
             </div>
-            <h3 className="text-white text-[24px] font-medium">90</h3>
+            <h3 className="text-white text-[24px] font-medium">
+              {Array.isArray(statistics?.data) &&
+                statistics?.data[0]?.high_accuracy}
+            </h3>
           </div>
           <div
             className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
@@ -68,10 +81,16 @@ const Statistics = () => {
                 Low Accuracy
               </h2>
               <p className="text-white text-[11px] font-normal flex items-center">
-                <FiArrowUpRight className="text-xs" /> +132%
+                <FiArrowUpRight className="text-xs" />{" "}
+                {Array.isArray(statistics?.data) &&
+                  statistics?.data[0]?.percentage_low_accuracy.toFixed(2)}
+                %
               </p>
             </div>
-            <h3 className="text-white text-[24px] font-medium">9</h3>
+            <h3 className="text-white text-[24px] font-medium">
+              {Array.isArray(statistics?.data) &&
+                statistics?.data[0]?.low_accuracy}
+            </h3>
           </div>
           <div
             className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
@@ -83,7 +102,9 @@ const Statistics = () => {
                 <FiArrowUpRight className="text-xs" /> +75.69%
               </p>
             </div>
-            <h3 className="text-white text-[24px] font-medium">10</h3>
+            <h3 className="text-white text-[24px] font-medium">
+              {Array.isArray(statistics?.data) && statistics?.data[0]?.active}
+            </h3>
           </div>
           <div
             className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
@@ -95,7 +116,9 @@ const Statistics = () => {
                 <FiArrowUpRight className="text-xs" /> -132%
               </p>
             </div>
-            <h3 className="text-white text-[24px] font-medium">10</h3>
+            <h3 className="text-white text-[24px] font-medium">
+              {Array.isArray(statistics?.data) && statistics?.data[0]?.inactive}
+            </h3>
           </div>
           <div
             className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"

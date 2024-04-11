@@ -12,6 +12,7 @@ import PlayerComparision from '../reducers/PlayerComparision';
 import MyPredictionSlice from '../reducers/MyPredictionSlice';
 import CheckUnlockSlice from '../reducers/CheckUnlockSlice';
 import formationSlice from '../reducers/formationSlice';
+import StatisticsSlice from '../reducers/StatisticsSlice';
 
 
 const store = configureStore({
@@ -27,8 +28,9 @@ const store = configureStore({
     teamComparision: TeamComparisonSlice,
     playerComparision: PlayerComparision,
     myPredictions: MyPredictionSlice,
-    IsunLock : CheckUnlockSlice,
-    formation : formationSlice
+    IsunLock: CheckUnlockSlice,
+    formation: formationSlice,
+    statistics: StatisticsSlice
   },
   devTools: import.meta.env.DEV,
 });
