@@ -1,444 +1,448 @@
-
 body {
-    font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .outsideLayout {
-    background: #f8f8f8 url(../imagesource//home_header_bg.png) no-repeat center 20px;
+  background: #f8f8f8 url(../imagesource//home_header_bg.png) no-repeat center
+    20px;
 }
 
 /* hide scrollbar for chrome, safari and opera */
 .container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .go_page input {
-    border-radius: 25px;
-    background: #000000;
-    color: #ffffff;
+  border-radius: 25px;
+  background: #000000;
+  color: #ffffff;
 }
 .date_picker_box svg {
-    color: #E1E1E1;
+  color: #e1e1e1;
 }
 .date_picker_box input {
-    background: #0d0f11;
-    color: #E1E1E1;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
+  background: #0d0f11;
+  color: #e1e1e1;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
 }
 .date_picker_box_light input {
-    background: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
+  background: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
 }
 
 .date_picker_box_light.Select_Season select {
-    background-color: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    border: #cccccc 1px solid;
-    width: 130px;
-    height: 42px;
+  background-color: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  border: #cccccc 1px solid;
+  width: 130px;
+  height: 42px;
 }
 .date_picker_box.Select_Season select {
-    background: #0d0f11;
-    color: #E1E1E1;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 130px;
-    border: #ffffff 1px solid;
-    height: 42px;
+  background: #0d0f11;
+  color: #e1e1e1;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 130px;
+  border: #ffffff 1px solid;
+  height: 42px;
 }
 
 .date_picker_box_light.Select_League .css-16xfy0z-control {
-    background: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
-    border: #cccccc 1px solid;
-    height: 42px;
+  background: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
+  border: #cccccc 1px solid;
+  height: 42px;
 }
 .date_picker_box_light.Select_League .css-13cymwt-control {
-    background: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
-    border: #cccccc 1px solid;
-    height: 42px;
+  background: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
+  border: #cccccc 1px solid;
+  height: 42px;
 }
 .date_picker_box_light.Select_League .css-t3ipsp-control {
-    background: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
-    border: #cccccc 1px solid;
-    height: 42px;
+  background: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
+  border: #cccccc 1px solid;
+  height: 42px;
 }
 .date_picker_box.Select_League .css-16xfy0z-control {
-    background: #0d0f11;
-    color: #E1E1E1;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
-    border: #ffffff 1px solid;
-    height: 42px;
+  background: #0d0f11;
+  color: #e1e1e1;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
+  border: #ffffff 1px solid;
+  height: 42px;
 }
 .date_picker_box.Select_League .css-13cymwt-control {
-    background: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
-    border: #cccccc 1px solid;
-    height: 42px;
+  background: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
+  border: #cccccc 1px solid;
+  height: 42px;
 }
 .date_picker_box.Select_League .css-t3ipsp-control {
-    background: #E1E1E1;
-    color: #0d0f11;
-    border-radius: 25px;
-    font-size: 14px;
-    width: 350px;
-    border: #cccccc 1px solid;
-    height: 42px;
+  background: #e1e1e1;
+  color: #0d0f11;
+  border-radius: 25px;
+  font-size: 14px;
+  width: 350px;
+  border: #cccccc 1px solid;
+  height: 42px;
 }
 .sidebar_menu ul li a {
   line-height: 30px;
 }
 .sidebar_menu ul li a.active {
-    color: #ffffff;
-    background: #2aa9e1;
-    border-radius: 25px;
+  color: #ffffff;
+  background: #2aa9e1;
+  border-radius: 25px;
 }
+
+.sidebar_menu ul li:nth-child(6n) a.active {
+  color: #0d0f11;
+  background: none;
+  border-radius: 25px;
+  font-weight: 500;
+}
+
 .sidebar_menu ul li a svg {
-    padding: 5px;
+  padding: 5px;
 }
 .sidebar_menu ul li a.active svg {
-    background: #ffffff;
-    border-radius: 100%;
-    color: #2aa9e1;
-    padding: 5px;
+  background: #ffffff;
+  border-radius: 100%;
+  color: #2aa9e1;
+  padding: 5px;
 }
 /*  add css for tab section start here */
 .tab_section ul {
-    padding: 30px 20px;
-    border-bottom: none;
+  padding: 30px 20px;
+  border-bottom: none;
 }
 .tab_section li {
-    color: #787a7d;
-    font-size: 18px;
-    line-height: 30px;
-    font-weight: 600;
-    padding: 0;
-    margin-right: 20px;
+  color: #787a7d;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 600;
+  padding: 0;
+  margin-right: 20px;
 }
 .tab_section li.react-tabs__tab--selected:before {
-    display: none !important;
+  display: none !important;
 }
 .tab_section li.react-tabs__tab--selected:focus:before {
-    display: none !important;
+  display: none !important;
 }
 .tab_section li.react-tabs__tab--selected {
-    color: #2880DA;
-    background: none;
-    border: none;
-    border-bottom: #2880DA 2px solid;
+  color: #2880da;
+  background: none;
+  border: none;
+  border-bottom: #2880da 2px solid;
 }
 .react-tabs__tab:focus:after {
-    display: none !important;
+  display: none !important;
 }
 
 /* add css for tab section ends here */
 
 /*  */
 .team_comparisions_tab_section ul.tab_bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #163245;
-    border-radius: 25px;
-    padding: 3px 5px 5px;
-    border-bottom: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #163245;
+  border-radius: 25px;
+  padding: 3px 5px 5px;
+  border-bottom: none;
 }
 .team_comparisions_tab_section ul.tab_bar li {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    line-height: 34px;
-    font-weight: bold;
-    color: #C5C5C5;
-    width: 50%;
-    text-align: center;
+  font-family: "Syne", sans-serif;
+  font-size: 15px;
+  line-height: 34px;
+  font-weight: bold;
+  color: #c5c5c5;
+  width: 50%;
+  text-align: center;
 }
 .team_comparisions_tab_section ul.tab_bar li.react-tabs__tab--selected {
-    background: #2aa9e1;
-    border-radius: 25px;
-    border: none;
-    color: #ffffff;
+  background: #2aa9e1;
+  border-radius: 25px;
+  border: none;
+  color: #ffffff;
 }
 /*  */
 .copy_link_box input[type="text"] {
-    background: #000000;
-    border-radius: 25px 0 0 25px;
-    border: none;
-    width: 230px;
-    padding-left: 10px;
-    color: #ffffff;
+  background: #000000;
+  border-radius: 25px 0 0 25px;
+  border: none;
+  width: 230px;
+  padding-left: 10px;
+  color: #ffffff;
 }
 .copy_link_box input[type="text"]::placeholder {
-    color: #ffffff;
+  color: #ffffff;
 }
 .copy_link_box input[type="text"]:focus {
-    border: none !important;
-    outline: none !important;
+  border: none !important;
+  outline: none !important;
 }
 .copy_link_box button {
-    background: #ffffff !important;
-    border-radius: 0 25px 25px 0;
-    color: #000000;
+  background: #ffffff !important;
+  border-radius: 0 25px 25px 0;
+  color: #000000;
 }
 .copy_link_box button:focus {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important; 
-    padding: 0 !important;
-    box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 .copy_link_box input[type="submit"] {
-    background: #08a1f8 !important;
-    box-shadow: none !important;
+  background: #08a1f8 !important;
+  box-shadow: none !important;
 }
 
 .password_box input[type="password"] {
-    background: none;
-    border: none;
-    color: #ffffff;
+  background: none;
+  border: none;
+  color: #ffffff;
 }
 .password_box input[type="password"]:focus {
-    border: none;
-    outline: none;
-    box-shadow: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .soccer_prediction {
-    position: relative;
+  position: relative;
 }
 .soccer_prediction:before {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    background: #ffffff;
-    height: 10px;
-    width: 70%;
-    content: "";
-    display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #ffffff;
+  height: 10px;
+  width: 70%;
+  content: "";
+  display: block;
 }
 
 /*  */
 
 .slick-slide img {
-    display: inline-block !important;
+  display: inline-block !important;
 }
 
 /*  */
 
 .create_character_btn {
-    background: #2aa9e1 !important;
-    text-transform: uppercase;
-    transition: all 500ms ease-in-out;
-    -ms-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -webkit-transition: all 500ms ease-in-out;
-  }
-  .create_character_btn:hover {
-    background: #000000 !important;
-    transition: all 500ms ease-in-out;
-    -ms-transition: all 500ms ease-in-out;
-    -o-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-    -webkit-transition: all 500ms ease-in-out;
-  }
-
-  .main_menu ul li a.active {
-    color: #2aa9e1;
-  }
-
-  
-  
-  /*  */
-  
-  .plan_tab_area .react-tabs ul.react-tabs__tab-list {
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.05);
-    border-bottom: none;
-    padding: 10px;
-    width: 325px;
-    margin: 0 auto 50px;
-  }
-  
-  .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab.react-tabs__tab--selected {
-    border-radius: 10px;
-    background: #2aa9e1;
-    color: #FFF;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 46px;
-    padding: 0 25px;
-    display: inline-block;
-    border: none;
-  }
-  
-  .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab {
-    border-radius: 10px;
-    background: #ffffff;
-    color: #000000;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 46px;
-    padding: 0 25px;
-    display: inline-block;
-    border: none;
-    margin: 0 5px;
-  }
-
-  
-  /*  */
-
-  .p-PaymentDetails-group .TermsText {
-    color: #ffffff !important;
-  }
-
-  .Progress_bar_left > div {
-    background: #2aa9e1;
-  }
-  .Progress_bar_right > div {
-    background: #151718;
-  }
-
-
-  /*  */
-
-
-  .css-13cymwt-control {
-    border-radius: 25px !important;
-  }
-  .css-t3ipsp-control {
-    border-radius: 25px !important;
-  }
-  .css-16xfy0z-control {
-    border-radius: 25px !important;
-  }
-  .css-tj5bde-Svg {
-    opacity: 0;
-  }
-  .css-1u9des2-indicatorSeparator {
-    opacity: 0;
-  }
-
-
-  /*  */
-
-  .player-view .player .name{
-    color: black !important;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 5px;
-    height: 0%;
-  }
-  
-  .team .lines .line{
-    height: 85% !important;
-    margin-top: 7%;
-  }
-
-@media only screen and (max-width:767px) {
-
-    .date_picker_box_light.Select_Season select {
-        width: 100%;
-        max-width: 350px;
-    }
-    .date_picker_box.Select_Season select {
-        width: 100%;
-        max-width: 350px;
-    }
-
-    .top_social ul {
-        background: none !important;
-        box-shadow: none !important;
-    }
-
-    .team_comparisions_tab_section ul li {
-        font-size: 12px;
-        line-height: 34px;
-    }
-    .main_menu ul {
-        position: relative;
-    }
-    .main_menu ul {
-        position: absolute;
-        right: 0;
-        width: 100%;
-        z-index: 100;
-        background: #ffffff;
-        text-align: center;
-        padding: 10px 0;
-        box-shadow: -1px 2px 12px 4px rgba(209,209,209,0.59);
-        -webkit-box-shadow: -1px 2px 12px 4px rgba(209,209,209,0.59);
-        -moz-box-shadow: -1px 2px 12px 4px rgba(209,209,209,0.59);
-      }
-      .main_menu ul li a {
-        font-size: 16px;
-        line-height: 26px;
-        color: #000000;
-        padding: 5px 0;
-        display: block;
-      }
-      .main_menu ul li a:hover {
-        color: #2aa9e1;
-      }
-      .soccer_prediction:before {
-        width: 100%;
-    }
-
-    .choose_your_plan_section:before {
-        display: none;
-      }
-
-      /*  */
-
-        .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab.react-tabs__tab--selected {
-            font-size: 14px;
-            line-height: 40px;
-            padding: 0 10px;
-        }
-        .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab {
-            font-size: 14px;
-            line-height: 40px;
-            padding: 0 10px;
-        }
-        .plan_tab_area .react-tabs ul.react-tabs__tab-list {
-            width: 270px;
-        }
-
-
-        .team_comparisions_tab_section ul.tab_bar li {
-            font-size: 12px;
-            line-height: 25px;
-        }
-
+  background: #2aa9e1 !important;
+  text-transform: uppercase;
+  transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -webkit-transition: all 500ms ease-in-out;
+}
+.create_character_btn:hover {
+  background: #000000 !important;
+  transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -webkit-transition: all 500ms ease-in-out;
 }
 
-@media screen and (min-width:768px) and (max-width:1024px) {
+.main_menu ul li a.active {
+  color: #2aa9e1;
+}
 
+/*  */
+
+.plan_tab_area .react-tabs ul.react-tabs__tab-list {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.05);
+  border-bottom: none;
+  padding: 10px;
+  width: 325px;
+  margin: 0 auto 50px;
+}
+
+.plan_tab_area
+  .react-tabs
+  ul.react-tabs__tab-list
+  li.react-tabs__tab.react-tabs__tab--selected {
+  border-radius: 10px;
+  background: #2aa9e1;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 46px;
+  padding: 0 25px;
+  display: inline-block;
+  border: none;
+}
+
+.plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab {
+  border-radius: 10px;
+  background: #ffffff;
+  color: #000000;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 46px;
+  padding: 0 25px;
+  display: inline-block;
+  border: none;
+  margin: 0 5px;
+}
+
+/*  */
+
+.p-PaymentDetails-group .TermsText {
+  color: #ffffff !important;
+}
+
+.Progress_bar_left > div {
+  background: #2aa9e1;
+}
+.Progress_bar_right > div {
+  background: #151718;
+}
+
+/*  */
+
+.css-13cymwt-control {
+  border-radius: 25px !important;
+}
+.css-t3ipsp-control {
+  border-radius: 25px !important;
+}
+.css-16xfy0z-control {
+  border-radius: 25px !important;
+}
+.css-tj5bde-Svg {
+  opacity: 0;
+}
+.css-1u9des2-indicatorSeparator {
+  opacity: 0;
+}
+
+/*  */
+
+.player-view .player .name {
+  color: black !important;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 5px;
+  height: 0%;
+}
+
+.team .lines .line {
+  height: 85% !important;
+  margin-top: 7%;
+}
+
+@media only screen and (max-width: 767px) {
+  .date_picker_box_light.Select_Season select {
+    width: 100%;
+    max-width: 350px;
+  }
+  .date_picker_box.Select_Season select {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .top_social ul {
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .team_comparisions_tab_section ul li {
+    font-size: 12px;
+    line-height: 34px;
+  }
+  .main_menu ul {
+    position: relative;
+  }
+  .main_menu ul {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+    background: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: -1px 2px 12px 4px rgba(209, 209, 209, 0.59);
+    -webkit-box-shadow: -1px 2px 12px 4px rgba(209, 209, 209, 0.59);
+    -moz-box-shadow: -1px 2px 12px 4px rgba(209, 209, 209, 0.59);
+  }
+  .main_menu ul li a {
+    font-size: 16px;
+    line-height: 26px;
+    color: #000000;
+    padding: 5px 0;
+    display: block;
+  }
+  .main_menu ul li a:hover {
+    color: #2aa9e1;
+  }
+  .soccer_prediction:before {
+    width: 100%;
+  }
+
+  .choose_your_plan_section:before {
+    display: none;
+  }
+
+  /*  */
+
+  .plan_tab_area
+    .react-tabs
+    ul.react-tabs__tab-list
+    li.react-tabs__tab.react-tabs__tab--selected {
+    font-size: 14px;
+    line-height: 40px;
+    padding: 0 10px;
+  }
+  .plan_tab_area .react-tabs ul.react-tabs__tab-list li.react-tabs__tab {
+    font-size: 14px;
+    line-height: 40px;
+    padding: 0 10px;
+  }
+  .plan_tab_area .react-tabs ul.react-tabs__tab-list {
+    width: 270px;
+  }
+
+  .team_comparisions_tab_section ul.tab_bar li {
+    font-size: 12px;
+    line-height: 25px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
 }

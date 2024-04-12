@@ -274,7 +274,7 @@ useEffect(() => {
                           !open && 'hidden'
                         }`}
                       >
-                        <ul className='mt-2 mb-2 flex flex-col gap-2 pl-6'>
+                        <ul className='mt-2 mb-2 flex flex-col gap-2 pl-0'>
 
               {/* <!-- Menu Item Manage Users --> */}
               <li className='mb-0'>

@@ -429,7 +429,7 @@ const MyPrediction = () => {
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-              <div className="overflow-x-auto bg-transparent">
+              {/* <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
                     <Table.HeadCell
@@ -1241,12 +1241,12 @@ const MyPrediction = () => {
                     </Table.Row>
                   </Table.Body>
                 </Table>
-              </div>
+              </div> */}
               {/* Table ends here */}
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-              <div className="overflow-x-auto bg-transparent">
+              {/* <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
                     <Table.HeadCell
@@ -2058,12 +2058,12 @@ const MyPrediction = () => {
                     </Table.Row>
                   </Table.Body>
                 </Table>
-              </div>
+              </div> */}
               {/* Table ends here */}
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-              <div className="overflow-x-auto bg-transparent">
+              {/* <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
                     <Table.HeadCell
@@ -2875,7 +2875,7 @@ const MyPrediction = () => {
                     </Table.Row>
                   </Table.Body>
                 </Table>
-              </div>
+              </div> */}
               {/* Table ends here */}
             </TabPanel>
           </Tabs>

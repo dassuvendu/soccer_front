@@ -120,20 +120,20 @@ const Statistics = () => {
               {Array.isArray(statistics?.data) && statistics?.data[0]?.inactive}
             </h3>
           </div>
-          <div
+          {/* <div
             className="bg-center bg-no-repeat bg-cover md:bg-contain p-[15px] w-full md:w-[210px] h-full md:h-[131px] rounded-xl"
             style={{ backgroundImage: `url(${TotalMatchesBG})` }}
           >
-            <div className="flex justify-between items-center mb-3">
+             <div className="flex justify-between items-center mb-3">
               <h2 className="text-white text-[14px] font-semibold">
                 Total Matches
               </h2>
               <p className="text-white text-[11px] font-normal flex items-center">
                 <FiArrowUpRight className="text-xs" /> +132%
               </p>
-            </div>
+            </div> *
             <h3 className="text-white text-[24px] font-medium">10</h3>
-          </div>
+          </div> */}
         </div>
         {/* Statistics graph ends here */}
         {/* Statistics list section start here */}
@@ -171,7 +171,7 @@ const Statistics = () => {
           <div>
             {/* Table start here */}
             <div className="overflow-x-auto bg-transparent">
-              <Table hoverable>
+              {/* <Table hoverable>
                 <Table.Head className="border-b border-[#2b2f35]">
                   <Table.HeadCell
                     className={`${
@@ -981,7 +981,7 @@ const Statistics = () => {
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>
-              </Table>
+              </Table> */}
             </div>
             {/* Table ends here */}
           </div>
