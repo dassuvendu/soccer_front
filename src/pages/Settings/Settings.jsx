@@ -47,10 +47,10 @@ const Settings = () => {
           style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
           <div className="w-full md:w-9/12 py-14 pl-10 pr-2">
-            <h1 className="font-Bebas text-4xl tracking-normal text-white mb-2">
+            {/* <h1 className="font-Bebas text-4xl tracking-normal text-white mb-2">
               Referral Link
-            </h1>
-            <div className="md:flex items-center mb-5">
+            </h1> */}
+            {/* <div className="md:flex items-center mb-5">
               <div className="copy_link_box bg-black rounded-full max-w-sm flex justify-between mr-4 mb-4 md:mb-0">
                 <TextInput
                   id="base"
@@ -65,7 +65,7 @@ const Settings = () => {
               <h3 className="text-white text-[24px] leading-[24px] font-medium">
                 Total Referrals : 12
               </h3>
-            </div>
+            </div> */}
             <p className="text-white text-[16px] leading-[24px] font-medium">
               Get ready for some easy wins! Just refer as many friends as you
               can, and you'll score free tokens for making predictions. Have

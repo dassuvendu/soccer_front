@@ -59,7 +59,7 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                     <div className='w-5/12 flex'>
                         <div>
                             <h1 className={`${ themeMode === "light" ? "text-black" : "text-white"} font-Bebas tracking-wide text-[28px]`}>Dashboard</h1>
-                            <p className='text-[#727377] text-xs italic'>Update on 23 may 2023</p>
+                            {/* <p className='text-[#727377] text-xs italic'>Update on 23 may 2023</p> */}
                         </div>
                         <div className='pl-6'>
                             {/* <h3 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[16px] leading-[42px]`}>Go To Website</h3> */}
@@ -73,7 +73,7 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                             </Link>
                         </div> */}
                         <div className='w-8/12 pr-4'>
-                            <form className="flex items-center max-w-sm mx-auto">   
+                            {/* <form className="flex items-center max-w-sm mx-auto">   
                                 <div 
                                     className={`relative w-full ${
                                         themeMode === "light" ? "bg-[#ececed]" : "bg-[#151718]"
@@ -88,7 +88,7 @@ const themeMode = useSelector((state:any) => state.darkmode.mode);
                                     </div>
                                     <input type="text" id="simple-search" className="ml-2 italic h-[40px] bg-transparent border-0 text-[#717274] text-[12px] focus:ring-transparent focus:border-[#151718] block w-ful ps- p-0 w-full" placeholder="Search..." required />
                                 </div>
-                            </form>
+                            </form> */}
                         </div>
                     </div>
                 </div>

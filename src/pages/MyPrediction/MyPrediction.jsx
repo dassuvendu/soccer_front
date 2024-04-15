@@ -274,6 +274,15 @@ const MyPrediction = () => {
                           ? "text-[#787a7d]"
                           : "text-[#96A5B8]"
                       } font-medium capitalize w-[17%]`}
+                    ></Table.HeadCell>
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
                     >
                       Accuracy
                     </Table.HeadCell>
@@ -399,7 +408,67 @@ const MyPrediction = () => {
                                     {predict?.over_under_line}
                                   </span>
                                 </Table.Cell>
-                                <Table.Cell className="w-[17%]">
+                                <Table.Cell className="w-[5%]">
+                                  <span
+                                    className={`text-base font-bold ${
+                                      themeMode === "light"
+                                        ? "text-black"
+                                        : "text-white"
+                                    }`}
+                                  >
+                                    <span>
+                                      {predict?.fixture_status === "failed" ? (
+                                        <>
+                                          <span>
+                                            <svg
+                                              className="w-6 h-6 text-red-500"
+                                              aria-hidden="true"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              width="20"
+                                              height="20"
+                                              fill="none"
+                                              viewBox="0 0 24 24"
+                                            >
+                                              <path
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M6 18 17.94 6M18 18 6.06 6"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </>
+                                      ) : predict?.fixture_status ===
+                                        "success" ? (
+                                        <>
+                                          <span>
+                                            <svg
+                                              className="w-6 h-6 text-green-500"
+                                              aria-hidden="true"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              width="20"
+                                              height="20"
+                                              fill="none"
+                                              viewBox="0 0 24 24"
+                                            >
+                                              <path
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M5 11.917 9.724 16.5 19 7.5"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}{" "}
+                                    </span>
+                                  </span>
+                                </Table.Cell>
+                                <Table.Cell className="w-[10%]">
                                   <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
                                     {predict?.accuracy}%
                                   </span>
