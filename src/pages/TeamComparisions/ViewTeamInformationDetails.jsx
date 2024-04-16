@@ -42,6 +42,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
   return (
     <div className="pt-2 pb-2">
       <div className="flex justify-between items-center">

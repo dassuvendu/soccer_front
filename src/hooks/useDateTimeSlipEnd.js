@@ -10,7 +10,7 @@ export const useDateTimeSlipEnd = (date) => {
     let timeListEnd = [];
     if (oddsData && oddsData.length) {
         oddsData.forEach((item) => {
-            let dateString = item?.end_time;
+            let dateString = item?.endsOn;
             date = new Date(dateString)
             let months = [
                 "Jan",

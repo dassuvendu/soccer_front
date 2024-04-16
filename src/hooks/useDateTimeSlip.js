@@ -10,7 +10,7 @@ export const useDateTimeSlip = (date) => {
     let timeList = [];
     if (oddsData && oddsData.length) {
         oddsData.forEach((item) => {
-            let dateString = item?.start_time;
+            let dateString = item?.startsOn;
             date = new Date(dateString)
             let months = [
                 "Jan",
@@ -50,7 +50,7 @@ export const useDateTimeSlip = (date) => {
             let hours = date?.getHours();
             let minutes = date?.getMinutes();
             let ampm = hours >= 12 ? "PM" : "AM";
-            hours = hours % 12;
+            hours = hours % 12 || 12;
             hours = hours ? hours : 12;
             minutes = minutes < 10 ? "0" + minutes : minutes;
 
