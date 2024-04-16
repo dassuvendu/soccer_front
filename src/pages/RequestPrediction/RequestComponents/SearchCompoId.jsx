@@ -11,16 +11,21 @@ import {
 export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { allLeague, seasons } = useSelector((state) => state.prediction);
+  const { allLeague } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
-  const [isloading, setIsLoading] = useState(false);
+  // const [isloading, setIsLoading] = useState(false);
   const [isSeason, setIsSeason] = useState(false);
   const [leagueName, setleagueName] = useState('');
   const [date, setDate] = useState();
-  const [cseason,setCSeason] = useState()
- 
+  // const [cseason,setCSeason] = useState()
+  const [currentYear,setCurrentYear]=useState()
+  console.log("cY",currentYear);
 
+  const today = new Date();
+  const Year = today.getFullYear()
+  const changeDateformate = today.toISOString().split("T")[0];
+  
   const handleDateChange = (e) => {
     // console.log(e);
     // setLoading(true);
@@ -30,6 +35,7 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
   const newDate = `${year}-${month}-${day}`
   setDate(newDate);
   setSendDate(newDate)
+  setCurrentYear(year)
   };
 
  useEffect(()=>{
@@ -52,61 +58,42 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
       if(Array.isArray(filteredLeagues)&&filteredLeagues){
         setleagueName(filteredLeagues[0]?.league?.name)
       
-        if (isSeason === false) {
-          dispatch(getSeasons({})).then((res) => {
-            if (res?.payload?.status === true) {
-              setIsLoading(false);
-              setIsSeason(true);
-            }
-          });
-        }
+        // if (isSeason === false) {
+        //   dispatch(getSeasons({})).then((res) => {
+        //     if (res?.payload?.status === true) {
+        //       // setIsLoading(false);
+        //       setIsSeason(true);
+        //     }
+        //   });
+        // }
       }
     }
   }, [allLeague,rid]);
 
  
 
-  const handleSearch = (season) => {
-    setSeason(season.target.value )
-    setCSeason(season.target.value)
-    if (leagueName === leagueName) {
-      dispatch(
-        getFixtures({date : date, league: rid , season: season.target.value })
-      ).then((response) => {
-       if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
-        ) {
-          setIsLoading(false)
-          onError(400);
-        } else {
-          onError(null);
-        }
-      });
-    }
+  // const handleSearch = (season) => {
+  //   setSeason(season.target.value )
+  //   setCSeason(season.target.value)
+  //   if (leagueName === leagueName) {
+  //     // dispatch(
+  //     //   getFixtures({date : date, league: rid , season: season.target.value })
+  //     // ).then((response) => {
+  //     //  if (
+  //     //     response?.payload?.message ===
+  //     //     "Something went wrong. Please try again later"
+  //     //   ) {
+  //     //     setIsLoading(false)
+  //     //     onError(400);
+  //     //   } else {
+  //     //     onError(null);
+  //     //   }
+  //     // });
+  //   }
    
-  };
-  useEffect(()=>{
-    if (date,cseason) {
-      dispatch(
-     
-        getFixtures({
-          date: date,
-          league: rid,
-          season: cseason,
-        })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
-        ) {
-          onError(400);
-        } else {
-          onError(null);
-        }
-      });
-    }
-  },[date,cseason,rid])
+  // };
+  
+
   const options = [
     ...(allLeague?.data?.map((dlist) => {
       return {
@@ -125,11 +112,50 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
       };
     }) || []),
   ];
-  const today = new Date();
-  today.setFullYear(today.getFullYear());
-  const todayFormatted = today.toISOString().split("T")[0];
-  console.log("Td",todayFormatted);
-  const Year = todayFormatted.toString().split('-')[0]
+
+  useEffect(()=>{
+    if (date && currentYear) {
+      const leagueId = parseInt(rid)
+      dispatch(
+        getFixtures({
+          date: date,
+          league: leagueId,
+          season: currentYear,
+        })
+      ).then((response) => {
+        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+    if (changeDateformate && currentYear) {
+      const leagueId = parseInt(rid)
+      console.log("type",typeof leagueId);
+      dispatch(
+     
+        getFixtures({
+          date: changeDateformate,
+          league: leagueId,
+          season: Year,
+        })
+      ).then((response) => {
+        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+  },[date,Year,currentYear,rid,changeDateformate])
+  
   return (
     <>
       <div className="mb-4 md:mb-0 w-1/1">
@@ -198,20 +224,18 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
                 : "date_picker_box Select_Season"
             }`}
           >
-            {isloading ? (
-              <select name="sel" disabled>
-                <option>Loading...</option>
-              </select>
-            ) : (
-              <select disabled={!isSeason} onChange={handleSearch}>
-                <option value={Year}>{Year}</option>
-                {seasons?.data?.map((data) => (
+             <select  disabled>
+                {currentYear ? 
+                <option value=''>{currentYear}</option>
+                :
+                <option value=''>{Year}</option>
+                 }
+                {/* {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
                   </option>
-                ))}
+                ))} */}
               </select>
-            )}
             
            
             
