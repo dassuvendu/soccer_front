@@ -1,21 +1,20 @@
-import { Datepicker, Spinner } from "flowbite-react";
+import { Datepicker } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import {
   getFixtures,
   getFixturesByleague,
-  getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
+export const SearchCompoId = ({ onError , rid }) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
   // const [isloading, setIsLoading] = useState(false);
-  const [isSeason, setIsSeason] = useState(false);
+  // const [isSeason, setIsSeason] = useState(false);
   const [leagueName, setleagueName] = useState('');
   const [date, setDate] = useState();
   // const [cseason,setCSeason] = useState()
@@ -24,7 +23,7 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
 
   const today = new Date();
   const Year = today.getFullYear()
-  const changeDateformate = today.toISOString().split("T")[0];
+ 
   
   const handleDateChange = (e) => {
     // console.log(e);
@@ -34,7 +33,6 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
   setDate(newDate);
-  setSendDate(newDate)
   setCurrentYear(year)
   };
 
@@ -133,28 +131,28 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
         }
       });
     }
-    if (changeDateformate && currentYear) {
-      const leagueId = parseInt(rid)
-      console.log("type",typeof leagueId);
-      dispatch(
+    // if (changeDateformate && currentYear) {
+    //   const leagueId = parseInt(rid)
+    //   console.log("type",typeof leagueId);
+    //   dispatch(
      
-        getFixtures({
-          date: changeDateformate,
-          league: leagueId,
-          season: Year,
-        })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
-        ) {
-          onError(400);
-        } else {
-          onError(null);
-        }
-      });
-    }
-  },[date,Year,currentYear,rid,changeDateformate])
+    //     getFixtures({
+    //       date: changeDateformate,
+    //       league: leagueId,
+    //       season: Year,
+    //     })
+    //   ).then((response) => {
+    //     if (
+    //       response?.payload?.message ===
+    //       "Something went wrong. Please try again later"
+    //     ) {
+    //       onError(400);
+    //     } else {
+    //       onError(null);
+    //     }
+    //   });
+    // }
+  },[date,currentYear,rid])
   
   return (
     <>
@@ -224,18 +222,22 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
                 : "date_picker_box Select_Season"
             }`}
           >
-             <select  disabled>
+             
                 {currentYear ? 
-                <option value=''>{currentYear}</option>
+                <div className={` ${
+                  themeMode === "light"
+                    ? "date_picker_box_light Select_Season"
+                    : "date_picker_box Select_Season"
+                }`}>{currentYear}</div>
                 :
-                <option value=''>{Year}</option>
+                <div className="">{Year}</div>
                  }
                 {/* {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
                   </option>
                 ))} */}
-              </select>
+            
             
            
             
