@@ -23,16 +23,20 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getPredictions } from "../../reducers/MyPredictionSlice";
+import {
+  getPredictions,
+  recentPredictions,
+} from "../../reducers/MyPredictionSlice";
 import Login from "../Auth/Login/Login";
 import { PredictionRequestModal } from "./PredictionCompo/PredictionRequestModal";
 import { LastResult } from "../../reducers/PredictionsSlice";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { fetchedPredictions, isLoading } = useSelector(
+  const { fetchedPredictions, isLoading, recent } = useSelector(
     (state) => state.myPredictions
   );
+  console.log("recent: ", recent?.data);
   const { teamResult } = useSelector((state) => state.prediction);
   console.log("team", teamResult);
   const [fixturesId, setFixturesId] = useState();
@@ -60,10 +64,20 @@ const MyPrediction = () => {
       console.log("total data: ", fetchedPredictions?.total_data);
       setTotalPages(Math.ceil(fetchedPredictions?.total_data / itemsPerPage));
     }
-  }, [fetchedPredictions]);
+  }, [fetchedPredictions, recent]);
   const fetchData = (page) => {
     dispatch(
-      getPredictions({ page_number: page, items_per_page: itemsPerPage })
+      getPredictions({
+        page_number: page,
+        items_per_page: itemsPerPage,
+      })
+    );
+    dispatch(
+      recentPredictions({
+        page_number: page,
+        items_per_page: itemsPerPage,
+        recent_predictions: true,
+      })
     );
   };
   const handlePageChange = (page) => {
@@ -498,7 +512,7 @@ const MyPrediction = () => {
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-              {/* <div className="overflow-x-auto bg-transparent">
+              <div className="overflow-x-auto bg-transparent">
                 <Table hoverable>
                   <Table.Head className="border-b border-[#2b2f35]">
                     <Table.HeadCell
@@ -542,6 +556,15 @@ const MyPrediction = () => {
                           ? "text-[#787a7d]"
                           : "text-[#96A5B8]"
                       } font-medium capitalize w-[17%]`}
+                    ></Table.HeadCell>
+                    <Table.HeadCell
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } text-[16px] ${
+                        themeMode === "light"
+                          ? "text-[#787a7d]"
+                          : "text-[#96A5B8]"
+                      } font-medium capitalize w-[17%]`}
                     >
                       Accuracy
                     </Table.HeadCell>
@@ -558,759 +581,173 @@ const MyPrediction = () => {
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                    {recent?.data?.map((recentData) => {
+                      return (
+                        <>
+                          <Table.Row
+                            className={`${
+                              themeMode === "light"
+                                ? "bg-white"
+                                : "bg-[#191D23]"
+                            } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                          >
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
+                              <div className="flex items-center">
+                                <div className="flex items-center">
+                                  {/* <img
+                                        // src={predict?.teams?.home?.logo}
+                                        // alt={predict?.teams?.home?.name}
+                                        className="mr-2"
+                                        height={35}
+                                        width={35}
+                                      /> */}
+                                  <div>
+                                    <p
+                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      {recentData?.fixture_vrs}
+                                    </p>
+                                    <span className="text-[#8EA2AB] text-[9px]">
+                                      {/* {predict?.teams?.home?.name},{" "}
+                                          {predict?.league?.country} */}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="text-[12px] text-white px-6">
+                                  {/* VS */}
+                                </div>
+                                <div className="flex items-center">
+                                  <div>
+                                    <p
+                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      {/* {predict?.teams?.away?.name} */}
+                                    </p>
+                                    <span className="text-[#8EA2AB] text-[9px]">
+                                      {/* {predict?.teams?.away?.name},{" "}
+                                          {predict?.league?.country} */}
+                                    </span>
+                                  </div>
+                                  {/* <img
+                                        src={predict?.teams?.away?.logo}
+                                        alt={predict?.teams?.away?.name}
+                                        className="ml-2"
+                                        height={35}
+                                        width={35}
+                                      /> */}
+                                </div>
+                              </div>
+                            </Table.Cell>
+                            <Table.Cell className="w-[17%]">
+                              <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                {/* {predict?.goals?.home}-
+                                    {predict?.goals?.away} */}
+                                {recentData?.fixture_score}
+                              </span>
+                            </Table.Cell>
+                            <Table.Cell className="w-[17%]">
+                              <span
+                                className={`text-base font-bold ${
                                   themeMode === "light"
                                     ? "text-black"
                                     : "text-white"
                                 }`}
                               >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
+                                {recentData?.over_under_line}
                               </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                            </Table.Cell>
+                            <Table.Cell className="w-[5%]">
+                              <span
+                                className={`text-base font-bold ${
                                   themeMode === "light"
                                     ? "text-black"
                                     : "text-white"
                                 }`}
                               >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
+                                <span>
+                                  {recentData?.fixture_status === "failed" ? (
+                                    <>
+                                      <span>
+                                        <svg
+                                          className="w-6 h-6 text-red-500"
+                                          aria-hidden="true"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="20"
+                                          height="20"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M6 18 17.94 6M18 18 6.06 6"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </>
+                                  ) : recentData?.fixture_status ===
+                                    "success" ? (
+                                    <>
+                                      <span>
+                                        <svg
+                                          className="w-6 h-6 text-green-500"
+                                          aria-hidden="true"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="20"
+                                          height="20"
+                                          fill="none"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 11.917 9.724 16.5 19 7.5"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <></>
+                                  )}{" "}
+                                </span>
                               </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
+                            </Table.Cell>
+                            <Table.Cell className="w-[10%]">
+                              <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                {recentData?.accuracy}%
                               </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
-                    <Table.Row
-                      className={`${
-                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                    >
-                      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                        <div className="flex items-center">
-                          <div className="flex items-center">
-                            <img
-                              src={BayernMunichIcon}
-                              alt="BayernMunichIcon"
-                              className="mr-2"
-                            />
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Bayern Munich
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Munich, Germany
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-[12px] text-white px-6">VS</div>
-                          <div className="flex items-center">
-                            <div>
-                              <p
-                                className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                Barcelona
-                              </p>
-                              <span className="text-[#8EA2AB] text-[9px]">
-                                Barcelona, Spain
-                              </span>
-                            </div>
-                            <img
-                              src={BarcelonaIcon}
-                              alt="BarcelonaIcon"
-                              className="ml-2"
-                            />
-                          </div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span
-                          className={`text-base font-bold ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          }`}
-                        >
-                          5/10
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="w-[17%]">
-                        <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                          0-2
-                        </span>
-                      </Table.Cell>
-                      <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                        <MdMoreHoriz />
-                      </Table.Cell>
-                    </Table.Row>
+                            </Table.Cell>
+                            <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
+                              <MdMoreHoriz
+                                onClick={() =>
+                                  viewDetailsModalHandler(
+                                    recentData?.fixture_id,
+                                    recentData?.teams?.home?.id,
+                                    recentData?.teams?.away?.id,
+                                    recentData?.fixture_date
+                                  )
+                                }
+                              />
+                            </Table.Cell>
+                          </Table.Row>
+                        </>
+                      );
+                    })}
                   </Table.Body>
                 </Table>
-              </div> */}
+              </div>
               {/* Table ends here */}
             </TabPanel>
             <TabPanel>
