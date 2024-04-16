@@ -23,16 +23,16 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
-  const [timeStamp, setTimeStamp] = useState(null)
-  const [fixturesId, setFixturesId] = useState(null)
+  const [timeStamp, setTimeStamp] = useState(null);
+  const [fixturesId, setFixturesId] = useState(null);
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);
     setHomeId(id.split(":")[1]);
     setAwayId(id.split(":")[2]);
-    setTimeStamp(id.split(":")[3])
+    setTimeStamp(id.split(":")[3]);
     const fixtureId = id.split(":")[0];
-    setFixturesId(fixtureId)
+    setFixturesId(fixtureId);
     setOpenViewDetailsModal(true);
   };
 
@@ -40,8 +40,8 @@ const RequestPredictionList = ({ errorMessage }) => {
     setOpenViewDetailsModal(false);
     setHomeId(null);
     setAwayId(null);
-    setTimeStamp(null)
-    setFixturesId(null)
+    setTimeStamp(null);
+    setFixturesId(null);
   };
 
   //date formate
@@ -113,18 +113,17 @@ const RequestPredictionList = ({ errorMessage }) => {
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);
-     // Convert Unix timestamp to milliseconds
+    // Convert Unix timestamp to milliseconds
     const options = {
       weekday: "short",
       hour: "numeric",
       minute: "numeric",
       hour12: true,
     };
-    
+
     return date.toLocaleDateString("en-US", options);
-    
   };
- 
+
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
     const options = {
@@ -175,7 +174,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                             {formatDate(dat?.fixture?.timestamp)}
                           </p>
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                          {formatTime(dat?.fixture?.timestamp)}
+                            {formatTime(dat?.fixture?.timestamp)}
                           </p>
                         </div>
                       </div>

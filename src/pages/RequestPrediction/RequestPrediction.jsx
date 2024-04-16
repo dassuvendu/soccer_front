@@ -15,9 +15,6 @@ const RequestPrediction = () => {
     console.log(errorMessage);
   }, [errorMessage]);
 
-
-
-
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4">
