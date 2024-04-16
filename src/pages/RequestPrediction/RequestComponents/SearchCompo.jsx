@@ -17,6 +17,8 @@ export const SearchCompo = ({ onError }) => {
   const [isseason, setIsSeason] = useState();
   const [isRequired, setIsRequired] = useState();
   const [date, setDate] = useState();
+  const [isDate,setIsData] = useState(false)
+  const [cseason,setCSeason] = useState()
   const handleDateChange = (e) => {
     // console.log(e);
     // setLoading(true);
@@ -29,7 +31,14 @@ export const SearchCompo = ({ onError }) => {
 
   useEffect(() => {
     if (date) {
-      dispatch(getFixturesByleague({}));
+      dispatch(getFixturesByleague({})).then((res) =>{
+        console.log("res",res.payload.status);
+       if (res?.payload?.status === true) {
+        setIsData(true)
+       }else{
+        setIsData(false)
+       }
+      })
     }
   }, [dispatch, date]);
 
@@ -47,6 +56,7 @@ export const SearchCompo = ({ onError }) => {
 
   const handleSearch = (season) => {
     setIsRequired(null);
+    setCSeason(season.target.value)
     // if (isseason === true) {
     //   dispatch(getFixtures({ league: rid, season: season.target.value })).then(
     //     (response) => {
@@ -61,11 +71,35 @@ export const SearchCompo = ({ onError }) => {
     //     }
     //   );
     // }
+    if (date) {
+      dispatch(
+     
+        getFixtures({
+          date: date,
+          league: isseason.value,
+          season: season.target.value,
+        })
+      ).then((response) => {
+        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+   
+  };
+useEffect(()=>{
+  if (date,cseason) {
     dispatch(
+   
       getFixtures({
         date: date,
-        league: isseason.value,
-        season: season.target.value,
+        league: isseason?.value,
+        season: cseason,
       })
     ).then((response) => {
       if (
@@ -77,7 +111,8 @@ export const SearchCompo = ({ onError }) => {
         onError(null);
       }
     });
-  };
+  }
+},[date,cseason,isseason])
 
   const options = [
     ...(allLeague?.data?.map((dlist) => {
@@ -139,7 +174,7 @@ export const SearchCompo = ({ onError }) => {
             <Select
               // placeholder="Select or Search League"
               options={options}
-              isDisabled={!date}
+              isDisabled={!isDate}
               onChange={handleLeagueChange}
               value={options.label}
             />

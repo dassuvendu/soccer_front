@@ -8,7 +8,7 @@ import {
   getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid, setSeason}) => {
+export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
@@ -17,7 +17,8 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
   const [isloading, setIsLoading] = useState(false);
   const [isSeason, setIsSeason] = useState(false);
   const [leagueName, setleagueName] = useState('');
- 
+  const [date, setDate] = useState();
+  const [cseason,setCSeason] = useState()
  
 
   const handleDateChange = (e) => {
@@ -27,7 +28,8 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
   const month = String(e.getMonth() + 1).padStart(2, "0");
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
-    dispatch(getFixtures({ date : newDate}));
+  setDate(newDate);
+  setSendDate(newDate)
   };
 
  useEffect(()=>{
@@ -36,11 +38,11 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
   
  },[dispatch])
 
-//   const handleLeagueChange = () => {
-//     setIsLoading(true);
-//     let requried = 'required*'
-//     setIsRequired(requried)
-//   };
+  // const handleLeagueChange = () => {
+  //   setIsLoading(true);
+  //   let requried = 'required*'
+  //   setIsRequired(requried)
+  // };
 
 
   useEffect(() => {
@@ -66,11 +68,35 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
 
   const handleSearch = (season) => {
     setSeason(season.target.value )
+    setCSeason(season.target.value)
     if (leagueName === leagueName) {
       dispatch(
-        getFixtures({ league: rid , season: season.target.value })
+        getFixtures({date : date, league: rid , season: season.target.value })
       ).then((response) => {
        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          setIsLoading(false)
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+   
+  };
+  useEffect(()=>{
+    if (date,cseason) {
+      dispatch(
+     
+        getFixtures({
+          date: date,
+          league: rid,
+          season: cseason,
+        })
+      ).then((response) => {
+        if (
           response?.payload?.message ===
           "Something went wrong. Please try again later"
         ) {
@@ -80,9 +106,7 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
         }
       });
     }
-   
-  };
-
+  },[date,cseason,rid])
   const options = [
     ...(allLeague?.data?.map((dlist) => {
       return {
@@ -101,7 +125,11 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
       };
     }) || []),
   ];
-
+  const today = new Date();
+  today.setFullYear(today.getFullYear());
+  const todayFormatted = today.toISOString().split("T")[0];
+  console.log("Td",todayFormatted);
+  const Year = todayFormatted.toString().split('-')[0]
   return (
     <>
       <div className="mb-4 md:mb-0 w-1/1">
@@ -176,7 +204,7 @@ export const SearchCompoId = ({ onError , rid, setSeason}) => {
               </select>
             ) : (
               <select disabled={!isSeason} onChange={handleSearch}>
-                <option value="">2023</option>
+                <option value={Year}>{Year}</option>
                 {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
