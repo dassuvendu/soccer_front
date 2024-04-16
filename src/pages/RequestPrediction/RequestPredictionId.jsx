@@ -25,12 +25,14 @@ const timeDay = time.getDay()
 const ndate = `${timeYear}-${timeMnth}-${timeDay}`;
 
 const [season, setSeason] = useState(null)
-
+const [sendDate, setSendDate] = useState(null)
 useEffect(()=>{
   console.log("sea",season);
 },[season])
 
-
+useEffect(()=>{
+  console.log("sea",sendDate);
+},[sendDate])
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4">
@@ -48,13 +50,13 @@ useEffect(()=>{
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompoId onError={handleError} rid={rid} setSeason={setSeason}/>
+          <SearchCompoId onError={handleError} rid={rid} setSeason={setSeason} setSendDate={setSendDate}/>
           <Prediction />
         </div>
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionListId errorMessage={errorMessage} ndate={ndate} rid={rid} season={season}/>
+      <RequestPredictionListId errorMessage={errorMessage} ndate={ndate} rid={rid} season={season} sendDate={sendDate}/>
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}

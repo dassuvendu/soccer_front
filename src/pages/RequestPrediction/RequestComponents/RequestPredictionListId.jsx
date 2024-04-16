@@ -17,10 +17,11 @@ import {
   getFixtures,
   getFixturesByleague,
 } from "../../../reducers/PredictionsSlice";
+import { data } from "autoprefixer";
 
-const RequestPredictionListId = ({ errorMessage,ndate,rid,onError,season }) => {
+const RequestPredictionListId = ({ errorMessage,ndate,rid,season,sendDate }) => {
     console.log(rid);
-    console.log(ndate);
+    console.log("Td2",sendDate);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
@@ -58,38 +59,51 @@ const RequestPredictionListId = ({ errorMessage,ndate,rid,onError,season }) => {
 
 
 const today = new Date();
-const yesterday = new Date(today);
-yesterday.setFullYear(today.getFullYear() - 1);
-const yesterdayFormatted = yesterday.toISOString().split("T")[0];
-const prevYear = yesterdayFormatted.toString().split('-')[0]
+today.setFullYear(today.getFullYear());
+const todayFormatted = today.toISOString().split("T")[0];
+console.log("Td",todayFormatted);
+const Year = todayFormatted.toString().split('-')[0]
 
 
   const dispatch = useDispatch();
 
+
+
   useEffect(() => {
-    if (season) {
-      dispatch(getFixtures({league: rid, season:season})).then((res) => {
+    if (sendDate ) {
+      dispatch(getFixtures({date : sendDate,league: rid, season:Year})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
         } else{
-          setLoadingData(true);
+          setLoadingData(false);
           setHide(false);
         }
       });
-    }else{
-      dispatch(getFixtures({league: rid, season:prevYear})).then((res) => {
+    }else if (season) {
+      dispatch(getFixtures({date : sendDate,league: rid, season:season})).then((res) => {
+        if (res?.payload?.status === true) {
+          setLoadingData(false);
+          setHide(true);
+        } else{
+          setLoadingData(false);
+          setHide(false);
+        }
+      });
+    }
+    else {
+      dispatch(getFixtures({date : todayFormatted,league: rid, season:Year})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
         }
         else {
-          setLoadingData(true);
+          setLoadingData(false);
           setHide(false);
         }
       });
     }
-  }, [dispatch,rid,prevYear]);
+  }, [dispatch,rid,Year,todayFormatted,season,sendDate]);
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);

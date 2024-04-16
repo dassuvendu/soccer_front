@@ -1,22 +1,31 @@
-import { Datepicker, Spinner } from "flowbite-react";
+import { Datepicker} from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import {
   getFixtures,
   getFixturesByleague,
-  getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
 export const SearchCompo = ({ onError }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { allLeague, seasons } = useSelector((state) => state.prediction);
+  const { allLeague } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
-  const [isseason, setIsSeason] = useState();
-  const [isRequired, setIsRequired] = useState();
+  const [isLeague, setIsLeague] = useState();
+  // const [isRequired, setIsRequired] = useState("*Please Select Date First");
   const [date, setDate] = useState();
+  console.log("d",date);
+  const [isDate,setIsData] = useState(false)
+  // const [cseason,setCSeason] = useState()
+  const [currentYear,setCurrentYear]=useState()
+  console.log("cY",currentYear);
+
+  const today = new Date()
+  const year = today.getFullYear()
+  const changeDateformate = today.toISOString().split("T")[0];
+
   const handleDateChange = (e) => {
     // console.log(e);
     // setLoading(true);
@@ -25,59 +34,149 @@ export const SearchCompo = ({ onError }) => {
     const day = String(e.getDate()).padStart(2, "0");
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
+    setCurrentYear(year)
   };
+
+  useEffect(() =>{
+    if (changeDateformate) {
+      dispatch(getFixturesByleague({})).then((res) =>{
+        console.log("res",res.payload.status);
+       if (res?.payload?.status === true) {
+        setIsData(true)
+        setIsLoading(false);
+       }else{
+        setIsData(false)
+        setIsLoading(true);
+       }
+      })
+    }
+  },[dispatch,changeDateformate])
 
   useEffect(() => {
     if (date) {
-      dispatch(getFixturesByleague({}));
+      dispatch(getFixturesByleague({})).then((res) =>{
+        console.log("res",res.payload.status);
+       if (res?.payload?.status === true) {
+        setIsData(true)
+        setIsLoading(false);
+       }else{
+        setIsData(false)
+        setIsLoading(true);
+       }
+      })
     }
-  }, [dispatch, date]);
+  }, [dispatch, date ]);
 
   const handleLeagueChange = (selectedOption) => {
-    setIsLoading(true);
-    setIsSeason(selectedOption);
-    let requried = "required*";
-    setIsRequired(requried);
-    dispatch(getSeasons({})).then((res) => {
-      if (res?.payload?.status === true) {
-        setIsLoading(false);
-      }
-    });
+    
+    setIsLeague(selectedOption);
+  
+    // dispatch(getSeasons({})).then((res) => {
+    //   if (res?.payload?.status === true) {
+    //     setIsLoading(false);
+    //   }
+    // });
   };
 
-  const handleSearch = (season) => {
-    setIsRequired(null);
-    // if (isseason === true) {
-    //   dispatch(getFixtures({ league: rid, season: season.target.value })).then(
-    //     (response) => {
-    //       if (
-    //         response?.payload?.message ===
-    //         "Something went wrong. Please try again later"
-    //       ) {
-    //         onError(400);
-    //       } else {
-    //         onError(null);
-    //       }
-    //     }
-    //   );
-    // }
-    dispatch(
-      getFixtures({
-        date: date,
-        league: isseason.value,
-        season: season.target.value,
-      })
-    ).then((response) => {
-      if (
-        response?.payload?.message ===
-        "Something went wrong. Please try again later"
-      ) {
-        onError(400);
-      } else {
-        onError(null);
-      }
-    });
-  };
+  // const handleSearch = (season) => {
+  //   setIsRequired(null);
+  //   setCSeason(season.target.value)
+  //   // if (isseason === true) {
+  //   //   dispatch(getFixtures({ league: rid, season: season.target.value })).then(
+  //   //     (response) => {
+  //   //       if (
+  //   //         response?.payload?.message ===
+  //   //         "Something went wrong. Please try again later"
+  //   //       ) {
+  //   //         onError(400);
+  //   //       } else {
+  //   //         onError(null);
+  //   //       }
+  //   //     }
+  //   //   );
+  //   // }
+  //   if (date) {
+  //     dispatch(
+     
+  //       getFixtures({
+  //         date: date,
+  //         league: isLeague.value,
+  //         season: currentYear,
+  //       })
+  //     ).then((response) => {
+  //       if (
+  //         response?.payload?.message ===
+  //         "Something went wrong. Please try again later"
+  //       ) {
+  //         onError(400);
+  //       } else {
+  //         onError(null);
+  //       }
+  //     });
+  //   }
+   
+  // };
+  useEffect(() => {
+    if (date && currentYear) {
+      dispatch(
+        getFixtures({
+          date: date,
+          league: isLeague?.value, // If league is selected, use its value
+          season: currentYear,
+        })
+      ).then((response) => {
+        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+    if (isLeague) { 
+      const year = changeDateformate.split('-')[0]
+      dispatch(
+        getFixtures({
+          date: changeDateformate, // Default date value
+          league: isLeague?.value,
+          season: parseInt(year),
+        })
+      ).then((response) => {
+        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+  
+    if (date && !isLeague) { // If date is selected and league is not selected
+      dispatch(
+        getFixtures({
+          date: date,
+          league: 'defaultLeagueValue', // Provide default league value
+          season: currentYear,
+        })
+      ).then((response) => {
+        if (
+          response?.payload?.message ===
+          "Something went wrong. Please try again later"
+        ) {
+          onError(400);
+        } else {
+          onError(null);
+        }
+      });
+    }
+  }, [date, currentYear, isLeague, changeDateformate]);
+
+  
+  
 
   const options = [
     ...(allLeague?.data?.map((dlist) => {
@@ -136,13 +235,23 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_League"
             }`}
           >
-            <Select
-              // placeholder="Select or Search League"
-              options={options}
-              isDisabled={!date}
-              onChange={handleLeagueChange}
-              value={options.label}
-            />
+            {isloading ?
+           <Select
+           isDisabled
+           options='Loading...'
+           />
+            :
+            <>
+           <Select
+            // placeholder="Select or Search League"
+            options={options}
+            isDisabled={!isDate}
+            onChange={handleLeagueChange}
+            value={options.label}
+          />
+            </>
+            
+            }
           </div>
         </div>
       </div>
@@ -155,8 +264,8 @@ export const SearchCompo = ({ onError }) => {
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
           } pb-2`}
         >
-          Select Season
-          <span className="text-red-500"> {isRequired}</span>
+         Season
+         
         </p>
         <div className="mb-4 md:mb-0">
           <div
@@ -166,20 +275,20 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_Season"
             }`}
           >
-            {isloading ? (
-              <select name="sel" disabled>
-                <option>Loading...</option>
-              </select>
-            ) : (
-              <select disabled={!isseason} onChange={handleSearch}>
-                <option value="">Select</option>
-                {seasons?.data?.map((data) => (
+           
+              <select  disabled>
+                {currentYear ? 
+                <option value=''>{currentYear}</option>
+                :
+                <option value=''>{year}</option>
+                 }
+                {/* {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
                   </option>
-                ))}
+                ))} */}
               </select>
-            )}
+           
           </div>
         </div>
       </div>
