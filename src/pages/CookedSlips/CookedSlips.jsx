@@ -91,10 +91,12 @@ const CookedSlips = () => {
   const itemsPerPage = 6;
   const [searchPage, setSearchPage] = useState(null);
 
-  const currentItems = oddsData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const currentItems =
+    Array.isArray(oddsData) &&
+    oddsData?.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
 
   const totalPages = Math.ceil(oddsData.length / itemsPerPage);
 
@@ -113,7 +115,45 @@ const CookedSlips = () => {
     { length: totalPages },
     (_, index) => index + 1
   );
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const formatStartDate = (dateString) => {
+    const options = {
+      weekday: "short",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+  const formatEndDate = (dateString) => {
+    const options = {
+      weekday: "short",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+  const formatStartTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return date.toLocaleTimeString(undefined, options);
+  };
+
+  const formatEndTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    return date.toLocaleTimeString(undefined, options);
+  };
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -222,19 +262,19 @@ const CookedSlips = () => {
                       >
                         <div className="flex justify-between items-center mb-5">
                           <p className="text-[12px] leading-[30px] font-normal text-white bg-[#153950] py-0 px-3 inline-block rounded-full">
-                            #{odds?.match_id}
+                            #{odds?.id}
                           </p>
-                          {odds?.risk_category === "Medium Risk" ? (
+                          {odds?.risk === "medium" ? (
                             <span className="text-[16px] leading-[30px] font-medium text-black bg-[#fba930] py-0 px-3 inline-block rounded-full">
-                              {odds?.risk_category}
+                              {odds?.risk} risk
                             </span>
-                          ) : odds?.risk_category === "Low Risk" ? (
+                          ) : odds?.risk === "low" ? (
                             <span className="text-[16px] leading-[30px] font-medium text-black bg-[#22E810] py-0 px-3 inline-block rounded-full">
-                              {odds?.risk_category}
+                              {odds?.risk} risk
                             </span>
                           ) : (
                             <span className="text-[16px] leading-[30px] font-medium text-white bg-[#ff0000] py-0 px-3 inline-block rounded-full">
-                              {odds?.risk_category}
+                              {odds?.risk} risk
                             </span>
                           )}
                         </div>
@@ -256,7 +296,7 @@ const CookedSlips = () => {
                                   : "text-white"
                               }`}
                             >
-                              {odds?.matches_count} Matches
+                              {odds?.count} Matches
                             </span>
                           </div>
                           <div className="text-right">
@@ -289,7 +329,7 @@ const CookedSlips = () => {
                                   : "text-gray-600"
                               } mb-1`}
                             >
-                              {odds?.matches_count} Matches
+                              {odds?.count} Matches
                             </p>
                             <span
                               className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
@@ -298,7 +338,8 @@ const CookedSlips = () => {
                                   : "text-white"
                               } block`}
                             >
-                              {dateList[index]?.label}
+                              {/* {dateList[index]?.label} */}
+                              {formatStartDate(odds?.startsOn)}
                             </span>
                             <span
                               className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
@@ -307,7 +348,8 @@ const CookedSlips = () => {
                                   : "text-white"
                               }`}
                             >
-                              {timeList[index]?.value}
+                              {/* {timeList[index]?.value} */}
+                              {formatStartTime(odds?.startsOn)}
                             </span>
                           </div>
                           <div className="text-right">
@@ -327,7 +369,8 @@ const CookedSlips = () => {
                                   : "text-white"
                               } block`}
                             >
-                              {dateListEnd[index]?.label}
+                              {/* {dateListEnd[index]?.label} */}
+                              {formatEndDate(odds?.endsOn)}
                             </span>
                             <span
                               className={`font-Montserrat text-[16px] leading-[18px] font-medium ${
@@ -336,7 +379,8 @@ const CookedSlips = () => {
                                   : "text-white"
                               }`}
                             >
-                              {timeListEnd[index]?.value}
+                              {/* {timeListEnd[index]?.value} */}
+                              {formatEndTime(odds?.endsOn)}
                             </span>
                           </div>
                         </div>
@@ -361,7 +405,7 @@ const CookedSlips = () => {
                                   : "text-white"
                               }`}
                             >
-                              4 Tokens
+                              {odds?.cost} Tokens
                             </p>
                           </div>
                         </div>
