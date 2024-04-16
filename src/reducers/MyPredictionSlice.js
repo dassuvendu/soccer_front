@@ -28,8 +28,8 @@ export const recentPredictions = createAsyncThunk(
         try {
             const response = await api.post('/api/my_predictions', userInput);
             if (response.status) {
-
-                return response.data;
+                console.log("Recent data:", response?.data);
+                return response?.data;
             } else {
                 let errors = errorHandler(response);
                 return rejectWithValue(errors);

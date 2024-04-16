@@ -24,7 +24,7 @@ import { CiUnlock } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { getOddsSlips } from "../../reducers/CookedSlipSlice";
 import { useDateTimeSlip } from "../../hooks/useDateTimeSlip";
-import { useDateTimeSlipEnd } from "../../hooks/useDateTimeSlipEnd";
+// import { useDateTimeSlipEnd } from "../../hooks/useDateTimeSlipEnd";
 import ViewSlipDetails from "./ViewSlipDetails";
 const CookedSlips = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -40,25 +40,25 @@ const CookedSlips = () => {
   dates.setMinutes(dates.getMinutes() + timeZoneOffset);
   const newDate = dates.toISOString().split("T")[0];
   const [dateList, timeList] = useDateTimeSlip({ date: newDate });
-  const [dateListEnd, timeListEnd] = useDateTimeSlipEnd({ date: newDate });
+  // const [dateListEnd, timeListEnd] = useDateTimeSlipEnd({ date: newDate });
   const [selectedDate, setSelectedDate] = useState(null);
-  console.log("dateList", dateList);
-  console.log("timelist", timeList);
+  // console.log("dateList", dateList);
+  // console.log("timelist", timeList);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState(false);
   const slipModalHandler = () => {
     setOpenSlipModal(true);
   };
-  useEffect(() => {
-    setDate(dateList);
-    setTime(timeList);
-  }, [oddsData]);
-  useEffect(() => {
-    setDateEnd(dateListEnd);
-    setTimeEnd(timeListEnd);
-  }, [oddsData]);
-  console.log("End Date: ", dateListEnd);
-  console.log("End Time: ", timeListEnd);
+  // useEffect(() => {
+  //   setDate(dateList);
+  //   setTime(timeList);
+  // }, [oddsData]);
+  // useEffect(() => {
+  //   setDateEnd(dateListEnd);
+  //   setTimeEnd(timeListEnd);
+  // }, [oddsData]);
+  // console.log("End Date: ", dateListEnd);
+  // console.log("End Time: ", timeListEnd);
 
   const handleDateChange = (date) => {
     setDate(date);
@@ -72,12 +72,6 @@ const CookedSlips = () => {
     return `${year}-${month}-${day}`;
   };
   const fetchData = (date) => {
-    // console.log("date", date);
-    // const timeZoneOffset = date.getTimezoneOffset();
-    // dates.setMinutes(date.getMinutes() + timeZoneOffset);
-    // const newDate = date.toISOString().split("T")[0];
-    // dispatch(getOddsSlips({ date: newDate }));
-    // console.log("odds data", newDate);
     const formattedDate = formatDate(date);
     // Dispatch action to get data for the selected date
     dispatch(getOddsSlips({ date: formattedDate }));

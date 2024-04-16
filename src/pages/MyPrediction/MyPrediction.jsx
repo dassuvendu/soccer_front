@@ -64,19 +64,12 @@ const MyPrediction = () => {
       console.log("total data: ", fetchedPredictions?.total_data);
       setTotalPages(Math.ceil(fetchedPredictions?.total_data / itemsPerPage));
     }
-  }, [fetchedPredictions, recent]);
+  }, [fetchedPredictions]);
   const fetchData = (page) => {
     dispatch(
       getPredictions({
         page_number: page,
         items_per_page: itemsPerPage,
-      })
-    );
-    dispatch(
-      recentPredictions({
-        page_number: page,
-        items_per_page: itemsPerPage,
-        recent_predictions: true,
       })
     );
   };
