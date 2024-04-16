@@ -8,7 +8,7 @@ import {
   getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
+export const SearchCompoId = ({ onError , rid }) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague } = useSelector((state) => state.prediction);
@@ -24,7 +24,7 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
 
   const today = new Date();
   const Year = today.getFullYear()
-  const changeDateformate = today.toISOString().split("T")[0];
+ 
   
   const handleDateChange = (e) => {
     // console.log(e);
@@ -34,7 +34,6 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
   setDate(newDate);
-  setSendDate(newDate)
   setCurrentYear(year)
   };
 
@@ -133,28 +132,28 @@ export const SearchCompoId = ({ onError , rid, setSeason,setSendDate}) => {
         }
       });
     }
-    if (changeDateformate && currentYear) {
-      const leagueId = parseInt(rid)
-      console.log("type",typeof leagueId);
-      dispatch(
+    // if (changeDateformate && currentYear) {
+    //   const leagueId = parseInt(rid)
+    //   console.log("type",typeof leagueId);
+    //   dispatch(
      
-        getFixtures({
-          date: changeDateformate,
-          league: leagueId,
-          season: Year,
-        })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
-        ) {
-          onError(400);
-        } else {
-          onError(null);
-        }
-      });
-    }
-  },[date,Year,currentYear,rid,changeDateformate])
+    //     getFixtures({
+    //       date: changeDateformate,
+    //       league: leagueId,
+    //       season: Year,
+    //     })
+    //   ).then((response) => {
+    //     if (
+    //       response?.payload?.message ===
+    //       "Something went wrong. Please try again later"
+    //     ) {
+    //       onError(400);
+    //     } else {
+    //       onError(null);
+    //     }
+    //   });
+    // }
+  },[date,currentYear,rid])
   
   return (
     <>

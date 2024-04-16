@@ -18,21 +18,11 @@ const RequestPredictionId = () => {
 
   let { rid } = useParams();
 
-const time = new Date()
-const timeYear = time.getFullYear()
-const timeMnth = time.getMonth()
-const timeDay = time.getDay()
-const ndate = `${timeYear}-${timeMnth}-${timeDay}`;
+// const [season, setSeason] = useState(null)
 
-const [season, setSeason] = useState(null)
-const [sendDate, setSendDate] = useState(null)
-useEffect(()=>{
-  console.log("sea",season);
-},[season])
-
-useEffect(()=>{
-  console.log("sea",sendDate);
-},[sendDate])
+// useEffect(()=>{
+//   console.log("sea",season);
+// },[season])
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4">
@@ -50,13 +40,13 @@ useEffect(()=>{
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompoId onError={handleError} rid={rid} setSeason={setSeason} setSendDate={setSendDate}/>
+          <SearchCompoId onError={handleError} rid={rid}  />
           <Prediction />
         </div>
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionListId errorMessage={errorMessage} ndate={ndate} rid={rid} season={season} sendDate={sendDate}/>
+      <RequestPredictionListId errorMessage={errorMessage}  rid={rid} />
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}

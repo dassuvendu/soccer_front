@@ -19,7 +19,7 @@ import {
 } from "../../../reducers/PredictionsSlice";
 import { data } from "autoprefixer";
 
-const RequestPredictionListId = ({ errorMessage,ndate,rid,season,sendDate }) => {
+const RequestPredictionListId = ({ errorMessage,rid,season,sendDate }) => {
     console.log(rid);
     console.log("Td2",sendDate);
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -70,29 +70,30 @@ const Year = todayFormatted.toString().split('-')[0]
 
 
   useEffect(() => {
-    if (sendDate ) {
-      dispatch(getFixtures({date : sendDate,league: rid, season:Year})).then((res) => {
-        if (res?.payload?.status === true) {
-          setLoadingData(false);
-          setHide(true);
-        } else{
-          setLoadingData(false);
-          setHide(false);
-        }
-      });
-    }else if (season) {
-      dispatch(getFixtures({date : sendDate,league: rid, season:season})).then((res) => {
-        if (res?.payload?.status === true) {
-          setLoadingData(false);
-          setHide(true);
-        } else{
-          setLoadingData(false);
-          setHide(false);
-        }
-      });
-    }
-    else {
-      dispatch(getFixtures({date : todayFormatted,league: rid, season:Year})).then((res) => {
+    // if (sendDate ) {
+    //   dispatch(getFixtures({date : sendDate,league: rid, season:Year})).then((res) => {
+    //     if (res?.payload?.status === true) {
+    //       setLoadingData(false);
+    //       setHide(true);
+    //     } else{
+    //       setLoadingData(false);
+    //       setHide(false);
+    //     }
+    //   });
+    // }else if (season) {
+    //   dispatch(getFixtures({date : sendDate,league: rid, season:season})).then((res) => {
+    //     if (res?.payload?.status === true) {
+    //       setLoadingData(false);
+    //       setHide(true);
+    //     } else{
+    //       setLoadingData(false);
+    //       setHide(false);
+    //     }
+    //   });
+    // } 
+     const leaugeId = parseInt(rid)
+     const season = parseInt(Year)
+      dispatch(getFixtures({date : todayFormatted,league: leaugeId, season:season})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
@@ -102,7 +103,6 @@ const Year = todayFormatted.toString().split('-')[0]
           setHide(false);
         }
       });
-    }
   }, [dispatch,rid,Year,todayFormatted,season,sendDate]);
 
   const formatTime = (timestamp) => {
