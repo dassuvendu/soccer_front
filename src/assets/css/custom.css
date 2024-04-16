@@ -33,23 +33,27 @@ body {
   width: 350px;
 }
 
-.date_picker_box_light.Select_Season select {
+.date_picker_box_light.Select_Season {
   background-color: #e1e1e1;
   color: #0d0f11;
   border-radius: 25px;
-  font-size: 14px;
+  font-size: 15px;
   border: #cccccc 1px solid;
   width: 130px;
   height: 42px;
+  padding-top: 11px;
+  padding-left: 20px;
 }
-.date_picker_box.Select_Season select {
+.date_picker_box.Select_Season {
   background: #0d0f11;
   color: #e1e1e1;
   border-radius: 25px;
-  font-size: 14px;
+  font-size: 15px;
   width: 130px;
   border: #ffffff 1px solid;
   height: 42px;
+  padding-top: 11px;
+  padding-left: 20px;
 }
 
 .date_picker_box_light.Select_League .css-16xfy0z-control {

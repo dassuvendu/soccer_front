@@ -1,4 +1,4 @@
-import { Datepicker} from "flowbite-react";
+import { Datepicker } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { useEffect, useState } from "react";
@@ -16,14 +16,14 @@ export const SearchCompo = ({ onError }) => {
   const [isLeague, setIsLeague] = useState();
   // const [isRequired, setIsRequired] = useState("*Please Select Date First");
   const [date, setDate] = useState();
-  console.log("d",date);
-  const [isDate,setIsData] = useState(false)
+  console.log("d", date);
+  const [isDate, setIsData] = useState(false);
   // const [cseason,setCSeason] = useState()
-  const [currentYear,setCurrentYear]=useState()
-  console.log("cY",currentYear);
+  const [currentYear, setCurrentYear] = useState();
+  console.log("cY", currentYear);
 
-  const today = new Date()
-  const year = today.getFullYear()
+  const today = new Date();
+  const year = today.getFullYear();
   const changeDateformate = today.toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
@@ -34,43 +34,42 @@ export const SearchCompo = ({ onError }) => {
     const day = String(e.getDate()).padStart(2, "0");
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
-    setCurrentYear(year)
+    setCurrentYear(year);
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     if (changeDateformate) {
-      dispatch(getFixturesByleague({})).then((res) =>{
-        console.log("res",res.payload.status);
-       if (res?.payload?.status === true) {
-        setIsData(true)
-        setIsLoading(false);
-       }else{
-        setIsData(false)
-        setIsLoading(true);
-       }
-      })
+      dispatch(getFixturesByleague({})).then((res) => {
+        console.log("res", res.payload.status);
+        if (res?.payload?.status === true) {
+          setIsData(true);
+          setIsLoading(false);
+        } else {
+          setIsData(false);
+          setIsLoading(true);
+        }
+      });
     }
-  },[dispatch,changeDateformate])
+  }, [dispatch, changeDateformate]);
 
   useEffect(() => {
     if (date) {
-      dispatch(getFixturesByleague({})).then((res) =>{
-        console.log("res",res.payload.status);
-       if (res?.payload?.status === true) {
-        setIsData(true)
-        setIsLoading(false);
-       }else{
-        setIsData(false)
-        setIsLoading(true);
-       }
-      })
+      dispatch(getFixturesByleague({})).then((res) => {
+        console.log("res", res.payload.status);
+        if (res?.payload?.status === true) {
+          setIsData(true);
+          setIsLoading(false);
+        } else {
+          setIsData(false);
+          setIsLoading(true);
+        }
+      });
     }
-  }, [dispatch, date ]);
+  }, [dispatch, date]);
 
   const handleLeagueChange = (selectedOption) => {
-    
     setIsLeague(selectedOption);
-  
+
     // dispatch(getSeasons({})).then((res) => {
     //   if (res?.payload?.status === true) {
     //     setIsLoading(false);
@@ -97,7 +96,7 @@ export const SearchCompo = ({ onError }) => {
   //   // }
   //   if (date) {
   //     dispatch(
-     
+
   //       getFixtures({
   //         date: date,
   //         league: isLeague.value,
@@ -114,7 +113,7 @@ export const SearchCompo = ({ onError }) => {
   //       }
   //     });
   //   }
-   
+
   // };
   useEffect(() => {
     if (date && currentYear) {
@@ -135,8 +134,8 @@ export const SearchCompo = ({ onError }) => {
         }
       });
     }
-    if (isLeague) { 
-      const year = changeDateformate.split('-')[0]
+    if (isLeague) {
+      const year = changeDateformate.split("-")[0];
       dispatch(
         getFixtures({
           date: changeDateformate, // Default date value
@@ -154,12 +153,13 @@ export const SearchCompo = ({ onError }) => {
         }
       });
     }
-  
-    if (date && !isLeague) { // If date is selected and league is not selected
+
+    if (date && !isLeague) {
+      // If date is selected and league is not selected
       dispatch(
         getFixtures({
           date: date,
-          league: 'defaultLeagueValue', // Provide default league value
+          league: isLeague?.value, // Provide default league value
           season: currentYear,
         })
       ).then((response) => {
@@ -174,9 +174,6 @@ export const SearchCompo = ({ onError }) => {
       });
     }
   }, [date, currentYear, isLeague, changeDateformate]);
-
-  
-  
 
   const options = [
     ...(allLeague?.data?.map((dlist) => {
@@ -195,6 +192,18 @@ export const SearchCompo = ({ onError }) => {
       };
     }) || []),
   ];
+
+  const [input, setInput] = useState("");
+
+  const handleInputChange = (newValue) => {
+    setInput(newValue);
+  };
+
+  const filteredOptions = options.filter((option) =>
+  // console.log("op",option)
+    option.label.props.children[1].props.children
+      .includes(input)
+  );
 
   return (
     <>
@@ -235,23 +244,20 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_League"
             }`}
           >
-            {isloading ?
-           <Select
-           isDisabled
-           options='Loading...'
-           />
-            :
-            <>
-           <Select
-            // placeholder="Select or Search League"
-            options={options}
-            isDisabled={!isDate}
-            onChange={handleLeagueChange}
-            value={options.label}
-          />
-            </>
-            
-            }
+            {isloading ? (
+              <Select isDisabled options="Loading..." />
+            ) : (
+              <>
+                <Select
+                  options={filteredOptions}
+                  isDisabled={!isDate}
+                  onChange={handleLeagueChange}
+                  value={input} // Set the value to the input state
+                  onInputChange={handleInputChange}
+                />
+
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -264,8 +270,7 @@ export const SearchCompo = ({ onError }) => {
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
           } pb-2`}
         >
-         Season
-         
+          Season
         </p>
         <div className="mb-4 md:mb-0">
           <div
@@ -275,20 +280,31 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_Season"
             }`}
           >
-           
-              <select  disabled>
+            {/* <select  disabled>
                 {currentYear ? 
                 <option value=''>{currentYear}</option>
                 :
                 <option value=''>{year}</option>
-                 }
-                {/* {seasons?.data?.map((data) => (
+                 } */}
+            {/* {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
                   </option>
                 ))} */}
-              </select>
-           
+            {/* </select> */}
+            {currentYear ? (
+              <div
+                className={` ${
+                  themeMode === "light"
+                    ? "date_picker_box_light Select_Season"
+                    : "date_picker_box Select_Season"
+                }`}
+              >
+                {currentYear}
+              </div>
+            ) : (
+              <div className="">{year}</div>
+            )}
           </div>
         </div>
       </div>

@@ -1,11 +1,10 @@
-import { Datepicker, Spinner } from "flowbite-react";
+import { Datepicker } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import {
   getFixtures,
   getFixturesByleague,
-  getSeasons,
 } from "../../../reducers/PredictionsSlice";
 
 export const SearchCompoId = ({ onError , rid }) => {
@@ -15,7 +14,7 @@ export const SearchCompoId = ({ onError , rid }) => {
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
   // const [isloading, setIsLoading] = useState(false);
-  const [isSeason, setIsSeason] = useState(false);
+  // const [isSeason, setIsSeason] = useState(false);
   const [leagueName, setleagueName] = useState('');
   const [date, setDate] = useState();
   // const [cseason,setCSeason] = useState()
@@ -223,18 +222,22 @@ export const SearchCompoId = ({ onError , rid }) => {
                 : "date_picker_box Select_Season"
             }`}
           >
-             <select  disabled>
+             
                 {currentYear ? 
-                <option value=''>{currentYear}</option>
+                <div className={` ${
+                  themeMode === "light"
+                    ? "date_picker_box_light Select_Season"
+                    : "date_picker_box Select_Season"
+                }`}>{currentYear}</div>
                 :
-                <option value=''>{Year}</option>
+                <div className="">{Year}</div>
                  }
                 {/* {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
                   </option>
                 ))} */}
-              </select>
+            
             
            
             

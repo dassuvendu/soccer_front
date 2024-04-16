@@ -2,9 +2,8 @@ import { Spinner, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RequestModal } from "./RequestModal";
-import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
@@ -12,12 +11,8 @@ import {
   BsChevronRight,
 } from "react-icons/bs";
 import {
-  Formation,
-  LastResult,
   getFixtures,
-  getFixturesByleague,
 } from "../../../reducers/PredictionsSlice";
-import { data } from "autoprefixer";
 
 const RequestPredictionListId = ({ errorMessage,rid,season,sendDate }) => {
     console.log(rid);
