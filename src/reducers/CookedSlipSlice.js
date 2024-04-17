@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import errorHandler from "../store/ErrorHandler";
-import api from "../store/Api";
+import errorHandler from "../store/errorHandler";
+import api from "../store/api";
 
 export const getOddsSlips = createAsyncThunk(
     'oddSlip',
@@ -20,10 +20,29 @@ export const getOddsSlips = createAsyncThunk(
         }
     }
 )
+export const getslipDetails = createAsyncThunk(
+    'slipDetails',
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/api/odds_matches', id);
+            if (response.status === 200) {
+                console.log("single Slip", response.data);
+                return response.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
 const initialState = {
     oddsData: [],
     isLoading: false,
-    error: false
+    error: false,
+    singleSlip: {}
 }
 const CookedSlipSlice = createSlice(
     {
@@ -46,6 +65,19 @@ const CookedSlipSlice = createSlice(
                         ? payload.message
                         : 'Something went wrong. Try again later.';
 
+            }).addCase(getslipDetails.pending, (state) => {
+                state.isLoading = true
+            }).addCase(getslipDetails.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                state.singleSlip = payload
+                state.error = false
+            }).addCase(getslipDetails.rejected, (state, { payload }) => {
+                state.error = true;
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
             })
         }
     }
