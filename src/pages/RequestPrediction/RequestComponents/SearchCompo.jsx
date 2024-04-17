@@ -191,16 +191,12 @@ export const SearchCompo = ({ onError }) => {
     }
   }, [date, isLeague, changeDateformate,apiCall]);
 
-  
-
-  const [input, setInput] = useState("");
  
 
   const handleInputChange = (newValue) => {
-    setInput(newValue);
     console.log("input",newValue);
   };
- const [filteredData,setFilteredData] = useState()
+//  const [filteredData,setFilteredData] = useState()
 
   // useEffect(() => {
   //   console.log('input', input.trim())
