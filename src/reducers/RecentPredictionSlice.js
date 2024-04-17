@@ -1,17 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../store/api";
 import errorHandler from "../store/errorHandler";
+import api from "../store/api";
 
-
-export const getPredictions = createAsyncThunk(
-    'myPredict',
+export const recentPredictions = createAsyncThunk(
+    'recentPredict',
     async (userInput, { rejectWithValue }) => {
         try {
             const response = await api.post('/api/my_predictions', userInput);
-
             if (response.status === 200) {
-                console.log("respone prediction: ", response?.status);
-                return response.data;
+                console.log("Recent data:", response?.status);
+                return response?.data;
             } else {
                 let errors = errorHandler(response);
                 return rejectWithValue(errors);
@@ -22,26 +20,24 @@ export const getPredictions = createAsyncThunk(
         }
     }
 )
-
-
 const initialState = {
     isLoading: false,
     error: false,
-    fetchedPredictions: [],
+    recent: []
 }
-const MyPredictionsSlice = createSlice(
+const RecentPredictionSlice = createSlice(
     {
-        name: 'fetchPredic',
+        name: 'recentPredict',
         initialState,
         reducers: {},
         extraReducers: (builder) => {
-            builder.addCase(getPredictions.pending, (state) => {
+            builder.addCase(recentPredictions.pending, (state) => {
                 state.isLoading = true
-            }).addCase(getPredictions.fulfilled, (state, { payload }) => {
+            }).addCase(recentPredictions.fulfilled, (state, { payload }) => {
                 state.isLoading = false
-                state.fetchedPredictions = payload
+                state.recent = payload
                 state.error = false
-            }).addCase(getPredictions.rejected, (state, { payload }) => {
+            }).addCase(recentPredictions.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
                 state.message =
@@ -52,4 +48,4 @@ const MyPredictionsSlice = createSlice(
         }
     }
 )
-export default MyPredictionsSlice.reducer
+export default RecentPredictionSlice.reducer

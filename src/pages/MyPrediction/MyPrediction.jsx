@@ -23,19 +23,19 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getPredictions,
-  recentPredictions,
-} from "../../reducers/MyPredictionSlice";
+import { getPredictions } from "../../reducers/MyPredictionSlice";
 import Login from "../Auth/Login/Login";
 import { PredictionRequestModal } from "./PredictionCompo/PredictionRequestModal";
 import { LastResult } from "../../reducers/PredictionsSlice";
+import { recentPredictions } from "../../reducers/RecentPredictionSlice";
 
 const MyPrediction = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { fetchedPredictions, isLoading, recent } = useSelector(
+  const { fetchedPredictions, isLoading } = useSelector(
     (state) => state.myPredictions
   );
+  const { recent } = useSelector((state) => state.recentPredicts);
+
   console.log("recent: ", recent?.data);
   const { teamResult } = useSelector((state) => state.prediction);
   console.log("team", teamResult);
@@ -52,9 +52,12 @@ const MyPrediction = () => {
   const nevigate = useNavigate();
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
+  var count = 0;
   useEffect(() => {
     if (token) {
       fetchData(currentPage);
+      // fetchRecentPredictions(currentPage);
+      fetchData();
       console.log("total data: ", fetchedPredictions?.total_data);
       //  setTotalPages(fetchedPredictions?.total_data);
     }
@@ -73,6 +76,7 @@ const MyPrediction = () => {
       })
     );
   };
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
