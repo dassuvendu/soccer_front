@@ -191,47 +191,84 @@ export const SearchCompo = ({ onError }) => {
     }
   }, [date, isLeague, changeDateformate,apiCall]);
 
-  const options = [
-    ...(allLeague?.data?.map((dlist) => {
-      return {
-        value: dlist?.league?.id,
-        label: (
-          <div style={{ display: "flex" }}>
-            <img
-              src={dlist?.league?.logo}
-              alt="League Logo"
-              style={{ width: 20, height: 20 }}
-            />
-            <span style={{ paddingLeft: "10px" }}>{dlist?.league?.name}</span>
-          </div>
-        ),
-      };
-    }) || []),
-  ];
+  
+
   const [input, setInput] = useState("");
-  console.log("input",input);
+ 
 
   const handleInputChange = (newValue) => {
     setInput(newValue);
+    console.log("input",newValue);
   };
+ const [filteredData,setFilteredData] = useState()
 
-  useEffect(() => {
-    allLeague?.data?.filter(data => console.log("lName",data?.league?.name))
-  }, [allLeague]);
-  
-  useEffect(() => {
-   
-  }, [allLeague, input]); // Make sure to include input in the dependency array
-  
-  
-  
-  
+  // useEffect(() => {
+  //   console.log('input', input.trim())
 
-  // const filteredOptions = options.filter((option) =>
-  // // console.log("op",option)
-  //   option.label.props.children[1].props.children
-  //     .includes(input)
-  // );
+  //   const filteredData = allLeague?.data?.filter(data => data?.league?.name.includes(input.trim())).map(item => item)
+  //   // filteredData && filteredData.map(item => console.log('item', item));
+  //   setFilteredData(filteredData)
+  //   optionList();
+  // }, [allLeague,input]);
+
+ 
+
+  // let leagueOptions = [];
+
+  // let optionList = () => {
+  //   if(input?.length){
+      
+  //     leagueOptions = [
+  //       ...(filteredData?.data?.map((dlist) => (
+  //         {
+  //           value: dlist?.league?.id,
+  //           label: (
+  //             <div style={{ display: "flex" }}>
+  //               <img
+  //                 src={dlist?.league?.logo}
+  //                 alt="League Logo"
+  //                 style={{ width: 20, height: 20 }}
+  //               />
+  //               <span style={{ paddingLeft: "10px" }}>{dlist?.league?.name}</span>
+  //             </div>
+  //           ),
+  //         }
+  //       ))) || []
+  //     ]
+  //   }
+  //   else{
+      
+  //     leagueOptions = [
+  //       ...(allLeague?.data?.map((dlist) => (
+  //         {
+  //           value: dlist?.league?.id,
+  //           label: (
+  //             <div style={{ display: "flex" }}>
+  //               <img
+  //                 src={dlist?.league?.logo}
+  //                 alt="League Logo"
+  //                 style={{ width: 20, height: 20 }}
+  //               />
+  //               <span style={{ paddingLeft: "10px" }}>{dlist?.league?.name}</span>
+  //             </div>
+  //           ),
+  //         }
+  //       ))) || []
+  //     ]
+  //   }  
+  // }
+  // useEffect(()=>{
+  //   optionList();
+  // },[])
+const options = [
+    ...(allLeague?.data?.map((dlist) => {
+      return {
+        value: dlist?.league?.id,
+        label: dlist?.league?.name
+      };
+    }) || []),
+  ];
+console.log("op",options);
 
   return (
     <>
@@ -282,8 +319,9 @@ export const SearchCompo = ({ onError }) => {
                   onChange={handleLeagueChange}
                   value={options.value} // Set the value to the input state
                   onInputChange={handleInputChange}
+                  
                 />
-
+             
               </>
             )}
           </div>
