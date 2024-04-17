@@ -21,9 +21,10 @@ export const SearchCompo = ({ onError }) => {
   // const [cseason,setCSeason] = useState()
   const [currentYear, setCurrentYear] = useState();
   console.log("cY", currentYear);
+ 
 
   const today = new Date();
-  const year = today.getFullYear();
+  // const year = today.getFullYear();
   const changeDateformate = today.toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
@@ -192,18 +193,55 @@ export const SearchCompo = ({ onError }) => {
       };
     }) || []),
   ];
-
   const [input, setInput] = useState("");
+  console.log("input",input);
 
   const handleInputChange = (newValue) => {
     setInput(newValue);
   };
+  // const [leagueName, setleagueName] = useState('');
+  // console.log('leagueName', leagueName)
+  // useEffect(() => {
+  //   if (allLeague ) {
+  //     const filteredLeagues = allLeague?.data?.filter(data => data.toLowerCase().includes(input.toLowerCase()) );
+  //    console.log("Filtered Leagues:", filteredLeagues);
+  //     if(Array.isArray(filteredLeagues)&&filteredLeagues){
+  //       setleagueName(filteredLeagues[0]?.league?.name)
+      
+  //       // if (isSeason === false) {
+  //       //   dispatch(getSeasons({})).then((res) => {
+  //       //     if (res?.payload?.status === true) {
+  //       //       // setIsLoading(false);
+  //       //       setIsSeason(true);
+  //       //     }
+  //       //   });
+  //       // }
+  //     }
+  //   }
+  // }, [allLeague])
+  useEffect(() => {
+    function filterTournaments(input) {
+      return allLeague?.data?.filter(tournament => {
+        return tournament?.league?.name == input
+      });
+    }
+    
+    // Example usage
+    const userInput = input; // Assuming input is defined somewhere
+    const filteredTournaments = filterTournaments(userInput);
+    
+    console.log("fil",filteredTournaments);
+  }, [allLeague, input]); // Make sure to include input in the dependency array
+  
+  
+  
+  
 
-  const filteredOptions = options.filter((option) =>
-  // console.log("op",option)
-    option.label.props.children[1].props.children
-      .includes(input)
-  );
+  // const filteredOptions = options.filter((option) =>
+  // // console.log("op",option)
+  //   option.label.props.children[1].props.children
+  //     .includes(input)
+  // );
 
   return (
     <>
@@ -249,10 +287,10 @@ export const SearchCompo = ({ onError }) => {
             ) : (
               <>
                 <Select
-                  options={filteredOptions}
+                  options={options}
                   isDisabled={!isDate}
                   onChange={handleLeagueChange}
-                  value={input} // Set the value to the input state
+                  value={options.value} // Set the value to the input state
                   onInputChange={handleInputChange}
                 />
 
@@ -264,50 +302,51 @@ export const SearchCompo = ({ onError }) => {
 
       {/*  select season */}
 
-      <div className="mb-4 md:mb-0 w-3/3">
-        <p
-          className={`text-[14px] leading-[20px] font-medium ${
-            themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-          } pb-2`}
-        >
-          Season
-        </p>
-        <div className="mb-4 md:mb-0">
-          <div
-            className={` ${
-              themeMode === "light"
-                ? "date_picker_box_light Select_Season"
-                : "date_picker_box Select_Season"
-            }`}
-          >
-            {/* <select  disabled>
-                {currentYear ? 
-                <option value=''>{currentYear}</option>
-                :
-                <option value=''>{year}</option>
-                 } */}
-            {/* {seasons?.data?.map((data) => (
-                  <option key={data} value={data}>
-                    {data}
-                  </option>
-                ))} */}
-            {/* </select> */}
-            {currentYear ? (
-              <div
-                className={` ${
-                  themeMode === "light"
-                    ? "date_picker_box_light Select_Season"
-                    : "date_picker_box Select_Season"
-                }`}
-              >
-                {currentYear}
-              </div>
-            ) : (
-              <div className="">{year}</div>
-            )}
-          </div>
-        </div>
-      </div>
+     
     </>
   );
 };
+//  <div className="mb-4 md:mb-0 w-3/3">
+//         <p
+//           className={`text-[14px] leading-[20px] font-medium ${
+//             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+//           } pb-2`}
+//         >
+//           Season
+//         </p>
+//         <div className="mb-4 md:mb-0">
+//           <div
+//             className={` ${
+//               themeMode === "light"
+//                 ? "date_picker_box_light Select_Season"
+//                 : "date_picker_box Select_Season"
+//             }`}
+//           >
+//             <select  disabled>
+//                 {currentYear ? 
+//                 <option value=''>{currentYear}</option>
+//                 :
+//                 <option value=''>{year}</option>
+//                  } */}
+//              {seasons?.data?.map((data) => (
+//                   <option key={data} value={data}>
+//                     {data}
+//                   </option>
+//                 ))}
+//              </select> 
+//             {currentYear ? (
+//               <div
+//                 className={` ${
+//                   themeMode === "light"
+//                     ? "date_picker_box_light Select_Season"
+//                     : "date_picker_box Select_Season"
+//                 }`}
+//               >
+//                 {currentYear}
+//               </div>
+//             ) : (
+//               <div className="">{year}</div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
