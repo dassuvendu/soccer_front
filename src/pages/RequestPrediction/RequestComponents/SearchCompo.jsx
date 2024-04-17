@@ -19,13 +19,14 @@ export const SearchCompo = ({ onError }) => {
   console.log("d", date);
   const [isDate, setIsData] = useState(false);
   // const [cseason,setCSeason] = useState()
-  const [currentYear, setCurrentYear] = useState();
-  console.log("cY", currentYear);
- 
+  // const [currentYear, setCurrentYear] = useState();
+  // console.log("cY", currentYear);
+  const [apiCall, setApiCall] = useState(false);
 
   const today = new Date();
   // const year = today.getFullYear();
   const changeDateformate = today.toISOString().split("T")[0];
+
 
   const handleDateChange = (e) => {
     // console.log(e);
@@ -35,7 +36,7 @@ export const SearchCompo = ({ onError }) => {
     const day = String(e.getDate()).padStart(2, "0");
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
-    setCurrentYear(year);
+    // setCurrentYear(year);
   };
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export const SearchCompo = ({ onError }) => {
         if (res?.payload?.status === true) {
           setIsData(true);
           setIsLoading(false);
+          setApiCall(true)
         } else {
           setIsData(false);
           setIsLoading(true);
@@ -53,20 +55,21 @@ export const SearchCompo = ({ onError }) => {
     }
   }, [dispatch, changeDateformate]);
 
-  useEffect(() => {
-    if (date) {
-      dispatch(getFixturesByleague({})).then((res) => {
-        console.log("res", res.payload.status);
-        if (res?.payload?.status === true) {
-          setIsData(true);
-          setIsLoading(false);
-        } else {
-          setIsData(false);
-          setIsLoading(true);
-        }
-      });
-    }
-  }, [dispatch, date]);
+  // useEffect(() => {
+  //   if (date) {
+  //     dispatch(getFixturesByleague({})).then((res) => {
+  //       console.log("res", res.payload.status);
+  //       if (res?.payload?.status === true) {
+  //         setIsData(true);
+  //         setIsLoading(false);
+  //         setApiCall(false)
+  //       } else {
+  //         setIsData(false);
+  //         setIsLoading(true);
+  //       }
+  //     });
+  //   }
+  // }, [dispatch, date]);
 
   const handleLeagueChange = (selectedOption) => {
     setIsLeague(selectedOption);
@@ -117,29 +120,36 @@ export const SearchCompo = ({ onError }) => {
 
   // };
   useEffect(() => {
-    if (date && currentYear) {
+    // if ( date && currentYear) {
+    //   console.log("hi");
+    // console.log('1stD', date)
+    // console.log('1stY', currentYear)
+    // console.log('1stL', isLeague?.value)
+    //   // dispatch(
+    //   //   getFixtures({
+    //   //     date: date,
+    //   //     league: isLeague?.value, // If league is selected, use its value
+    //   //     season: currentYear,
+    //   //   })
+    //   // ).then((response) => {
+    //   //   if (
+    //   //     response?.payload?.message ===
+    //   //     "Something went wrong. Please try again later"
+    //   //   ) {
+    //   //     onError(400);
+    //   //   } else {
+    //   //     onError(null);
+    //   //   }
+    //   // });
+    // }
+    if (date && isLeague) {
+      const year = date.split("-")[0];
+      console.log('2ndD', date)
+    console.log('2ndY', year)
+    console.log('2ndL', isLeague?.value)
       dispatch(
         getFixtures({
-          date: date,
-          league: isLeague?.value, // If league is selected, use its value
-          season: currentYear,
-        })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
-        ) {
-          onError(400);
-        } else {
-          onError(null);
-        }
-      });
-    }
-    if (isLeague) {
-      const year = changeDateformate.split("-")[0];
-      dispatch(
-        getFixtures({
-          date: changeDateformate, // Default date value
+          date: date, // Default date value
           league: isLeague?.value,
           season: parseInt(year),
         })
@@ -155,13 +165,18 @@ export const SearchCompo = ({ onError }) => {
       });
     }
 
-    if (date && !isLeague) {
-      // If date is selected and league is not selected
+    if (apiCall && changeDateformate && isLeague ) {
+      const year = changeDateformate.split("-")[0];
+
+      console.log('2nd_1D', changeDateformate)
+      console.log('2nd_1Y', year)
+      console.log('2nd_1L', isLeague?.value)
+      //If date is selected and league is not selected
       dispatch(
         getFixtures({
-          date: date,
+          date: changeDateformate,
           league: isLeague?.value, // Provide default league value
-          season: currentYear,
+          season: parseInt(year),
         })
       ).then((response) => {
         if (
@@ -174,7 +189,7 @@ export const SearchCompo = ({ onError }) => {
         }
       });
     }
-  }, [date, currentYear, isLeague, changeDateformate]);
+  }, [date, isLeague, changeDateformate,apiCall]);
 
   const options = [
     ...(allLeague?.data?.map((dlist) => {
@@ -199,38 +214,13 @@ export const SearchCompo = ({ onError }) => {
   const handleInputChange = (newValue) => {
     setInput(newValue);
   };
-  // const [leagueName, setleagueName] = useState('');
-  // console.log('leagueName', leagueName)
-  // useEffect(() => {
-  //   if (allLeague ) {
-  //     const filteredLeagues = allLeague?.data?.filter(data => data.toLowerCase().includes(input.toLowerCase()) );
-  //    console.log("Filtered Leagues:", filteredLeagues);
-  //     if(Array.isArray(filteredLeagues)&&filteredLeagues){
-  //       setleagueName(filteredLeagues[0]?.league?.name)
-      
-  //       // if (isSeason === false) {
-  //       //   dispatch(getSeasons({})).then((res) => {
-  //       //     if (res?.payload?.status === true) {
-  //       //       // setIsLoading(false);
-  //       //       setIsSeason(true);
-  //       //     }
-  //       //   });
-  //       // }
-  //     }
-  //   }
-  // }, [allLeague])
+
   useEffect(() => {
-    function filterTournaments(input) {
-      return allLeague?.data?.filter(tournament => {
-        return tournament?.league?.name == input
-      });
-    }
-    
-    // Example usage
-    const userInput = input; // Assuming input is defined somewhere
-    const filteredTournaments = filterTournaments(userInput);
-    
-    console.log("fil",filteredTournaments);
+    allLeague?.data?.filter(data => console.log("lName",data?.league?.name))
+  }, [allLeague]);
+  
+  useEffect(() => {
+   
   }, [allLeague, input]); // Make sure to include input in the dependency array
   
   
