@@ -52,12 +52,9 @@ const MyPrediction = () => {
   const nevigate = useNavigate();
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
-  var count = 0;
   useEffect(() => {
     if (token) {
       fetchData(currentPage);
-      // fetchRecentPredictions(currentPage);
-      fetchData();
       console.log("total data: ", fetchedPredictions?.total_data);
       //  setTotalPages(fetchedPredictions?.total_data);
     }
@@ -76,7 +73,6 @@ const MyPrediction = () => {
       })
     );
   };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -165,6 +161,15 @@ const MyPrediction = () => {
 
   // console.log("Sorted Data:", sortedData);
 
+  // useEffect(() => {
+  //   dispatch(
+  //     recentPredictions({
+  //       page_number: 1,
+  //       items_per_page: 10,
+  //       recent_predictions: true,
+  //     })
+  //   );
+  // }, [dispatch]);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
