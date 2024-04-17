@@ -21,8 +21,8 @@ export const SearchCompoId = ({ onError , rid }) => {
   const [currentYear,setCurrentYear]=useState()
   console.log("cY",currentYear);
 
-  const today = new Date();
-  const Year = today.getFullYear()
+  // const today = new Date();
+  // const Year = today.getFullYear()
  
   
   const handleDateChange = (e) => {
@@ -194,11 +194,9 @@ export const SearchCompoId = ({ onError , rid }) => {
             }`}
           >
               <Select
-                // placeholder="Select or Search League"
-                // options={options}
-                // onChange={handleLeagueChange}
-                value={options.filter(option => option.label.props.children[1].props.children === leagueName)} 
-                menuIsOpen={false}
+                 options={options}
+                 value={options.filter(option => option.label.props.children[1].props.children === leagueName)} 
+                 menuIsOpen={false}
               />
           </div>
         </div>
@@ -206,7 +204,7 @@ export const SearchCompoId = ({ onError , rid }) => {
 
       {/*  select season */}
 
-      <div className="mb-4 md:mb-0 w-3/3">
+      {/* <div className="mb-4 md:mb-0 w-3/3">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -232,18 +230,18 @@ export const SearchCompoId = ({ onError , rid }) => {
                 :
                 <div className="">{Year}</div>
                  }
-                {/* {seasons?.data?.map((data) => (
+                {seasons?.data?.map((data) => (
                   <option key={data} value={data}>
                     {data}
                   </option>
-                ))} */}
+                ))}
             
             
            
             
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
