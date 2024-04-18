@@ -246,7 +246,7 @@ const CookedSlips = () => {
                   fill="currentFill"
                 />
               </svg>
-              <span class="sr-only">Loading...</span>
+              <span className="sr-only">Loading...</span>
             </div>
           </div>
         ) : (
@@ -418,15 +418,15 @@ const CookedSlips = () => {
                 })
               ) : (
                 <>
-                  <div className="text-center text-white mt-4">
-                    <p
-                      className={`text-[14px] leading-[20px] font-medium ${
-                        themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                      } pb-2`}
-                    >
-                      No Data Found
-                    </p>
-                  </div>
+            <div className="w-full">
+              <div
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-2xl flex justify-center items-center`}
+              >
+                No Data Found
+              </div>
+            </div>
                 </>
               )}
             </div>
@@ -1242,17 +1242,19 @@ const CookedSlips = () => {
                       </Link>
                     </li>
                     {pageNumbers.slice(0, 5).map((pageNumber) => (
-                      <li key={pageNumber}>
-                        <Link
-                          className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white ${
-                            currentPage === pageNumber ? "bg-[#0868f4]" : ""
-                          }`}
-                          onClick={() => handlePageChange(pageNumber)}
-                        >
-                          {pageNumber}
-                        </Link>
-                      </li>
-                    ))}
+                    <li key={pageNumber}>
+                      <Link
+                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
+                        flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
+                        ${
+                          currentPage === pageNumber ? "bg-[#0053CD]" : "black"
+                        }`}
+                        onClick={() => handlePageChange(pageNumber)}
+                      >
+                        {pageNumber}
+                      </Link>
+                    </li>
+                  ))}
 
                     <li>
                       <Link
