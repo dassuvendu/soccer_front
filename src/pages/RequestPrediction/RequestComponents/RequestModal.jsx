@@ -12,7 +12,6 @@ import {
   getHPlayers,
 } from "../../../reducers/formationSlice";
 
-
 import TeamFormation from "../RequestPredictionModalCompo/TeamFormation";
 import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
 import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
@@ -22,9 +21,8 @@ export const RequestModal = ({
   homeId,
   awayId,
   fixturesId,
-  timeStamp
+  timeStamp,
 }) => {
-
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { lastResult, h2h } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
@@ -35,10 +33,10 @@ export const RequestModal = ({
   const [awayDataImg, setAwayDataImg] = useState();
   const [homeName, setHomeName] = useState();
   const [awayName, setAwayName] = useState();
-  const [modalData,setModalData]= useState()
+  const [modalData, setModalData] = useState();
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null);
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,24 +45,22 @@ export const RequestModal = ({
 
   useEffect(() => {
     if (fixturesId) {
-    dispatch(LastResult({ fixture: fixturesId })).then((res) => {
-      if (res?.payload?.status === true) {
-        setModalLoader(false);
-        setModalData(res?.payload?.data)
-        Promise.all[
-          dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
-          dispatch(getHPlayers({ fixture: fixturesId, team: homeId })),
-          dispatch(getAFormation({ fixture: fixturesId, team: awayId })),
-          dispatch(getAPlayers({ fixture: fixturesId, team: awayId }))
-        ]
-      } else {
-        setModalLoader(true);
-      }
-    });
-  }
-  }, [dispatch, fixturesId,homeId,awayId]);
-
-
+      dispatch(LastResult({ fixture: fixturesId })).then((res) => {
+        if (res?.payload?.status === true) {
+          setModalLoader(false);
+          setModalData(res?.payload?.data);
+          Promise.all[
+            (dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
+            dispatch(getHPlayers({ fixture: fixturesId, team: homeId })),
+            dispatch(getAFormation({ fixture: fixturesId, team: awayId })),
+            dispatch(getAPlayers({ fixture: fixturesId, team: awayId })))
+          ];
+        } else {
+          setModalLoader(true);
+        }
+      });
+    }
+  }, [dispatch, fixturesId, homeId, awayId]);
 
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
@@ -104,15 +100,15 @@ export const RequestModal = ({
   const clearModalData = () => {
     setModalData(null);
     setHomeDataImg(null);
-      setHomeName(null);
-      setAwayDataImg(null);
-      setAwayName(null);
-    formatTime(null)
-    formatDate(null)
-};
+    setHomeName(null);
+    setAwayDataImg(null);
+    setAwayName(null);
+    formatTime(null);
+    formatDate(null);
+  };
 
   const formatTime = (timestamp) => {
-    const date = new Date(timestamp * 1000); 
+    const date = new Date(timestamp * 1000);
     const options = {
       hour: "numeric",
       minute: "numeric",
@@ -122,7 +118,7 @@ export const RequestModal = ({
   };
 
   const formatDate = (timestamp) => {
-    const date = new Date(timestamp * 1000); 
+    const date = new Date(timestamp * 1000);
     const options = {
       day: "2-digit",
       month: "short",
@@ -175,7 +171,7 @@ export const RequestModal = ({
                         {formatDate(timeStamp)}
                       </h3>
                       <h3 className="text-black text-[18px] leading-[24px] font-medium">
-                      {formatTime(timeStamp)}
+                        {formatTime(timeStamp)}
                       </h3>
                     </div>
                   </div>
@@ -218,7 +214,13 @@ export const RequestModal = ({
                               <div className="grid grid-cols-1 gap-8 ">
                                 {/* team1 */}
                                 <div>
-                                  <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
+                                  <h4
+                                    className={` ${
+                                      themeMode === "light"
+                                        ? "text-[#191D23]"
+                                        : "text-[#ffffff]"
+                                    } font-Bebas text-xl tracking-normal text-center mb-4 mt-4`}
+                                  >
                                     Home History
                                   </h4>
                                   {h2h?.map((goal) => (
@@ -353,16 +355,23 @@ export const RequestModal = ({
                             </div>
                           </div>
                         </TabPanel>
-                        
+
                         <TabPanel>
-                        <TeamFormation Hplayers={Hplayers} Aplayers={Aplayers}/>
+                          <TeamFormation
+                            Hplayers={Hplayers}
+                            Aplayers={Aplayers}
+                          />
                         </TabPanel>
                         <TabPanel>
                           <PredictionStats isfixturesId={isfixturesId} />
                         </TabPanel>
 
                         <TabPanel>
-                          <CorrectScores isfixturesId={isfixturesId} homeId={homeId} awayId={awayId}/>
+                          <CorrectScores
+                            isfixturesId={isfixturesId}
+                            homeId={homeId}
+                            awayId={awayId}
+                          />
                         </TabPanel>
                       </>
                     ) : (
