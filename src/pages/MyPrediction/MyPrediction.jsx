@@ -173,15 +173,18 @@ const MyPrediction = () => {
 
   // console.log("Sorted Data:", sortedData);
 
-  // useEffect(() => {
-  //   dispatch(
-  //     recentPredictions({
-  //       page_number: 1,
-  //       items_per_page: 10,
-  //       recent_predictions: true,
-  //     })
-  //   );
-  // }, [dispatch]);
+const recentHandle = () =>{
+  dispatch(
+    recentPredictions({
+      page_number: currentPage,
+      items_per_page: itemsPerPage,
+      recent_predictions: true,
+    })
+  );
+}
+    
+
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -231,7 +234,7 @@ const MyPrediction = () => {
             <div className="md:flex justify-between items-center">
               <TabList>
                 <Tab>All Prediction</Tab>
-                <Tab>Recently</Tab>
+                <Tab onClick={recentHandle}>Recently</Tab>
                 <Tab>Cooked Slip</Tab>
                 <Tab>Failed Prediction</Tab>
               </TabList>
