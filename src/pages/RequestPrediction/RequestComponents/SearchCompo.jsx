@@ -404,7 +404,7 @@ export const SearchCompo = ({ onError }) => {
             ) : (
               <select
               onChange={searchHandle}
-              disabled = {isDate}
+              disabled = {!isDate}
               >
                 <option value="">Select</option>
                 {sortedSeasons?.map((data) => (

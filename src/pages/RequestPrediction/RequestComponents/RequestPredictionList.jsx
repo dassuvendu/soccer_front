@@ -133,9 +133,9 @@ const RequestPredictionList = ({ errorMessage }) => {
     return date.toLocaleDateString("en-US", options);
   };
   useEffect(() =>{
-    if (Array.isArray(currentItems)&&currentItems.length > 6) {
+    if (Array.isArray(currentItems)&&currentItems.length > 8) {
       setHide(true);
-    }else if (Array.isArray(currentItems)&&currentItems.length < 6) {
+    }else if (Array.isArray(currentItems)&&currentItems.length < 8) {
       setHide(false);
     }else{
       setHide(false);
