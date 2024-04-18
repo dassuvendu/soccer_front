@@ -38,11 +38,11 @@ export const getFixturesByleague = createAsyncThunk(
     }
   }
 );
-export const getSeasons = createAsyncThunk(
-  'user/getSeasons',
+export const getleagueByid = createAsyncThunk(
+  'user/getleagueByid',
   async (userInput, { rejectWithValue }) => {
     try {
-      const response = await api.post('/api/seasons',userInput);
+      const response = await api.post('/api/leagues',userInput);
       if (response.status === 200) {
         return response.data;
       } else {
@@ -55,6 +55,23 @@ export const getSeasons = createAsyncThunk(
     }
   }
 );
+// export const getSeasons = createAsyncThunk(
+//   'user/getSeasons',
+//   async (userInput, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post('/api/seasons',userInput);
+//       if (response.status === 200) {
+//         return response.data;
+//       } else {
+//         let errors = errorHandler(response);
+//         return rejectWithValue(errors);
+//       }
+//     } catch (err) {
+//       let errors = errorHandler(err);
+//       return rejectWithValue(errors);
+//     }
+//   }
+// );
 // export const postpredictions = createAsyncThunk(
 //   'user/getpredic',
 //   async (userInput, { rejectWithValue }) => {
@@ -174,7 +191,7 @@ const initialState = {
   h2h:[],
   teamResult:[],
   format:[],
-  minute:[]
+  minute:[],
 };
 
 const PredictionsSlice = createSlice({
@@ -213,21 +230,21 @@ const PredictionsSlice = createSlice({
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';
       })
-      .addCase(getSeasons.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-        state.message = null;
-      })
-      .addCase(getSeasons.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
-        state.seasons = payload;
-      })
-      .addCase(getSeasons.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = true;
-        state.message = payload?.message || 'Something went wrong. Try again later.';
-      })
+      // .addCase(getSeasons.pending, (state) => {
+      //   state.isLoading = true;
+      //   state.error = null;
+      //   state.message = null;
+      // })
+      // .addCase(getSeasons.fulfilled, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = null;
+      //   state.seasons = payload;
+      // })
+      // .addCase(getSeasons.rejected, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = true;
+      //   state.message = payload?.message || 'Something went wrong. Try again later.';
+      // })
       
       .addCase(LastHomeResult.pending, (state) => {
         state.isLoading = true;
@@ -291,6 +308,23 @@ const PredictionsSlice = createSlice({
         
       })
       .addCase(Formation.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = payload?.message || 'Something went wrong. Try again later.';
+      }) 
+      .addCase(getleagueByid.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(getleagueByid.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        // state.h2h = payload.data[0].h2h;
+        state.seasons = payload?.data[0]?.seasons; 
+        
+      })
+      .addCase(getleagueByid.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';
