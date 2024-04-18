@@ -16,14 +16,16 @@ import {
 } from "../../../reducers/PredictionsSlice";
 
 const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
-    console.log(rid);
-    console.log("Td2",sendData);
+    // console.log(rid);
+    // console.log("Td2",sendData);
     const { seasons } = useSelector((state) => state.prediction);
     const seasonCopy=[...seasons]
      const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
+
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
+  
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
   const [timeStamp, setTimeStamp] = useState(null)
@@ -97,12 +99,12 @@ const Year = todayFormatted.toString().split('-')[0]
       dispatch(getFixtures({date : sendData,league: leaugeId, season:sortedSeasons[0]?.year})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
-          setHide(true);
+         
           setError(false);
         }
         else {
           setLoadingData(false);
-          setHide(false);
+        
           setError(true);
         }
       });
@@ -111,16 +113,17 @@ const Year = todayFormatted.toString().split('-')[0]
       dispatch(getFixtures({date : todayFormatted,league: leaugeId, season:sortedSeasons[0]?.year})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
-          setHide(true);
+          
           setError(false);
         }
         else {
           setLoadingData(false);
-          setHide(false);
+          
           setError(true);
         }
       });
     }
+    
   }, [dispatch,rid,Year,todayFormatted,season,sendData]);
 
   const formatTime = (timestamp) => {
@@ -131,6 +134,7 @@ const Year = todayFormatted.toString().split('-')[0]
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
     
     return date.toLocaleDateString("en-US", options);
@@ -143,6 +147,7 @@ const Year = todayFormatted.toString().split('-')[0]
       day: "2-digit",
       month: "short",
       year: "numeric",
+      timeZone: 'UTC'
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -156,6 +161,7 @@ const Year = todayFormatted.toString().split('-')[0]
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  console.log("fixtures",currentItems);
   const isDataFound = currentItems && currentItems.length > 0;
 
   const totalPages = fixtures?.data
@@ -184,7 +190,15 @@ const Year = todayFormatted.toString().split('-')[0]
       setCurrentPage(pageNumber);
     }
   };
-
+useEffect(() =>{
+  if (currentItems.length > 6) {
+    setHide(true);
+  }else if (currentItems.length < 6) {
+    setHide(false);
+  }else{
+    setHide(false);
+  }
+},[currentItems])
   return (
     <div>
       {!loadingData ? (

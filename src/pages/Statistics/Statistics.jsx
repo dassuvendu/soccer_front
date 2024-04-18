@@ -33,7 +33,7 @@ const Statistics = () => {
   const { statistics, isLoading } = useSelector((state) => state.statistics);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getStatistics());
+    dispatch(getStatistics({}));
   }, []);
   console.log("get statistics", statistics);
   return (

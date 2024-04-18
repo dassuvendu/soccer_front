@@ -4,9 +4,9 @@ import errorHandler from "../store/errorHandler";
 
 export const getStatistics = createAsyncThunk(
     'statistics',
-    async (_, { rejectWithValue }) => {
+    async (userInput, { rejectWithValue }) => {
         try {
-            const response = await api.post('/api/statistics');
+            const response = await api.post('/api/statistics',userInput);
             if (response.status) {
 
                 return response.data;

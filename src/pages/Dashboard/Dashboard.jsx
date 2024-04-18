@@ -68,7 +68,7 @@ const Dashboard = () => {
                   themeMode === "light" ? "bg-white" : "bg-black"
                 } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
-                <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                <Link to= '/coped-slips' className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   Explore Slips{" "}
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                 </Link>
@@ -88,7 +88,7 @@ const Dashboard = () => {
                   themeMode === "light" ? "bg-white" : "bg-black"
                 } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
-                <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                <Link to= '/match-prediction' className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
                   See Predictions
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                 </Link>
@@ -108,8 +108,8 @@ const Dashboard = () => {
                   themeMode === "light" ? "bg-white" : "bg-black"
                 } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
-                <Link className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                  See Predictions
+                <Link to='/statistics' className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                  See Statistics
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                 </Link>
               </div>

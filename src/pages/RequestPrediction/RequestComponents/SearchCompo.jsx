@@ -22,7 +22,8 @@ export const SearchCompo = ({ onError }) => {
   // const [isRequired, setIsRequired] = useState("*Please Select Date First");
   const [date, setDate] = useState();
   console.log("d", date);
-  const [isDate, setIsData] = useState(false);
+  const [isDate, setIsDate] = useState(false);
+
   const [cseason,setCSeason] = useState()
   // const [currentYear, setCurrentYear] = useState();
   // console.log("cY", currentYear);
@@ -32,7 +33,7 @@ export const SearchCompo = ({ onError }) => {
   const changeDateformate = today.toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
-    // console.log(e);
+    console.log("date",e);
     // setLoading(true);
     const year = e.getFullYear();
     const month = String(e.getMonth() + 1).padStart(2, "0");
@@ -67,10 +68,10 @@ export const SearchCompo = ({ onError }) => {
       dispatch(getFixturesByleague({})).then((res) => {
         console.log("res", res.payload.status);
         if (res?.payload?.status === true) {
-          setIsData(true);
+          setIsDate(true);
           setIsLoading(false);
         } else {
-          setIsData(false);
+          setIsDate(false);
           setIsLoading(true);
         }
       });
@@ -403,6 +404,7 @@ export const SearchCompo = ({ onError }) => {
             ) : (
               <select
               onChange={searchHandle}
+              disabled = {isDate}
               >
                 <option value="">Select</option>
                 {sortedSeasons?.map((data) => (

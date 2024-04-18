@@ -63,10 +63,10 @@ const RequestPredictionList = ({ errorMessage }) => {
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
         setLoadingData(false);
-        setHide(true);
+    
       } else {
         setLoadingData(true);
-        setHide(false);
+      
       }
     });
   }, [dispatch]);
@@ -116,6 +116,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
 
     return date.toLocaleDateString("en-US", options);
@@ -127,10 +128,19 @@ const RequestPredictionList = ({ errorMessage }) => {
       day: "2-digit",
       month: "short",
       year: "numeric",
+      timeZone: 'UTC'
     };
     return date.toLocaleDateString("en-US", options);
   };
-
+  useEffect(() =>{
+    if (Array.isArray(currentItems)&&currentItems.length > 6) {
+      setHide(true);
+    }else if (Array.isArray(currentItems)&&currentItems.length < 6) {
+      setHide(false);
+    }else{
+      setHide(false);
+    }
+  },[currentItems])
   return (
     <div>
       {!loadingData ? (

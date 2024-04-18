@@ -18,6 +18,7 @@ const ViewSlipDetails = ({ id }) => {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: 'UTC'
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -27,6 +28,7 @@ const ViewSlipDetails = ({ id }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -36,6 +38,7 @@ const ViewSlipDetails = ({ id }) => {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: 'UTC'
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -45,6 +48,7 @@ const ViewSlipDetails = ({ id }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -54,6 +58,7 @@ const ViewSlipDetails = ({ id }) => {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: 'UTC'
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -63,6 +68,7 @@ const ViewSlipDetails = ({ id }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
     return date.toLocaleTimeString(undefined, options);
   };
