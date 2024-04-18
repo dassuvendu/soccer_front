@@ -23,10 +23,9 @@ export const SearchCompo = ({ onError }) => {
   const [date, setDate] = useState();
   console.log("d", date);
   const [isDate, setIsData] = useState(false);
-  // const [cseason,setCSeason] = useState()
+  const [cseason,setCSeason] = useState()
   // const [currentYear, setCurrentYear] = useState();
   // console.log("cY", currentYear);
-  const [apiCall, setApiCall] = useState(false);
 
   const today = new Date();
   // const year = today.getFullYear();
@@ -50,7 +49,6 @@ export const SearchCompo = ({ onError }) => {
         if (res?.payload?.status === true) {
           setIsData(true);
           setIsLoading(false);
-          setApiCall(true);
         } else {
           setIsData(false);
           setIsLoading(true);
@@ -66,7 +64,6 @@ export const SearchCompo = ({ onError }) => {
         if (res?.payload?.status === true) {
           setIsData(true);
           setIsLoading(false);
-          setApiCall(false);
         } else {
           setIsData(false);
           setIsLoading(true);
@@ -268,24 +265,46 @@ export const SearchCompo = ({ onError }) => {
   ];
 
   const searchHandle = (value) =>{
-   console.log("val",value.target.value);
-   dispatch(
-  getFixtures({
-    date: date,
-  league: isLeague?.value, // If league is selected, use its value
-    season: value.target.value,
-   })
-  ).then((response) => {
- if (
-   response?.payload?.message ===
-     "Something went wrong. Please try again later"
-  ) {
-   onError(400);
-  } else {
-     onError(null);
+    // console.log("val",value.target.value);
+    setCSeason(value.target.value)
+    if (date) {
+      dispatch(
+        getFixtures({
+          date: date,
+        league: parseInt(isLeague.value), // If league is selected, use its value
+          season: parseInt(value.target.value),
+         })
+        ).then((response) => {
+       if (
+         response?.payload?.message ===
+           "Something went wrong. Please try again later"
+        ) {
+         onError(400);
+        } else {
+           onError(null);
+         }
+      });
+    }else{
+      dispatch(
+        getFixtures({
+          date: changeDateformate,
+        league: parseInt(isLeague.value), // If league is selected, use its value
+          season: parseInt(value.target.value),
+         })
+        ).then((response) => {
+       if (
+         response?.payload?.message ===
+           "Something went wrong. Please try again later"
+        ) {
+         onError(400);
+        } else {
+           onError(null);
+         }
+      });
+    }
+    
    }
-});
-  }
+  
 
   return (
     <>
