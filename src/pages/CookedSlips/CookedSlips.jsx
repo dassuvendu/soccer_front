@@ -1191,7 +1191,11 @@ const CookedSlips = () => {
             popup
           >
             <Modal.Header className="absolute right-0 top-0" />
-            <Modal.Body>
+            <Modal.Body
+              className={` ${
+                themeMode === "light" ? "bg-[#ffffff]" : "bg-[#191D23]"
+              } rounded-lg`}
+            >
               <div className="pt-12">
                 <ViewSlipDetails id={slipId} />
               </div>
