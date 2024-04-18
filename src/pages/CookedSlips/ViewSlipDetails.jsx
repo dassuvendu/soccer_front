@@ -69,7 +69,11 @@ const ViewSlipDetails = ({ id }) => {
   return (
     <>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="font-Montserrat text-[23px] leading-[25px] font-bold text-[#191D23]  mb-1">
+        <h2
+          className={`font-Montserrat text-[23px] leading-[25px] font-bold mb-1 ${
+            themeMode === "light" ? "text-[#191D23]" : "text-white"
+          }`}
+        >
           Cooked Slip #{id}
         </h2>
         <button className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full">
@@ -83,15 +87,27 @@ const ViewSlipDetails = ({ id }) => {
             <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
               Odds & Matches
             </p>
-            <h2 className="font-Montserrat text-[20px] leading-[24px] font-semibold text-[#191D23] mb-1">
+            <h2
+              className={`font-Montserrat text-[20px] leading-[24px] font-semibold mb-1 ${
+                themeMode === "light" ? "text-[#191D23]" : "text-white"
+              }`}
+            >
               {singleSlip?.data?.odds}
             </h2>
-            <h3 className="font-Montserrat text-[16px] leading-[18px] font-medium text-[#191D23] block">
+            <h3
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
+                themeMode === "light" ? "text-[#191D23]" : "text-white"
+              }`}
+            >
               {singleSlip?.data?.count} Matches
             </h3>
           </div>
           <div>
-            <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
+            <p
+              className={`font-Montserrat text-[14px] leading-[18px] font-medium mb-1 ${
+                themeMode === "light" ? "text-[#191D23]" : "text-white"
+              }`}
+            >
               Risk Level
             </p>
             {/* <span className="text-[16px] leading-[30px] font-medium text-black bg-[#fba930] py-0 px-3 inline-block rounded-full">
@@ -115,7 +131,11 @@ const ViewSlipDetails = ({ id }) => {
             <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
               Starts On
             </p>
-            <h3 className="font-Montserrat text-[16px] leading-[18px] font-medium text-[#191D23] block">
+            <h3
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
+                themeMode === "light" ? "text-[#191D23]" : "text-white"
+              }`}
+            >
               {formatStartDate(singleSlip?.data?.startsOn)}{" "}
               {formatStartTime(singleSlip?.data?.startsOn)}
             </h3>
@@ -124,7 +144,11 @@ const ViewSlipDetails = ({ id }) => {
             <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
               Ends On
             </p>
-            <h3 className="font-Montserrat text-[16px] leading-[18px] font-medium text-[#191D23] block">
+            <h3
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
+                themeMode === "light" ? "text-[#191D23]" : "text-white"
+              }`}
+            >
               {formatEndDate(singleSlip?.data?.endsOn)}{" "}
               {formatEndTime(singleSlip?.data?.endsOn)}
             </h3>
@@ -155,10 +179,18 @@ const ViewSlipDetails = ({ id }) => {
             return (
               <>
                 <div className="mb-2">
-                  <h3 className="font-Montserrat text-[16px] leading-[20px] font-bold text-[#191D23] mb-1">
+                  <h3
+                    className={`font-Montserrat text-[16px] leading-[18px] font-medium mb-1 ${
+                      themeMode === "light" ? "text-[#191D23]" : "text-white"
+                    }`}
+                  >
                     {matches?.homeTeamName} vrs {matches?.awayTeamName}
                   </h3>
-                  <span className="font-Montserrat text-[12px] leading-[18px] font-medium text-[#191D23] block">
+                  <span
+                    className={`font-Montserrat text-[12px] leading-[18px] font-medium block ${
+                      themeMode === "light" ? "text-[#191D23]" : "text-white"
+                    }`}
+                  >
                     {matches?.leagueName} | {matchStartDate(matches?.startsOn)}{" "}
                     {matchStartTime(matches?.startsOn)}
                   </span>
