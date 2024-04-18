@@ -9,7 +9,7 @@ import {
 
 export const SearchCompo = ({ onError }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { allLeague } = useSelector((state) => state.prediction);
+  const { allLeague, seasons } = useSelector((state) => state.prediction);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
   const [isloading, setIsLoading] = useState(false);
@@ -26,7 +26,6 @@ export const SearchCompo = ({ onError }) => {
   const today = new Date();
   // const year = today.getFullYear();
   const changeDateformate = today.toISOString().split("T")[0];
-
 
   const handleDateChange = (e) => {
     // console.log(e);
@@ -46,7 +45,7 @@ export const SearchCompo = ({ onError }) => {
         if (res?.payload?.status === true) {
           setIsData(true);
           setIsLoading(false);
-          setApiCall(true)
+          setApiCall(true);
         } else {
           setIsData(false);
           setIsLoading(true);
@@ -62,7 +61,7 @@ export const SearchCompo = ({ onError }) => {
         if (res?.payload?.status === true) {
           setIsData(true);
           setIsLoading(false);
-          setApiCall(false)
+          setApiCall(false);
         } else {
           setIsData(false);
           setIsLoading(true);
@@ -142,11 +141,11 @@ export const SearchCompo = ({ onError }) => {
     //   //   }
     //   // });
     // }
-    if  (isDate && date && isLeague) {
+    if (isDate && date && isLeague) {
       const year = date.split("-")[0];
-      console.log('2ndD', date)
-    console.log('2ndY', year)
-    console.log('2ndL', isLeague?.value)
+      console.log("2ndD", date);
+      console.log("2ndY", year);
+      console.log("2ndL", isLeague?.value);
       dispatch(
         getFixtures({
           date: date, // Default date value
@@ -165,12 +164,12 @@ export const SearchCompo = ({ onError }) => {
       });
     }
 
-    if (apiCall && changeDateformate && isLeague ) {
+    if (apiCall && changeDateformate && isLeague) {
       const year = changeDateformate.split("-")[0];
 
-      console.log('2nd_1D', changeDateformate)
-      console.log('2nd_1Y', year)
-      console.log('2nd_1L', isLeague?.value)
+      console.log("2nd_1D", changeDateformate);
+      console.log("2nd_1Y", year);
+      console.log("2nd_1L", isLeague?.value);
       //If date is selected and league is not selected
       dispatch(
         getFixtures({
@@ -189,14 +188,15 @@ export const SearchCompo = ({ onError }) => {
         }
       });
     }
-  }, [date, isLeague, changeDateformate,apiCall,isDate]);
+  }, [date, isLeague, changeDateformate, apiCall, isDate]);
 
- 
+  const [input, setInput] = useState("");
 
   const handleInputChange = (newValue) => {
-    console.log("input",newValue);
+    setInput(newValue);
+    console.log("input", newValue);
   };
-//  const [filteredData,setFilteredData] = useState()
+  //  const [filteredData,setFilteredData] = useState()
 
   // useEffect(() => {
   //   console.log('input', input.trim())
@@ -207,13 +207,11 @@ export const SearchCompo = ({ onError }) => {
   //   optionList();
   // }, [allLeague,input]);
 
- 
-
   // let leagueOptions = [];
 
   // let optionList = () => {
   //   if(input?.length){
-      
+
   //     leagueOptions = [
   //       ...(filteredData?.data?.map((dlist) => (
   //         {
@@ -233,7 +231,7 @@ export const SearchCompo = ({ onError }) => {
   //     ]
   //   }
   //   else{
-      
+
   //     leagueOptions = [
   //       ...(allLeague?.data?.map((dlist) => (
   //         {
@@ -251,20 +249,19 @@ export const SearchCompo = ({ onError }) => {
   //         }
   //       ))) || []
   //     ]
-  //   }  
+  //   }
   // }
   // useEffect(()=>{
   //   optionList();
   // },[])
-const options = [
+  const options = [
     ...(allLeague?.data?.map((dlist) => {
       return {
         value: dlist?.league?.id,
-        label: dlist?.league?.name
+        label: dlist?.league?.name,
       };
     }) || []),
   ];
-
 
   return (
     <>
@@ -286,9 +283,7 @@ const options = [
           </div>
         </div>
       </div>
-
       {/* season Select */}
-
       <div className="mb-4 md:mb-0 w-2/2">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
@@ -315,62 +310,46 @@ const options = [
                   onChange={handleLeagueChange}
                   value={options.value} // Set the value to the input state
                   onInputChange={handleInputChange}
-                  
                 />
-             
               </>
             )}
           </div>
         </div>
       </div>
-
       {/*  select season */}
-
-     
+      <div className="mb-4 md:mb-0 w-3/3">
+        <p
+          className={`text-[14px] leading-[20px] font-medium ${
+            themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+          } pb-2`}
+        >
+          Select Season
+        </p>
+        <div className="mb-4 md:mb-0">
+          <div
+            className={` ${
+              themeMode === "light"
+                ? "date_picker_box_light Select_Season"
+                : "date_picker_box Select_Season"
+            }`}
+          >
+            {isloading ? (
+              <select name="sel" disabled>
+                <option>Loading...</option>
+              </select>
+            ) : (
+              <select>
+                <option value="">Select</option>
+                {seasons?.data?.map((data) => (
+                  <option key={data} value={data}>
+                    {data}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+        </div>
+      </div>
     </>
   );
 };
-//  <div className="mb-4 md:mb-0 w-3/3">
-//         <p
-//           className={`text-[14px] leading-[20px] font-medium ${
-//             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-//           } pb-2`}
-//         >
-//           Season
-//         </p>
-//         <div className="mb-4 md:mb-0">
-//           <div
-//             className={` ${
-//               themeMode === "light"
-//                 ? "date_picker_box_light Select_Season"
-//                 : "date_picker_box Select_Season"
-//             }`}
-//           >
-//             <select  disabled>
-//                 {currentYear ? 
-//                 <option value=''>{currentYear}</option>
-//                 :
-//                 <option value=''>{year}</option>
-//                  } */}
-//              {seasons?.data?.map((data) => (
-//                   <option key={data} value={data}>
-//                     {data}
-//                   </option>
-//                 ))}
-//              </select> 
-//             {currentYear ? (
-//               <div
-//                 className={` ${
-//                   themeMode === "light"
-//                     ? "date_picker_box_light Select_Season"
-//                     : "date_picker_box Select_Season"
-//                 }`}
-//               >
-//                 {currentYear}
-//               </div>
-//             ) : (
-//               <div className="">{year}</div>
-//             )}
-//           </div>
-//         </div>
-//       </div>
