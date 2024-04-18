@@ -120,7 +120,7 @@ const CookedSlips = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -130,7 +130,7 @@ const CookedSlips = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -140,7 +140,7 @@ const CookedSlips = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -151,7 +151,7 @@ const CookedSlips = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -175,10 +175,10 @@ const CookedSlips = () => {
               Explore different slips containing multiple matches
             </p>
           </div>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          {/* <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
-          </Link>
+          </Link> */}
         </div>
         <div className="md:flex justify-between items-center mb-6">
           <div className="mb-4 md:mb-0">
@@ -199,7 +199,7 @@ const CookedSlips = () => {
               <Datepicker onSelectedDateChanged={handleDateChange} />
             </div>
           </div>
-          <Link
+          {/* <Link
             className={`${
               themeMode === "light" ? "bg-[#E1E1E1]" : "bg-[#0d0f11]"
             } border border-[#9db4e1] w-[180px] hover:bg-[#2854b7]  ${
@@ -209,7 +209,7 @@ const CookedSlips = () => {
             <img src={icSortIcon} alt="BuyTokenIcon" className="mr-1" />
             Apply Filter{" "}
             <BsChevronDown className="text-[#08a1f8] ml-1 text-[18px]" />
-          </Link>
+          </Link> */}
           {/* <Dropdown label="Apply Filter" dismissOnClick={false}>
             <Dropdown.Item>Dashboard</Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
@@ -396,11 +396,11 @@ const CookedSlips = () => {
                             Unlock Slip
                           </button>
                           <div className="text-right flex items-center">
-                            <img
+                            {/* <img
                               src={dollerIcon}
                               alt="dollerIcon"
                               className="mr-1.5"
-                            />
+                            />  */}
                             <p
                               className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
                                 themeMode === "light"
@@ -408,7 +408,7 @@ const CookedSlips = () => {
                                   : "text-white"
                               }`}
                             >
-                              {odds?.cost} Tokens
+                              {/* {odds?.cost} Tokens */}
                             </p>
                           </div>
                         </div>
@@ -1233,7 +1233,7 @@ const CookedSlips = () => {
                     </li>
                     <li>
                       <Link
-                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]`}
                         onClick={() =>
                           handlePageChange(Math.max(currentPage - 1, 1))
                         }

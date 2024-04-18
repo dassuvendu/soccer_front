@@ -173,17 +173,15 @@ const MyPrediction = () => {
 
   // console.log("Sorted Data:", sortedData);
 
-const recentHandle = () =>{
-  dispatch(
-    recentPredictions({
-      page_number: currentPage,
-      items_per_page: itemsPerPage,
-      recent_predictions: true,
-    })
-  );
-}
-    
-
+  const recentHandle = () => {
+    dispatch(
+      recentPredictions({
+        page_number: currentPage,
+        items_per_page: itemsPerPage,
+        recent_predictions: true,
+      })
+    );
+  };
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -205,10 +203,10 @@ const recentHandle = () =>{
               Explore different slips containing multiple matches for best odds.
             </p>
           </div>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          {/* <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
-          </Link>
+          </Link> */}
         </div>
         <div
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
@@ -239,7 +237,7 @@ const recentHandle = () =>{
                 <Tab>Failed Prediction</Tab>
               </TabList>
               <div className="mr-4 mb-4 ml-4 md:ml-0 md:mb-0">
-                <Link
+                {/* <Link
                   className={`${
                     themeMode === "light" ? "bg-[#E1E1E1]" : "bg-[#0d0f11]"
                   } border border-[#9db4e1] w-[180px] hover:bg-[#2854b7]  ${
@@ -249,7 +247,7 @@ const recentHandle = () =>{
                   <img src={icSortIcon} alt="BuyTokenIcon" className="mr-1" />
                   Apply Filter{" "}
                   <BsChevronDown className="text-[#08a1f8] ml-1 text-[18px]" />
-                </Link>
+                </Link> */}
                 {/* <Dropdown label="Apply Filter" dismissOnClick={false}>
                   <Dropdown.Item>Dashboard</Dropdown.Item>
                   <Dropdown.Item>Settings</Dropdown.Item>

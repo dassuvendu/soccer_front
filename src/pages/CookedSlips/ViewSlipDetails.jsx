@@ -18,7 +18,7 @@ const ViewSlipDetails = ({ id }) => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -28,7 +28,7 @@ const ViewSlipDetails = ({ id }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -38,7 +38,7 @@ const ViewSlipDetails = ({ id }) => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -48,7 +48,7 @@ const ViewSlipDetails = ({ id }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -58,7 +58,7 @@ const ViewSlipDetails = ({ id }) => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -68,7 +68,7 @@ const ViewSlipDetails = ({ id }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -160,10 +160,10 @@ const ViewSlipDetails = ({ id }) => {
             </h3>
           </div>
           <div>
-            <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
+            {/* <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
               Tokens Required
-            </p>
-            <div className="text-right flex items-center">
+            </p> */}
+            {/* <div className="text-right flex items-center">
               <img src={dollerIcon} alt="dollerIcon" className="mr-1.5" />
               <p
                 className={`font-Montserrat text-[23px] leading-[25px] font-bold ${
@@ -172,7 +172,7 @@ const ViewSlipDetails = ({ id }) => {
               >
                 {singleSlip?.data?.cost} Tokens
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
