@@ -190,15 +190,15 @@ const Year = todayFormatted.toString().split('-')[0]
       setCurrentPage(pageNumber);
     }
   };
-useEffect(() =>{
-  if (currentItems.length > 6) {
-    setHide(true);
-  }else if (currentItems.length < 6) {
-    setHide(false);
-  }else{
-    setHide(false);
-  }
-},[currentItems])
+  useEffect(() =>{
+    if (Array.isArray(currentItems)&&currentItems.length > 8) {
+      setHide(true);
+    }else if (Array.isArray(currentItems)&&currentItems.length < 8) {
+      setHide(false);
+    }else{
+      setHide(false);
+    }
+  },[currentItems])
   return (
     <div>
       {!loadingData ? (
