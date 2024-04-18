@@ -5,25 +5,30 @@ import { useEffect, useState } from "react";
 import {
   getFixtures,
   getFixturesByleague,
+  getleagueByid,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid }) => {
+export const SearchCompoId = ({ onError , rid,setSendData }) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { allLeague } = useSelector((state) => state.prediction);
+  const { allLeague, seasons } = useSelector((state) => state.prediction);
+  const seasonCopy=[...seasons]
+   const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
-  // const [isloading, setIsLoading] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
   // const [isSeason, setIsSeason] = useState(false);
   const [leagueName, setleagueName] = useState('');
   const [date, setDate] = useState();
   // const [cseason,setCSeason] = useState()
   const [currentYear,setCurrentYear]=useState()
   console.log("cY",currentYear);
-
+  const [cseason,setCSeason] = useState()
   // const today = new Date();
   // const Year = today.getFullYear()
- 
+  const today = new Date();
+  // const year = today.getFullYear();
+  const changeDateformate = today.toISOString().split("T")[0];
   
   const handleDateChange = (e) => {
     // console.log(e);
@@ -33,7 +38,29 @@ export const SearchCompoId = ({ onError , rid }) => {
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
   setDate(newDate);
+  setSendData(newDate)
   setCurrentYear(year)
+  if (rid && cseason) {
+    const leagueId = parseInt(rid)
+    dispatch(
+      getFixtures({
+        date: newDate,
+      league: parseInt(leagueId), // If league is selected, use its value
+        season: parseInt(cseason),
+       })
+      ).then((response) => {
+     if (
+       response?.payload?.message ===
+         "Something went wrong. Please try again later"
+      ) {
+       onError(400);
+      } else {
+         onError(null);
+       }
+    });
+  }else{
+    null
+  }
   };
 
  useEffect(()=>{
@@ -55,17 +82,13 @@ export const SearchCompoId = ({ onError , rid }) => {
       console.log("Filtered Leagues:", filteredLeagues);
       if(Array.isArray(filteredLeagues)&&filteredLeagues){
         setleagueName(filteredLeagues[0]?.league?.name)
-      
-        // if (isSeason === false) {
-        //   dispatch(getSeasons({})).then((res) => {
-        //     if (res?.payload?.status === true) {
-        //       // setIsLoading(false);
-        //       setIsSeason(true);
-        //     }
-        //   });
-        // }
       }
-    }
+          dispatch(getleagueByid({league : rid})).then((res) => {
+            if (res?.payload?.status === true) {
+              setIsLoading(false);
+            }
+          });
+      }
   }, [allLeague,rid]);
 
  
@@ -111,48 +134,88 @@ export const SearchCompoId = ({ onError , rid }) => {
     }) || []),
   ];
 
-  useEffect(()=>{
-    if (date && currentYear) {
-      const leagueId = parseInt(rid)
+  // useEffect(()=>{
+  //   if (date && currentYear) {
+  //     const leagueId = parseInt(rid)
+  //     dispatch(
+  //       getFixtures({
+  //         date: date,
+  //         league: leagueId,
+  //         season: currentYear,
+  //       })
+  //     ).then((response) => {
+  //       if (
+  //         response?.payload?.message ===
+  //         "Something went wrong. Please try again later"
+  //       ) {
+  //         onError(400);
+  //       } else {
+  //         onError(null);
+  //       }
+  //     });
+  //   }
+  //   // if (changeDateformate && currentYear) {
+  //   //   const leagueId = parseInt(rid)
+  //   //   console.log("type",typeof leagueId);
+  //   //   dispatch(
+     
+  //   //     getFixtures({
+  //   //       date: changeDateformate,
+  //   //       league: leagueId,
+  //   //       season: Year,
+  //   //     })
+  //   //   ).then((response) => {
+  //   //     if (
+  //   //       response?.payload?.message ===
+  //   //       "Something went wrong. Please try again later"
+  //   //     ) {
+  //   //       onError(400);
+  //   //     } else {
+  //   //       onError(null);
+  //   //     }
+  //   //   });
+  //   // }
+  // },[date,currentYear,rid])
+
+  const searchHandle = (value) =>{
+    console.log("val",value.target.value);
+    setCSeason(value.target.value)
+    if (date) {
       dispatch(
         getFixtures({
           date: date,
-          league: leagueId,
-          season: currentYear,
-        })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
+        league: parseInt(rid), // If league is selected, use its value
+          season: parseInt(value.target.value),
+         })
+        ).then((response) => {
+       if (
+         response?.payload?.message ===
+           "Something went wrong. Please try again later"
         ) {
-          onError(400);
+         onError(400);
         } else {
-          onError(null);
-        }
+           onError(null);
+         }
+      });
+    }else{
+      dispatch(
+        getFixtures({
+          date: changeDateformate,
+        league: parseInt(rid), // If league is selected, use its value
+          season: parseInt(value.target.value),
+         })
+        ).then((response) => {
+       if (
+         response?.payload?.message ===
+           "Something went wrong. Please try again later"
+        ) {
+         onError(400);
+        } else {
+           onError(null);
+         }
       });
     }
-    // if (changeDateformate && currentYear) {
-    //   const leagueId = parseInt(rid)
-    //   console.log("type",typeof leagueId);
-    //   dispatch(
-     
-    //     getFixtures({
-    //       date: changeDateformate,
-    //       league: leagueId,
-    //       season: Year,
-    //     })
-    //   ).then((response) => {
-    //     if (
-    //       response?.payload?.message ===
-    //       "Something went wrong. Please try again later"
-    //     ) {
-    //       onError(400);
-    //     } else {
-    //       onError(null);
-    //     }
-    //   });
-    // }
-  },[date,currentYear,rid])
+   }
   
   return (
     <>
@@ -204,13 +267,13 @@ export const SearchCompoId = ({ onError , rid }) => {
 
       {/*  select season */}
 
-      {/* <div className="mb-4 md:mb-0 w-3/3">
+      <div className="mb-4 md:mb-0 w-3/3">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
           } pb-2`}
         >
-           Select Season
+          Select Season
         </p>
         <div className="mb-4 md:mb-0">
           <div
@@ -220,28 +283,25 @@ export const SearchCompoId = ({ onError , rid }) => {
                 : "date_picker_box Select_Season"
             }`}
           >
-             
-                {currentYear ? 
-                <div className={` ${
-                  themeMode === "light"
-                    ? "date_picker_box_light Select_Season"
-                    : "date_picker_box Select_Season"
-                }`}>{currentYear}</div>
-                :
-                <div className="">{Year}</div>
-                 }
-                {seasons?.data?.map((data) => (
-                  <option key={data} value={data}>
-                    {data}
+            {isloading ? (
+              <select name="sel" disabled>
+                <option>Loading...</option>
+              </select>
+            ) : (
+              <select
+              onChange={searchHandle}
+              >
+                <option value="">Select</option>
+                {sortedSeasons?.map((data) => (
+                  <option key={data} value={data.year}>
+                    {data.year}
                   </option>
                 ))}
-            
-            
-           
-            
+              </select>
+            )}
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

@@ -1186,13 +1186,13 @@ const CookedSlips = () => {
         {slipModal && (
           <Modal
             show={slipModal}
-            size="7xl"
+            size="4xl"
             onClose={() => setOpenSlipModal(false)}
             popup
           >
             <Modal.Header className="absolute right-0 top-0" />
             <Modal.Body>
-              <div className="pt-6">
+              <div className="pt-12">
                 <ViewSlipDetails id={slipId} />
               </div>
             </Modal.Body>
