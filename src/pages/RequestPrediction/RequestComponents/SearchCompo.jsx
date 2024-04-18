@@ -54,21 +54,21 @@ export const SearchCompo = ({ onError }) => {
     }
   }, [dispatch, changeDateformate]);
 
-  // useEffect(() => {
-  //   if (date) {
-  //     dispatch(getFixturesByleague({})).then((res) => {
-  //       console.log("res", res.payload.status);
-  //       if (res?.payload?.status === true) {
-  //         setIsData(true);
-  //         setIsLoading(false);
-  //         setApiCall(false)
-  //       } else {
-  //         setIsData(false);
-  //         setIsLoading(true);
-  //       }
-  //     });
-  //   }
-  // }, [dispatch, date]);
+  useEffect(() => {
+    if (date) {
+      dispatch(getFixturesByleague({})).then((res) => {
+        console.log("res", res.payload.status);
+        if (res?.payload?.status === true) {
+          setIsData(true);
+          setIsLoading(false);
+          setApiCall(false);
+        } else {
+          setIsData(false);
+          setIsLoading(true);
+        }
+      });
+    }
+  }, [dispatch, date]);
 
   const handleLeagueChange = (selectedOption) => {
     setIsLeague(selectedOption);
@@ -141,7 +141,7 @@ export const SearchCompo = ({ onError }) => {
     //   //   }
     //   // });
     // }
-    if (date && isLeague) {
+    if (isDate && date && isLeague) {
       const year = date.split("-")[0];
       console.log("2ndD", date);
       console.log("2ndY", year);
@@ -188,7 +188,7 @@ export const SearchCompo = ({ onError }) => {
         }
       });
     }
-  }, [date, isLeague, changeDateformate, apiCall]);
+  }, [date, isLeague, changeDateformate, apiCall, isDate]);
 
   const [input, setInput] = useState("");
 
@@ -196,7 +196,7 @@ export const SearchCompo = ({ onError }) => {
     setInput(newValue);
     console.log("input", newValue);
   };
-  const [filteredData, setFilteredData] = useState();
+  //  const [filteredData,setFilteredData] = useState()
 
   // useEffect(() => {
   //   console.log('input', input.trim())
@@ -262,7 +262,6 @@ export const SearchCompo = ({ onError }) => {
       };
     }) || []),
   ];
-  console.log("op", options);
 
   return (
     <>
