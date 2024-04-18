@@ -61,7 +61,7 @@ const MyPrediction = () => {
           items_per_page: itemsPerPage,
         })
       );
-      localStorage.setItem('hasRendered', true);
+      // localStorage.setItem('hasRendered', true);
     }
   }, [currentPage, itemsPerPage, token, dispatch]);
 
@@ -70,7 +70,7 @@ const MyPrediction = () => {
       console.log("total data: ", fetchedPredictions?.total_data);
       setTotalPages(Math.ceil(fetchedPredictions?.total_data / itemsPerPage));
     }
-  }, [fetchedPredictions,itemsPerPage]);
+  }, [fetchedPredictions, itemsPerPage]);
   // const fetchData = (page) => {
   //   dispatch(
   //     getPredictions({
