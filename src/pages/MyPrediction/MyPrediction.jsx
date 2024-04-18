@@ -53,28 +53,40 @@ const MyPrediction = () => {
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
   useEffect(() => {
-    if (token) {
-      fetchData(currentPage);
-      console.log("total data: ", fetchedPredictions?.total_data);
-      //  setTotalPages(fetchedPredictions?.total_data);
+    // const hasRenderedBefore = localStorage.getItem('hasRendered',false);
+    if (token && currentPage === 1) {
+      dispatch(
+        getPredictions({
+          page_number: currentPage,
+          items_per_page: itemsPerPage,
+        })
+      );
+      localStorage.setItem('hasRendered', true);
     }
-  }, [currentPage]);
+  }, [currentPage, itemsPerPage, token, dispatch]);
+
   useEffect(() => {
     if (token) {
       console.log("total data: ", fetchedPredictions?.total_data);
       setTotalPages(Math.ceil(fetchedPredictions?.total_data / itemsPerPage));
     }
-  }, [fetchedPredictions]);
-  const fetchData = (page) => {
+  }, [fetchedPredictions,itemsPerPage]);
+  // const fetchData = (page) => {
+  //   dispatch(
+  //     getPredictions({
+  //       page_number: page,
+  //       items_per_page: itemsPerPage,
+  //     })
+  //   );
+  // };
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
     dispatch(
       getPredictions({
         page_number: page,
         items_per_page: itemsPerPage,
       })
     );
-  };
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
   };
   const pageNumbers = Array.from(
     { length: totalPages },
@@ -123,23 +135,23 @@ const MyPrediction = () => {
   };
   console.log("prediction: ", fetchedPredictions?.data);
 
-  const [percentage, setPercentage] = useState();
+  // const [percentage, setPercentage] = useState();
 
-  useEffect(() => {
-    dispatch(LastResult({ fixture: 1174181 }));
-  }, []);
-  useEffect(() => {
-    if (teamResult?.home?.league?.goals?.for) {
-      console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
+  // useEffect(() => {
+  //   dispatch(LastResult({ fixture: 1174181 }));
+  // }, []);
+  // useEffect(() => {
+  //   if (teamResult?.home?.league?.goals?.for) {
+  //     console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
 
-      const data = teamResult?.home?.league?.goals?.for?.minute;
+  //     const data = teamResult?.home?.league?.goals?.for?.minute;
 
-      const percentages = Object.values(data).map((item) => item.percentage);
+  //     const percentages = Object.values(data).map((item) => item.percentage);
 
-      console.log("per :", percentages[0]);
-      setPercentage(percentages[1]);
-    }
-  }, [teamResult]);
+  //     console.log("per :", percentages[0]);
+  //     setPercentage(percentages[1]);
+  //   }
+  // }, [teamResult]);
 
   // useEffect(() => {
   //   const addedAt = new Date();
