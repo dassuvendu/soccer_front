@@ -40,6 +40,26 @@ export const SearchCompo = ({ onError }) => {
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
     // setCurrentYear(year);
+    if (isLeague && cseason) {
+      dispatch(
+        getFixtures({
+          date: newDate,
+        league: parseInt(isLeague.value), // If league is selected, use its value
+          season: parseInt(cseason),
+         })
+        ).then((response) => {
+       if (
+         response?.payload?.message ===
+           "Something went wrong. Please try again later"
+        ) {
+         onError(400);
+        } else {
+           onError(null);
+         }
+      });
+    }else{
+      null
+    }
   };
 
   useEffect(() => {

@@ -12,11 +12,15 @@ import {
 } from "react-icons/bs";
 import {
   getFixtures,
+  getleagueByid,
 } from "../../../reducers/PredictionsSlice";
 
-const RequestPredictionListId = ({ errorMessage,rid,season,sendDate }) => {
+const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
     console.log(rid);
-    console.log("Td2",sendDate);
+    console.log("Td2",sendData);
+    const { seasons } = useSelector((state) => state.prediction);
+    const seasonCopy=[...seasons]
+     const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
@@ -86,19 +90,38 @@ const Year = todayFormatted.toString().split('-')[0]
     //     }
     //   });
     // } 
-     const leaugeId = parseInt(rid)
-     const season = parseInt(Year)
-      dispatch(getFixtures({date : todayFormatted,league: leaugeId, season:season})).then((res) => {
+    dispatch(getleagueByid({league : rid}))
+      
+    if (sendData) {
+      const leaugeId = parseInt(rid)
+      dispatch(getFixtures({date : sendData,league: leaugeId, season:sortedSeasons[0]?.year})).then((res) => {
         if (res?.payload?.status === true) {
           setLoadingData(false);
           setHide(true);
+          setError(false);
         }
         else {
           setLoadingData(false);
           setHide(false);
+          setError(true);
         }
       });
-  }, [dispatch,rid,Year,todayFormatted,season,sendDate]);
+    }else
+     {const leaugeId = parseInt(rid)
+      dispatch(getFixtures({date : todayFormatted,league: leaugeId, season:sortedSeasons[0]?.year})).then((res) => {
+        if (res?.payload?.status === true) {
+          setLoadingData(false);
+          setHide(true);
+          setError(false);
+        }
+        else {
+          setLoadingData(false);
+          setHide(false);
+          setError(true);
+        }
+      });
+    }
+  }, [dispatch,rid,Year,todayFormatted,season,sendData]);
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);
@@ -256,7 +279,7 @@ const Year = todayFormatted.toString().split('-')[0]
                                         0,
                                         30
                                       ) + "..."
-                                    : dat?.fixture?.venue?.name}
+                                    : dat?.fixture?.venue?.name.slice(0,15)}
                                 </b>
                               </span>
                             </div>
@@ -276,7 +299,7 @@ const Year = todayFormatted.toString().split('-')[0]
                                   : "text-white"
                               }`}
                             >
-                              {dat?.teams?.away?.name}
+                              {dat?.teams?.away?.name?.slice(0,15)}
                             </p>
                           </div>
                         </div>

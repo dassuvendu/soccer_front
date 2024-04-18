@@ -18,6 +18,11 @@ const RequestPredictionId = () => {
 
   let { rid } = useParams();
 
+ const [sendData,setSendData] = useState()
+  useEffect(() =>{
+  console.log(sendData);
+  },[sendData])
+
 // const [season, setSeason] = useState(null)
 
 // useEffect(()=>{
@@ -40,13 +45,13 @@ const RequestPredictionId = () => {
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompoId onError={handleError} rid={rid}  />
+          <SearchCompoId onError={handleError} rid={rid}  setSendData={setSendData}/>
           <Prediction />
         </div>
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionListId errorMessage={errorMessage}  rid={rid} />
+      <RequestPredictionListId errorMessage={errorMessage}  rid={rid} sendData={sendData}/>
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}

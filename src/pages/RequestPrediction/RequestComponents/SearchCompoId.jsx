@@ -8,7 +8,7 @@ import {
   getleagueByid,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid }) => {
+export const SearchCompoId = ({ onError , rid,setSendData }) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { allLeague, seasons } = useSelector((state) => state.prediction);
@@ -23,7 +23,7 @@ export const SearchCompoId = ({ onError , rid }) => {
   // const [cseason,setCSeason] = useState()
   const [currentYear,setCurrentYear]=useState()
   console.log("cY",currentYear);
-
+  const [cseason,setCSeason] = useState()
   // const today = new Date();
   // const Year = today.getFullYear()
   const today = new Date();
@@ -38,7 +38,29 @@ export const SearchCompoId = ({ onError , rid }) => {
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
   setDate(newDate);
+  setSendData(newDate)
   setCurrentYear(year)
+  if (rid && cseason) {
+    const leagueId = parseInt(rid)
+    dispatch(
+      getFixtures({
+        date: newDate,
+      league: parseInt(leagueId), // If league is selected, use its value
+        season: parseInt(cseason),
+       })
+      ).then((response) => {
+     if (
+       response?.payload?.message ===
+         "Something went wrong. Please try again later"
+      ) {
+       onError(400);
+      } else {
+         onError(null);
+       }
+    });
+  }else{
+    null
+  }
   };
 
  useEffect(()=>{
@@ -112,51 +134,52 @@ export const SearchCompoId = ({ onError , rid }) => {
     }) || []),
   ];
 
-  useEffect(()=>{
-    if (date && currentYear) {
-      const leagueId = parseInt(rid)
-      dispatch(
-        getFixtures({
-          date: date,
-          league: leagueId,
-          season: currentYear,
-        })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-          "Something went wrong. Please try again later"
-        ) {
-          onError(400);
-        } else {
-          onError(null);
-        }
-      });
-    }
-    // if (changeDateformate && currentYear) {
-    //   const leagueId = parseInt(rid)
-    //   console.log("type",typeof leagueId);
-    //   dispatch(
+  // useEffect(()=>{
+  //   if (date && currentYear) {
+  //     const leagueId = parseInt(rid)
+  //     dispatch(
+  //       getFixtures({
+  //         date: date,
+  //         league: leagueId,
+  //         season: currentYear,
+  //       })
+  //     ).then((response) => {
+  //       if (
+  //         response?.payload?.message ===
+  //         "Something went wrong. Please try again later"
+  //       ) {
+  //         onError(400);
+  //       } else {
+  //         onError(null);
+  //       }
+  //     });
+  //   }
+  //   // if (changeDateformate && currentYear) {
+  //   //   const leagueId = parseInt(rid)
+  //   //   console.log("type",typeof leagueId);
+  //   //   dispatch(
      
-    //     getFixtures({
-    //       date: changeDateformate,
-    //       league: leagueId,
-    //       season: Year,
-    //     })
-    //   ).then((response) => {
-    //     if (
-    //       response?.payload?.message ===
-    //       "Something went wrong. Please try again later"
-    //     ) {
-    //       onError(400);
-    //     } else {
-    //       onError(null);
-    //     }
-    //   });
-    // }
-  },[date,currentYear,rid])
+  //   //     getFixtures({
+  //   //       date: changeDateformate,
+  //   //       league: leagueId,
+  //   //       season: Year,
+  //   //     })
+  //   //   ).then((response) => {
+  //   //     if (
+  //   //       response?.payload?.message ===
+  //   //       "Something went wrong. Please try again later"
+  //   //     ) {
+  //   //       onError(400);
+  //   //     } else {
+  //   //       onError(null);
+  //   //     }
+  //   //   });
+  //   // }
+  // },[date,currentYear,rid])
 
   const searchHandle = (value) =>{
     console.log("val",value.target.value);
+    setCSeason(value.target.value)
     if (date) {
       dispatch(
         getFixtures({
