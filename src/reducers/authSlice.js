@@ -23,6 +23,46 @@ export const registerUser = createAsyncThunk(
     }
 );
 
+export const sendOtp = createAsyncThunk(
+    'user/send-otp',
+    async (userInput, { rejectWithValue }) => {
+        try {
+            const response = await api.post('user/send-otp', userInput);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                if (response?.data?.errors) {
+                    return rejectWithValue(response.data.errors);
+                } else {
+                    return rejectWithValue('Failed to send OTP');
+                }
+            }
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
+export const verifyOtp = createAsyncThunk(
+    'user/verify-otp',
+    async (userInput, { rejectWithValue }) => {
+        try {
+            const response = await api.post('user/verify-otp', userInput);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                if (response?.data?.errors) {
+                    return rejectWithValue(response.data.errors);
+                } else {
+                    return rejectWithValue('Failed to verify OTP');
+                }
+            }
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    }
+);
+
 export const login = createAsyncThunk(
     'auth/login',
     async (userInput, { rejectWithValue }) => {
@@ -47,6 +87,7 @@ const initialState = {
     isLoggedIn: false,
     currentUser: {},
     isGoogleLoggedIn: null,
+    subscription: false,
 };
 
 const authSlice = createSlice({
@@ -101,6 +142,42 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = payload;
             })
+
+            .addCase(sendOtp.pending, (state) => {
+                state.error = null;
+                state.loading = true;
+            })
+            .addCase(sendOtp.fulfilled, (state) => {
+                state.loading = false;
+                state.currentUser.otp_verified = 1;
+            })
+            .addCase(sendOtp.rejected, (state, response) => {
+                state.loading = false;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(verifyOtp.pending, (state) => {
+                state.message = null;
+                state.error = null;
+                state.loading = true;
+            })
+            .addCase(verifyOtp.fulfilled, (state, { payload }) => {
+                const { message } = payload;
+                state.loading = false;
+                state.currentUser.otp_verified = 1;
+                state.message = message;
+            })
+            .addCase(verifyOtp.rejected, (state, response) => {
+                state.loading = false;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
             .addCase(login.pending, (state) => {
                 state.loading = true;
                 state.isLoggedIn = false;
