@@ -26,6 +26,7 @@ import PaymentRedirect from '../pages/Payment/PaymentRedirect.jsx';
 import Bundesliga from '../pages/Bundesliga/Bundesliga.jsx';
 import PlayerComparisions from '../pages/PlayerComparisions/PlayerComparisions.jsx';
 import RequestPredictionId from '../pages/RequestPrediction/RequestPredictionId.jsx';
+import SlipInfo from '../pages/CookedSlips/SlipInfo.jsx';
 
 const allRoutes = [
   {
@@ -135,6 +136,16 @@ const allRoutes = [
       {
         index: true,
         element: <CookedSlips />
+      },
+    ],
+  },
+  {
+    path: '/slip-info',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <SlipInfo />
       },
     ],
   },

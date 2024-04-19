@@ -14,15 +14,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaEye, FaInfoCircle } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
-import {
-  PiArrowDownRightLight,
-  PiArrowUpRightLight,
-} from "react-icons/pi";
+import { PiArrowDownRightLight, PiArrowUpRightLight } from "react-icons/pi";
 import { BsLightningCharge } from "react-icons/bs";
 import { PastMatch } from "./PastMatch";
 import { UpcomingMatch } from "./UpcomingMatch";
+import { PassedCookedSlip } from "./PassedCookedSlip";
 const SoccerPrediction = () => {
-
   useEffect(() => {
     AOS.init();
   }, []);
@@ -252,10 +249,11 @@ const SoccerPrediction = () => {
                 <Tab>Upcoming Matches</Tab>
               </TabList>
               <TabPanel>
-              <PastMatch/>
+                <PastMatch />
               </TabPanel>
               <TabPanel>
-                <div className="pt-4">
+                <PassedCookedSlip />
+                {/* <div className="pt-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div className="bg-white rounded-lg p-5 shadow-xl">
                       <div className="flex justify-between items-center mb-5">
@@ -642,10 +640,10 @@ const SoccerPrediction = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </TabPanel>
               <TabPanel>
-               <UpcomingMatch/>
+                <UpcomingMatch />
               </TabPanel>
             </Tabs>
           </div>

@@ -1,13 +1,16 @@
 import { CiUnlock } from "react-icons/ci";
 import { dollerIcon } from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getslipDetails } from "../../reducers/CookedSlipSlice";
+import { useEffect, useState } from "react";
+import { getSlipInfo, getslipDetails } from "../../reducers/CookedSlipSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const ViewSlipDetails = ({ id }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { singleSlip } = useSelector((state) => state.cookedSlips);
+  const { slipInfo, singleSlip } = useSelector((state) => state.cookedSlips);
+  const [Slipid, setSlipId] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getslipDetails({ id: id }));
   }, []);
@@ -72,6 +75,13 @@ const ViewSlipDetails = ({ id }) => {
     };
     return date.toLocaleTimeString(undefined, options);
   };
+
+  const slipinfo = (id) => {
+    navigate("/slip-info", {
+      state: { id: id },
+    });
+    console.log("slipinfoid: ", id);
+  };
   return (
     <>
       <div className="flex justify-between items-center mb-6">
@@ -82,7 +92,11 @@ const ViewSlipDetails = ({ id }) => {
         >
           Cooked Slip #{id}
         </h2>
-        <button className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full">
+
+        <button
+          onClick={() => slipinfo(id)}
+          className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
+        >
           <CiUnlock className="text-base mr-0.5" />
           Unlock Slip
         </button>
