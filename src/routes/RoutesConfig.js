@@ -154,7 +154,7 @@ const allRoutes = [
     children: [
       {
         index: true,
-        element: <RequestPredictionId/>
+        element: <RequestPredictionId />
       },
     ],
   },
