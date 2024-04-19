@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getSlipInfo } from "../../reducers/CookedSlipSlice";
+import { Table, Tabs } from "flowbite-react";
+import { MdMoreHoriz } from "react-icons/md";
+import { Tab, TabList, TabPanel } from "react-tabs";
 
 const SlipInfo = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { slipInfo } = useSelector((state) => state.cookedSlips);
+  const { slipInfo, isLoading } = useSelector((state) => state.cookedSlips);
   const location = useLocation();
   const { id } = location.state;
   console.log("location", location);
@@ -15,26 +18,26 @@ const SlipInfo = () => {
   }, []);
   console.log("slip Info: ", slipInfo?.data);
 
-  const matchStartDate = (dateString) => {
-    const options = {
-      weekday: "short",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      timeZone: "UTC",
-    };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-  const matchStartTime = (timestamp) => {
-    const date = new Date(timestamp);
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-      timeZone: "UTC",
-    };
-    return date.toLocaleTimeString(undefined, options);
-  };
+  //   const matchStartDate = (dateString) => {
+  //     const options = {
+  //       weekday: "short",
+  //       year: "numeric",
+  //       month: "long",
+  //       day: "numeric",
+  //       timeZone: "UTC",
+  //     };
+  //     return new Date(dateString).toLocaleDateString(undefined, options);
+  //   };
+  //   const matchStartTime = (timestamp) => {
+  //     const date = new Date(timestamp);
+  //     const options = {
+  //       hour: "numeric",
+  //       minute: "numeric",
+  //       hour12: true,
+  //       timeZone: "UTC",
+  //     };
+  //     return date.toLocaleTimeString(undefined, options);
+  //   };
   const formatStartDate = (dateString) => {
     const options = {
       weekday: "short",
@@ -185,7 +188,6 @@ const SlipInfo = () => {
               {formatEndTime(slipInfo?.data?.endsOn)}
             </h3>
           </div>
-          <div></div>
         </div>
       </div>
     </>
