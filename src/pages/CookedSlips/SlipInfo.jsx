@@ -190,7 +190,6 @@ const SlipInfo = () => {
           <TabList>
             <Tab>Match And Strategy</Tab>
           </TabList>
-          <div className="mr-4 mb-4 ml-4 md:ml-0 md:mb-0"></div>
         </div>
 
         <TabPanel>
