@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { registerUser } from "../../reducers/authSlice";
+import { registerUser, verifyOtp } from "../../reducers/authSlice";
 
 const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
     const dispatch = useDispatch();
@@ -32,7 +32,16 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
     } = useForm();
 
     function onSubmit(data) {
-        dispatch(registerUser(data))
+        if (currentUser && Object.keys(currentUser).length) {
+            dispatch(verifyOtp(data)).then(() => {
+                reset();
+            });
+            navigate("/choose-plan");
+            setOpenRegisterModal(false);
+            setOpenLoginModal(false);
+        } else {
+            dispatch(registerUser(data))
+        }
     }
 
     useEffect(() => {
@@ -50,12 +59,14 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
         if (
             currentUser &&
             Object.keys(currentUser).length
+            &&
+            currentUser.otp_verified
         ) {
             navigate("/choose-plan");
             setOpenLoginModal(false);
             setOpenRegisterModal(false);
         }
-    }, [currentUser]);
+    }, [currentUser.otp_verified]);
 
     const goChoosePlanHandler = () => {
         setOpenRegisterModal(false);
@@ -152,15 +163,46 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
                                                 <h6 className="text-danger">{errors.password.message}</h6>
                                             )}
                                         </div>
-                                        <button
-                                            // onClick={goChoosePlanHandler}
-                                            type="submit"
-                                            className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
-                                            disabled={loading}
-                                        >
-                                            {/* Submit */}
-                                            {loading ? "Wait ..." : "Register"}
-                                        </button>
+                                        {currentUser && Object.keys(currentUser).length ? (
+                                            <>
+                                                <p className="text-sm text-red-600 mb-3">
+                                                    You will receive your OTP code in your email.
+                                                </p>
+                                                <div className="form-group">
+                                                    <input
+                                                        type="text"
+                                                        name="otp"
+                                                        {...register("otp", {
+                                                            required: "Otp is required",
+                                                        })}
+                                                        className="w-full h-12 px-5 mb-3 text-base border border-solid rounded-full border-slate-400"
+                                                        placeholder="Enter Your OTP"
+                                                    />
+                                                    {errors?.otp?.message && (
+                                                        <small className="text-red-600">
+                                                            {errors.otp.message}
+                                                        </small>
+                                                    )}
+                                                </div>
+                                                <button
+                                                    type="submit"
+                                                    className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#d86d3f] text-white font-medium create_character_btn"
+                                                    disabled={loading}
+                                                >
+                                                    {loading ? "Wait ..." : "Submit"}
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <button
+                                                // onClick={goChoosePlanHandler}
+                                                type="submit"
+                                                className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
+                                                disabled={loading}
+                                            >
+                                                {/* Submit */}
+                                                {loading ? "Wait ..." : "Register"}
+                                            </button>
+                                        )}
                                     </form>
                                     <p className="py-4">OR</p>
                                     <Link className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200">

@@ -23,8 +23,8 @@ function Header(props: {
     //   const {darkMode} = useSelector((state)=>state.darkmode)
     const themeMode = useSelector((state: any) => state.darkmode.mode);
 
-    const location = useLocation();
-    const { pathname } = location;
+    // const location = useLocation();
+    // const { pathname } = location;
 
     const dispatch = useDispatch();
     const toggleThemeMode = () => {

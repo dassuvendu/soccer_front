@@ -10,7 +10,10 @@ const SlipInfo = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { slipInfo, isLoading } = useSelector((state) => state.cookedSlips);
   const location = useLocation();
-  const { id } = location.state;
+  let id;
+  if (location?.state?.id) {
+    id = location?.state?.id;
+  }
   console.log("location", location);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -83,9 +86,8 @@ const SlipInfo = () => {
     <>
       <div className="flex justify-between items-center mb-6">
         <h2
-          className={`font-Montserrat text-[23px] leading-[25px] font-bold mb-1 ${
-            themeMode === "light" ? "text-[#191D23]" : "text-white"
-          }`}
+          className={`font-Montserrat text-[23px] leading-[25px] font-bold mb-1 ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+            }`}
         >
           Slip #{id}
         </h2>
@@ -97,9 +99,8 @@ const SlipInfo = () => {
               Matches
             </p>
             <h2
-              className={`font-Montserrat text-[20px] leading-[24px] font-semibold mb-1 ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[20px] leading-[24px] font-semibold mb-1 ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               {slipInfo?.data?.count} Matches
             </h2>
@@ -109,18 +110,16 @@ const SlipInfo = () => {
               Odds
             </p>
             <h2
-              className={`font-Montserrat text-[20px] leading-[24px] font-semibold mb-1 ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[20px] leading-[24px] font-semibold mb-1 ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               {slipInfo?.data?.odds}
             </h2>
           </div>
           <div>
             <p
-              className={`font-Montserrat text-[14px] leading-[18px] font-medium mb-1 ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[14px] leading-[18px] font-medium mb-1 ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               Risk Level
             </p>
@@ -143,9 +142,8 @@ const SlipInfo = () => {
               Strategy
             </p>
             <h3
-              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               {slipInfo?.data?.strategy}
             </h3>
@@ -155,9 +153,8 @@ const SlipInfo = () => {
               Max Stake
             </p>
             <h3
-              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               {slipInfo?.data?.maxStake}
             </h3>
@@ -167,9 +164,8 @@ const SlipInfo = () => {
               Starts On
             </p>
             <h3
-              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               {formatStartDate(slipInfo?.data?.startsOn)}{" "}
               {formatStartTime(slipInfo?.data?.startsOn)}
@@ -180,9 +176,8 @@ const SlipInfo = () => {
               Ends On
             </p>
             <h3
-              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
+              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${themeMode === "light" ? "text-[#191D23]" : "text-white"
+                }`}
             >
               {formatEndDate(slipInfo?.data?.endsOn)}{" "}
               {formatEndTime(slipInfo?.data?.endsOn)}
@@ -204,37 +199,29 @@ const SlipInfo = () => {
             <Table hoverable>
               <Table.Head className="border-b border-[#2b2f35]">
                 <Table.HeadCell
-                  className={`${
-                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px]  ${
-                    themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-                  } font-medium capitalize w-[34%]`}
+                  className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px]  ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                    } font-medium capitalize w-[34%]`}
                 >
                   Match
                 </Table.HeadCell>
                 <Table.HeadCell
-                  className={`${
-                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${
-                    themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-                  } font-medium capitalize w-[17%]`}
+                  className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                    } font-medium capitalize w-[17%]`}
                 >
                   Advice
                 </Table.HeadCell>
 
                 <Table.HeadCell
-                  className={`${
-                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${
-                    themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-                  } font-medium capitalize w-[17%]`}
+                  className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                    } font-medium capitalize w-[17%]`}
                 ></Table.HeadCell>
                 <Table.HeadCell
-                  className={`${
-                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${
-                    themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-                  } font-medium capitalize w-[15%]`}
+                  className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                    } text-[16px] ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                    } font-medium capitalize w-[15%]`}
                 >
                   More
                 </Table.HeadCell>
@@ -270,11 +257,10 @@ const SlipInfo = () => {
                       return (
                         <>
                           <Table.Row
-                            className={`${
-                              themeMode === "light"
-                                ? "bg-white"
-                                : "bg-[#191D23]"
-                            } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                            className={`${themeMode === "light"
+                              ? "bg-white"
+                              : "bg-[#191D23]"
+                              } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
                           >
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                               <div className="flex items-center">
@@ -286,11 +272,10 @@ const SlipInfo = () => {
                                   /> */}
                                   <div>
                                     <p
-                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                        themeMode === "light"
-                                          ? "text-black"
-                                          : "text-white"
-                                      }`}
+                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${themeMode === "light"
+                                        ? "text-black"
+                                        : "text-white"
+                                        }`}
                                     >
                                       {predict?.homeTeamName} VS{" "}
                                       {predict?.awayTeamName}
@@ -310,11 +295,10 @@ const SlipInfo = () => {
                             </Table.Cell>
                             <Table.Cell className="w-[5%]">
                               <span
-                                className={`text-base font-bold ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
+                                className={`text-base font-bold ${themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                                  }`}
                               >
                                 <span>
                                   {predict?.passed === false ? (
