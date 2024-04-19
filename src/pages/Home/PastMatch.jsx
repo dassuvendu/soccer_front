@@ -4,6 +4,7 @@ import { getFixtures } from "../../reducers/PredictionsSlice";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import { Spinner } from "flowbite-react";
+import PastMatchModal from "./PastMatchModal";
 
 export const PastMatch = () => {
   const { fixtures } = useSelector((state) => state.prediction);
@@ -36,6 +37,7 @@ export const PastMatch = () => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
     const options = {
       weekday: "short",
+      timeZone: 'UTC'
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -49,16 +51,40 @@ export const PastMatch = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
     return date.toLocaleDateString("en-US", options);
+  };
+  const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
+  const [homeId, setHomeId] = useState(null);
+  const [awayId, setAwayId] = useState(null);
+  const [timeStamp, setTimeStamp] = useState(null);
+  const [fixturesId, setFixturesId] = useState(null);
+
+  const openViewDetailsModalHandle = (id) => {
+    //  console.log("det",id);
+    setHomeId(id.split(":")[1]);
+    setAwayId(id.split(":")[2]);
+    setTimeStamp(id.split(":")[3]);
+    const fixtureId = id.split(":")[0];
+    setFixturesId(fixtureId);
+    setOpenViewDetailsModal(true);
+  };
+
+  const handleModalClose = () => {
+    setOpenViewDetailsModal(false);
+    setHomeId(null);
+    setAwayId(null);
+    setTimeStamp(null);
+    setFixturesId(null);
   };
   return (
     <div>
       <div className="pt-4">
         {loadingData && !homeLoader ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" >
             {Items?.map((data) => (
-              <div className="bg-white rounded-2xl shadow-xl">
+              <div className="bg-white rounded-2xl shadow-xl" key={data.id}>
                 <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
                   <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
                     Match Details
@@ -123,7 +149,15 @@ export const PastMatch = () => {
                     </div>
                   </div>
                   <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                    <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                    <Link className="w-full font-Syne font-bold flex items-center justify-center 
+                    px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] 
+                    bg-gradient-to-r bg-clip-text text-transparent"
+                     onClick={() =>
+                      openViewDetailsModalHandle(
+                         `${data?.fixture?.id}:${data?.teams?.home?.id}:${data?.teams?.away?.id}:${data?.fixture?.timestamp}`
+                      )
+                    }
+                    >
                       View Details
                       <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                     </Link>
@@ -207,7 +241,16 @@ export const PastMatch = () => {
             <span className="pl-3 ">Loading...</span>
           </div>
         )}
+        
       </div>
+      <PastMatchModal 
+       openViewDetailsModal={openViewDetailsModal}
+       timeStamp={timeStamp}
+       fixturesId={fixturesId}
+       onClose={handleModalClose}
+       homeId={homeId}
+       awayId={awayId}
+      />
     </div>
   );
 };
