@@ -38,7 +38,7 @@ const Dashboard = () => {
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
       {isloadingEditProfile ? (
         <div>
-          Loading........
+          <img src={logoIcon} alt="loading.." className="loader" />
         </div>
       ) : (
         <>
@@ -188,28 +188,9 @@ const Dashboard = () => {
                     </div>
                   ) : (
                     <div className="text-center">
-                      <Spinner
-                        color="pink"
-                        aria-label="Warning spinner example"
-                        size="lg"
-                      />
-                      <span className="pl-3">Loading...</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Explore Matches section ends here */}
-              </div>
-              {/* Actions section ends here */}
-
-              {/* Explore Matches section start here  */}
-
-              {/* Explore Matches section ends here */}
-              ) : (
-              <div className="text-center">
-                <div role="status">
-                  <img src={logoIcon} alt="loading.." className="loader" />
-                  {/* <svg
+                      <div role="status">
+                        <img src={logoIcon} alt="loading.." className="loader" />
+                        {/* <svg
                     aria-hidden="true"
                     class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101"
@@ -225,12 +206,20 @@ const Dashboard = () => {
                       fill="currentFill"
                     />
                   </svg> */}
-                  <span className="sr-only">Loading...</span>
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-              )}
-            </div>
 
+                {/* Explore Matches section ends here */}
+              </div>
+              {/* Actions section ends here */}
+
+              {/* Explore Matches section start here  */}
+
+              {/* Explore Matches section ends here */}
+            </div>
           )}
         </>
       )}
