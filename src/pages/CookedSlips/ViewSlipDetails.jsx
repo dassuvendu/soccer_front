@@ -98,7 +98,7 @@ const ViewSlipDetails = ({ id }) => {
           className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
         >
           <CiUnlock className="text-base mr-0.5" />
-          Unlock Slip
+          View Slip Details
         </button>
       </div>
       <div className="mb-6">
