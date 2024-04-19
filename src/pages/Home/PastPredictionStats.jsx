@@ -108,16 +108,16 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
               Outcome
             </h4>
             <p className="text-base text-[#08a1f8] font-medium">
-              win,{res?.predictions?.winner?.name}
+              win {res?.predictions?.winner?.name}
             </p>
           </div>
           <div className="text-center">
             <h4 className="font-Bebas text-xl tracking-normal text-[#08a1f8] text-center mb-4 mt-4">
               Advice
             </h4>
-            <p className="text-base text-[#08a1f8] font-medium">
+            {/* <p className="text-base text-[#08a1f8] font-medium">
               {res?.predictions?.advice?.toString()?.split('-')}
-            </p>
+            </p> */}
           </div>
           <div className="text-center pt-10">
             <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">

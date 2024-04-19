@@ -19,10 +19,22 @@ import { BsLightningCharge } from "react-icons/bs";
 import { PastMatch } from "./PastMatch";
 import { UpcomingMatch } from "./UpcomingMatch";
 import { PassedCookedSlip } from "./PassedCookedSlip";
+import { useDispatch, useSelector } from "react-redux";
+import { getDeshStatistics } from "../../reducers/StatisticsSlice";
 const SoccerPrediction = () => {
+
+  const {DeshStatistics} = useSelector((state) => state.statistics)
+  console.log('DeshStatistics', DeshStatistics)
+
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const dispatch = useDispatch()
+
+  useEffect(() =>{
+   dispatch(getDeshStatistics({}))
+  },[dispatch])
 
   return (
     <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
@@ -49,8 +61,8 @@ const SoccerPrediction = () => {
                 </TabList>
                 <TabPanel>
                   <div className="pt-4">
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                   {DeshStatistics.map((data) => (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" key={data.id}>
 
                       <div className="bg-white rounded-lg p-4 shadow-xl">
                         <div className="flex justify-between items-center mb-3">
@@ -64,9 +76,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          0
+                          {data?.high_accuracy}
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (100%)
+                            ({data?.percentage_high_accuracy}%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -86,9 +98,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          0
+                        {data?.low_accuracy}
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (100%)
+                          ({data?.percentage_low_accuracy}%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -97,13 +109,13 @@ const SoccerPrediction = () => {
                         </p>
                       </div>
                     </div>
-
+                   ))}
                   </div>
                 </TabPanel>
                 <TabPanel>
                   <div className="pt-4">
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {DeshStatistics.map((data) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" key={data?.id}>
                       <div className="bg-white rounded-lg p-4 shadow-xl">
                         <div className="flex justify-between items-center mb-3">
                           <div className="flex items-center">
@@ -116,9 +128,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          0
+                        {data?.high_accuracy}
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (100%)
+                          ({data?.percentage_high_accuracy}%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -138,9 +150,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          0
+                        {data?.low_accuracy}
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (100%)
+                          ({data?.percentage_low_accuracy}%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -149,11 +161,13 @@ const SoccerPrediction = () => {
                         </p>
                       </div>
                     </div>
+                   ))}
                   </div>
                 </TabPanel>
                 <TabPanel>
                   <div className="pt-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {DeshStatistics.map((data) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" key={data?.id}>
                       <div className="bg-white rounded-lg p-4 shadow-xl">
                         <div className="flex justify-between items-center mb-3">
                           <div className="flex items-center">
@@ -166,9 +180,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          0
+                        {data?.high_accuracy}
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (100%)
+                          ({data?.percentage_high_accuracy}%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
@@ -188,9 +202,9 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          0
+                        {data?.low_accuracy}
                           <span className="text-[#08a5f5] font-bold text-base">
-                            (100%)
+                          ({data?.percentage_low_accuracy}%)
                           </span>
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
@@ -210,7 +224,7 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          1597
+                          {data?.active}
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
                           <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
@@ -229,7 +243,7 @@ const SoccerPrediction = () => {
                           </div>
                         </div>
                         <h3 className="text-black font-bold text-5xl pb-2">
-                          2006
+                          {data?.inactive}
                         </h3>
                         <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
                           <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
@@ -238,6 +252,7 @@ const SoccerPrediction = () => {
                         </p>
                       </div>
                     </div>
+                    ))}
                   </div>
                 </TabPanel>
               </Tabs>

@@ -21,9 +21,29 @@ export const getStatistics = createAsyncThunk(
     }
 
 )
+export const getDeshStatistics = createAsyncThunk(
+    'Deshstatistics',
+    async (userInput, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/api/all_statistics',userInput);
+            if (response.status) {
+
+                return response?.data?.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+
+)
 const initialState = {
     isLoading: false,
     statistics: [],
+    DeshStatistics:[],
     error: false
 }
 
@@ -39,6 +59,19 @@ const StatisticsSlice = createSlice(
                 state.isLoading = false;
                 state.statistics = payload;
             }).addCase(getStatistics.rejected, (state, { payload }) => {
+                state.error = true;
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(getDeshStatistics.pending, (state) => {
+                state.isLoading = true;
+            }).addCase(getDeshStatistics.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.DeshStatistics = payload;
+            }).addCase(getDeshStatistics.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
                 state.message =
