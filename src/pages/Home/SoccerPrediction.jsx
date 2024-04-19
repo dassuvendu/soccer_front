@@ -29,7 +29,7 @@ const SoccerPrediction = () => {
       <div className="max-w-6xl mx-auto">
         <div>
           <div className="max-w-6xl mx-auto">
-            <h2 class="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-white">
+            <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-white">
               Lifetime Statistics
             </h2>
             <p className="text-center text-white pb-8">

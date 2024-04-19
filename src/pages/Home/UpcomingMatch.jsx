@@ -4,6 +4,7 @@ import { getFixtures } from "../../reducers/PredictionsSlice";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import { Spinner } from "flowbite-react";
+import Login from "../Auth/Login/Login";
 
 export const UpcomingMatch = () => {
   const { fixtures } = useSelector((state) => state.prediction);
@@ -17,6 +18,14 @@ export const UpcomingMatch = () => {
   const dispatch = useDispatch();
   const [loadingData, setLoadingData] = useState(false);
   const [homeLoader, setHomeLoader] = useState(true);
+  const [openLoginModal,setOpenLoginModal] = useState(false)
+
+  const LoginModal = () =>{
+    setOpenLoginModal(true)
+  }
+  const LoginCloseModal = () =>{
+    setOpenLoginModal(false)
+  }
 
   useEffect(() => {
     dispatch(getFixtures({ date: todayFormatted })).then((res) => {
@@ -37,6 +46,7 @@ export const UpcomingMatch = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: 'UTC'
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -47,6 +57,7 @@ export const UpcomingMatch = () => {
       day: "2-digit",
       month: "short",
       year: "numeric",
+      timeZone: 'UTC'
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -56,7 +67,7 @@ export const UpcomingMatch = () => {
       {loadingData && !homeLoader ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Items?.map((data) => (
-            <div className="bg-white rounded-2xl shadow-xl">
+            <div className="bg-white rounded-2xl shadow-xl" key={data.id}>
               <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
                 <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">
                   Matches
@@ -110,8 +121,12 @@ export const UpcomingMatch = () => {
                   </div>
                 </div>
                 <div className="block rounded-full text-center mb-0 bg-gray-800 hover:bg-black">
-                  <Link className="w-full font-Syne font-bold flex items-center justify-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
-                    See Prediction
+                  <Link className="w-full font-Syne font-bold flex items-center justify-center
+                   px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] 
+                   bg-gradient-to-r bg-clip-text text-transparent"
+                   onClick={LoginModal}
+                   >
+                    Match Details
                     <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                   </Link>
                 </div>
@@ -186,6 +201,7 @@ export const UpcomingMatch = () => {
           <span className="pl-3 ">Loading...</span>
         </div>
       )}
+      <Login openLoginModal={openLoginModal} />
     </div>
   );
 };

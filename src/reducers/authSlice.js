@@ -69,6 +69,7 @@ const authSlice = createSlice({
             localStorage.removeItem('subscriptionId');
             localStorage.removeItem('custId');
             localStorage.removeItem('planId');
+            localStorage.removeItem('isSubscribed');
         },
     },
     extraReducers: (builder) => {
@@ -106,8 +107,11 @@ const authSlice = createSlice({
                 state.error = false;
             })
             .addCase(login.fulfilled, (state, { payload }) => {
-                const { access_token, email, name, user_id } = payload;
+                const { access_token, email, name, user_id, subscription } = payload;
                 state.isLoggedIn = true;
+                if (subscription !== null) {
+                    state.subscription = true;
+                }
                 state.message = payload?.message;
                 state.loading = false;
                 state.currentUser = {
@@ -120,6 +124,8 @@ const authSlice = createSlice({
                     JSON.stringify({ token: access_token })
                 );
                 localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
+                localStorage.setItem('isSubscribed', JSON.stringify({ isSubscribed: subscription })
+                );
                 localStorage.removeItem('regToken');
             })
             .addCase(login.rejected, (state, { payload }) => {

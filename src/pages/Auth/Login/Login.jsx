@@ -219,7 +219,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                 <p className="py-4">OR</p>
                 <Link
                   className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-                  // onClick={() => googleLogin()}
+                // onClick={() => googleLogin()}
                 >
                   <FcGoogle className="text-3xl" />
                   Google
