@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Registration from "../Registration/Registration";
+import Login from "../Auth/Login/Login";
+
 
 const SelectPlan = () => {
 
-  const [openRegisterModal,setOpenRegisterModal] = useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
   const RegisterModal = () =>{
+    setOpenLoginModal(false);
     setOpenRegisterModal(true)
+   
   }
-  const RegisterCloseModal = () =>{
-    setOpenRegisterModal(false)
-  }
+
+  useEffect(()=>{
+console.log("openLoginModal",openLoginModal);
+console.log("openRegisterModal",openRegisterModal);
+  },[openLoginModal,openRegisterModal])
+
   return (
+    <>
     <div className="bg-white py-4">
       <div
         data-aos="zoom-in"
@@ -30,10 +39,27 @@ const SelectPlan = () => {
           >
             Subscribe Now
           </Link>
-          <Registration openRegisterModal={openRegisterModal} setOpenRegisterModal={RegisterCloseModal}/>
+         
         </div>
+        
       </div>
+     
     </div>
+    {openRegisterModal && 
+    <Registration
+         openRegisterModal={openRegisterModal}
+         setOpenRegisterModal={setOpenRegisterModal}
+         setOpenLoginModal={setOpenLoginModal}
+        />
+    }
+
+{openLoginModal && 
+<Login
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
+}
+    </>
   );
 };
 

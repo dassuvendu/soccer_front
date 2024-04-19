@@ -18,14 +18,17 @@ export const UpcomingMatch = () => {
   const dispatch = useDispatch();
   const [loadingData, setLoadingData] = useState(false);
   const [homeLoader, setHomeLoader] = useState(true);
-  const [openLoginModal,setOpenLoginModal] = useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
-  const LoginModal = () =>{
-    setOpenLoginModal(true)
-  }
-  const LoginCloseModal = () =>{
-    setOpenLoginModal(false)
-  }
+  const loginHandler = () => {
+    setOpenRegisterModal(false);
+    setOpenLoginModal(true);
+  };
+  const registerHandler = () => {
+    setOpenLoginModal(false);
+    setOpenRegisterModal(true);
+  };
 
   useEffect(() => {
     dispatch(getFixtures({ date: todayFormatted })).then((res) => {
@@ -124,7 +127,7 @@ export const UpcomingMatch = () => {
                   <Link className="w-full font-Syne font-bold flex items-center justify-center
                    px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] 
                    bg-gradient-to-r bg-clip-text text-transparent"
-                   onClick={LoginModal}
+                   onClick={loginHandler}
                    >
                     Match Details
                     <FiArrowRight className="text-[#08a5f5] ml-0.5" />
@@ -201,7 +204,10 @@ export const UpcomingMatch = () => {
           <span className="pl-3 ">Loading...</span>
         </div>
       )}
-      <Login openLoginModal={openLoginModal} />
+      <Login 
+      openLoginModal={openLoginModal}
+      setOpenLoginModal={setOpenLoginModal}
+      />
     </div>
   );
 };
