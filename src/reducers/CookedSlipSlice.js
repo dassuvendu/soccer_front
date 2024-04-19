@@ -38,11 +38,30 @@ export const getslipDetails = createAsyncThunk(
         }
     }
 )
+export const getSlipInfo = createAsyncThunk(
+    'slipInfo',
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/api/odds_info', id);
+            if (response.status === 200) {
+                console.log("single Slip", response.data);
+                return response.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
 const initialState = {
     oddsData: [],
     isLoading: false,
     error: false,
-    singleSlip: {}
+    singleSlip: {},
+    slipInfo: {}
 }
 const CookedSlipSlice = createSlice(
     {
@@ -72,6 +91,19 @@ const CookedSlipSlice = createSlice(
                 state.singleSlip = payload
                 state.error = false
             }).addCase(getslipDetails.rejected, (state, { payload }) => {
+                state.error = true;
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            }).addCase(getSlipInfo.pending, (state) => {
+                state.isLoading = true
+            }).addCase(getSlipInfo.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                state.slipInfo = payload
+
+            }).addCase(getSlipInfo.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
                 state.message =
