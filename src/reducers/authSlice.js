@@ -121,7 +121,7 @@ const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(registerUser.fulfilled, (state, { payload }) => {
-                const { user_id, email, otp_verified, access_token } = payload;
+                const { user_id, email, otp_verified, access_token, } = payload;
                 state.loading = false;
                 state.message = payload;
                 state.currentUser = {
