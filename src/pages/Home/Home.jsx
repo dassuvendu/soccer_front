@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 const Home = () => {
+
   // const { fixtures } = useSelector((state) => state.prediction);
   // console.log("fix",fixtures);
 

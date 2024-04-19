@@ -35,10 +35,10 @@ const Dashboard = () => {
           >
             Hi Johns Valina
           </h1>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          {/* <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
             Buy Tokens <FiArrowRight className="text-white ml-0.5" />
-          </Link>
+          </Link> */}
         </div>
 
         {/* Actions section start here  */}
@@ -130,12 +130,12 @@ const Dashboard = () => {
           {!loadingdash ? (
             <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
               {league?.data?.map((data) => (
-                 <Link to={`/match-prediction/${data.league.id}`}>
+                 <Link to={`/match-prediction/${data.league.id}`}  key={data.id}>
                 <div
                   className={`${
                     themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                   } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-                  key={data.id}
+                 
                 >
                   {themeMode === "light" ? (
                    
@@ -159,7 +159,7 @@ const Dashboard = () => {
                       themeMode === "light" ? "text-black" : "text-white"
                     } font-bold text-[16px] leading-[20px] mb-2`}
                   >
-                    {data.league.name}
+                    {`${data.league.name.slice(0,14)}`}
                   </h3>
                   <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
                     {data.country.name}

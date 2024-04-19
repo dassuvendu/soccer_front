@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Registration from "../Registration/Registration";
 
 const SelectPlan = () => {
+
+  const [openRegisterModal,setOpenRegisterModal] = useState(false)
+
+  const RegisterModal = () =>{
+    setOpenRegisterModal(true)
+  }
+  const RegisterCloseModal = () =>{
+    setOpenRegisterModal(false)
+  }
   return (
     <div className="bg-white py-4">
       <div
@@ -14,11 +24,13 @@ const SelectPlan = () => {
             10$ monthly only
           </h3>
           <Link
-            to="/payment"
+            // to="/payment"
+            onClick={RegisterModal}
             className="text-base font-medium inline-block px-8 hover:bg-[#18191b] text-[#2aa9e1] text-center border-2 py-2 border-[#2aa9e1] hover:border-[#18191b]"
           >
             Subscribe Now
           </Link>
+          <Registration openRegisterModal={openRegisterModal} setOpenRegisterModal={RegisterCloseModal}/>
         </div>
       </div>
     </div>
