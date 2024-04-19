@@ -13,15 +13,16 @@ const Dashboard = () => {
   const [loadingdash, setLoadingDash] = useState(true);
   const [api, setApi] = useState(true);
   const dispatch = useDispatch();
-  const subscribed = JSON.parse(localStorage.getItem('isSubscribed'))?.isSubscribed;
+  const subscribed = JSON.parse(
+    localStorage.getItem("isSubscribed")
+  )?.isSubscribed;
 
   useEffect(() => {
-    dispatch(getLeagues({ ids: '39,140,135,78,61,2' })).then((res) => {
+    dispatch(getLeagues({ ids: "39,140,135,78,61,2" })).then((res) => {
       if (res?.payload?.status === true) {
         setLoadingDash(false);
-        setApi(false)
+        setApi(false);
       }
-
     });
   }, [dispatch, api]);
 
@@ -35,37 +36,22 @@ const Dashboard = () => {
         </div>
       ) : ( */}
       <div className="w-full h-full pt-4 mb-0">
-
         <div className="md:flex justify-between mb-0">
           <h1
-            className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-              } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+            className={`${
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Hi Johns Valina
           </h1>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
-            <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
-            Buy Tokens <FiArrowRight className="text-white ml-0.5" />
-          </Link>
-        </div>
-        <div className="md:flex justify-between mb-0">
-          <h1
-            className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-              } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
-          >
-            Hi Johns Valina
-          </h1>
-          {/* <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
-              <img src={BuyTokenIcon} alt="BuyTokenIcon" className="mr-1" />
-              Buy Tokens <FiArrowRight className="text-white ml-0.5" />
-            </Link> */}
         </div>
 
         {/* Actions section start here  */}
         <div className="mb-10">
           <h2
-            className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+            className={`${
+              themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+            } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
           >
             Actions
           </h2>
@@ -83,10 +69,14 @@ const Dashboard = () => {
                 Explore different slips containing multiple matches
               </p>
               <div
-                className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                  } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
-                <Link to='/coped-slips' className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                <Link
+                  to="/coped-slips"
+                  className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                >
                   Explore Slips{" "}
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                 </Link>
@@ -102,10 +92,14 @@ const Dashboard = () => {
                 Browse matches happening today from any league.
               </p>
               <div
-                className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                  } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
-                <Link to='/match-prediction' className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                <Link
+                  to="/match-prediction"
+                  className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                >
                   See Predictions
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                 </Link>
@@ -121,10 +115,14 @@ const Dashboard = () => {
                 Browse matches happening tomorrow from any league.
               </p>
               <div
-                className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                  } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                className={` ${
+                  themeMode === "light" ? "bg-white" : "bg-black"
+                } hover:bg-gray-800 inline-block rounded-full mb-2`}
               >
-                <Link to='/statistics' className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent">
+                <Link
+                  to="/statistics"
+                  className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                >
                   See Statistics
                   <FiArrowRight className="text-[#08a5f5] ml-0.5" />
                 </Link>
@@ -136,40 +134,41 @@ const Dashboard = () => {
           {/* Explore Matches section start here  */}
           <div className="mb-0">
             <h2
-              className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+              className={`${
+                themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+              } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
             >
               Explore Matches from your Favorite Leagues
             </h2>
             {!loadingdash ? (
               <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
                 {league?.data?.map((data) => (
-                  <Link to={`/match-prediction/${data.league.id}`} key={data.id}>
+                  <Link
+                    to={`/match-prediction/${data.league.id}`}
+                    key={data.id}
+                  >
                     <div
-                      className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                        } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-
+                      className={`${
+                        themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                      } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
                     >
                       {themeMode === "light" ? (
-
                         <img
                           src={data.league.logo}
                           alt={data.league.name}
                           className="mb-4 inline-block"
                         />
                       ) : (
-
                         <img
                           src={data.league.logo}
                           alt={data.league.name}
                           className="mb-4 inline-block"
                         />
-
-
                       )}
                       <h3
-                        className={`font-Montserrat ${themeMode === "light" ? "text-black" : "text-white"
-                          } font-bold text-[16px] leading-[20px] mb-2`}
+                        className={`font-Montserrat ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        } font-bold text-[16px] leading-[20px] mb-2`}
                       >
                         {`${data.league.name.slice(0, 14)}`}
                       </h3>
@@ -193,71 +192,12 @@ const Dashboard = () => {
           </div>
 
           {/* Explore Matches section ends here */}
-
         </div>
         {/* Actions section ends here */}
 
         {/* Explore Matches section start here  */}
-        <div className="mb-0">
-          <h2
-            className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-              } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
-          >
-            Explore Matches from your Favorite Leagues
-          </h2>
-          {!loadingdash ? (
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-              {league?.data?.map((data) => (
-                <Link to={`/match-prediction/${data.league.id}`}>
-                  <div
-                    className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                      } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
-                    key={data.id}
-                  >
-                    {themeMode === "light" ? (
-
-                      <img
-                        src={data.league.logo}
-                        alt={data.league.name}
-                        className="mb-4 inline-block"
-                      />
-                    ) : (
-
-                      <img
-                        src={data.league.logo}
-                        alt={data.league.name}
-                        className="mb-4 inline-block"
-                      />
-
-
-                    )}
-                    <h3
-                      className={`font-Montserrat ${themeMode === "light" ? "text-black" : "text-white"
-                        } font-bold text-[16px] leading-[20px] mb-2`}
-                    >
-                      {data.league.name}
-                    </h3>
-                    <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                      {data.country.name}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center">
-              <Spinner
-                color="pink"
-                aria-label="Warning spinner example"
-                size="lg"
-              />
-              <span className="pl-3">Loading...</span>
-            </div>
-          )}
-        </div>
 
         {/* Explore Matches section ends here */}
-
       </div>
       {/* )} */}
     </div>
