@@ -85,7 +85,7 @@ const PaymentRedirect = () => {
             <Button
               className="m-2 p-2 rounded-md"
               color="gray"
-              onClick={() => navigate("/pricing")}
+              onClick={() => navigate("/choose-plan")}
             >
               Back
             </Button>
