@@ -28,7 +28,7 @@ const Banner = () => {
       <div className="pt-[70px] pb-[40px] md:py-[100px] flex justify-center items-center">
         <img src={soccerBannerText} alt="soccerBannerText" />
       </div>
-      <div className="absolute left-0 top-[20px] md:top-[-20px] w-full px-8 lg:px-0">
+      <div className="absolute left-0 top-[20px] md:top-[20px] w-full px-8 lg:px-0">
         <Slider {...settings} className="mx-auto overflow-hidden">
           <div className="text-center">
             <img src={bannerImgOne} alt="bannerImgOne" />
