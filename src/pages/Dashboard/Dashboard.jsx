@@ -10,7 +10,7 @@ import { editProfile } from "../../reducers/profileSlice";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { isloadingEditProfile } = useSelector((state) => state.profile)
+  const { isloadingEditProfile } = useSelector((state) => state.profile);
   const { league } = useSelector((state) => state.league);
   const [loadingdash, setLoadingDash] = useState(true);
   const [api, setApi] = useState(true);
@@ -23,7 +23,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(editProfile());
-  }, [])
+  }, []);
 
   useEffect(() => {
     dispatch(getLeagues({ ids: "39,140,135,78,61,2" })).then((res) => {
@@ -42,9 +42,10 @@ const Dashboard = () => {
         </div>
       ) : (
         <>
-          {subscribed === null || subscribed === undefined || subscribed === "cancel" ? (
+          {subscribed === null ||
+          subscribed === undefined ||
+          subscribed === "cancel" ? (
             <div>
-
               <div className="text-[#FF0000] font-medium text-base text-center">
                 Please subscribe for using our application
               </div>
@@ -53,8 +54,9 @@ const Dashboard = () => {
             <div className="w-full h-full pt-4 mb-0">
               <div className="md:flex justify-between mb-0">
                 <h1
-                  className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                    } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                  className={`${
+                    themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                  } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
                 >
                   Hi Johns Valina
                 </h1>
@@ -63,8 +65,9 @@ const Dashboard = () => {
               {/* Actions section start here  */}
               <div className="mb-10">
                 <h2
-                  className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                    } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+                  className={`${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                  } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
                 >
                   Actions
                 </h2>
@@ -82,8 +85,9 @@ const Dashboard = () => {
                       Explore different slips containing multiple matches
                     </p>
                     <div
-                      className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                        } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                      className={` ${
+                        themeMode === "light" ? "bg-white" : "bg-black"
+                      } hover:bg-gray-800 inline-block rounded-full mb-2`}
                     >
                       <Link
                         to="/coped-slips"
@@ -104,8 +108,9 @@ const Dashboard = () => {
                       Browse matches happening today from any league.
                     </p>
                     <div
-                      className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                        } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                      className={` ${
+                        themeMode === "light" ? "bg-white" : "bg-black"
+                      } hover:bg-gray-800 inline-block rounded-full mb-2`}
                     >
                       <Link
                         to="/match-prediction"
@@ -126,8 +131,9 @@ const Dashboard = () => {
                       Browse matches happening tomorrow from any league.
                     </p>
                     <div
-                      className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                        } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                      className={` ${
+                        themeMode === "light" ? "bg-white" : "bg-black"
+                      } hover:bg-gray-800 inline-block rounded-full mb-2`}
                     >
                       <Link
                         to="/statistics"
@@ -140,57 +146,63 @@ const Dashboard = () => {
                   </div>
                 </div>
                 {/* Actions section ends here */}
+              </div>
 
-                {/* Explore Matches section start here  */}
-                <div className="mb-0">
-                  <h2
-                    className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                      } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
-                  >
-                    Explore Matches from your Favorite Leagues
-                  </h2>
-                  {!loadingdash ? (
-                    <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-                      {league?.data?.map((data) => (
-                        <Link
-                          to={`/match-prediction/${data.league.id}`}
-                          key={data.id}
+              {/* Explore Matches section start here  */}
+              <div className="mb-0">
+                <h2
+                  className={`${
+                    themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                  } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+                >
+                  Explore Matches from your Favorite Leagues
+                </h2>
+                {!loadingdash ? (
+                  <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                    {league?.data?.map((data) => (
+                      <Link
+                        to={`/match-prediction/${data.league.id}`}
+                        key={data.id}
+                      >
+                        <div
+                          className={`${
+                            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                          } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
                         >
-                          <div
-                            className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+                          {themeMode === "light" ? (
+                            <img
+                              src={data.league.logo}
+                              alt={data.league.name}
+                              className="mb-4 inline-block"
+                            />
+                          ) : (
+                            <img
+                              src={data.league.logo}
+                              alt={data.league.name}
+                              className="mb-4 inline-block"
+                            />
+                          )}
+                          <h3
+                            className={`font-Montserrat ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            } font-bold text-[16px] leading-[20px] mb-2`}
                           >
-                            {themeMode === "light" ? (
-                              <img
-                                src={data.league.logo}
-                                alt={data.league.name}
-                                className="mb-4 inline-block"
-                              />
-                            ) : (
-                              <img
-                                src={data.league.logo}
-                                alt={data.league.name}
-                                className="mb-4 inline-block"
-                              />
-                            )}
-                            <h3
-                              className={`font-Montserrat ${themeMode === "light" ? "text-black" : "text-white"
-                                } font-bold text-[16px] leading-[20px] mb-2`}
-                            >
-                              {`${data.league.name.slice(0, 14)}`}
-                            </h3>
-                            <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                              {data.country.name}
-                            </p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center">
-                      <div role="status">
-                        <img src={logoIcon} alt="loading.." className="loader" />
-                        {/* <svg
+                            {`${data.league.name.slice(0, 14)}`}
+                          </h3>
+                          <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
+                            {data.country.name}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <div role="status">
+                      <img src={logoIcon} alt="loading.." className="loader" />
+                      {/* <svg
                     aria-hidden="true"
                     class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101"
@@ -206,14 +218,14 @@ const Dashboard = () => {
                       fill="currentFill"
                     />
                   </svg> */}
-                        <span className="sr-only">Loading...</span>
-                      </div>
+                      <span className="sr-only">Loading...</span>
                     </div>
-                  )}
-                </div>
-
-                {/* Explore Matches section ends here */}
+                  </div>
+                )}
               </div>
+
+              {/* Explore Matches section ends here */}
+
               {/* Actions section ends here */}
 
               {/* Explore Matches section start here  */}
