@@ -372,170 +372,172 @@ const MyPrediction = () => {
                       </tr>
                     ) : (
                       <>
-                        {fetchedPredictions?.data?.map((predict) => {
-                          return (
-                            <>
-                              <Table.Row
-                                className={`${
-                                  themeMode === "light"
-                                    ? "bg-white"
-                                    : "bg-[#191D23]"
-                                } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                              >
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                                  <div className="flex items-center">
+                        {Array.isArray(fetchedPredictions) &&
+                          fetchedPredictions?.data?.map((predict) => {
+                            return (
+                              <>
+                                <Table.Row
+                                  className={`${
+                                    themeMode === "light"
+                                      ? "bg-white"
+                                      : "bg-[#191D23]"
+                                  } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                                >
+                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                                     <div className="flex items-center">
-                                      {/* <img
+                                      <div className="flex items-center">
+                                        {/* <img
                                         // src={predict?.teams?.home?.logo}
                                         // alt={predict?.teams?.home?.name}
                                         className="mr-2"
                                         height={35}
                                         width={35}
                                       /> */}
-                                      <div>
-                                        <p
-                                          className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                            themeMode === "light"
-                                              ? "text-black"
-                                              : "text-white"
-                                          }`}
-                                        >
-                                          {predict?.fixture_vrs}
-                                        </p>
-                                        <span className="text-[#8EA2AB] text-[9px]">
-                                          {/* {predict?.teams?.home?.name},{" "}
+                                        <div>
+                                          <p
+                                            className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                              themeMode === "light"
+                                                ? "text-black"
+                                                : "text-white"
+                                            }`}
+                                          >
+                                            {predict?.fixture_vrs}
+                                          </p>
+                                          <span className="text-[#8EA2AB] text-[9px]">
+                                            {/* {predict?.teams?.home?.name},{" "}
                                           {predict?.league?.country} */}
-                                        </span>
+                                          </span>
+                                        </div>
                                       </div>
-                                    </div>
-                                    <div className="text-[12px] text-white px-6">
-                                      {/* VS */}
-                                    </div>
-                                    <div className="flex items-center">
-                                      <div>
-                                        <p
-                                          className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                            themeMode === "light"
-                                              ? "text-black"
-                                              : "text-white"
-                                          }`}
-                                        >
-                                          {/* {predict?.teams?.away?.name} */}
-                                        </p>
-                                        <span className="text-[#8EA2AB] text-[9px]">
-                                          {/* {predict?.teams?.away?.name},{" "}
+                                      <div className="text-[12px] text-white px-6">
+                                        {/* VS */}
+                                      </div>
+                                      <div className="flex items-center">
+                                        <div>
+                                          <p
+                                            className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                              themeMode === "light"
+                                                ? "text-black"
+                                                : "text-white"
+                                            }`}
+                                          >
+                                            {/* {predict?.teams?.away?.name} */}
+                                          </p>
+                                          <span className="text-[#8EA2AB] text-[9px]">
+                                            {/* {predict?.teams?.away?.name},{" "}
                                           {predict?.league?.country} */}
-                                        </span>
-                                      </div>
-                                      {/* <img
+                                          </span>
+                                        </div>
+                                        {/* <img
                                         src={predict?.teams?.away?.logo}
                                         alt={predict?.teams?.away?.name}
                                         className="ml-2"
                                         height={35}
                                         width={35}
                                       /> */}
+                                      </div>
                                     </div>
-                                  </div>
-                                </Table.Cell>
-                                <Table.Cell className="w-[17%]">
-                                  <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                    {/* {predict?.goals?.home}-
+                                  </Table.Cell>
+                                  <Table.Cell className="w-[17%]">
+                                    <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                      {/* {predict?.goals?.home}-
                                     {predict?.goals?.away} */}
-                                    {predict?.fixture_score}
-                                  </span>
-                                </Table.Cell>
-                                <Table.Cell className="w-[17%]">
-                                  <span
-                                    className={`text-base font-bold ${
-                                      themeMode === "light"
-                                        ? "text-black"
-                                        : "text-white"
-                                    }`}
-                                  >
-                                    {predict?.over_under_line}
-                                  </span>
-                                </Table.Cell>
-                                <Table.Cell className="w-[5%]">
-                                  <span
-                                    className={`text-base font-bold ${
-                                      themeMode === "light"
-                                        ? "text-black"
-                                        : "text-white"
-                                    }`}
-                                  >
-                                    <span>
-                                      {predict?.fixture_status === "failed" ? (
-                                        <>
-                                          <span>
-                                            <svg
-                                              className="w-6 h-6 text-red-500"
-                                              aria-hidden="true"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="20"
-                                              height="20"
-                                              fill="none"
-                                              viewBox="0 0 24 24"
-                                            >
-                                              <path
-                                                stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M6 18 17.94 6M18 18 6.06 6"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </>
-                                      ) : predict?.fixture_status ===
-                                        "success" ? (
-                                        <>
-                                          <span>
-                                            <svg
-                                              className="w-6 h-6 text-green-500"
-                                              aria-hidden="true"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="20"
-                                              height="20"
-                                              fill="none"
-                                              viewBox="0 0 24 24"
-                                            >
-                                              <path
-                                                stroke="currentColor"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M5 11.917 9.724 16.5 19 7.5"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </>
-                                      ) : (
-                                        <></>
-                                      )}{" "}
+                                      {predict?.fixture_score}
                                     </span>
-                                  </span>
-                                </Table.Cell>
-                                <Table.Cell className="w-[10%]">
-                                  <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                    {predict?.accuracy}%
-                                  </span>
-                                </Table.Cell>
-                                <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                                  <MdMoreHoriz
-                                    onClick={() =>
-                                      viewDetailsModalHandler(
-                                        predict?.fixture_id,
-                                        predict?.teams?.home?.id,
-                                        predict?.teams?.away?.id,
-                                        predict?.fixture_date
-                                      )
-                                    }
-                                  />
-                                </Table.Cell>
-                              </Table.Row>
-                            </>
-                          );
-                        })}
+                                  </Table.Cell>
+                                  <Table.Cell className="w-[17%]">
+                                    <span
+                                      className={`text-base font-bold ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      {predict?.over_under_line}
+                                    </span>
+                                  </Table.Cell>
+                                  <Table.Cell className="w-[5%]">
+                                    <span
+                                      className={`text-base font-bold ${
+                                        themeMode === "light"
+                                          ? "text-black"
+                                          : "text-white"
+                                      }`}
+                                    >
+                                      <span>
+                                        {predict?.fixture_status ===
+                                        "failed" ? (
+                                          <>
+                                            <span>
+                                              <svg
+                                                className="w-6 h-6 text-red-500"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="20"
+                                                height="20"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                              >
+                                                <path
+                                                  stroke="currentColor"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M6 18 17.94 6M18 18 6.06 6"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </>
+                                        ) : predict?.fixture_status ===
+                                          "success" ? (
+                                          <>
+                                            <span>
+                                              <svg
+                                                className="w-6 h-6 text-green-500"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="20"
+                                                height="20"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                              >
+                                                <path
+                                                  stroke="currentColor"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M5 11.917 9.724 16.5 19 7.5"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </>
+                                        ) : (
+                                          <></>
+                                        )}{" "}
+                                      </span>
+                                    </span>
+                                  </Table.Cell>
+                                  <Table.Cell className="w-[10%]">
+                                    <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                      {predict?.accuracy}%
+                                    </span>
+                                  </Table.Cell>
+                                  <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
+                                    <MdMoreHoriz
+                                      onClick={() =>
+                                        viewDetailsModalHandler(
+                                          predict?.fixture_id,
+                                          predict?.teams?.home?.id,
+                                          predict?.teams?.away?.id,
+                                          predict?.fixture_date
+                                        )
+                                      }
+                                    />
+                                  </Table.Cell>
+                                </Table.Row>
+                              </>
+                            );
+                          })}
                       </>
                     )}
                   </Table.Body>
