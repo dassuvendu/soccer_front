@@ -1,4 +1,4 @@
-import { TextInput } from "flowbite-react";
+import { Button, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,14 +10,12 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import {
-  getFixtures,
-} from "../../../reducers/PredictionsSlice";
+import { getFixtures } from "../../../reducers/PredictionsSlice";
 import { logoIcon } from "../../../assets/images/images";
 
 const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { fixtures } = useSelector((state) => state.prediction);
+  const { fixtures, isLoading } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
@@ -48,6 +46,7 @@ const RequestPredictionList = ({ errorMessage }) => {
 
   const [loadingData, setLoadingData] = useState(true);
   const [hide, setHide] = useState(false);
+  const [pageHide, setPageHide] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -64,10 +63,8 @@ const RequestPredictionList = ({ errorMessage }) => {
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
         setLoadingData(false);
-    
       } else {
         setLoadingData(true);
-      
       }
     });
   }, [dispatch]);
@@ -117,7 +114,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
 
     return date.toLocaleDateString("en-US", options);
@@ -129,19 +126,26 @@ const RequestPredictionList = ({ errorMessage }) => {
       day: "2-digit",
       month: "short",
       year: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleDateString("en-US", options);
   };
-  useEffect(() =>{
-    if (Array.isArray(currentItems)&&currentItems.length > 8) {
+  useEffect(() => {
+    if (Array.isArray(currentItems) && currentItems.length > 8) {
       setHide(true);
-    }else if (Array.isArray(currentItems)&&currentItems.length < 8) {
+    } else if (Array.isArray(currentItems) && currentItems.length < 8) {
       setHide(false);
-    }else{
+    } else {
       setHide(false);
     }
-  },[currentItems])
+  }, [currentItems]);
+  useEffect(() => {
+    if (isLoading === true) {
+      setPageHide(false);
+    } else {
+      setPageHide(true);
+    }
+  }, [isLoading]);
   return (
     <div>
       {!loadingData ? (
@@ -301,9 +305,9 @@ const RequestPredictionList = ({ errorMessage }) => {
         </div>
       ) : (
         <div className="text-center">
-        <div role="status">
-          <img src={logoIcon} alt="loading.." className="loader" />
-          {/* <svg
+          <div role="status">
+            <img src={logoIcon} alt="loading.." className="loader" />
+            {/* <svg
             aria-hidden="true"
             class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101"
@@ -319,13 +323,13 @@ const RequestPredictionList = ({ errorMessage }) => {
               fill="currentFill"
             />
           </svg> */}
-          <span className="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
-      </div>
       )}
 
       {/* pagination start */}
-      {!error && (
+      {!error && pageHide && (
         <div className="md:flex justify-between mt-8">
           <div className="mb-2 md:mb-0 text-center">
             {isDataFound ? (
@@ -363,6 +367,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                       <BsChevronDoubleLeft />
                     </Link>
                   </li>
+
                   <li>
                     <Link
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
@@ -372,48 +377,49 @@ const RequestPredictionList = ({ errorMessage }) => {
                     >
                       <BsChevronLeft />
                     </Link>
-                    
                   </li>
-                  
-                  {hide && pageNumbers.slice(0, 5).map((pageNumber) => (
-                    <li key={pageNumber}>
-                      <Link
-                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
+
+                  {hide &&
+                    pageNumbers.slice(0, 5).map((pageNumber) => (
+                      <li key={pageNumber}>
+                        <Link
+                          className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
                         ${
                           currentPage === pageNumber ? "bg-[#0053CD]" : "black"
                         }`}
-                        onClick={() => handlePageChange(pageNumber)}
-                      >
-                        {pageNumber}
-                      </Link>
-                    </li>
-                  ))}
-                 {hide &&
+                          onClick={() => handlePageChange(pageNumber)}
+                        >
+                          {pageNumber}
+                        </Link>
+                      </li>
+                    ))}
+
                   <li>
-                   
                     {isDataFound && (
-                      <Link
-                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      <Button
+                        className="mr-1 w-[32px] h-[32px] bg-black 
+                        hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center 
+                        items-center rounded-full text-[12px] text-white"
+                        color="#0053CD"
                         onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={!hide}
                       >
                         <BsChevronRight />
-                      </Link>
+                      </Button>
                     )}
                   </li>
-                    }
-                  {hide &&
+
                   <li>
-                    {isDataFound && (
-                      <Link
-                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                        onClick={() => setCurrentPage(totalPages)}
-                      >
-                        <BsChevronDoubleRight />
-                      </Link>
-                    )}
+                    <Button
+                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      onClick={() => setCurrentPage(totalPages)}
+                      disabled={!hide}
+                      color="#0053CD"
+                    >
+                      <BsChevronDoubleRight />
+                    </Button>
                   </li>
-}
                 </ul>
               </div>
               <div className="flex items-center justify-center">

@@ -386,7 +386,7 @@ const CookedSlips = () => {
                 })
               ) : (
                 <>
-                  <div className="w-full">
+                  <div className="col-span-full flex justify-center items-center">
                     <div
                       className={`${
                         themeMode === "light"
@@ -446,16 +446,19 @@ const CookedSlips = () => {
                         <BsChevronDoubleLeft />
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]`}
-                        onClick={() =>
-                          handlePageChange(Math.max(currentPage - 1, 1))
-                        }
-                      >
-                        <BsChevronLeft />
-                      </Link>
-                    </li>
+                    {currentPage !== 1 && (
+                      <li>
+                        <Link
+                          className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]`}
+                          onClick={() =>
+                            handlePageChange(Math.max(currentPage - 1, 1))
+                          }
+                        >
+                          <BsChevronLeft />
+                        </Link>
+                      </li>
+                    )}
+
                     {pageNumbers.slice(0, 5).map((pageNumber) => (
                       <li key={pageNumber}>
                         <Link
@@ -470,15 +473,17 @@ const CookedSlips = () => {
                         </Link>
                       </li>
                     ))}
+                    {currentPage !== totalPages && (
+                      <li>
+                        <Link
+                          className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                          onClick={() => setCurrentPage(currentPage + 1)}
+                        >
+                          <BsChevronRight />
+                        </Link>
+                      </li>
+                    )}
 
-                    <li>
-                      <Link
-                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                      >
-                        <BsChevronRight />
-                      </Link>
-                    </li>
                     <li>
                       <Link
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"

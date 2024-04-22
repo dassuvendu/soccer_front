@@ -191,7 +191,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.email?.message && (
-                      <h6 className="text-danger">{errors.email.message}</h6>
+                     <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
                     )}
                   </div>
                   <div>
@@ -209,7 +209,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.password?.message && (
-                      <h6 className="text-danger">{errors.password.message}</h6>
+                      <h6 className="text-sm text-[red]">{`${'*'} ${errors.password.message}`}</h6>
                     )}
                   </div>
                   <Button className="create_character_btn w-full" type="submit">
