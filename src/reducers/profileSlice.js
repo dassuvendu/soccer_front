@@ -12,7 +12,7 @@ export const editProfile = createAsyncThunk(
                     'isSubscribed',
                     JSON.stringify({
                         isSubscribed:
-                            response?.data?.data[0]?.user_subscriptions[0]?.plan?.id,
+                            response?.data?.data[0]?.user_subscriptions[0]?.subscription,
                     })
                 );
                 return response.data.data;
@@ -50,7 +50,8 @@ const initialState = {
     loading: false,
     profile: [],
     userPlan: [],
-    updatedProfile: []
+    updatedProfile: [],
+    isloadingEditProfile: false
 };
 
 const ProfileSlice = createSlice({
@@ -66,8 +67,10 @@ const ProfileSlice = createSlice({
             .addCase(editProfile.pending, (state) => {
                 state.loading = true;
                 state.message = null;
+                state.isloadingEditProfile = true;
             })
             .addCase(editProfile.fulfilled, (state, { payload }) => {
+                state.isloadingEditProfile = false;
                 state.loading = false;
                 state.profile = {
                     details: payload[0],
@@ -78,6 +81,7 @@ const ProfileSlice = createSlice({
                 };
             })
             .addCase(editProfile.rejected, (state, response) => {
+                state.isloadingEditProfile = false;
                 state.loading = false;
                 state.error = true;
                 state.message =
