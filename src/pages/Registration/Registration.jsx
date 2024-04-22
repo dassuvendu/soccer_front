@@ -118,9 +118,7 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
                                                 })}
                                             />
                                             {errors?.first_name?.message && (
-                                                <small className="text-red-600">
-                                                    {errors.first_name.message}
-                                                </small>
+                                                <h6 className="text-sm text-[red]">{`${'*'} ${errors.first_name.message}`}</h6>
                                             )}
                                         </div>
                                         <div>
@@ -142,7 +140,7 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
                                                 })}
                                             />
                                             {errors?.email?.message && (
-                                                <h6 className="text-danger">{errors.email.message}</h6>
+                                                <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
                                             )}
                                         </div>
                                         <div>
@@ -160,7 +158,7 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
                                                 })}
                                             />
                                             {errors?.password?.message && (
-                                                <h6 className="text-danger">{errors.password.message}</h6>
+                                                <h6 className="text-sm text-[red]">{`${'*'} ${errors.password.message}`}</h6>
                                             )}
                                         </div>
                                         {currentUser && Object.keys(currentUser).length ? (
@@ -179,9 +177,7 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
                                                         placeholder="Enter Your OTP"
                                                     />
                                                     {errors?.otp?.message && (
-                                                        <small className="text-red-600">
-                                                            {errors.otp.message}
-                                                        </small>
+                                                        <h6 className="text-sm text-[red]">{`${'*'} ${errors.otp.message}`}</h6>
                                                     )}
                                                 </div>
                                                 <button

@@ -17,7 +17,7 @@ import { logoIcon } from "../../../assets/images/images";
 
 const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { fixtures } = useSelector((state) => state.prediction);
+  const { fixtures,isLoading } = useSelector((state) => state.prediction);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
@@ -48,6 +48,7 @@ const RequestPredictionList = ({ errorMessage }) => {
 
   const [loadingData, setLoadingData] = useState(true);
   const [hide, setHide] = useState(false);
+  const [pageHide,setPageHide] = useState(true)
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -138,10 +139,18 @@ const RequestPredictionList = ({ errorMessage }) => {
       setHide(true);
     }else if (Array.isArray(currentItems)&&currentItems.length < 8) {
       setHide(false);
-    }else{
+    }
+    else{
       setHide(false);
     }
   },[currentItems])
+  useEffect(() =>{
+if (isLoading === true) {
+  setPageHide(false)
+}else{
+  setPageHide(true)
+}
+  },[isLoading])
   return (
     <div>
       {!loadingData ? (
@@ -325,7 +334,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       )}
 
       {/* pagination start */}
-      {!error && (
+      {!error &&  pageHide &&(
         <div className="md:flex justify-between mt-8">
           <div className="mb-2 md:mb-0 text-center">
             {isDataFound ? (
@@ -354,6 +363,7 @@ const RequestPredictionList = ({ errorMessage }) => {
             <div className="md:flex justify-between items-center">
               <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
+                 
                   <li>
                     <Link
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
@@ -363,6 +373,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                       <BsChevronDoubleLeft />
                     </Link>
                   </li>
+
                   <li>
                     <Link
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
@@ -375,7 +386,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                     
                   </li>
                   
-                  {hide && pageNumbers.slice(0, 5).map((pageNumber) => (
+                  { hide && pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
                       <Link
                         className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
