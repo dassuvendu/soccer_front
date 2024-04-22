@@ -97,7 +97,7 @@ const ViewSlipDetails = ({ id }) => {
         </>
       ) : (
         <>
-          <div className="flex justify-between items-center mb-6">
+          <div className="md:flex justify-between items-center mb-6">
             <h2
               className={`font-Montserrat text-[23px] leading-[25px] font-bold mb-1 ${
                 themeMode === "light" ? "text-[#191D23]" : "text-white"
