@@ -114,7 +114,7 @@ export const RequestModal = ({
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleTimeString("en-US", options);
   };
@@ -125,7 +125,7 @@ export const RequestModal = ({
       day: "2-digit",
       month: "short",
       year: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -141,7 +141,11 @@ export const RequestModal = ({
         >
           <Modal.Header className="absolute right-0 top-0" />
 
-          <Modal.Body>
+          <Modal.Body
+            className={`rounded-[7px] ${
+              themeMode === "light" ? "bg-white" : "bg-[#191d23]"
+            }`}
+          >
             <div className="pt-8 pb-2">
               <h2 className="font-Bebas text-3xl tracking-normal text-[#2aa9e1] mb-4">
                 Match Details
@@ -167,13 +171,21 @@ export const RequestModal = ({
 
                   <div className="flex justify-center items-center text-center">
                     <div>
-                      <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat pb-1">
+                      <p
+                        className={`font-semibold text-[12px] leading-[16px] font-Montserrat pb-1 ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         Kick Off
                       </p>
                       <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
                         {formatDate(timeStamp)}
                       </h3>
-                      <h3 className="text-black text-[18px] leading-[24px] font-medium">
+                      <h3
+                        className={`text-[18px] leading-[24px] font-medium ${
+                          themeMode === "light" ? "text-black" : "text-white"
+                        }`}
+                      >
                         {formatTime(timeStamp)}
                       </h3>
                     </div>
@@ -258,8 +270,8 @@ export const RequestModal = ({
                                 {/* <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
                                   Last 5 matches
                                 </h4> */}
-                                <div className="flex justify-between items-center">
-                                  <div>
+                                <div className="md:flex justify-between items-center">
+                                  <div className="mb-4 md:mb-0">
                                     <ul className="flex items-center">
                                       <li>
                                         <img
@@ -379,9 +391,13 @@ export const RequestModal = ({
                       </>
                     ) : (
                       <div className="text-center">
-                      <div role="status">
-                        <img src={logoIcon} alt="loading.." className="loader" />
-                        {/* <svg
+                        <div role="status">
+                          <img
+                            src={logoIcon}
+                            alt="loading.."
+                            className="loader"
+                          />
+                          {/* <svg
                           aria-hidden="true"
                           class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                           viewBox="0 0 100 101"
@@ -397,9 +413,9 @@ export const RequestModal = ({
                             fill="currentFill"
                           />
                         </svg> */}
-                        <span className="sr-only">Loading...</span>
+                          <span className="sr-only">Loading...</span>
+                        </div>
                       </div>
-                    </div>
                     )}
                   </Tabs>
                 </div>

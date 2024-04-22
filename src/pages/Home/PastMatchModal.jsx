@@ -1,118 +1,112 @@
-import React, { useEffect, useState } from 'react'
-import { Tab, TabList, TabPanel,Tabs } from 'react-tabs';
-import { Modal, Spinner } from 'flowbite-react';
-import { LastResult } from '../../reducers/PredictionsSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { PastPredictionStats } from './PastPredictionStats';
-import { logoIcon } from '../../assets/images/images';
+import React, { useEffect, useState } from "react";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { Modal, Spinner } from "flowbite-react";
+import { LastResult } from "../../reducers/PredictionsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { PastPredictionStats } from "./PastPredictionStats";
+import { logoIcon } from "../../assets/images/images";
 
+const PastMatchModal = ({
+  openViewDetailsModal,
+  onClose,
+  homeId,
+  awayId,
+  fixturesId,
+  timeStamp,
+}) => {
+  const themeMode = useSelector((state) => state.darkmode.mode);
+  const { lastResult } = useSelector((state) => state.prediction);
 
-const PastMatchModal = (
-    {
-        openViewDetailsModal,
-        onClose,
-        homeId,
-        awayId,
-        fixturesId,
-        timeStamp,
+  const [homeData, setHomeData] = useState();
+  const [awayData, setAwayData] = useState();
+  const [homeDataImg, setHomeDataImg] = useState();
+  const [awayDataImg, setAwayDataImg] = useState();
+  const [homeName, setHomeName] = useState();
+  const [awayName, setAwayName] = useState();
+  const [modalData, setModalData] = useState();
+  const [modalLoader, setModalLoader] = useState(true);
+  const [isfixturesId, setIsFixturesId] = useState(null);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsFixturesId(fixturesId);
+  }, [dispatch, fixturesId]);
+
+  const handleModal = () => {
+    onClose();
+  };
+
+  useEffect(() => {
+    if (fixturesId) {
+      dispatch(LastResult({ fixture: fixturesId })).then((res) => {
+        if (res?.payload?.status === true) {
+          setModalLoader(false);
+          setModalData(res?.payload?.data);
+        } else {
+          setModalLoader(true);
+        }
+      });
+    }
+  }, [dispatch, fixturesId]);
+
+  useEffect(() => {
+    if (lastResult && lastResult.data && lastResult.data.length > 0) {
+      let data = lastResult?.data[0];
+      setHomeData(data);
+      setAwayData(data);
+      let homeImgData;
+      let homeName;
+      let awayImgData;
+      let awayName;
+      if (data?.teams?.home?.id == data?.teams?.home?.id) {
+        homeImgData = data?.teams?.home?.logo;
+        homeName = data?.teams?.home?.name;
+      } else if (data?.teams?.away?.id == data?.teams?.away?.id) {
+        homeImgData = data?.teams?.away?.logo;
+        homeName = data?.teams?.away?.name;
       }
-) => {
 
-    const themeMode = useSelector((state) => state.darkmode.mode);
-    const { lastResult } = useSelector((state) => state.prediction);
+      if (data?.teams?.away?.id == data?.teams?.away?.id) {
+        awayImgData = data?.teams?.away?.logo;
+        awayName = data?.teams?.away?.name;
+      } else if (data?.teams?.home?.id == data?.teams?.home?.id) {
+        awayImgData = data?.teams?.home?.logo;
+        awayName = data?.teams?.home?.name;
+      }
+      setHomeDataImg(homeImgData);
+      setHomeName(homeName);
+      setAwayDataImg(awayImgData);
+      setAwayName(awayName);
+    }
+  }, [lastResult]);
 
-    const [homeData, setHomeData] = useState();
-    const [awayData, setAwayData] = useState();
-    const [homeDataImg, setHomeDataImg] = useState();
-    const [awayDataImg, setAwayDataImg] = useState();
-    const [homeName, setHomeName] = useState();
-    const [awayName, setAwayName] = useState();
-    const [modalData, setModalData] = useState();
-    const [modalLoader, setModalLoader] = useState(true);
-    const [isfixturesId, setIsFixturesId] = useState(null);
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: "UTC",
+    };
+    return date.toLocaleTimeString("en-US", options);
+  };
 
-    
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        setIsFixturesId(fixturesId);
-      }, [dispatch, fixturesId]);
-
-    const handleModal = () => {
-        onClose();
-      };
-
-      useEffect(() => {
-        if (fixturesId) {
-          dispatch(LastResult({ fixture: fixturesId })).then((res) => {
-            if (res?.payload?.status === true) {
-              setModalLoader(false);
-              setModalData(res?.payload?.data);
-            } else {
-              setModalLoader(true);
-            }
-          });
-        }
-      }, [dispatch, fixturesId]);
-
-      useEffect(() => {
-        if (lastResult && lastResult.data && lastResult.data.length > 0) {
-          let data = lastResult?.data[0];
-          setHomeData(data);
-          setAwayData(data);
-          let homeImgData;
-          let homeName;
-          let awayImgData;
-          let awayName;
-          if (data?.teams?.home?.id == data?.teams?.home?.id) {
-            homeImgData = data?.teams?.home?.logo;
-            homeName = data?.teams?.home?.name;
-          } else if (data?.teams?.away?.id == data?.teams?.away?.id) {
-            homeImgData = data?.teams?.away?.logo;
-            homeName = data?.teams?.away?.name;
-          }
-    
-          if (data?.teams?.away?.id == data?.teams?.away?.id) {
-            awayImgData = data?.teams?.away?.logo;
-            awayName = data?.teams?.away?.name;
-          } else if (data?.teams?.home?.id == data?.teams?.home?.id) {
-            awayImgData = data?.teams?.home?.logo;
-            awayName = data?.teams?.home?.name;
-          }
-          setHomeDataImg(homeImgData);
-          setHomeName(homeName);
-          setAwayDataImg(awayImgData);
-          setAwayName(awayName);
-        }
-      }, [lastResult]);
-
-      const formatTime = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        const options = {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-          timeZone: 'UTC'
-        };
-        return date.toLocaleTimeString("en-US", options);
-      };
-    
-      const formatDate = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        const options = {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          timeZone: 'UTC'
-        };
-        return date.toLocaleDateString("en-US", options);
-      };
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    const options = {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    };
+    return date.toLocaleDateString("en-US", options);
+  };
 
   return (
     <div>
-        {openViewDetailsModal && (
-      <Modal
+      {openViewDetailsModal && (
+        <Modal
           show={openViewDetailsModal}
           size="7xl"
           onClose={handleModal}
@@ -183,22 +177,23 @@ const PastMatchModal = (
                 <div className="max-w-5xl mx-auto">
                   <Tabs className="team_comparisions_tab_section">
                     <TabList className="tab_bar">
-                      
                       <Tab>Prediction Statistics</Tab>
-                    
                     </TabList>
                     {!modalLoader && modalData ? (
                       <>
                         <TabPanel>
                           <PastPredictionStats isfixturesId={isfixturesId} />
                         </TabPanel>
-
                       </>
                     ) : (
                       <div className="text-center">
-          <div role="status">
-            <img src={logoIcon} alt="loading.." className="loader" />
-            {/* <svg
+                        <div role="status">
+                          <img
+                            src={logoIcon}
+                            alt="loading.."
+                            className="loader"
+                          />
+                          {/* <svg
               aria-hidden="true"
               class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
               viewBox="0 0 100 101"
@@ -214,9 +209,9 @@ const PastMatchModal = (
                 fill="currentFill"
               />
             </svg> */}
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </div>
                     )}
                   </Tabs>
                 </div>
@@ -224,9 +219,9 @@ const PastMatchModal = (
             </div>
           </Modal.Body>
         </Modal>
-        )}
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default PastMatchModal
+export default PastMatchModal;
