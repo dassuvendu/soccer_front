@@ -1,4 +1,4 @@
-import { Spinner, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
@@ -325,7 +325,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       )}
 
       {/* pagination start */}
-      {hide && !error && (
+      {!error && (
         <div className="md:flex justify-between mt-8">
           <div className="mb-2 md:mb-0 text-center">
             {isDataFound ? (
@@ -372,8 +372,10 @@ const RequestPredictionList = ({ errorMessage }) => {
                     >
                       <BsChevronLeft />
                     </Link>
+                    
                   </li>
-                  {pageNumbers.slice(0, 5).map((pageNumber) => (
+                  
+                  {hide && pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
                       <Link
                         className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
@@ -387,8 +389,9 @@ const RequestPredictionList = ({ errorMessage }) => {
                       </Link>
                     </li>
                   ))}
-
+                 {hide &&
                   <li>
+                   
                     {isDataFound && (
                       <Link
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
@@ -398,6 +401,8 @@ const RequestPredictionList = ({ errorMessage }) => {
                       </Link>
                     )}
                   </li>
+                    }
+                  {hide &&
                   <li>
                     {isDataFound && (
                       <Link
@@ -408,6 +413,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                       </Link>
                     )}
                   </li>
+}
                 </ul>
               </div>
               <div className="flex items-center justify-center">
