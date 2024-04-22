@@ -17,7 +17,7 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import { TextInput, Table, Spinner, Button } from "flowbite-react";
+import { TextInput, Table, Button } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -183,20 +183,27 @@ const MyPrediction = () => {
       })
     );
   };
-  const [hide, setHide] = useState(false);
-  useEffect(() => {
-    if (Array.isArray(fetchedPredictions) && fetchedPredictions.length > 9) {
-      setHide(true);
-    } else if (
-      Array.isArray(fetchedPredictions) &&
-      fetchedPredictions.length < 9
-    ) {
-      setHide(false);
-    } else {
-      setHide(false);
-    }
-  }, [fetchedPredictions]);
+  const [hide, setHide] = useState(true);
+  // useEffect(() => {
+  //   if (Array.isArray(fetchedPredictions) && fetchedPredictions.length > 9) {
+  //     setHide(true);
+  //   } else if (
+  //     Array.isArray(fetchedPredictions) &&
+  //     fetchedPredictions.length < 9
+  //   ) {
+  //     setHide(false);
+  //   } else {
+  //     setHide(false);
+  //   }
+  // }, [fetchedPredictions]);
 
+  useEffect(() => {
+    if (isLoading === true) {
+      setHide(true)
+    }else{
+      setHide(false)
+    }
+  },[isLoading])
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -2486,7 +2493,7 @@ const MyPrediction = () => {
         </div>
         {/* My Prediction section ends here */}
         {/* Pagination section start here */}
-       
+       {!hide &&
           <div className="md:flex justify-between items-center mt-8">
             <div className="mb-2 md:mb-0 text-center">
               <p
@@ -2600,7 +2607,7 @@ const MyPrediction = () => {
               </div>
             </div>
           </div>
-      
+}
         {/* Pagination section ends here */}
       </div>
       <PredictionRequestModal
