@@ -119,7 +119,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
 
           {/* mid part start here */}
           <div className="pt-6 pb-4 px-3 mb-4 border-b border-gray-300">
-            <div className="grid grid-cols-4 gap-4 mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div className="text-center">
                 <img
                   src={comparisons[0]?.left_team_details[0]?.logo}
