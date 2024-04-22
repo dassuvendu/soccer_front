@@ -636,7 +636,7 @@ const MyPrediction = () => {
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    {Array.isArray &&
+                    {Array.isArray(recent?.data) && recent?.data?.length > 0 ? (
                       recent?.data?.map((recentData) => {
                         return (
                           <>
@@ -800,7 +800,20 @@ const MyPrediction = () => {
                             </Table.Row>
                           </>
                         );
-                      })}
+                      })
+                    ) : (
+                      <>
+                        <tr>
+                          <td colSpan="5" className="text-center py-4">
+                            <div className="text-center">
+                              <div>
+                                <p>You have not made any predictions to show</p>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
                   </Table.Body>
                 </Table>
               </div>

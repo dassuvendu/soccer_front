@@ -386,7 +386,7 @@ const CookedSlips = () => {
                 })
               ) : (
                 <>
-                  <div className="w-full">
+                  <div className="col-span-full flex justify-center items-center">
                     <div
                       className={`${
                         themeMode === "light"
