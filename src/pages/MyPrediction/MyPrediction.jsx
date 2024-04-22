@@ -184,15 +184,18 @@ const MyPrediction = () => {
     );
   };
   const [hide, setHide] = useState(false);
-  useEffect(() =>{
-    if (Array.isArray(fetchedPredictions)&&fetchedPredictions.length > 9) {
+  useEffect(() => {
+    if (Array.isArray(fetchedPredictions) && fetchedPredictions.length > 9) {
       setHide(true);
-    }else if (Array.isArray(fetchedPredictions)&&fetchedPredictions.length < 9) {
+    } else if (
+      Array.isArray(fetchedPredictions) &&
+      fetchedPredictions.length < 9
+    ) {
       setHide(false);
-    }else{
+    } else {
       setHide(false);
     }
-  },[fetchedPredictions])
+  }, [fetchedPredictions]);
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -372,7 +375,8 @@ const MyPrediction = () => {
                       </tr>
                     ) : (
                       <>
-                        {Array.isArray(fetchedPredictions) &&
+                        {Array.isArray(fetchedPredictions?.data) &&
+                        fetchedPredictions?.data?.length > 0 ? (
                           fetchedPredictions?.data?.map((predict) => {
                             return (
                               <>
@@ -386,13 +390,6 @@ const MyPrediction = () => {
                                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                                     <div className="flex items-center">
                                       <div className="flex items-center">
-                                        {/* <img
-                                        // src={predict?.teams?.home?.logo}
-                                        // alt={predict?.teams?.home?.name}
-                                        className="mr-2"
-                                        height={35}
-                                        width={35}
-                                      /> */}
                                         <div>
                                           <p
                                             className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
@@ -403,10 +400,7 @@ const MyPrediction = () => {
                                           >
                                             {predict?.fixture_vrs}
                                           </p>
-                                          <span className="text-[#8EA2AB] text-[9px]">
-                                            {/* {predict?.teams?.home?.name},{" "}
-                                          {predict?.league?.country} */}
-                                          </span>
+                                          <span className="text-[#8EA2AB] text-[9px]"></span>
                                         </div>
                                       </div>
                                       <div className="text-[12px] text-white px-6">
@@ -425,23 +419,23 @@ const MyPrediction = () => {
                                           </p>
                                           <span className="text-[#8EA2AB] text-[9px]">
                                             {/* {predict?.teams?.away?.name},{" "}
-                                          {predict?.league?.country} */}
+                {predict?.league?.country} */}
                                           </span>
                                         </div>
                                         {/* <img
-                                        src={predict?.teams?.away?.logo}
-                                        alt={predict?.teams?.away?.name}
-                                        className="ml-2"
-                                        height={35}
-                                        width={35}
-                                      /> */}
+              src={predict?.teams?.away?.logo}
+              alt={predict?.teams?.away?.name}
+              className="ml-2"
+              height={35}
+              width={35}
+            /> */}
                                       </div>
                                     </div>
                                   </Table.Cell>
                                   <Table.Cell className="w-[17%]">
                                     <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
                                       {/* {predict?.goals?.home}-
-                                    {predict?.goals?.away} */}
+          {predict?.goals?.away} */}
                                       {predict?.fixture_score}
                                     </span>
                                   </Table.Cell>
@@ -537,7 +531,33 @@ const MyPrediction = () => {
                                 </Table.Row>
                               </>
                             );
-                          })}
+                          })
+                        ) : (
+                          <>
+                            {/* <div className="w-full h-full flex justify-center items-center">
+                              <div
+                                className={`${
+                                  themeMode === "light"
+                                    ? "text-[#0d0f11]"
+                                    : "text-[#989ca0]"
+                                } text-3ml`}
+                              >
+                                You have not made any predictions to show
+                              </div>
+                            </div> */}
+                            <tr>
+                              <td colSpan="5" className="text-center py-4">
+                                <div className="text-center">
+                                  <div>
+                                    <p>
+                                      You have not made any predictions to show
+                                    </p>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </>
+                        )}
                       </>
                     )}
                   </Table.Body>
@@ -616,170 +636,184 @@ const MyPrediction = () => {
                     </Table.HeadCell>
                   </Table.Head>
                   <Table.Body className="divide-y">
-                    {recent?.data?.map((recentData) => {
-                      return (
-                        <>
-                          <Table.Row
-                            className={`${
-                              themeMode === "light"
-                                ? "bg-white"
-                                : "bg-[#191D23]"
-                            } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                          >
-                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                              <div className="flex items-center">
+                    {Array.isArray(recent?.data) && recent?.data?.length > 0 ? (
+                      recent?.data?.map((recentData) => {
+                        return (
+                          <>
+                            <Table.Row
+                              className={`${
+                                themeMode === "light"
+                                  ? "bg-white"
+                                  : "bg-[#191D23]"
+                              } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                            >
+                              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                                 <div className="flex items-center">
-                                  {/* <img
+                                  <div className="flex items-center">
+                                    {/* <img
                                         // src={predict?.teams?.home?.logo}
                                         // alt={predict?.teams?.home?.name}
                                         className="mr-2"
                                         height={35}
                                         width={35}
                                       /> */}
-                                  <div>
-                                    <p
-                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                        themeMode === "light"
-                                          ? "text-black"
-                                          : "text-white"
-                                      }`}
-                                    >
-                                      {recentData?.fixture_vrs}
-                                    </p>
-                                    <span className="text-[#8EA2AB] text-[9px]">
-                                      {/* {predict?.teams?.home?.name},{" "}
+                                    <div>
+                                      <p
+                                        className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                          themeMode === "light"
+                                            ? "text-black"
+                                            : "text-white"
+                                        }`}
+                                      >
+                                        {recentData?.fixture_vrs}
+                                      </p>
+                                      <span className="text-[#8EA2AB] text-[9px]">
+                                        {/* {predict?.teams?.home?.name},{" "}
                                           {predict?.league?.country} */}
-                                    </span>
+                                      </span>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="text-[12px] text-white px-6">
-                                  {/* VS */}
-                                </div>
-                                <div className="flex items-center">
-                                  <div>
-                                    <p
-                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                        themeMode === "light"
-                                          ? "text-black"
-                                          : "text-white"
-                                      }`}
-                                    >
-                                      {/* {predict?.teams?.away?.name} */}
-                                    </p>
-                                    <span className="text-[#8EA2AB] text-[9px]">
-                                      {/* {predict?.teams?.away?.name},{" "}
+                                  <div className="text-[12px] text-white px-6">
+                                    {/* VS */}
+                                  </div>
+                                  <div className="flex items-center">
+                                    <div>
+                                      <p
+                                        className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                          themeMode === "light"
+                                            ? "text-black"
+                                            : "text-white"
+                                        }`}
+                                      >
+                                        {/* {predict?.teams?.away?.name} */}
+                                      </p>
+                                      <span className="text-[#8EA2AB] text-[9px]">
+                                        {/* {predict?.teams?.away?.name},{" "}
                                           {predict?.league?.country} */}
-                                    </span>
-                                  </div>
-                                  {/* <img
+                                      </span>
+                                    </div>
+                                    {/* <img
                                         src={predict?.teams?.away?.logo}
                                         alt={predict?.teams?.away?.name}
                                         className="ml-2"
                                         height={35}
                                         width={35}
                                       /> */}
+                                  </div>
                                 </div>
-                              </div>
-                            </Table.Cell>
-                            <Table.Cell className="w-[17%]">
-                              <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                {/* {predict?.goals?.home}-
+                              </Table.Cell>
+                              <Table.Cell className="w-[17%]">
+                                <span className="bg-[#08A1F8] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                  {/* {predict?.goals?.home}-
                                     {predict?.goals?.away} */}
-                                {recentData?.fixture_score}
-                              </span>
-                            </Table.Cell>
-                            <Table.Cell className="w-[17%]">
-                              <span
-                                className={`text-base font-bold ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                {recentData?.over_under_line}
-                              </span>
-                            </Table.Cell>
-                            <Table.Cell className="w-[5%]">
-                              <span
-                                className={`text-base font-bold ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
-                                <span>
-                                  {recentData?.fixture_status === "failed" ? (
-                                    <>
-                                      <span>
-                                        <svg
-                                          className="w-6 h-6 text-red-500"
-                                          aria-hidden="true"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="20"
-                                          height="20"
-                                          fill="none"
-                                          viewBox="0 0 24 24"
-                                        >
-                                          <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M6 18 17.94 6M18 18 6.06 6"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </>
-                                  ) : recentData?.fixture_status ===
-                                    "success" ? (
-                                    <>
-                                      <span>
-                                        <svg
-                                          className="w-6 h-6 text-green-500"
-                                          aria-hidden="true"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="20"
-                                          height="20"
-                                          fill="none"
-                                          viewBox="0 0 24 24"
-                                        >
-                                          <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M5 11.917 9.724 16.5 19 7.5"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </>
-                                  ) : (
-                                    <></>
-                                  )}{" "}
+                                  {recentData?.fixture_score}
                                 </span>
-                              </span>
-                            </Table.Cell>
-                            <Table.Cell className="w-[10%]">
-                              <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
-                                {recentData?.accuracy}%
-                              </span>
-                            </Table.Cell>
-                            <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                              <MdMoreHoriz
-                                onClick={() =>
-                                  viewDetailsModalHandler(
-                                    recentData?.fixture_id,
-                                    recentData?.teams?.home?.id,
-                                    recentData?.teams?.away?.id,
-                                    recentData?.fixture_date
-                                  )
-                                }
-                              />
-                            </Table.Cell>
-                          </Table.Row>
-                        </>
-                      );
-                    })}
+                              </Table.Cell>
+                              <Table.Cell className="w-[17%]">
+                                <span
+                                  className={`text-base font-bold ${
+                                    themeMode === "light"
+                                      ? "text-black"
+                                      : "text-white"
+                                  }`}
+                                >
+                                  {recentData?.over_under_line}
+                                </span>
+                              </Table.Cell>
+                              <Table.Cell className="w-[5%]">
+                                <span
+                                  className={`text-base font-bold ${
+                                    themeMode === "light"
+                                      ? "text-black"
+                                      : "text-white"
+                                  }`}
+                                >
+                                  <span>
+                                    {recentData?.fixture_status === "failed" ? (
+                                      <>
+                                        <span>
+                                          <svg
+                                            className="w-6 h-6 text-red-500"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                          >
+                                            <path
+                                              stroke="currentColor"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M6 18 17.94 6M18 18 6.06 6"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </>
+                                    ) : recentData?.fixture_status ===
+                                      "success" ? (
+                                      <>
+                                        <span>
+                                          <svg
+                                            className="w-6 h-6 text-green-500"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                          >
+                                            <path
+                                              stroke="currentColor"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M5 11.917 9.724 16.5 19 7.5"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}{" "}
+                                  </span>
+                                </span>
+                              </Table.Cell>
+                              <Table.Cell className="w-[10%]">
+                                <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
+                                  {recentData?.accuracy}%
+                                </span>
+                              </Table.Cell>
+                              <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
+                                <MdMoreHoriz
+                                  onClick={() =>
+                                    viewDetailsModalHandler(
+                                      recentData?.fixture_id,
+                                      recentData?.teams?.home?.id,
+                                      recentData?.teams?.away?.id,
+                                      recentData?.fixture_date
+                                    )
+                                  }
+                                />
+                              </Table.Cell>
+                            </Table.Row>
+                          </>
+                        );
+                      })
+                    ) : (
+                      <>
+                        <tr>
+                          <td colSpan="5" className="text-center py-4">
+                            <div className="text-center">
+                              <div>
+                                <p>You have not made any predictions to show</p>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
                   </Table.Body>
                 </Table>
               </div>
@@ -2424,41 +2458,41 @@ const MyPrediction = () => {
         </div>
         {/* My Prediction section ends here */}
         {/* Pagination section start here */}
-        {hide &&
-        <div className="md:flex justify-between items-center mt-8">
-          <div className="mb-2 md:mb-0 text-center">
-            <p
-              className={`${
-                themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-              } text-xs`}
-            >
-              Showing {(currentPage - 1) * itemsPerPage + 1 || 0} to{" "}
-              {currentPage * itemsPerPage || 0} of{" "}
-              {fetchedPredictions?.total_data || 0} entries
-            </p>
-          </div>
-          <div className="min-w-[450px]">
-            <div className="md:flex justify-between items-center">
-              <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
-                <ul className="flex">
-                  <li>
-                    <Button
-                      onClick={() => handlePageChange(1)}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                    >
-                      <BsChevronDoubleLeft />
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                    >
-                      <BsChevronLeft />
-                    </Button>
-                  </li>
-                  {/* {pageNumbers.slice(0, 5).map((pageNumber) => (
+        {hide && (
+          <div className="md:flex justify-between items-center mt-8">
+            <div className="mb-2 md:mb-0 text-center">
+              <p
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-xs`}
+              >
+                Showing {(currentPage - 1) * itemsPerPage + 1 || 0} to{" "}
+                {currentPage * itemsPerPage || 0} of{" "}
+                {fetchedPredictions?.total_data || 0} entries
+              </p>
+            </div>
+            <div className="min-w-[450px]">
+              <div className="md:flex justify-between items-center">
+                <div className="mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
+                  <ul className="flex">
+                    <li>
+                      <Button
+                        onClick={() => handlePageChange(1)}
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      >
+                        <BsChevronDoubleLeft />
+                      </Button>
+                    </li>
+                    <li>
+                      <Button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      >
+                        <BsChevronLeft />
+                      </Button>
+                    </li>
+                    {/* {pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
                       <Button
                         onClick={() => handlePageChange(pageNumber)}
@@ -2470,72 +2504,72 @@ const MyPrediction = () => {
                       </Button>
                     </li>
                   ))} */}
-                  {renderPageNumbers()}
-                  {/* <li>
+                    {renderPageNumbers()}
+                    {/* <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
                       1
                     </Link>
                   </li> */}
-                  {/* <li>
+                    {/* <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
                       2
                     </Link>
                   </li> */}
-                  {/* <li>
+                    {/* <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
                       3
                     </Link>
                   </li> */}
-                  {/* <li>
+                    {/* <li>
                     <Link className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white">
                       23
                     </Link>
                   </li> */}
-                  <li>
-                    <Button
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                    >
-                      <BsChevronRight />
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      onClick={() => handlePageChange(totalPages)}
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                    >
-                      <BsChevronDoubleRight />
-                    </Button>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex items-center justify-center">
-                <p
-                  className={`text-[12px] ${
-                    themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                  } mr-1.5`}
-                >
-                  Go to page
-                </p>
-                <TextInput
-                  id="small"
-                  type="text"
-                  sizing="sm"
-                  className="go_page w-[50px] mr-1.5"
-                  onChange={GotoPagehandle}
-                />
-                <button
-                  className="flex items-center text-[12px] text-[#0053CD] hover:text-white font-bold"
-                  onClick={SearchHandle}
-                >
-                  Go <BsChevronRight />
-                </button>
+                    <li>
+                      <Button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      >
+                        <BsChevronRight />
+                      </Button>
+                    </li>
+                    <li>
+                      <Button
+                        onClick={() => handlePageChange(totalPages)}
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      >
+                        <BsChevronDoubleRight />
+                      </Button>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex items-center justify-center">
+                  <p
+                    className={`text-[12px] ${
+                      themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                    } mr-1.5`}
+                  >
+                    Go to page
+                  </p>
+                  <TextInput
+                    id="small"
+                    type="text"
+                    sizing="sm"
+                    className="go_page w-[50px] mr-1.5"
+                    onChange={GotoPagehandle}
+                  />
+                  <button
+                    className="flex items-center text-[12px] text-[#0053CD] hover:text-white font-bold"
+                    onClick={SearchHandle}
+                  >
+                    Go <BsChevronRight />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        }
+        )}
         {/* Pagination section ends here */}
       </div>
       <PredictionRequestModal

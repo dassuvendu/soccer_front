@@ -340,7 +340,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                   </div>
                 </div>
 
-                <div className="mb-10">
+                {/* <div className="mb-10">
                   <p className="text-[#2aa9e1] font-semibold text-[13px] leading-[16px] font-Montserrat pb-0">
                     Poisson Distribution
                   </p>
@@ -365,7 +365,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="text-center">
@@ -446,11 +446,11 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                       {comparisons[0]?.left_team_formation}
                     </p>
                   </div>
-                  <img
+                  {/* <img
                     src={fieldOne}
                     alt="fieldOne"
                     className="w-full rounded-xl"
-                  />
+                  /> */}
                 </div>
                 <h4 className="font-Bebas text-xl tracking-normal text-black mb-4 text-center mt-4">
                   Recent Encounters
@@ -508,11 +508,11 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                       {comparisons[0]?.right_team_formation}
                     </p>
                   </div>
-                  <img
+                  {/* <img
                     src={fieldTwo}
                     alt="fieldTwo"
                     className="w-full rounded-xl"
-                  />
+                  /> */}
                 </div>
                 <h4 className="font-Bebas text-xl tracking-normal text-black mb-4 text-center mt-4">
                   Recent Encounters
