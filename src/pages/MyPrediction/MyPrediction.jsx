@@ -2458,7 +2458,7 @@ const MyPrediction = () => {
         </div>
         {/* My Prediction section ends here */}
         {/* Pagination section start here */}
-        {hide && (
+       
           <div className="md:flex justify-between items-center mt-8">
             <div className="mb-2 md:mb-0 text-center">
               <p
@@ -2479,6 +2479,7 @@ const MyPrediction = () => {
                       <Button
                         onClick={() => handlePageChange(1)}
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        disabled={currentPage === 1}
                       >
                         <BsChevronDoubleLeft />
                       </Button>
@@ -2538,7 +2539,9 @@ const MyPrediction = () => {
                       <Button
                         onClick={() => handlePageChange(totalPages)}
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        disabled={currentPage === totalPages}
                       >
+
                         <BsChevronDoubleRight />
                       </Button>
                     </li>
@@ -2569,7 +2572,7 @@ const MyPrediction = () => {
               </div>
             </div>
           </div>
-        )}
+      
         {/* Pagination section ends here */}
       </div>
       <PredictionRequestModal
