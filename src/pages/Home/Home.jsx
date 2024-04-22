@@ -6,6 +6,7 @@ import LastMatchResult from "./LastMatchResult";
 import { Footer } from "flowbite-react";
 import SelectPlan from "./SelectPlan";
 import { useDispatch, useSelector } from "react-redux";
+import CountdownTimer from "./CountTimer";
 
 
 const Home = () => {
@@ -30,6 +31,7 @@ const Home = () => {
       <SoccerPrediction />
       {/* <LastMatchResult /> */}
       <SelectPlan />
+      {/* <CountdownTimer/> */}
     </div>
   );
 };

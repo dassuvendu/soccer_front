@@ -1,50 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { dcUnitedIcon, fcDallaIcon } from "../../assets/images/images";
+import { useDispatch, useSelector } from "react-redux";
+import { getFixtures } from "../../reducers/PredictionsSlice";
 
 const HomeBannerMatchStartTime = () => {
 
-  // const calculateTimeLeft = () => {
-  //   const difference = +new Date(matchStartTime) - +new Date();
-  //   let timeLeft = {};
 
-  //   if (difference > 0) {
-  //     timeLeft = {
-  //       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-  //       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-  //       minutes: Math.floor((difference / 1000 / 60) % 60),
-  //       seconds: Math.floor((difference / 1000) % 60),
-  //     };
-  //   }
+  const { fixtures } = useSelector((state) => state.prediction);
+  const items = fixtures?.data?.slice(0, 6);
+  const [time, setTime] = useState("");
+  console.log("time",time);
+  
+  useEffect(() => {
+    if (items && items.length > 0) {
+      const date = new Date(items[0]?.fixture?.date);
+      setTime(date.toISOString().split(".")[0]); // Convert date to ISO string
+    }
+  }, [items]);
 
-  //   return timeLeft;
-  // };
+  const [countdown, setCountdown] = useState(calculateTimeLeft());
 
-  // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown(calculateTimeLeft());
+    }, 1000);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setTimeLeft(calculateTimeLeft());
-  //   }, 1000);
+    return () => clearInterval(timer);
+  }, [time]); // Run useEffect whenever 'time' changes
 
-  //   return () => clearTimeout(timer);
-  // });
+  function calculateTimeLeft() {
+    const targetDate = new Date(time); // Convert ISO string back to date
+    const now = new Date();
+    const difference = targetDate - now;
 
-  // const formatTime = (time) => {
-  //   return time < 10 ? `0${time}` : time;
-  // };
+    if (difference < 0) {
+      return { days: '00', hours: '00', minutes: '00', seconds: '00' };
+    }
 
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+    const minutes = Math.floor((difference / 1000 / 60) % 60).toString().padStart(2, '0');
+    const seconds = Math.floor((difference / 1000) % 60).toString().padStart(2, '0');
+
+    return { days, hours, minutes, seconds };
+  }
+
+  const today = new Date();
+  const todayFormatted = today.toISOString().split("T")[0];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFixtures({ date: todayFormatted }))
+  }, [todayFormatted]);
+  
   return (
     <div className="mt-20 mb-[20px] relative z-10 md:px-4 lg:px-0">
       <div className="max-full mx-auto">
         <div className="md:flex justify-center items-center">
           <div className="flex items-center justify-center mb-4 md:mb-0">
-            <img src={fcDallaIcon} alt="fcDallaIcon" />
+            <img src={Array.isArray(items) && items[0]?.teams?.home?.logo} width={100} alt="fcDallaIcon" />
             <div className="ml-2 text-right">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-                FC Dallas
+              {Array.isArray(items) && items[0]?.teams?.home?.name}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
-                Major League Soccer
+              {Array.isArray(items) && items[0]?.league?.name}
               </p>
             </div>
           </div>
@@ -53,11 +72,11 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                  4
+                  {countdown?.days?.toString().split("-")[0]}
                   </span>
-                  <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                3
-                  </span>
+                  {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                {countdown?.days?.toString().split("-")[1]}
+                  </span> */}
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Days</p>
               </li>
@@ -65,11 +84,11 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                 0
+                  {countdown.hours}
                   </span>
-                  <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                  {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                 2
-                  </span>
+                  </span> */}
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Hours</p>
               </li>
@@ -77,11 +96,11 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                  4
+                  {countdown.minutes}
                   </span>
-                  <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                  {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                   2
-                  </span>
+                  </span> */}
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Minutes</p>
               </li>
@@ -89,11 +108,11 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas font-medium tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
-                  2
+                  {countdown.seconds}
                   </span>
-                  <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                  {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                   7
-                  </span>
+                  </span> */}
                 </div>
                 <p className="text-[#282828] text-[10px] pt-0.5">Seconds</p>
               </li>
@@ -102,13 +121,13 @@ const HomeBannerMatchStartTime = () => {
           <div className="flex items-center justify-center">
             <div className="mr-2 text-left">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-                D.C.United
+              {Array.isArray(items) && items[0]?.teams?.away?.name}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
-                Major League Soccer
+              {Array.isArray(items) && items[0]?.league?.name}
               </p>
             </div>
-            <img src={dcUnitedIcon} alt="dcUnitedIcon" />
+            <img src={Array.isArray(items) && items[0]?.teams?.away?.logo} width={100} alt="dcUnitedIcon" />
           </div>
         </div>
       </div>

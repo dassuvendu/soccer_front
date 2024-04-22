@@ -430,7 +430,7 @@ const Year = todayFormatted.toString().split('-')[0]
                       </Link>
                     </li>
                   ))}
-
+                  {hide &&
                   <li>
                     {isDataFound && (
                       <Link
@@ -441,6 +441,8 @@ const Year = todayFormatted.toString().split('-')[0]
                       </Link>
                     )}
                   </li>
+                   }
+                   {hide &&
                   <li>
                     {isDataFound && (
                       <Link
@@ -451,6 +453,7 @@ const Year = todayFormatted.toString().split('-')[0]
                       </Link>
                     )}
                   </li>
+                  }
                 </ul>
               </div>
               <div className="flex items-center justify-center">
