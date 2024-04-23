@@ -6,7 +6,7 @@ import { Table } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { logoIcon } from "../../assets/images/images";
-import { PredictionRequestModal } from "../MyPrediction/PredictionCompo/PredictionRequestModal";
+import { SlipRequestModal } from "./SlipRequestModal";
 
 const SlipInfo = () => {
   const [fixturesId, setFixturesId] = useState();
@@ -14,6 +14,7 @@ const SlipInfo = () => {
   const [awayId, setAwayId] = useState();
   const [timeStamp, setTimeStamp] = useState(null);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
+  const [newMatches, setNewMatches] = useState([]);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isLoading, singleSlip } = useSelector((state) => state.cookedSlips);
   const location = useLocation();
@@ -92,16 +93,25 @@ const SlipInfo = () => {
     setFixturesId(id);
     setHomeId(hid);
     setAwayId(aid);
-    setTimeStamp(timeId);
+    setTimeStamp(timeId.split(".")[0]);
     setOpenDetailsModal(true);
     console.log("fixture id: ", id);
     console.log("home id: ", hid);
     console.log("away id: ", aid);
-    console.log("time id: ", timeId);
+    console.log("time id: ", timeId.split(".")[0]);
   };
   const handleModalClose = () => {
     setOpenDetailsModal(false);
   };
+  const filteredMatchs = () => {
+    const newMatches = singleSlip?.data?.items?.filter(
+      (predict) => predict?.fixtureId !== 0
+    );
+    setNewMatches(newMatches);
+  };
+  useEffect(() => {
+    filteredMatchs();
+  }, [singleSlip]);
   return (
     <>
       <div className="flex justify-between items-center mb-6">
@@ -173,18 +183,6 @@ const SlipInfo = () => {
               {singleSlip?.data?.strategy}
             </h3>
           </div>
-          {/* <div>
-            <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
-              Max Stake
-            </p>
-            <h3
-              className={`font-Montserrat text-[16px] leading-[18px] font-medium block ${
-                themeMode === "light" ? "text-[#191D23]" : "text-white"
-              }`}
-            >
-              {slipInfo?.data?.maxStake}
-            </h3>
-          </div> */}
           <div>
             <p className="font-Montserrat text-[14px] leading-[18px] font-medium text-[#2aa9e1] mb-1">
               Starts On
@@ -279,49 +277,50 @@ const SlipInfo = () => {
                   </tr>
                 ) : (
                   <>
-                    {singleSlip?.data?.items?.map((predict) => {
-                      return (
-                        <>
-                          <Table.Row
-                            className={`${
-                              themeMode === "light"
-                                ? "bg-white"
-                                : "bg-[#191D23]"
-                            } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
-                          >
-                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
-                              <div className="flex items-center">
+                    {Array.isArray(newMatches) && newMatches?.length > 1 ? (
+                      newMatches?.map((predict) => {
+                        return (
+                          <>
+                            <Table.Row
+                              className={`${
+                                themeMode === "light"
+                                  ? "bg-white"
+                                  : "bg-[#191D23]"
+                              } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                            >
+                              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                                 <div className="flex items-center">
-                                  {/* <img
+                                  <div className="flex items-center">
+                                    {/* <img
                                     src={BayernMunichIcon}
                                     alt="BayernMunichIcon"
                                     className="mr-2"
                                   /> */}
-                                  <div>
-                                    <p
-                                      className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                        themeMode === "light"
-                                          ? "text-black"
-                                          : "text-white"
-                                      }`}
-                                    >
-                                      {predict?.homeTeamName} VS{" "}
-                                      {predict?.awayTeamName}
-                                    </p>
-                                    <span className="text-[#8EA2AB] text-[9px]">
-                                      {predict?.leagueName}|
-                                      {matchStartDate(predict?.startsOn)}
-                                    </span>
+                                    <div>
+                                      <p
+                                        className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                                          themeMode === "light"
+                                            ? "text-black"
+                                            : "text-white"
+                                        }`}
+                                      >
+                                        {predict?.homeTeamName} VS{" "}
+                                        {predict?.awayTeamName}
+                                      </p>
+                                      <span className="text-[#8EA2AB] text-[9px]">
+                                        {predict?.leagueName}|
+                                        {matchStartDate(predict?.startsOn)}
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </Table.Cell>
-                            {/* <Table.Cell className="w-[17%]">
+                              </Table.Cell>
+                              {/* <Table.Cell className="w-[17%]">
                               <span className=" text-black font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
                                 {predict?.advice}
                               </span>
                             </Table.Cell> */}
-                            {/* <Table.Cell className="w-[5%]">
+                              {/* <Table.Cell className="w-[5%]">
                               <span
                                 className={`text-base font-bold ${
                                   themeMode === "light"
@@ -381,29 +380,42 @@ const SlipInfo = () => {
                               </span>
                             </Table.Cell> */}
 
-                            <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                              <MdMoreHoriz
-                                onClick={() =>
-                                  viewDetailsModalHandler(
-                                    predict?.fixtureId,
-                                    predict?.teams?.home?.id,
-                                    predict?.teams?.away?.id,
-                                    predict?.fixture_date
-                                  )
-                                }
-                              />
-                            </Table.Cell>
-                          </Table.Row>
-                        </>
-                      );
-                    })}
+                              <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
+                                <MdMoreHoriz
+                                  onClick={() =>
+                                    viewDetailsModalHandler(
+                                      predict?.fixtureId,
+                                      predict?.teams?.home?.id,
+                                      predict?.teams?.away?.id,
+                                      predict?.startsOn
+                                    )
+                                  }
+                                />
+                              </Table.Cell>
+                            </Table.Row>
+                          </>
+                        );
+                      })
+                    ) : (
+                      <>
+                        <tr>
+                          <td colSpan="5" className="text-center py-4">
+                            <div className="text-center">
+                              <div>
+                                <p>No Data Found</p>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )}
                   </>
                 )}
               </Table.Body>
             </Table>
           </div>
           {/* Table ends here */}
-          <PredictionRequestModal
+          <SlipRequestModal
             openDetailsModal={openDetailsModal}
             onClose={handleModalClose}
             fixturesId={fixturesId}

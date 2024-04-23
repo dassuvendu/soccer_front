@@ -8,42 +8,41 @@ import { TextInput } from "flowbite-react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import SoccerLineUp from "react-soccer-lineup";
 
-const TeamFormation = ({ Hplayers, Aplayers }) => {
+const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const HTeam = useHTeamFormationhook();
   const ATeam = useATeamFormationhook();
-  const [hgkName, setHGkName] = useState('');
-  const [hgkNum, setHGkNum] = useState('');
-  const [agkName, setAGkName] = useState('');
-  const [agkNum, setAGkNum] = useState('');
+  const [hgkName, setHGkName] = useState("");
+  const [hgkNum, setHGkNum] = useState("");
+  const [agkName, setAGkName] = useState("");
+  const [agkNum, setAGkNum] = useState("");
 
   useEffect(() => {
     if (Array.isArray(HTeam)) {
-      const goalkeeper = HTeam.find(player => player?.Gk?.pPos === "G");
+      const goalkeeper = HTeam.find((player) => player?.Gk?.pPos === "G");
       if (goalkeeper) {
         setHGkName(goalkeeper?.Gk?.pName);
         setHGkNum(goalkeeper?.Gk?.pNumber);
       } else {
-        setHGkName('');
-        setHGkNum('');
+        setHGkName("");
+        setHGkNum("");
       }
     }
   }, [HTeam]);
 
   useEffect(() => {
     if (Array.isArray(ATeam)) {
-      const goalkeeper = ATeam.find(player => player?.Gk?.pPos === "G");
+      const goalkeeper = ATeam.find((player) => player?.Gk?.pPos === "G");
       if (goalkeeper) {
         setAGkName(goalkeeper?.Gk?.pName);
         setAGkNum(goalkeeper?.Gk?.pNumber);
       } else {
-        setAGkName('');
-        setAGkNum('');
+        setAGkName("");
+        setAGkNum("");
       }
     }
   }, [ATeam]);
-  
- 
+
   return (
     <div>
       <div className="max-w-5xl mx-auto">
@@ -140,8 +139,8 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                     homeTeam={{
                       squad: {
                         gk: {
-                          name : hgkName,
-                          number : hgkNum
+                          name: hgkName,
+                          number: hgkNum,
                         },
                         df: HTeam?.filter(
                           (player) => player?.def?.pPos === "D"
@@ -166,8 +165,8 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                     awayTeam={{
                       squad: {
                         gk: {
-                          name : agkName,
-                          number : agkNum
+                          name: agkName,
+                          number: agkNum,
                         },
                         df: ATeam?.filter(
                           (player) => player?.def?.pPos === "D"
@@ -204,4 +203,4 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
     </div>
   );
 };
-export default TeamFormation;
+export default PredictionTeamFormation;
