@@ -87,6 +87,10 @@ const RequestPredictionList = ({ errorMessage }) => {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(()=>{
+    console.log('currentPage=>', currentPage)
+  },[currentPage])
+
   const GotoPagehandle = (e) => {
     const newPageNumber = parseInt(e.target.value);
     setSearchPage(newPageNumber);
@@ -383,14 +387,13 @@ const RequestPredictionList = ({ errorMessage }) => {
                     pageNumbers.slice(0, 5).map((pageNumber) => (
                       <li key={pageNumber}>
                         <Link
-                          className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
-                        flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
-                        ${
-                          currentPage === pageNumber ? "bg-[#0053CD]" : "black"
-                        }`}
+                          className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
+                        flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]
+                        ${currentPage === pageNumber ? "bg-[#0053CD]" : "bg-black"}`}
                           onClick={() => handlePageChange(pageNumber)}
                         >
                           {pageNumber}
+                          {console.log(currentPage)}
                         </Link>
                       </li>
                     ))}
@@ -412,7 +415,7 @@ const RequestPredictionList = ({ errorMessage }) => {
 
                   <li>
                     <Button
-                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                      className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] active:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => setCurrentPage(totalPages)}
                       disabled={!hide}
                       color="#0053CD"

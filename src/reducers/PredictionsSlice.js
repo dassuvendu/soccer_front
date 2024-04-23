@@ -21,6 +21,24 @@ export const getFixtures = createAsyncThunk(
     }
   }
 );
+export const getPastFixtures = createAsyncThunk(
+  'user/getPastFixtures',
+  async (userInput, { rejectWithValue }) => {
+    try {
+      const response = await api.post('/api/fixtures',userInput);
+      if (response.status === 200) {
+        return response.data;
+        
+      } else {
+        let errors = errorHandler(response);
+        return rejectWithValue(errors);
+      }
+    } catch (err) {
+      let errors = errorHandler(err);
+      return rejectWithValue(errors);
+    }
+  }
+);
 export const getFixturesByleague = createAsyncThunk(
   'user/getFixturesbyleague',
   async (userInput, { rejectWithValue }) => {
@@ -181,6 +199,7 @@ const initialState = {
   error: null,
   isLoading: false,
   fixtures: [],
+  pastFix:[],
   allLeague: [],
   seasons:[],
   // page:[],
@@ -325,6 +344,22 @@ const PredictionsSlice = createSlice({
         
       })
       .addCase(getleagueByid.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = true;
+        state.message = payload?.message || 'Something went wrong. Try again later.';
+      })
+      .addCase(getPastFixtures.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(getPastFixtures.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+      state.pastFix = payload 
+        
+      })
+      .addCase(getPastFixtures.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = true;
         state.message = payload?.message || 'Something went wrong. Try again later.';

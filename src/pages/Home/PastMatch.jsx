@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFixtures } from "../../reducers/PredictionsSlice";
+import { getFixtures, getPastFixtures } from "../../reducers/PredictionsSlice";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import { Spinner } from "flowbite-react";
@@ -8,12 +8,13 @@ import PastMatchModal from "./PastMatchModal";
 import {logoIcon} from "../../assets/images/images";
 
 export const PastMatch = () => {
-  const { fixtures } = useSelector((state) => state.prediction);
+  const { pastFix  } = useSelector((state) => state.prediction);
 
-  const Items = fixtures?.data?.slice(0, 6);
+  const Items = pastFix ?.data?.slice(0, 6);
   console.log("y", Items);
 
   const today = new Date();
+  const todayFormatted = today.toISOString().split("T")[0];
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   const yesterdayFormatted = yesterday.toISOString().split("T")[0];
@@ -23,15 +24,17 @@ export const PastMatch = () => {
   const [homeLoader, setHomeLoader] = useState(true);
 
   useEffect(() => {
-    dispatch(getFixtures({ date: yesterdayFormatted })).then((res) => {
-      if (res?.payload?.status === true) {
-        setLoadingData(true);
-        setHomeLoader(false);
-      } else {
-        setLoadingData(false);
-        setHomeLoader(true);
-      }
-    });
+        dispatch(getPastFixtures({ date: yesterdayFormatted })).then((res) => {
+          console.log("res",res);
+          if (res?.payload?.status === true) {
+            setLoadingData(true);
+            setHomeLoader(false);
+          } else {
+            setLoadingData(false);
+            setHomeLoader(true);
+          }
+        })
+   
   }, [yesterdayFormatted]);
 
   const formatDay = (timestamp) => {

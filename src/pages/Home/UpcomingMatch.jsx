@@ -3,15 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFixtures } from "../../reducers/PredictionsSlice";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
-import { Spinner } from "flowbite-react";
 import Login from "../Auth/Login/Login";
 import { logoIcon } from "../../assets/images/images";
 
 export const UpcomingMatch = () => {
   const { fixtures } = useSelector((state) => state.prediction);
 
-  const Items = fixtures?.data?.slice(0, 6);
-  console.log("y", Items);
+  const Item = fixtures?.data?.filter(item => {
+
+    const fixtureDate = new Date(item?.fixture?.date);
+    const currentUTCTime = new Date().toISOString();
+    
+    fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+    const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+
+    return fixtureDate > new Date(currentUTCTimeWithoutMs);
+});
+
+// console.log("Items", Item);
+
+const Items = Item.slice(0,6)
 
   const today = new Date();
   const todayFormatted = today.toISOString().split("T")[0];

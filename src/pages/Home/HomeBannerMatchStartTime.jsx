@@ -7,47 +7,143 @@ const HomeBannerMatchStartTime = () => {
 
 
   const { fixtures } = useSelector((state) => state.prediction);
-  const items = fixtures?.data?.slice(0, 6);
-  const [time, setTime] = useState("");
-  console.log("time",time);
   
-  useEffect(() => {
-    if (items && items.length > 0) {
-      const date = new Date(items[0]?.fixture?.date);
-      setTime(date.toISOString().split(".")[0]); // Convert date to ISO string
-    }
-  }, [items]);
+  
+  const [time, setTime] = useState('');
+  
+  const formateTime = time.toString().split("+")[0]
+  console.log("next time",formateTime);
+  const [countdown, setCountdown] = useState({ days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' });
+  console.log("coun",countdown);
+  const [diff ,setDiff] = useState()
+  const [matchStarted, setMatchStarted] = useState(false);
+  const [nxtMatch, setNextMatch] = useState()
+  console.log("nxt",nxtMatch);
+  // useEffect(() => {
+  //   if (items && items.length > 0) {
+  //     const date = new Date(items[0]?.fixture?.date);
+  //     setTime(date.toISOString().split(".")[0]); // Convert date to ISO string
+  //   }
+  // }, [items]);
+  
+  const today = new Date();
+  const todayFormatted = today.toISOString().split("T")[0];
 
-  const [countdown, setCountdown] = useState(calculateTimeLeft());
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Check if any matches are ongoing
+    const ongoingMatch = fixtures?.data?.filter(item => {
+    
+      const fixtureDate = new Date(item?.fixture?.date);
+      const currentUTCTime = new Date().toISOString();
+      
+      fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+      const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+  
+      return fixtureDate > new Date(currentUTCTimeWithoutMs);
+  });
+    
+    if (ongoingMatch) {
+        
+        // Filter out the next match
+        const Item = fixtures?.data?.filter(item => {
+    
+          const fixtureDate = new Date(item?.fixture?.date);
+          const currentUTCTime = new Date().toISOString();
+          
+          fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+          const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+      
+          return fixtureDate > new Date(currentUTCTimeWithoutMs);
+      });
+       
+        setNextMatch(Item[0])
+        
+        if (Item) {
+          setTime(Item[0].fixture.date.toString().split("+")[0]);
+        }
+     
+    } else {
+      // If no match is ongoing, find the next match
+      const Item = fixtures?.data?.filter(item => {
+    
+        const fixtureDate = new Date(item?.fixture?.date);
+        const currentUTCTime = new Date().toISOString();
+        
+        fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+        const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+    
+        return fixtureDate > new Date(currentUTCTimeWithoutMs);
+    });
+      if (Item) {
+        setTime(Item[0].fixture.date);
+      }
+    }
+  }, [fixtures]);
 
   useEffect(() => {
     const timer = setInterval(() => {
+      // console.log('calculateTimeLeft ->', calculateTimeLeft())
       setCountdown(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [time]); // Run useEffect whenever 'time' changes
+  }, [time]);
 
   function calculateTimeLeft() {
-    const targetDate = new Date(time); // Convert ISO string back to date
+    console.log('time->', time)
+    if (!time) {
+      console.log("!time");
+      return { days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' };
+    }
+    
+    const targetDate = new Date(time);
+    console.log("tar",targetDate);
     const now = new Date();
+    console.log("tar1",now);
     const difference = targetDate - now;
-
+    console.log("diff",difference);
     if (difference < 0) {
-      return { days: '00', hours: '00', minutes: '00', seconds: '00' };
+      setDiff(difference)
+      return { days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' };
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-    const minutes = Math.floor((difference / 1000 / 60) % 60).toString().padStart(2, '0');
-    const seconds = Math.floor((difference / 1000) % 60).toString().padStart(2, '0');
+ // Convert milliseconds to hours, minutes, and seconds
+const totalSeconds = Math.floor(difference / 1000);
+const days = Math.floor(totalSeconds / (3600 * 24)).toString().padStart(2, '0');
+console.log("hrsD",days);
+let hours = Math.floor((totalSeconds % (3600 * 24)) / 3600).toString().padStart(2, '0');
+console.log("hrsH",hours);
+const minutes = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+console.log("hrsM",minutes);
+const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
 
-    return { days, hours, minutes, seconds };
+return { days, hours, minutes, seconds};
   }
+  const [apiCalled, setApiCalled] = useState(false);
 
-  const today = new Date();
-  const todayFormatted = today.toISOString().split("T")[0];
-  const dispatch = useDispatch();
+  useEffect(() => {
+    let timeoutId;
+
+    if (matchStarted) {
+      timeoutId = setTimeout(() => {
+        setMatchStarted(false);
+        setApiCalled(false);
+      }, 10000); // 10 seconds
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [matchStarted]);
+
+  useEffect(() => {
+    if (diff < 0 && !apiCalled) {
+      setMatchStarted(true);
+      setApiCalled(true);
+      dispatch(getFixtures({ date: todayFormatted }));
+    }
+  }, [diff, todayFormatted, apiCalled, dispatch]);
+
   useEffect(() => {
     dispatch(getFixtures({ date: todayFormatted }))
   }, [todayFormatted]);
@@ -57,22 +153,28 @@ const HomeBannerMatchStartTime = () => {
       <div className="max-full mx-auto">
         <div className="md:flex justify-center items-center">
           <div className="flex items-center justify-center mb-4 md:mb-0">
-            <img src={Array.isArray(items) && items[0]?.teams?.home?.logo} width={100} alt="fcDallaIcon" />
+            <img src={nxtMatch?.teams?.home?.logo} width={100} alt={ nxtMatch?.teams?.home?.name}/>
             <div className="ml-2 text-right">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-              {Array.isArray(items) && items[0]?.teams?.home?.name}
+              { nxtMatch?.teams?.home?.name}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
-              {Array.isArray(items) && items[0]?.league?.name}
+              { nxtMatch?.league?.name}
               </p>
             </div>
           </div>
+          {matchStarted ? (
+        <div>
+          <h1 className="p-5 text-[red] m-2">Match Started!</h1>
+        
+        </div>
+      ):  (
           <div className="flex justify-center items-center mx-16 mb-4 md:mb-0">
             <ul className="flex justify-center items-center">
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                  {countdown?.days?.toString().split("-")[0]}
+                  {countdown?.days}
                   </span>
                   {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                 {countdown?.days?.toString().split("-")[1]}
@@ -84,7 +186,7 @@ const HomeBannerMatchStartTime = () => {
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                  {countdown.hours}
+                  {countdown?.hours}
                   </span>
                   {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                 2
@@ -118,16 +220,17 @@ const HomeBannerMatchStartTime = () => {
               </li>
             </ul>
           </div>
+      )}
           <div className="flex items-center justify-center">
             <div className="mr-2 text-left">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-              {Array.isArray(items) && items[0]?.teams?.away?.name}
+              {nxtMatch?.teams?.away?.name}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
-              {Array.isArray(items) && items[0]?.league?.name}
+              {nxtMatch?.league?.name}
               </p>
             </div>
-            <img src={Array.isArray(items) && items[0]?.teams?.away?.logo} width={100} alt="dcUnitedIcon" />
+            <img src={nxtMatch?.teams?.away?.logo} width={100} alt={nxtMatch?.teams?.away?.name} />
           </div>
         </div>
       </div>

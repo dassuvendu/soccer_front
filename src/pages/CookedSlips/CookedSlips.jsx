@@ -462,10 +462,10 @@ const CookedSlips = () => {
                     {pageNumbers.slice(0, 5).map((pageNumber) => (
                       <li key={pageNumber}>
                         <Link
-                          className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
+                          className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
                         ${
-                          currentPage === pageNumber ? "bg-[#0053CD]" : "black"
+                          currentPage === pageNumber ? "bg-[#0053CD]" : "bg-black"
                         }`}
                           onClick={() => handlePageChange(pageNumber)}
                         >
