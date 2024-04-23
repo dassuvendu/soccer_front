@@ -367,6 +367,11 @@ body {
   margin-top: 7%;
 }
 
+
+.bg-cyan-700 {
+  background-color: #2aa9e1;
+}
+
 @media only screen and (max-width: 767px) {
   .date_picker_box_light.Select_Season select {
     width: 100%;

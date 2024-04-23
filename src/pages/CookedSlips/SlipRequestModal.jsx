@@ -1,24 +1,22 @@
 import { Modal, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
+
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-
-import { LastResult } from "../../../reducers/PredictionsSlice";
+import { LastResult } from "../../reducers/PredictionsSlice";
 import {
   getAFormation,
   getAPlayers,
   getHFormation,
   getHPlayers,
-} from "../../../reducers/formationSlice";
-import { PredictionFormatation } from "../PredictionModal/PredictionFormatation";
-import { MyPredictionStats } from "../PredictionModal/MyPredictionStats";
-import { PredictionCorrectScores } from "../PredictionModal/PredictionCorrectScores";
-import PredictionTeamFormation from "../PredictionModal/PredictionTeamFormation";
-import { logoIcon } from "../../../assets/images/images";
+} from "../../reducers/formationSlice";
+import { logoIcon } from "../../assets/images/images";
+import { MyPredictionStats } from "../MyPrediction/PredictionModal/MyPredictionStats";
+import { PredictionCorrectScores } from "../MyPrediction/PredictionModal/PredictionCorrectScores";
+import PredictionTeamFormation from "../MyPrediction/PredictionModal/PredictionTeamFormation";
 
-export const PredictionRequestModal = ({
+export const SlipRequestModal = ({
   openDetailsModal,
   onClose,
   homeId,
@@ -61,6 +59,26 @@ export const PredictionRequestModal = ({
       }
     });
   }, [dispatch, fixturesId, homeId, awayId]);
+  const matchStartDate = (dateString) => {
+    const options = {
+      weekday: "short",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+  const matchStartTime = (timeStamp) => {
+    const date = new Date(timeStamp);
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: "UTC",
+    };
+    return date.toLocaleTimeString(undefined, options);
+  };
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
       let data = lastResult?.data[0];
@@ -152,7 +170,7 @@ export const PredictionRequestModal = ({
                         Kick Off
                       </p>
                       <h3 className="text-[#2aa9e1] text-[18px] leading-[24px] font-medium">
-                        {timeStamp}
+                        {matchStartDate(timeStamp)}
                       </h3>
                       <h3 className="text-black text-[18px] leading-[24px] font-medium">
                         {/* {formatTime(timeStamp)} */}
