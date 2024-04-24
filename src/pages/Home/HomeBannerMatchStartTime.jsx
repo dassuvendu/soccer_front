@@ -14,7 +14,7 @@ const HomeBannerMatchStartTime = () => {
   const [countdown, setCountdown] = useState({ days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' });
   // console.log("coun",countdown);
   const [diff ,setDiff] = useState()
-  console.log("diff",diff);
+  // console.log("diff",diff);
   const [matchStarted, setMatchStarted] = useState(false);
   const [nxtMatch, setNextMatch] = useState()
   // console.log("nxt",nxtMatch);
@@ -91,7 +91,7 @@ const HomeBannerMatchStartTime = () => {
   }, [time]);
 
   function calculateTimeLeft() {
-    console.log('time->', time)
+    // console.log('time->', time)
     if (!time) {
       // console.log("!time");
       return { days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' };
@@ -144,8 +144,11 @@ return { days, hours, minutes, seconds};
         }
       })
     }
-    if (diff <= 11) {
+   
+    if (diff <= 10000) {
       setcolor(true)
+    }else{
+      setcolor(false)
     }
   }, [diff, todayFormatted, apiCalled, dispatch]);
 
@@ -215,8 +218,8 @@ return { days, hours, minutes, seconds};
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   {color ? 
-                  <span className="relative flex  bg-[#282828] rounded-sm">
-                  <span className=" animate-pulse mr-0.5 font-Bebas font-medium tracking-normal rounded-t-sm text-[yellow] text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
+                  <span className=" flex  bg-[#282828] rounded-t-sm">
+                  <span className=" animate-pulse mr-0.6 font-Bebas font-medium tracking-normal text-[yellow] text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
                   {countdown.seconds}
                   </span>
                 </span>
