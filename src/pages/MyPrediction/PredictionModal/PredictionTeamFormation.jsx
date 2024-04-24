@@ -57,10 +57,10 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
               </TabList> */}
           <TabPanel>
             <div className="py-4">
-              <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
+              {/* <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
                 Custom formation
-              </h3>
-              <div className="max-w-xl mx-auto my-4 flex">
+              </h3> */}
+              {/* <div className="max-w-xl mx-auto my-4 flex">
                 <TextInput id="text" type="text" className="mr-2 w-full" />
                 <button
                   className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
@@ -68,7 +68,7 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
                 >
                   Apply
                 </button>
-              </div>
+              </div> */}
               <div className="max-w-3xl mx-auto my-8">
                 <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
                   {Hplayers?.map((data) => {
