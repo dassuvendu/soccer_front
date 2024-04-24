@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from '../reducers/authSlice';
 
 const DropdownUser = () => {
-  const { profile } = useSelector((state:any) => state.profile);
+  const { profile } = useSelector((state: any) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const themeMode = useSelector((state: any) => state.darkmode.mode);
@@ -17,7 +17,6 @@ const DropdownUser = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-console.log("Pro: ",profile);
 
   // close on click outside
   useEffect(() => {
@@ -65,8 +64,8 @@ console.log("Pro: ",profile);
 
         <span className="hidden text-right lg:block">
           <span className={`block text-[14px] font-normal ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"}`}>
-            {profile?.details?.first_name!==null?( profile?.details?.first_name.toString().split(" ")[0]):("")
-           }
+            {profile?.details?.first_name !== null ? (profile?.details?.first_name.toString().split(" ")[0]) : ("")
+            }
           </span>
         </span>
 

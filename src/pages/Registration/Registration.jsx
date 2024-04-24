@@ -12,6 +12,8 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const token = JSON.parse(localStorage.getItem("regToken"));
+
     const loginHandler = () => {
         setOpenLoginModal(true);
         setOpenRegisterModal(false);
@@ -36,7 +38,13 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
             dispatch(verifyOtp(data)).then(() => {
                 reset();
             });
-            navigate("/choose-plan");
+            // navigate("/choose-plan");
+            localStorage.setItem(
+                'userToken',
+                JSON.stringify({ token: token?.token })
+            );
+            localStorage.removeItem('regToken');
+            navigate("/dashboard");
             setOpenRegisterModal(false);
             setOpenLoginModal(false);
         } else {
@@ -62,7 +70,13 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
             &&
             currentUser.otp_verified
         ) {
-            navigate("/choose-plan");
+            // navigate("/choose-plan");
+            localStorage.setItem(
+                'userToken',
+                JSON.stringify({ token: token?.token })
+            );
+            localStorage.removeItem('regToken');
+            navigate("/dashboard");
             setOpenLoginModal(false);
             setOpenRegisterModal(false);
         }
