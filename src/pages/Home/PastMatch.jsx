@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFixtures, getPastFixtures } from "../../reducers/PredictionsSlice";
+import { getPastFixtures } from "../../reducers/PredictionsSlice";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
-import { Spinner } from "flowbite-react";
+// import { Spinner } from "flowbite-react";
 import PastMatchModal from "./PastMatchModal";
 import {logoIcon} from "../../assets/images/images";
 
@@ -14,7 +14,7 @@ export const PastMatch = () => {
   console.log("y", Items);
 
   const today = new Date();
-  const todayFormatted = today.toISOString().split("T")[0];
+  // const todayFormatted = today.toISOString().split("T")[0];
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   const yesterdayFormatted = yesterday.toISOString().split("T")[0];

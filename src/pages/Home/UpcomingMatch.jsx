@@ -8,9 +8,10 @@ import { logoIcon } from "../../assets/images/images";
 
 export const UpcomingMatch = () => {
   const { fixtures } = useSelector((state) => state.prediction);
+  const [apiCalled,setApiCalled] = useState(false)
 
   const Item = fixtures?.data?.filter(item => {
-
+    
     const fixtureDate = new Date(item?.fixture?.date);
     const currentUTCTime = new Date().toISOString();
     

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import {
-  DeportivoPastoIcon,
-  EnvigadoIcon,
-  logoIcon,
-  reventNews01,
-  teamIcon01,
-} from "../../assets/images/images";
-import { Link } from "react-router-dom";
+import  { useEffect } from "react";
+// import {
+//   DeportivoPastoIcon,
+//   EnvigadoIcon,
+//   logoIcon,
+//   reventNews01,
+//   teamIcon01,
+// } from "../../assets/images/images";
+// import { Link } from "react-router-dom";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { FaEye, FaInfoCircle } from "react-icons/fa";
-import { TiTick } from "react-icons/ti";
+import { FaInfoCircle } from "react-icons/fa";
+// import { TiTick } from "react-icons/ti";
 import { PiArrowDownRightLight, PiArrowUpRightLight } from "react-icons/pi";
 import { BsLightningCharge } from "react-icons/bs";
 import { PastMatch } from "./PastMatch";
@@ -33,17 +33,17 @@ const SoccerPrediction = () => {
 
   const dispatch = useDispatch()
 
-  const [loadingData, setLoadingData] = useState(false);
-  const [homeLoader, setHomeLoader] = useState(true);
+  // const [loadingData, setLoadingData] = useState(false);
+  // const [homeLoader, setHomeLoader] = useState(true);
 
   useEffect(() =>{
    dispatch(getDeshStatistics({})).then((res) =>{
     if (res?.payload?.status === true) {
-      setLoadingData(true);
-      setHomeLoader(false);
+      // setLoadingData(true);
+      // setHomeLoader(false);
     } else {
-      setLoadingData(false);
-      setHomeLoader(true);
+      // setLoadingData(false);
+      // setHomeLoader(true);
     }
    })
    
