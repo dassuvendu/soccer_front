@@ -144,7 +144,7 @@ return { days, hours, minutes, seconds};
         }
       })
     }
-    if (diff < 11) {
+    if (diff <= 11) {
       setcolor(true)
     }
   }, [diff, todayFormatted, apiCalled, dispatch]);

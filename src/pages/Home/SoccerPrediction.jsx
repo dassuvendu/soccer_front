@@ -58,7 +58,7 @@ const SoccerPrediction = () => {
               Lifetime Statistics
             </h2>
             <p className="text-center text-white pb-8">
-              Football lovers all around the world use Soccersm to generate
+              Football lovers all around the world use PlayCope to generate
               prediction for games they love
             </p>
             <div className="mb-16">
