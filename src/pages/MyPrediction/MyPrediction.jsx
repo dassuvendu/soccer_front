@@ -184,26 +184,29 @@ const MyPrediction = () => {
     );
   };
   const [hide, setHide] = useState(true);
+  useEffect(() => {
+    if (
+      Array.isArray(fetchedPredictions?.data) &&
+      fetchedPredictions?.data?.length > 9
+    ) {
+      setHide(true);
+    } else if (
+      Array.isArray(fetchedPredictions?.data) &&
+      fetchedPredictions?.data?.length < 10
+    ) {
+      setHide(false);
+    } else {
+      setHide(false);
+    }
+  }, [fetchedPredictions]);
+
   // useEffect(() => {
-  //   if (Array.isArray(fetchedPredictions) && fetchedPredictions.length > 9) {
+  //   if (isLoading === true) {
   //     setHide(true);
-  //   } else if (
-  //     Array.isArray(fetchedPredictions) &&
-  //     fetchedPredictions.length < 9
-  //   ) {
-  //     setHide(false);
   //   } else {
   //     setHide(false);
   //   }
-  // }, [fetchedPredictions]);
-
-  useEffect(() => {
-    if (isLoading === true) {
-      setHide(true)
-    }else{
-      setHide(false)
-    }
-  },[isLoading])
+  // }, [isLoading]);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -2493,7 +2496,7 @@ const MyPrediction = () => {
         </div>
         {/* My Prediction section ends here */}
         {/* Pagination section start here */}
-       {!hide &&
+        {hide && (
           <div className="md:flex justify-between items-center mt-8">
             <div className="mb-2 md:mb-0 text-center">
               <p
@@ -2576,7 +2579,6 @@ const MyPrediction = () => {
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                         disabled={currentPage === totalPages}
                       >
-
                         <BsChevronDoubleRight />
                       </Button>
                     </li>
@@ -2607,7 +2609,7 @@ const MyPrediction = () => {
               </div>
             </div>
           </div>
-}
+        )}
         {/* Pagination section ends here */}
       </div>
       <PredictionRequestModal

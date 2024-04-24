@@ -40,18 +40,14 @@ export const PredictionFormatation = ({ homeid, awayid }) => {
               Custom formation
             </h3> */}
                   {/* <div className="max-w-xl mx-auto my-4 flex">
-              <TextInput
-                id="text"
-                type="text"
-                className="mr-2 w-full"
-              />
-              <button
-                className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
-                type="submit"
-              >
-                Apply
-              </button>
-            </div> */}
+                    <TextInput id="text" type="text" className="mr-2 w-full" />
+                    <button
+                      className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
+                      type="submit"
+                    >
+                      Apply
+                    </button>
+                  </div> */}
                   <div className="max-w-3xl mx-auto my-8">
                     <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
                       <div className="text-center flex items-center">

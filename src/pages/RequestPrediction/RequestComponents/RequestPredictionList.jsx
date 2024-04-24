@@ -87,9 +87,9 @@ const RequestPredictionList = ({ errorMessage }) => {
     setCurrentPage(pageNumber);
   };
 
-  useEffect(()=>{
-    console.log('currentPage=>', currentPage)
-  },[currentPage])
+  useEffect(() => {
+    console.log("currentPage=>", currentPage);
+  }, [currentPage]);
 
   const GotoPagehandle = (e) => {
     const newPageNumber = parseInt(e.target.value);
@@ -135,14 +135,14 @@ const RequestPredictionList = ({ errorMessage }) => {
     return date.toLocaleDateString("en-US", options);
   };
   useEffect(() => {
-    if (Array.isArray(currentItems) && currentItems.length > 8) {
+    if (Array.isArray(fixtures?.data) && fixtures?.data?.length > 6) {
       setHide(true);
-    } else if (Array.isArray(currentItems) && currentItems.length < 8) {
+    } else if (Array.isArray(fixtures?.data) && fixtures?.data?.length < 7) {
       setHide(false);
     } else {
       setHide(false);
     }
-  }, [currentItems]);
+  }, [fixtures]);
   useEffect(() => {
     if (isLoading === true) {
       setPageHide(false);
@@ -363,24 +363,26 @@ const RequestPredictionList = ({ errorMessage }) => {
               <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
                   <li>
-                    <Link
+                    <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
                       flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => paginate(1)}
+                      disabled={currentPage === 1}
                     >
                       <BsChevronDoubleLeft />
-                    </Link>
+                    </Button>
                   </li>
 
                   <li>
-                    <Link
+                    <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() =>
                         handlePageChange(Math.max(currentPage - 1, 1))
                       }
+                      disabled={currentPage === 1}
                     >
                       <BsChevronLeft />
-                    </Link>
+                    </Button>
                   </li>
 
                   {hide &&
@@ -389,7 +391,11 @@ const RequestPredictionList = ({ errorMessage }) => {
                         <Link
                           className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]
-                        ${currentPage === pageNumber ? "bg-[#0053CD]" : "bg-black"}`}
+                        ${
+                          currentPage === pageNumber
+                            ? "bg-[#0053CD]"
+                            : "bg-black"
+                        }`}
                           onClick={() => handlePageChange(pageNumber)}
                         >
                           {pageNumber}
@@ -406,7 +412,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                         items-center rounded-full text-[12px] text-white"
                         color="#0053CD"
                         onClick={() => setCurrentPage(currentPage + 1)}
-                        disabled={!hide}
+                        disabled={currentPage === totalPages}
                       >
                         <BsChevronRight />
                       </Button>
@@ -417,8 +423,8 @@ const RequestPredictionList = ({ errorMessage }) => {
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] active:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => setCurrentPage(totalPages)}
-                      disabled={!hide}
                       color="#0053CD"
+                      disabled={currentPage === totalPages}
                     >
                       <BsChevronDoubleRight />
                     </Button>

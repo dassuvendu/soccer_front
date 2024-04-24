@@ -13,7 +13,7 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
   const { teamResult, predict, h2h } = useSelector((state) => state.prediction);
   console.log(teamResult);
 
-  const matches = h2h.slice(0,6)
+  const matches = h2h.slice(0, 6);
   // console.log("mat",matches);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -84,10 +84,9 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
 
   return (
     <div>
-
       {isLoading === true && check === false && (
         <>
-        <div className="text-center">
+          <div className="text-center">
             <div role="status">
               <img src={logoIcon} alt="loading.." className="loader" />
               {/* <svg
@@ -109,8 +108,7 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
               <span className="sr-only">Loading...</span>
             </div>
           </div>
-       
-       </>
+        </>
       )}
 
       {check && (
@@ -169,7 +167,9 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
                     <div className="text-center">
                       <div className="bg-[#2aa9e1] py-2 rounded-full mb-4">
                         <h3 className="text-black text-base">
-                        {percentage[index] !== null ? (percentage[index]):('N/A')}
+                          {percentage[index] !== null
+                            ? percentage[index]
+                            : "N/A"}
                         </h3>
                       </div>
                     </div>
@@ -183,11 +183,11 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
                 ))}
               </div>
             </div>
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <button className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
                 Add to Pridiction slip
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
