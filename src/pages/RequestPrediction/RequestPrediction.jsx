@@ -31,9 +31,9 @@ const RequestPrediction = () => {
             </p>
           </div>
         </div>
-        <div className="lg:flex justify-between items-center mb-6 w:6/12">
+        <div className="lg:flex justify-between items-center mb-6 w:full">
           <SearchCompo onError={handleError} />
-          <Prediction />
+          {/* <Prediction /> */}
         </div>
       </div>
 

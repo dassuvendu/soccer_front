@@ -333,7 +333,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       )}
 
       {/* pagination start */}
-      {!error && pageHide && (
+      {!error && hide && (
         <div className="md:flex justify-between mt-8">
           <div className="mb-2 md:mb-0 text-center">
             {isDataFound ? (

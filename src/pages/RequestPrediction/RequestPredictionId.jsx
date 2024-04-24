@@ -46,7 +46,7 @@ const RequestPredictionId = () => {
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
           <SearchCompoId onError={handleError} rid={rid}  setSendData={setSendData}/>
-          <Prediction />
+          {/* <Prediction /> */}
         </div>
       </div>
 

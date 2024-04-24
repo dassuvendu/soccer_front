@@ -120,37 +120,50 @@ const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0');
 
 return { days, hours, minutes, seconds};
   }
-  const [apiCalled, setApiCalled] = useState(false);
-  const [color,  setcolor] = useState(false);
+  // const [apiCalled, setApiCalled] = useState(false);
+  const [color,  setColor] = useState(false);
+  // useEffect(() => {
+  //   let timeoutId;
+
+  //   if (matchStarted && diff < 0) {
+  //     timeoutId = setTimeout(() => {
+  //       setApiCalled(false);
+  //     }, 30000); //  1 minute
+  //   }
+
+  //   return () => clearTimeout(timeoutId);
+  // }, [matchStarted,todayFormatted,diff]);
+
   useEffect(() => {
-    let timeoutId;
+    let intervalId;
 
-    if (matchStarted && diff < 0) {
-      timeoutId = setTimeout(() => {
-        setApiCalled(false);
-      }, 1 * 60 * 1000); //  1 minute
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [matchStarted,todayFormatted,diff]);
-
-  useEffect(() => {
-    if (diff < 0 && !apiCalled) {
-      setMatchStarted(true);
-      setApiCalled(true);
-      dispatch(getFixtures({ date: todayFormatted })).then((res) =>{
+    // Function to fetch fixtures
+    const fetchFixtures = () => {
+      dispatch(getFixtures({ date: todayFormatted })).then((res) => {
         if (res?.payload?.status === true) {
           setMatchStarted(false);
         }
-      })
+      });
+    };
+
+    // Start interval if diff < 0
+    if (diff < 0) {
+      setMatchStarted(true);
+      intervalId = setInterval(fetchFixtures, 30000);
     }
-   
+
+    // Set color based on diff
     if (diff <= 10000) {
-      setcolor(true)
-    }else{
-      setcolor(false)
+      setColor(true);
+    } else {
+      setColor(false);
     }
-  }, [diff, todayFormatted, apiCalled, dispatch]);
+
+    // Clean up function to clear interval
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [diff, todayFormatted, dispatch]);
 
   useEffect(() => {
     dispatch(getFixtures({ date: todayFormatted }))
@@ -164,7 +177,7 @@ return { days, hours, minutes, seconds};
             <img src={nxtMatch?.teams?.home?.logo} width={100} alt={ nxtMatch?.teams?.home?.name}/>
             <div className="ml-2 text-right">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-              { nxtMatch?.teams?.home?.name}
+              { nxtMatch?.teams?.home?.name.slice(0,16)}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
               { nxtMatch?.league?.name}
@@ -173,7 +186,7 @@ return { days, hours, minutes, seconds};
           </div>
           {matchStarted ? (
         <div>
-          <h1 className="p-5 text-lg text-[red] text-900 m-2">Match is live!</h1>
+          <h1 className="p-5 text-lg text-[red] text-[15px] leading-[15px] font-medium m-2">Match is live!</h1>
         
         </div>
       ):  (
@@ -241,7 +254,7 @@ return { days, hours, minutes, seconds};
           <div className="flex items-center justify-center">
             <div className="mr-2 text-left">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-              {nxtMatch?.teams?.away?.name}
+              {nxtMatch?.teams?.away?.name.slice(0,16)}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
               {nxtMatch?.league?.name}
