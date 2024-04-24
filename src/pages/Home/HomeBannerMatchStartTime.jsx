@@ -215,9 +215,8 @@ return { days, hours, minutes, seconds};
               <li className="text-center mx-2">
                 <div className="flex justify-center items-center">
                   {color ? 
-                  <span className="relative flex h-8 w-9 bg-[#282828] px-3 mt-13px pb-0 rounded-sm">
-                  <span className=" mr-0.5 font-Bebas font-medium tracking-normal 
-                  animate-ping rounded-t-sm text-[red] text-[16px] leading-[15px] ">
+                  <span className="relative flex  bg-[#282828] rounded-sm">
+                  <span className=" animate-pulse mr-0.5 font-Bebas font-medium tracking-normal rounded-t-sm text-[yellow] text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
                   {countdown.seconds}
                   </span>
                 </span>
