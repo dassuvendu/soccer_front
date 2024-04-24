@@ -267,7 +267,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
 
       {/*  select season */}
 
-      <div className="mb-4 md:mb-0 w-3/3">
+      <div className="mb-4 md:mb-0 w-3/12">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
