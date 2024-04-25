@@ -136,7 +136,7 @@ return { days, hours, minutes, seconds};
 
   useEffect(() => {
     let intervalId;
-
+  
     // Function to fetch fixtures
     const fetchFixtures = () => {
       dispatch(getFixtures({ date: todayFormatted })).then((res) => {
@@ -145,25 +145,33 @@ return { days, hours, minutes, seconds};
         }
       });
     };
-
+  
+    // Function to reset countdown and fetch fixtures
+    const resetCountdown = () => {
+      setDiff(30000); // Set diff to 30 seconds
+      fetchFixtures(); // Fetch fixtures immediately
+      intervalId = setInterval(fetchFixtures, 30000); // Start interval
+    };
+  
     // Start interval if diff < 0
-    if (diff < 0) {
+    if (diff <= 0) {
       setMatchStarted(true);
-      intervalId = setInterval(fetchFixtures, 30000);
-    }
-
-    // Set color based on diff
-    if (diff <= 10000) {
-      setColor(true);
+      resetCountdown();
     } else {
-      setColor(false);
+      // Start countdown if diff > 0
+      intervalId = setInterval(() => {
+        setDiff((prevDiff) => prevDiff - 1000); // Decrease diff every second
+      }, 1000);
     }
-
+  
+    // Set color based on diff
+    setColor(diff <= 10000);
+  
     // Clean up function to clear interval
     return () => {
       clearInterval(intervalId);
     };
-  }, [diff, todayFormatted, dispatch]);
+  }, [diff, todayFormatted, dispatch, setDiff, setMatchStarted]);
 
   useEffect(() => {
     dispatch(getFixtures({ date: todayFormatted }))
