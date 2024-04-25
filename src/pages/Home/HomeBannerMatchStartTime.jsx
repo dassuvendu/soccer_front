@@ -177,7 +177,7 @@ return { days, hours, minutes, seconds};
             <img src={nxtMatch?.teams?.home?.logo} width={100} alt={ nxtMatch?.teams?.home?.name}/>
             <div className="ml-2 text-right">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-              { nxtMatch?.teams?.home?.name.slice(0,16)}
+              { nxtMatch?.teams?.home?.name}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
               { nxtMatch?.league?.name}
@@ -254,7 +254,7 @@ return { days, hours, minutes, seconds};
           <div className="flex items-center justify-center">
             <div className="mr-2 text-left">
               <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-              {nxtMatch?.teams?.away?.name.slice(0,16)}
+              {nxtMatch?.teams?.away?.name}
               </h2>
               <p className="text-[#9c9da1] text-[12px] italic">
               {nxtMatch?.league?.name}
