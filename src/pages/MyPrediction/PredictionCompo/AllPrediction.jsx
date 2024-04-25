@@ -106,13 +106,11 @@ export const AllPrediction = ({themeMode,token}) => {
 
       useEffect(() => {
         if (
-          Array.isArray(fetchedPredictions?.data) &&
-          fetchedPredictions?.data?.length > 9
+          fetchedPredictions?.total_data > 10
         ) {
           setHide(true);
         } else if (
-          Array.isArray(fetchedPredictions?.data) &&
-          fetchedPredictions?.data?.length < 10
+            fetchedPredictions?.total_data < 10
         ) {
           setHide(false);
         } else {

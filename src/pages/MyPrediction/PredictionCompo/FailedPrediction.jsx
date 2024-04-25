@@ -128,16 +128,14 @@ export const FailedPrediction = ({ themeMode, token }) => {
 
   useEffect(() => {
     if (
-      Array.isArray(predic) &&
-      predic?.length > 9
-    ) {
-      setHide(true);
-    } else if (
-      Array.isArray(predic) &&
-      predic?.length < 10
-    ) {
-      setHide(false);
-    } else {
+        fetchedPredictions?.total_data > 10
+      ) {
+        setHide(true);
+      } else if (
+          fetchedPredictions?.total_data < 10
+      ) {
+        setHide(false);
+      } else {
       setHide(false);
     }
   }, [predic]);

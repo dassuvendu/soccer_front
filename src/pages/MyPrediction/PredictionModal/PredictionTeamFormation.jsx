@@ -8,10 +8,11 @@ import { TextInput } from "flowbite-react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import SoccerLineUp from "react-soccer-lineup";
 
-const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
+const TeamFormation = ({ Hplayers, Aplayers }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const HTeam = useHTeamFormationhook();
   const ATeam = useATeamFormationhook();
+
   const [hgkName, setHGkName] = useState("");
   const [hgkNum, setHGkNum] = useState("");
   const [agkName, setAGkName] = useState("");
@@ -47,28 +48,10 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
     <div>
       <div className="max-w-5xl mx-auto">
         <Tabs className="team_comparisions_tab_section">
-          {/* <TabList className="tab_bar mt-6">
-                <Tab>4-3-3</Tab>
-                <Tab>5-3-2</Tab>
-                <Tab>4-2-3-1</Tab>
-                <Tab>4-4-2</Tab>
-                <Tab>3-3-3-1</Tab>
-                <Tab>3-2-4-1</Tab>
-              </TabList> */}
+          
           <TabPanel>
             <div className="py-4">
-              {/* <h3 class="text-[#2aa9e1] text-[18px] leading-[24px] font-medium text-center">
-                Custom formation
-              </h3> */}
-              {/* <div className="max-w-xl mx-auto my-4 flex">
-                <TextInput id="text" type="text" className="mr-2 w-full" />
-                <button
-                  className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[40px] h-[40px] font-bold rounded-3xl flex items-center font-Syne"
-                  type="submit"
-                >
-                  Apply
-                </button>
-              </div> */}
+              
               <div className="max-w-3xl mx-auto my-8">
                 <div className="border-y border-gray-300 py-3 px-4 flex justify-between items-center">
                   {Hplayers?.map((data) => {
@@ -77,7 +60,7 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
                         <div className="text-center flex items-center">
                           <img
                             src={data?.team?.logo}
-                            alt={data?.team?.name}
+                            alt={data?.team?.name?.slice(0,11)}
                             className="inline-block mr-2 w-12"
                           />
                           <p
@@ -87,7 +70,7 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
                                 : "text-white"
                             }`}
                           >
-                            {data?.team?.name}
+                            {data?.team?.name?.slice(0,14)}
                           </p>
                         </div>
                         <p
@@ -101,8 +84,7 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
                     );
                   })}
 
-                  {Aplayers?.map((data) => {
-                    return (
+                  {/* {Aplayers?.map((data) => 
                       <>
                         <div className="text-center flex items-center">
                           <img
@@ -117,7 +99,7 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
                                 : "text-white"
                             }`}
                           >
-                            {data?.team?.name}
+                            {data?.team?.name?.slice(0,14)}
                           </p>
                         </div>
                         <p
@@ -128,8 +110,7 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
                           {data?.formation}
                         </p>
                       </>
-                    );
-                  })}
+                  )} */}
                 </div>
                 <div className="my-4 flex justify-center items-center">
                   <SoccerLineUp
@@ -203,4 +184,4 @@ const PredictionTeamFormation = ({ Hplayers, Aplayers }) => {
     </div>
   );
 };
-export default PredictionTeamFormation;
+export default TeamFormation;

@@ -88,7 +88,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                                 : "text-white"
                             }`}
                           >
-                            {data?.team?.name}
+                            {data?.team?.name?.slice(0,14)}
                           </p>
                         </div>
                         <p
@@ -118,7 +118,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                                 : "text-white"
                             }`}
                           >
-                            {data?.team?.name}
+                            {data?.team?.name?.slice(0,14)}
                           </p>
                         </div>
                         <p

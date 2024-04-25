@@ -43,6 +43,19 @@ const DropdownUser = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+  // const user = sessionStorage.getItem('userLimit')
+  // console.log("user",  user);
+  
+  useEffect(() => {
+    const userLimit = sessionStorage.getItem('userLimit');
+    // Check if user limit is greater than 2
+    if (userLimit && parseInt(userLimit)> 1) {
+      // Logout and navigate to home page
+      dispatch(logout());
+      navigate('/');
+    }
+  }, []);
+  
 
   const handleLogout = () => {
     dispatch(logout());

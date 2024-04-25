@@ -48,7 +48,7 @@ export const Recently = ({themeMode,token}) => {
         }
        
       },[currentPage,itemsPerPage,token])
-      
+
       const handlePageChange = (page) => {
         // console.log("rc",page);
         setCurrentPage(page);
@@ -113,14 +113,12 @@ export const Recently = ({themeMode,token}) => {
       };
 
       useEffect(() => {
-        if (
-          Array.isArray(recent?.data) &&
-          recent?.data?.length > 9
+         if (
+            recent?.total_data > 10
         ) {
           setHide(true);
         } else if (
-          Array.isArray(recent?.data) &&
-          recent?.data?.length < 10
+            recent?.total_data < 10
         ) {
           setHide(false);
         } else {
