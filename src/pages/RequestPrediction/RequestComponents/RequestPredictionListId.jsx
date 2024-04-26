@@ -21,7 +21,7 @@ const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
     // console.log("Td2",sendData);
     const { seasons } = useSelector((state) => state.prediction);
     const seasonCopy=[...seasons]
-     const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
+    //  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
 
@@ -60,12 +60,10 @@ const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
 
 
 
-const today = new Date();
-today.setFullYear(today.getFullYear());
-const todayFormatted = today.toISOString().split("T")[0];
-console.log("Td",todayFormatted);
-const Year = todayFormatted.toString().split('-')[0]
-
+  const today = new Date();
+  const year = today.getFullYear();
+  const prevYear = year - 1
+  const changeDateformate = today.toISOString().split("T")[0];
 
   const dispatch = useDispatch();
 
@@ -95,37 +93,28 @@ const Year = todayFormatted.toString().split('-')[0]
     // } 
     dispatch(getleagueByid({league : rid}))
       
-    if (sendData) {
-      const leaugeId = parseInt(rid)
-      dispatch(getFixtures({date : sendData,league: leaugeId, season:sortedSeasons[0]?.year})).then((res) => {
-        if (res?.payload?.status === true) {
-          setLoadingData(false);
-         
-          setError(false);
-        }
-        else {
-          setLoadingData(false);
-        
-          setError(true);
-        }
-      });
-    }else
-     {const leaugeId = parseInt(rid)
-      dispatch(getFixtures({date : todayFormatted,league: leaugeId, season:sortedSeasons[0]?.year})).then((res) => {
-        if (res?.payload?.status === true) {
-          setLoadingData(false);
-          
-          setError(false);
-        }
-        else {
-          setLoadingData(false);
-          
-          setError(true);
-        }
-      });
-    }
+    dispatch(
+      getFixtures({
+        date: changeDateformate,
+      league: rid, // If league is selected, use its value
+        season: year,
+       })
+      ).then((response) => {
+     if (
+       response?.payload?.message ===
+         "Something went wrong. Please try again later"
+      ) dispatch(
+        getFixtures({
+          date: changeDateformate,
+        league: rid, // If league is selected, use its value
+          season: prevYear,
+         })
+        ).then(() => {
+          setLoadingData(false)
+        })
+    });
     
-  }, [dispatch,rid,Year,todayFormatted,season,sendData]);
+  }, [dispatch,rid,year,changeDateformate,prevYear]);
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);

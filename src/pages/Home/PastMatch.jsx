@@ -10,7 +10,7 @@ import {logoIcon} from "../../assets/images/images";
 export const PastMatch = () => {
   const { pastFix  } = useSelector((state) => state.prediction);
 
-  const Items = pastFix ?.data?.slice(0, 6);
+  const Items = Array.isArray(pastFix ?.data) && pastFix ?.data?.slice(0, 6);
   console.log("y", Items);
 
   const today = new Date();

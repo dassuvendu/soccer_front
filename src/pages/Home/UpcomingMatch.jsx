@@ -10,7 +10,7 @@ export const UpcomingMatch = () => {
   const { fixtures } = useSelector((state) => state.prediction);
   const [apiCalled,setApiCalled] = useState(false)
 
-  const Item = fixtures?.data?.filter(item => {
+  const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
     
     const fixtureDate = new Date(item?.fixture?.date);
     const currentUTCTime = new Date().toISOString();

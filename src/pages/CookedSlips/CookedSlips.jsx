@@ -21,6 +21,7 @@ import {
   Dropdown,
   Spinner,
   Modal,
+  Button,
 } from "flowbite-react";
 import { CiUnlock } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
@@ -157,6 +158,15 @@ const CookedSlips = () => {
     };
     return date.toLocaleTimeString(undefined, options);
   };
+  useEffect(() => {
+    if (Array.isArray(oddsData) && oddsData?.length > 5) {
+      setHide(true);
+    } else if (Array.isArray(oddsData) && oddsData?.length < 6) {
+      setHide(false);
+    } else {
+      setHide(false);
+    }
+  }, [oddsData]);
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -421,7 +431,7 @@ const CookedSlips = () => {
             </Modal.Body>
           </Modal>
         )}
-        {!error && (
+        {!error && hide && (
           <div className="md:flex justify-between mt-8">
             <div className="mb-2 md:mb-0 text-center">
               <p
@@ -438,29 +448,31 @@ const CookedSlips = () => {
               <div className="md:flex justify-between items-center">
                 <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                   <ul className="flex">
-                    <li>
-                      <Link
+                    <li className='page'>
+                      <Button
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                         onClick={() => paginate(1)}
+                        disabled={currentPage === 1}
                       >
                         <BsChevronDoubleLeft />
-                      </Link>
+                      </Button>
                     </li>
-                    {currentPage !== 1 && (
-                      <li>
-                        <Link
+                    
+                      <li className='page'>
+                        <Button
                           className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]`}
                           onClick={() =>
                             handlePageChange(Math.max(currentPage - 1, 1))
                           }
+                          disabled={currentPage === 1}
                         >
                           <BsChevronLeft />
-                        </Link>
+                        </Button>
                       </li>
-                    )}
+                    
 
                     {pageNumbers.slice(0, 5).map((pageNumber) => (
-                      <li key={pageNumber}>
+                      <li key={pageNumber} className='page'>
                         <Link
                           className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
@@ -473,24 +485,26 @@ const CookedSlips = () => {
                         </Link>
                       </li>
                     ))}
-                    {currentPage !== totalPages && (
-                      <li>
-                        <Link
+                    
+                      <li className='page'>
+                        <Button
                           className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                           onClick={() => setCurrentPage(currentPage + 1)}
+                          disabled={currentPage === totalPages}
                         >
                           <BsChevronRight />
-                        </Link>
+                        </Button>
                       </li>
-                    )}
+                
 
-                    <li>
-                      <Link
+                    <li className='page'>
+                      <Button
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                         onClick={() => setCurrentPage(totalPages)}
+                        disabled={currentPage === totalPages}
                       >
                         <BsChevronDoubleRight />
-                      </Link>
+                      </Button>
                     </li>
                   </ul>
                 </div>

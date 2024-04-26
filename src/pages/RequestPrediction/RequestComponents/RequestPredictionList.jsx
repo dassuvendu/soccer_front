@@ -217,7 +217,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                                   : "text-white"
                               }`}
                             >
-                              {dat?.teams?.home?.name}
+                              {dat?.teams?.home?.name?.slice(0,16)}
                             </p>
                           </div>
                           <div className="flex justify-center items-center">
@@ -264,7 +264,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                                   : "text-white"
                               }`}
                             >
-                              {dat?.teams?.away?.name}
+                              {dat?.teams?.away?.name?.slice(0,16)}
                             </p>
                           </div>
                         </div>
@@ -362,7 +362,7 @@ const RequestPredictionList = ({ errorMessage }) => {
             <div className="md:flex justify-between items-center">
               <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
-                  <li>
+                  <li className='page'>
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
                       flex justify-center items-center rounded-full text-[12px] text-white"
@@ -373,7 +373,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                     </Button>
                   </li>
 
-                  <li>
+                  <li className='page'>
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() =>
@@ -383,11 +383,11 @@ const RequestPredictionList = ({ errorMessage }) => {
                     >
                       <BsChevronLeft />
                     </Button>
-                  </li>
+                  </li >
 
                   {hide &&
                     pageNumbers.slice(0, 5).map((pageNumber) => (
-                      <li key={pageNumber}>
+                      <li key={pageNumber} className='page'>
                         <Link
                           className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]
@@ -404,7 +404,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                       </li>
                     ))}
 
-                  <li>
+                  <li className='page'>
                     {isDataFound && (
                       <Button
                         className="mr-1 w-[32px] h-[32px] bg-black 
@@ -419,7 +419,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                     )}
                   </li>
 
-                  <li>
+                  <li className='page'>
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] active:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => setCurrentPage(totalPages)}

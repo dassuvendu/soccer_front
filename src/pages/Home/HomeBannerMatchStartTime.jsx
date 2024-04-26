@@ -46,7 +46,7 @@ const HomeBannerMatchStartTime = () => {
     if (ongoingMatch) {
         
         // Filter out the next match
-        const Item = fixtures?.data?.filter(item => {
+        const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
     
           const fixtureDate = new Date(item?.fixture?.date);
           const currentUTCTime = new Date().toISOString();
@@ -65,7 +65,7 @@ const HomeBannerMatchStartTime = () => {
      
     } else {
       // If no match is ongoing, find the next match
-      const Item = fixtures?.data?.filter(item => {
+      const Item =  Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
     
         const fixtureDate = new Date(item?.fixture?.date);
         const currentUTCTime = new Date().toISOString();

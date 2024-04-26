@@ -27,9 +27,23 @@ export const CorrectScores = ({ isfixturesId }) => {
 
   const [averageGoal, setAverageGoals] = useState(null);
   const [averagePercentage, setAveragePercentage] = useState(null);
-
+   
   const probabilities = useProbability({ averageGoal });
+const homeGoal= h2h?.map(item=>item?.goals?.home)
+console.log("Home Goals: ",homeGoal);
+const awayGoal= h2h?.map(item=>item?.goals?.away)
+console.log("Away Goals: ",awayGoal);
 
+const totalHomeGoals = homeGoal.reduce((acc, cur) => acc + cur, 0);
+console.log('totalHomeGoals', totalHomeGoals)
+const totalAwayGoals = awayGoal.reduce((acc, cur) => acc + cur, 0);
+console.log('totalAwayGoals', totalAwayGoals)
+
+const avgHomeGoals = totalHomeGoals / homeGoal.length;
+const avgAwayGoals = totalAwayGoals / awayGoal.length;
+
+console.log("Average Home Goals: ", avgHomeGoals);
+console.log("Average Away Goals: ", avgAwayGoals);
   useEffect(() => {
     if (teamResult?.home?.league?.goals?.for) {
       console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
@@ -77,6 +91,18 @@ export const CorrectScores = ({ isfixturesId }) => {
     }
   }, [teamResult, winnerTeamId, hLogohide, aLogohide]);
 
+  function roundToInteger(value) {
+    // Check if value is greater than or equal to 1
+    if (value >= 1) {
+        return Math.floor(value); // Round down to the nearest integer
+    } else {
+        // Check if value has more than 7 decimal places
+        const roundedValue = Number(value.toFixed(7));
+        // Check if rounded value is integer or not
+        return roundedValue === Math.trunc(roundedValue) ? Math.trunc(roundedValue) : Math.round(roundedValue);
+    }
+}
+
   return (
     <div>
       {isUnlock === false && check === false && isLoading === false ? (
@@ -84,7 +110,7 @@ export const CorrectScores = ({ isfixturesId }) => {
           <div className="flex justify-center mt-10">
             <button
               type="button"
-              class="text-white bg-blue-700 
+              className="text-white bg-blue-700 
 hover:bg-blue-800 font-medium 
 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
               onClick={handleClick}
@@ -151,7 +177,8 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
               <div className="grid grid-cols-3 gap-4 border-b border-gray-300 py-3">
                 <div className="text-center">
                   <h3 className="text-black text-base">
-                    {teamResult?.home?.last_5?.goals?.for?.average}
+                    {/* {Math.round(avgHomeGoals)} */}
+                    { roundToInteger(avgHomeGoals)}
                   </h3>
                 </div>
 
@@ -163,7 +190,8 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
 
                 <div className="text-center">
                   <h3 className="text-black text-base">
-                    {teamResult?.away?.last_5?.goals?.for?.average}
+                    {/* {Math.round(avgAwayGoals)} */}
+                    { roundToInteger(avgAwayGoals)}
                   </h3>
                 </div>
               </div>
@@ -173,7 +201,7 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
                   Correct Scores
                 </h4>
                 {h2h?.map((goal, index) => (
-                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                  <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={index}>
                     <div className="text-center">
                       <h3 className="text-black text-base">
                         {goal?.goals?.home}

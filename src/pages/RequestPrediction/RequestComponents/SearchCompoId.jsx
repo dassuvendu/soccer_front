@@ -34,29 +34,42 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
     // console.log(e);
     // setLoading(true);
     const year = e.getFullYear();
+    const prevYear = year - 1
   const month = String(e.getMonth() + 1).padStart(2, "0");
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
   setDate(newDate);
   setSendData(newDate)
   setCurrentYear(year)
-  if (rid && cseason) {
+  
+  if (rid && year && prevYear) {
     const leagueId = parseInt(rid)
     dispatch(
       getFixtures({
         date: newDate,
       league: parseInt(leagueId), // If league is selected, use its value
-        season: parseInt(cseason),
+        season: year,
        })
       ).then((response) => {
      if (
        response?.payload?.message ===
          "Something went wrong. Please try again later"
-      ) {
-       onError(400);
-      } else {
-         onError(null);
-       }
+      ) dispatch(
+        getFixtures({
+          date: changeDateformate,
+        league: parseInt(leagueId), // If league is selected, use its value
+          season: prevYear,
+         })
+        ).then((response) =>{
+          if (
+            response?.payload?.message ===
+              "Something went wrong. Please try again later"
+           ){
+              onError(400);
+           }else {
+            onError(null);
+          }
+        })
     });
   }else{
     null
@@ -177,45 +190,45 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
   //   // }
   // },[date,currentYear,rid])
 
-  const searchHandle = (value) =>{
-    console.log("val",value.target.value);
-    setCSeason(value.target.value)
-    if (date) {
-      dispatch(
-        getFixtures({
-          date: date,
-        league: parseInt(rid), // If league is selected, use its value
-          season: parseInt(value.target.value),
-         })
-        ).then((response) => {
-       if (
-         response?.payload?.message ===
-           "Something went wrong. Please try again later"
-        ) {
-         onError(400);
-        } else {
-           onError(null);
-         }
-      });
-    }else{
-      dispatch(
-        getFixtures({
-          date: changeDateformate,
-        league: parseInt(rid), // If league is selected, use its value
-          season: parseInt(value.target.value),
-         })
-        ).then((response) => {
-       if (
-         response?.payload?.message ===
-           "Something went wrong. Please try again later"
-        ) {
-         onError(400);
-        } else {
-           onError(null);
-         }
-      });
-    }
-   }
+  // const searchHandle = (value) =>{
+  //   console.log("val",value.target.value);
+  //   setCSeason(value.target.value)
+  //   if (date) {
+  //     dispatch(
+  //       getFixtures({
+  //         date: date,
+  //       league: parseInt(rid), // If league is selected, use its value
+  //         season: parseInt(value.target.value),
+  //        })
+  //       ).then((response) => {
+  //      if (
+  //        response?.payload?.message ===
+  //          "Something went wrong. Please try again later"
+  //       ) {
+  //        onError(400);
+  //       } else {
+  //          onError(null);
+  //        }
+  //     });
+  //   }else{
+  //     dispatch(
+  //       getFixtures({
+  //         date: changeDateformate,
+  //       league: parseInt(rid), // If league is selected, use its value
+  //         season: parseInt(value.target.value),
+  //        })
+  //       ).then((response) => {
+  //      if (
+  //        response?.payload?.message ===
+  //          "Something went wrong. Please try again later"
+  //       ) {
+  //        onError(400);
+  //       } else {
+  //          onError(null);
+  //        }
+  //     });
+  //   }
+  //  }
   
   return (
     <>
@@ -240,7 +253,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
 
       {/* season Select */}
 
-      <div className="mb-4 md:mb-0 w-2/2">
+      <div className="mb-4 md:mb-0 w-1/2">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -258,6 +271,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
           >
               <Select
                  options={options}
+                 isDisabled={rid}
                  value={options.filter(option => option.label.props.children[1].props.children === leagueName)} 
                  menuIsOpen={false}
               />
@@ -267,7 +281,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
 
       {/*  select season */}
 
-      <div className="mb-4 md:mb-0 w-3/12">
+      {/* <div className="mb-4 md:mb-0 w-3/12">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -301,7 +315,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

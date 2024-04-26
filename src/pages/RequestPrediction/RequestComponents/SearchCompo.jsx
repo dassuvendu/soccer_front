@@ -29,34 +29,52 @@ export const SearchCompo = ({ onError }) => {
   // console.log("cY", currentYear);
 
   const today = new Date();
-  // const year = today.getFullYear();
+  const year = today.getFullYear();
+  const prevYear = year - 1
+  // console.log("pY",prevYear);
   const changeDateformate = today.toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
     console.log("date",e);
     // setLoading(true);
-    const year = e.getFullYear();
+    // const year = e.getFullYear();
     const month = String(e.getMonth() + 1).padStart(2, "0");
     const day = String(e.getDate()).padStart(2, "0");
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
     // setCurrentYear(year);
-    if (isLeague && cseason) {
+    if (isLeague && year && prevYear) {
       dispatch(
         getFixtures({
           date: newDate,
         league: parseInt(isLeague.value), // If league is selected, use its value
-          season: parseInt(cseason),
+          season: year,
          })
         ).then((response) => {
        if (
          response?.payload?.message ===
            "Something went wrong. Please try again later"
         ) {
-         onError(400);
-        } else {
-           onError(null);
-         }
+          dispatch(
+            getFixtures({
+              date: newDate,
+            league: parseInt(isLeague.value), // If league is selected, use its value
+              season: prevYear,
+             })
+            ).then((response) =>{
+              if (
+                response?.payload?.message ===
+                  "Something went wrong. Please try again later"
+               ){
+                  onError(400);
+               }else {
+                onError(null);
+              }
+            })
+     
+        } else{
+          null
+        }
       });
     }else{
       null
@@ -83,10 +101,10 @@ export const SearchCompo = ({ onError }) => {
       dispatch(getFixturesByleague({})).then((res) => {
         console.log("res", res.payload.status);
         if (res?.payload?.status === true) {
-          setIsData(true);
+          
           setIsLoading(false);
         } else {
-          setIsData(false);
+          
           setIsLoading(true);
         }
       });
@@ -95,13 +113,38 @@ export const SearchCompo = ({ onError }) => {
 
   const handleLeagueChange = (selectedOption) => {
     setIsLeague(selectedOption);
-    const id = selectedOption.value
-    dispatch(getleagueByid({league : id})).then((res) => {
-      if (res?.payload?.status === true) {
-        setIsLoading(false);
-      }
-    });
-  };
+    dispatch(
+      getFixtures({
+        date: changeDateformate,
+      league: parseInt(selectedOption?.value), // If league is selected, use its value
+        season: year,
+       })
+      ).then((response) => {
+        console.log("res",response);
+        if (
+          response?.payload?.message ===
+            "Something went wrong. Please try again later"
+         ) {
+           dispatch(
+             getFixtures({
+               date: changeDateformate,
+             league: parseInt(selectedOption.value), // If league is selected, use its value
+               season: prevYear,
+              })
+             ).then((response) =>{
+               if (
+                 response?.payload?.message ===
+                   "Something went wrong. Please try again later"
+                ){
+                   onError(400);
+                }else {
+                 onError(null);
+               }
+             })
+      
+         }
+       });
+  }
 
   // const handleSearch = (season) => {
   //   setIsRequired(null);
@@ -285,46 +328,46 @@ export const SearchCompo = ({ onError }) => {
     }) || []),
   ];
 
-  const searchHandle = (value) =>{
-    // console.log("val",value.target.value);
-    setCSeason(value.target.value)
-    if (date) {
-      dispatch(
-        getFixtures({
-          date: date,
-        league: parseInt(isLeague.value), // If league is selected, use its value
-          season: parseInt(value.target.value),
-         })
-        ).then((response) => {
-       if (
-         response?.payload?.message ===
-           "Something went wrong. Please try again later"
-        ) {
-         onError(400);
-        } else {
-           onError(null);
-         }
-      });
-    }else{
-      dispatch(
-        getFixtures({
-          date: changeDateformate,
-        league: parseInt(isLeague.value), // If league is selected, use its value
-          season: parseInt(value.target.value),
-         })
-        ).then((response) => {
-       if (
-         response?.payload?.message ===
-           "Something went wrong. Please try again later"
-        ) {
-         onError(400);
-        } else {
-           onError(null);
-         }
-      });
-    }
+  // const searchHandle = (value) =>{
+  //   // console.log("val",value.target.value);
+  //   setCSeason(value.target.value)
+  //   if (date) {
+  //     dispatch(
+  //       getFixtures({
+  //         date: date,
+  //       league: parseInt(isLeague.value), // If league is selected, use its value
+  //         season: parseInt(value.target.value),
+  //        })
+  //       ).then((response) => {
+  //      if (
+  //        response?.payload?.message ===
+  //          "Something went wrong. Please try again later"
+  //       ) {
+  //        onError(400);
+  //       } else {
+  //          onError(null);
+  //        }
+  //     });
+  //   }else{
+  //     dispatch(
+  //       getFixtures({
+  //         date: changeDateformate,
+  //       league: parseInt(isLeague.value), // If league is selected, use its value
+  //         season: parseInt(value.target.value),
+  //        })
+  //       ).then((response) => {
+  //      if (
+  //        response?.payload?.message ===
+  //          "Something went wrong. Please try again later"
+  //       ) {
+  //        onError(400);
+  //       } else {
+  //          onError(null);
+  //        }
+  //     });
+  //   }
     
-   }
+  //  }
   
 
   return (
@@ -348,7 +391,7 @@ export const SearchCompo = ({ onError }) => {
         </div>
       </div>
       {/* season Select */}
-      <div className="mb-4 md:mb-0 w-2/2">
+      <div className="mb-4 md:mb-0 w-1/2">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -364,10 +407,6 @@ export const SearchCompo = ({ onError }) => {
                 : "date_picker_box Select_League"
             }`}
           >
-            {isloading ? (
-              <Select isDisabled options="Loading..." />
-            ) : (
-              <>
                 <Select
                   options={options}
                   isDisabled={!isDate}
@@ -375,13 +414,13 @@ export const SearchCompo = ({ onError }) => {
                   value={options.value} // Set the value to the input state
                   onInputChange={handleInputChange}
                 />
-              </>
-            )}
+             
+          
           </div>
         </div>
       </div>
       {/*  select season */}
-      <div className="mb-4 md:mb-0 w-3/12">
+      {/* <div className="mb-4 md:mb-0 w-3/12">
         <p
           className={`text-[14px] leading-[20px] font-medium ${
             themeMode === "light" ? "text-[#0d0f11]" : "text-white"
@@ -404,9 +443,9 @@ export const SearchCompo = ({ onError }) => {
             ) : (
               <select
               onChange={searchHandle}
-              disabled = {!isDate}
+              disabled = {year}
               >
-                <option value="">Select</option>
+                <option value="">{year}</option>
                 {sortedSeasons?.map((data) => (
                   <option key={data} value={data.year}>
                     {data.year}
@@ -416,7 +455,7 @@ export const SearchCompo = ({ onError }) => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -35,6 +35,21 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
 
   const probabilities = useProbability({ averageGoal });
 
+  const homeGoal= h2h?.map(item=>item?.goals?.home)
+  console.log("Home Goals: ",homeGoal);
+  const awayGoal= h2h?.map(item=>item?.goals?.away)
+  console.log("Away Goals: ",awayGoal);
+  
+  const totalHomeGoals = homeGoal.reduce((acc, cur) => acc + cur, 0);
+  console.log('totalHomeGoals', totalHomeGoals)
+  const totalAwayGoals = awayGoal.reduce((acc, cur) => acc + cur, 0);
+  console.log('totalAwayGoals', totalAwayGoals)
+  
+  const avgHomeGoals = totalHomeGoals / homeGoal.length;
+  const avgAwayGoals = totalAwayGoals / awayGoal.length;
+  
+  console.log("Average Home Goals: ", avgHomeGoals);
+  console.log("Average Away Goals: ", avgAwayGoals);
   useEffect(() => {
     dispatch(getCheck({ fixture: isfixturesId })).then((res) => {
       console.log(res);
@@ -81,6 +96,18 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
       setPercentage(percentages);
     }
   }, [teamResult]);
+  function roundToInteger(value) {
+    // Check if value is greater than or equal to 1
+    if (value >= 1) {
+        return Math.floor(value); // Round down to the nearest integer
+    } else {
+        // Check if value has more than 7 decimal places
+        const roundedValue = Number(value.toFixed(7));
+        // Check if rounded value is integer or not
+        return roundedValue === Math.trunc(roundedValue) ? Math.trunc(roundedValue) : Math.round(roundedValue);
+    }
+}
+
 
   return (
     <div>
@@ -115,24 +142,30 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
         <div className="mb-4">
           <div>
             <div className="grid grid-cols-1 gap-8 ">
-              <div className="grid grid-cols-3 mt-10 gap-4 border-b border-gray-300 py-3">
-                <div className="text-center">
-                  {hLogohide && <img src={teamLogo} alt="sd" />}
-                </div>
-                <div className="text-center">
-                  <h3 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 ">
+            <div className="grid grid-cols-1 mt-10 gap-4  py-3">
+                <div className="text-center ">
+                  <h3 className="font-Bebas text-xl tracking-normal text-black text-center ">
                     Winner
                   </h3>
                 </div>
-                <div className="text-center">
-                  {aLogohide && <img src={teamLogo} alt="sd" />}
+              </div>
+
+              <div className="grid grid-cols-1  gap-4 border-b border-gray-300 py-3">
+                <div>
+                  <div className="flex justify-center ">
+                    {hLogohide && <img src={teamLogo} alt="sd" />}
+                  </div>
+                  <div className="flex justify-center">
+                    {aLogohide && <img src={teamLogo} alt="sd" />}
+                  </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4 border-b border-gray-300 py-3">
                 <div className="text-center">
                   <h3 className="text-black text-base">
-                    {teamResult?.home?.last_5?.goals?.for?.average}
+                    {/* {Math.round(avgHomeGoals)} */}
+                    {roundToInteger(avgHomeGoals)}
                   </h3>
                 </div>
 
@@ -144,7 +177,8 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
 
                 <div className="text-center">
                   <h3 className="text-black text-base">
-                    {teamResult?.away?.last_5?.goals?.for?.average}
+                    {/* {Math.round(avgAwayGoals)} */}
+                    {roundToInteger(avgAwayGoals)}
                   </h3>
                 </div>
               </div>

@@ -194,11 +194,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
               </div>
             </div>
           </TabPanel>
-          {/* <TabPanel>2</TabPanel>
-              <TabPanel>3</TabPanel>
-              <TabPanel>4</TabPanel>
-              <TabPanel>5</TabPanel>
-              <TabPanel>6</TabPanel> */}
+        
         </Tabs>
       </div>
     </div>

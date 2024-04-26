@@ -271,15 +271,38 @@ export const AllPrediction = ({themeMode,token}) => {
                                     </span>
                                   </Table.Cell>
                                   <Table.Cell className="w-[17%]">
-                                    <span
-                                      className={`text-base font-bold ${
-                                        themeMode === "light"
-                                          ? "text-black"
-                                          : "text-white"
-                                      }`}
-                                    >
-                                      {predict?.over_under_line}
-                                    </span>
+                                  {predict?.over_under_line>0?(
+                                     <span
+                                     className={`text-base font-bold ${
+                                       themeMode === "light"
+                                         ? "text-black"
+                                         : "text-white"
+                                     }`}
+                                   >
+                                   Over {Math.abs(predict?.over_under_line)}
+                                   </span>
+                                  ):predict?.over_under_line<0?(<>
+                                   <span
+                                     className={`text-base font-bold ${
+                                       themeMode === "light"
+                                         ? "text-black"
+                                         : "text-white"
+                                     }`}
+                                   >
+                                   Under {Math.abs(predict?.over_under_line)}
+                                   </span>
+                                  </>):(<> <span
+                                     className={`text-base font-bold ${
+                                       themeMode === "light"
+                                         ? "text-black"
+                                         : "text-white"
+                                     }`}
+                                   >
+                                   N/A
+                                   </span></>)
+                                      
+                                  }
+                               
                                   </Table.Cell>
                                   <Table.Cell className="w-[5%]">
                                     <span
