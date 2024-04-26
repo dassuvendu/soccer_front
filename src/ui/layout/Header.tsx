@@ -31,7 +31,7 @@ function Header(props: {
         dispatch(toggleTheme());
         //console.log("sdsdsds in header", themeMode);
     };
-
+    
     const subscribed = JSON.parse(localStorage.getItem('isSubscribed'))?.isSubscribed;
     const navigate = useNavigate();
     const handleLogout = () => {

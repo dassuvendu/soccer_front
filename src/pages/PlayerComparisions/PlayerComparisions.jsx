@@ -229,7 +229,7 @@ const PlayerComparisions = () => {
             <Tabs className="team_comparisions_tab_section">
               <TabList className="tab_bar">
                 <Tab>Past Matches</Tab>
-                <Tab>Single Team Info</Tab>
+                {/* <Tab>Single Team Info</Tab> */}
               </TabList>
               <TabPanel>
                 <div className="pt-4">
@@ -514,7 +514,7 @@ const PlayerComparisions = () => {
                   </div>
                 </div>
               </TabPanel>
-              <TabPanel>
+              {/* <TabPanel>
                 <div className="mt-6">
                   <p
                     className={`${
@@ -550,7 +550,7 @@ const PlayerComparisions = () => {
                     type specimen book.
                   </p>
                 </div>
-              </TabPanel>
+              </TabPanel> */}
             </Tabs>
           </div>
         </div>

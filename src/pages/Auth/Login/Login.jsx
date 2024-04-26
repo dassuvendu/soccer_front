@@ -49,6 +49,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
     } else if (isLoggedIn) {
       dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
+      sessionStorage.setItem("userLimit",1)
       setOpenLoginModal(false);
     }
   }, [message, error, isLoggedIn]);

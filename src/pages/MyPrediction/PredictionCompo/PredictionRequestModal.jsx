@@ -188,7 +188,7 @@ export const PredictionRequestModal = ({
                       <Tab>History</Tab>
                       <Tab>Formation</Tab>
                       <Tab>Prediction Statistics</Tab>
-                      <Tab>Correct Scores</Tab>
+                      <Tab>Prediction Scores</Tab>
                     </TabList>
                     {!modalLoader && modalData ? (
                       <>
