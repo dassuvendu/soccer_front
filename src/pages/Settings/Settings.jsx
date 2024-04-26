@@ -14,6 +14,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { MdVerifiedUser } from "react-icons/md";
 import { editProfile } from "../../reducers/profileSlice";
 import UpdateProfile from "./UpdateProfile";
+import ChangePassword from "../Auth/ChangePassword/ChangePassword";
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { profile } = useSelector((state) => state.profile);
@@ -25,15 +26,19 @@ const Settings = () => {
   useEffect(() => {
     dispatch(editProfile());
   }, [dispatch]);
-  console.log("user Profile: ", profile?.details);
+
+  const [openChangePasswordModal, setOpenChangePasswordModal] = useState(false);
+  const handleChangePassword = () => {
+    setOpenChangePasswordModal(true);
+  };
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-screen py-4 mb-16">
         <div className="flex justify-between mb-8">
           <h1
-            className={`${
-              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+            className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+              } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Settings
           </h1>
@@ -79,25 +84,22 @@ const Settings = () => {
         {/* Setting edit section start here */}
         <div className="md:flex">
           <div
-            className={`w-full md:w-5/12 ${
-              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-            } rounded-md p-5 shadow-xl`}
+            className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md p-5 shadow-xl`}
           >
             <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
               <h3
-                className={`text-[20px]  ${
-                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                } font-medium`}
+                className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                  } font-medium`}
               >
                 Overview
               </h3>
               <button onClick={updateHandler}>
                 <AiFillEdit
-                  className={`${
-                    themeMode === "light"
-                      ? "text-[#2aa9e1] hover:text-black"
-                      : "text-white"
-                  } text-[28px] hover:text-[#2aa9e1]`}
+                  className={`${themeMode === "light"
+                    ? "text-[#2aa9e1] hover:text-black"
+                    : "text-white"
+                    } text-[28px] hover:text-[#2aa9e1]`}
                 />
               </button>
             </div>
@@ -111,9 +113,8 @@ const Settings = () => {
               </div>
               <div>
                 <p
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[19px] leading-[20px] text-medium`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[19px] leading-[20px] text-medium`}
                 >
                   {profile?.details?.first_name}
                 </p>
@@ -122,9 +123,8 @@ const Settings = () => {
                   {profile?.details?.username}
                 </p>
                 <p
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-medium`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-medium`}
                 >
                   Licence :
                 </p>
@@ -133,32 +133,28 @@ const Settings = () => {
             <div>
               <div className="flex mb-4">
                 <div
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-medium w-4/12`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-medium w-4/12`}
                 >
                   Contact phone
                 </div>
                 <div
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-normal w-8/12`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-normal w-8/12`}
                 >
                   {profile?.details?.mobile}
                 </div>
               </div>
               <div className="flex mb-4">
                 <div
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-medium w-4/12`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-medium w-4/12`}
                 >
                   {/* Address */}Gender
                 </div>
                 <div
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-normal w-8/12`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-normal w-8/12`}
                 >
                   {/* 23 Main Street, Anytown, USA 12345 */}
                   {profile?.details?.gender}
@@ -166,16 +162,14 @@ const Settings = () => {
               </div>
               <div className="flex mb-0">
                 <div
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-medium w-4/12`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-medium w-4/12`}
                 >
                   {/* Time Zone */}
                 </div>
                 <div
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-normal w-8/12`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[14px] text-normal w-8/12`}
                 >
                   {/* Jakarta (GMT+7) */}
                 </div>
@@ -183,24 +177,21 @@ const Settings = () => {
             </div>
           </div>
           <div
-            className={`w-full md:w-7/12 ${
-              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-            } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
+            className={`w-full md:w-7/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+              } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
           >
             <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
               <h3
-                className={`text-[20px]  ${
-                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                } font-medium`}
+                className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                  } font-medium`}
               >
                 Signin Methos
               </h3>
             </div>
             <div className="border-b border-[#DCDCDC] pb-3 pt-0 mb-3">
               <p
-                className={`${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } text-[15px] text-normal pb-0`}
+                className={`${themeMode === "light" ? "text-black" : "text-white"
+                  } text-[15px] text-normal pb-0`}
               >
                 Email Address
               </p>
@@ -211,9 +202,8 @@ const Settings = () => {
             <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
               <div className="w-9/12">
                 <p
-                  className={`${
-                    themeMode === "light" ? "text-black" : "text-white"
-                  } text-[15px] text-normal pb-0`}
+                  className={`${themeMode === "light" ? "text-black" : "text-white"
+                    } text-[15px] text-normal pb-0`}
                 >
                   Password
                 </p>
@@ -226,7 +216,8 @@ const Settings = () => {
                 />
               </div>
               <div className="w-3/12">
-                <button className="border border-[#2880DA] text-[12px] bg-black hover:bg-[#2880DA] text-white leading-[30px] px-3 rounded-md">
+                <button className="border border-[#2880DA] text-[12px] bg-black hover:bg-[#2880DA] text-white leading-[30px] px-3 rounded-md"
+                  onClick={handleChangePassword}>
                   Change Password
                 </button>
               </div>
@@ -244,12 +235,22 @@ const Settings = () => {
             </div>
           </div>
         </div>
+
+        {openChangePasswordModal &&
+          <ChangePassword
+            openChangePasswordModal={openChangePasswordModal}
+            setOpenChangePasswordModal={setOpenChangePasswordModal}
+          />
+        }
+
         {/* Setting edit section ends here */}
         <UpdateProfile
           openUpdateModal={openUpdateModal}
           setOpenUpdateModal={setOpenUpdateModal}
         />
       </div>
+
+
     </div>
   );
 };
