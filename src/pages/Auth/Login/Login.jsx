@@ -24,7 +24,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
 
   const { message, isLoggedIn, error } = useSelector((state) => state.auth);
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [errorMas, setErrorMas] = useState(null);
+  
   const {
     register,
     handleSubmit,
@@ -32,7 +33,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(login(data)).then(() => {
+    dispatch(login(data)).then((res) => {
+      // console.log("reS",res);
+    if (res?.payload?.status_code === 401) {
+      setErrorMas(res?.payload?.message);
+    }
       dispatch(editProfile());
     });
   };
@@ -198,9 +203,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                         },
                       })}
                     />
+                    <>
                     {errors?.email?.message && (
                       <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
                     )}
+                    </>
                   </div>
                   <div>
                     {/* <TextInput
@@ -225,6 +232,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       Forgot Password?
                     </button>
                   </div>
+                  {errorMas && 
+                   <h6 className="text-sm text-[red]">{`${'*'} ${errorMas}`}</h6>
+                  }
                   <Button className="create_character_btn w-full" type="submit">
                     Login
                   </Button>

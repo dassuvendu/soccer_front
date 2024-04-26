@@ -6,6 +6,7 @@ import UserOne from '../assets/imagesource/user/user-01.png';
 
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '../reducers/authSlice';
+// import { getFixtures } from '../reducers/PredictionsSlice';
 
 const DropdownUser = () => {
   const { profile } = useSelector((state: any) => state.profile);
@@ -56,12 +57,15 @@ const DropdownUser = () => {
   //   }
   // }, []);
   
+  // const today = new Date();
+  // const todayFormatted = today.toISOString().split("T")[0];
 
   const handleLogout = () => {
     dispatch(logout());
     sessionStorage.removeItem('userToken');
     sessionStorage.removeItem('userEmail');
     navigate('/');
+    // dispatch(getFixtures({ date: todayFormatted }))
   };
 
   return (
