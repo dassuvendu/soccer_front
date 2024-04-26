@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
 import { editProfile } from "../../../reducers/profileSlice";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
 const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const dispatch = useDispatch();
@@ -51,6 +52,13 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       setOpenLoginModal(false);
     }
   }, [message, error, isLoggedIn]);
+
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
+
+  const handleForgotPassword = () => {
+    // setOpenLoginModal(false);
+    setOpenForgotPasswordModal(true);
+  };
 
   return (
     // <div className="my-0 lg:my-0 mx-4 lg:mx-0 flex justify-center items-center h-screen">
@@ -191,7 +199,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.email?.message && (
-                     <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
+                      <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
                     )}
                   </div>
                   <div>
@@ -211,6 +219,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                     {errors?.password?.message && (
                       <h6 className="text-sm text-[red]">{`${'*'} ${errors.password.message}`}</h6>
                     )}
+                  </div>
+                  <div className="text-[12px] text-black hover:text-[#639bba] mb-3 ml-2">
+                    <button type="button" onClick={handleForgotPassword}>
+                      Forgot Password?
+                    </button>
                   </div>
                   <Button className="create_character_btn w-full" type="submit">
                     Login
@@ -240,6 +253,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
         </Modal.Body>
       </Modal>
       {/* {/ Login Modal ends here /} */}
+
+      {openForgotPasswordModal && <ForgotPassword
+        openForgotPasswordModal={openForgotPasswordModal}
+        setOpenForgotPasswordModal={setOpenForgotPasswordModal}
+      />}
 
       {/* registration start*/}
       <Registration

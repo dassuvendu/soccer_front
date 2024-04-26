@@ -80,6 +80,44 @@ export const login = createAsyncThunk(
     }
 );
 
+// Forgot Password
+export const forgotPassword = createAsyncThunk(
+    'auth/forgot-password',
+    async (email, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/forget-password', email);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
+// Reset Password
+export const resetPassword = createAsyncThunk(
+    'auth/reset-password',
+    async (userInput, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/reset_password', userInput);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
 const initialState = {
     message: null,
     error: null,
@@ -211,6 +249,42 @@ const authSlice = createSlice({
                 state.message =
                     payload !== undefined && payload.message
                         ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(forgotPassword.pending, (state) => {
+                state.message = null;
+                state.error = null;
+                state.loading = true;
+            })
+            .addCase(forgotPassword.fulfilled, (state, { payload }) => {
+                const { message } = payload;
+                state.loading = false;
+                state.message = message;
+            })
+            .addCase(forgotPassword.rejected, (state, response) => {
+                state.loading = false;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(resetPassword.pending, (state) => {
+                state.message = null;
+                state.error = null;
+                state.loading = true;
+            })
+            .addCase(resetPassword.fulfilled, (state, { payload }) => {
+                const { message } = payload;
+                state.loading = false;
+                state.message = message;
+            })
+            .addCase(resetPassword.rejected, (state, response) => {
+                state.loading = false;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
                         : 'Something went wrong. Try again later.';
             })
     },
