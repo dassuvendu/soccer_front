@@ -100,6 +100,13 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
         season: year,
        })
       ).then((response) => {
+        if (
+          response?.payload?.status === true
+         ){
+          setError(false);
+         }else{
+          setError(true);
+         }
      if (
        response?.payload?.message ===
          "Something went wrong. Please try again later"

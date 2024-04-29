@@ -51,6 +51,11 @@ export const SearchCompoId = ({ onError , rid}) => {
         season: year,
        })
       ).then((response) => {
+        if (
+          response?.payload?.status === true
+         ){
+            onError(null);
+         }
      if (
        response?.payload?.message ===
          "Something went wrong. Please try again later"

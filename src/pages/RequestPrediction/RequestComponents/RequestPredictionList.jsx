@@ -63,9 +63,12 @@ const RequestPredictionList = ({ errorMessage }) => {
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
         setLoadingData(false);
+        setError(false)
       } else {
         setLoadingData(true);
+        setError(true)
       }
+      
     });
   }, [dispatch]);
 

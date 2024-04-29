@@ -43,45 +43,80 @@ export const SearchCompo = ({ onError }) => {
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
     // setCurrentYear(year);
-
-      dispatch(
-        getFixtures({
-          date: newDate,
-         })
-        ).then((response) => {
-          if (response?.payload?.status === true) {
-            setIsDate(true);
-          } else {
-            setIsDate(false);
-          }
-       if (
-         response?.payload?.message ===
-           "Something went wrong. Please try again later"
-        ) {
-          dispatch(
-            getFixtures({
-              date: newDate,
-             })
-            ).then((response) =>{
-              if (response?.payload?.status === true) {
-                setIsDate(true);
-              } else {
-                setIsDate(false);
-              }
-              if (
-                response?.payload?.message ===
-                  "Something went wrong. Please try again later"
-               ){
-                  onError(400);
-               }else {
-                onError(null);
-              }
-            })
+    // if (changeDateformate) {
+    //   dispatch(
+    //     getFixtures({
+    //       date: changeDateformate,
+    //      })
+    //     ).then((response) => {
+    //       if (
+    //         response?.payload?.status === true
+    //        ){
+    //           onError(null);
+    //        }
+    //    if (
+    //      response?.payload?.message ===
+    //        "Something went wrong. Please try again later"
+    //     ) {
+    //       dispatch(
+    //         getFixtures({
+    //           date: newDate,
+    //          })
+    //         ).then((response) =>{
+             
+    //           if (
+    //             response?.payload?.message ===
+    //               "Something went wrong. Please try again later"
+    //            ){
+    //               onError(400);
+    //            }else {
+    //             onError(null);
+    //           }
+    //         })
      
-        } else{
-          null
-        }
-      });
+    //     } else{
+    //       null
+    //     }
+    //   });
+    // }
+     
+      if (isLeague && year && prevYear) {
+        dispatch(
+          getFixtures({
+            date: newDate,
+          league: parseInt(isLeague?.value), // If league is selected, use its value
+            season: year,
+           })
+          ).then((response) => {
+            if (
+              response?.payload?.status === true
+             ){
+                onError(null);
+             }
+            if (
+              response?.payload?.message ===
+                "Something went wrong. Please try again later"
+             ) {
+               dispatch(
+                 getFixtures({
+                   date: newDate,
+                 league: parseInt(isLeague.value), // If league is selected, use its value
+                   season: prevYear,
+                  })
+                 ).then((response) =>{
+                   if (
+                     response?.payload?.message ===
+                       "Something went wrong. Please try again later"
+                    ){
+                       onError(400);
+                    }else {
+                     onError(null);
+                   }
+                 })
+          
+             }
+           });
+      }
    
   };
 
@@ -108,19 +143,24 @@ export const SearchCompo = ({ onError }) => {
     setIsLeague(selectedOption);
     dispatch(
       getFixtures({
-        date: changeDateformate,
+        date: date,
       league: parseInt(selectedOption?.value), // If league is selected, use its value
         season: year,
        })
       ).then((response) => {
-        console.log("res",response);
+        if (
+          response?.payload?.status === true
+         ){
+            onError(null);
+         }
+        // console.log("res",response);
         if (
           response?.payload?.message ===
             "Something went wrong. Please try again later"
          ) {
            dispatch(
              getFixtures({
-               date: changeDateformate,
+               date: date,
              league: parseInt(selectedOption.value), // If league is selected, use its value
                season: prevYear,
               })
