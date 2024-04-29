@@ -9,10 +9,13 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import SoccerLineUp from "react-soccer-lineup";
 
 const TeamFormation = ({ Hplayers, Aplayers }) => {
+  console.log("hplayer",Hplayers);
+  console.log("Aplayer",Aplayers);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const HTeam = useHTeamFormationhook();
+  console.log("hteam",HTeam);
   const ATeam = useATeamFormationhook();
-
+  console.log("ateam",ATeam);
   const [hgkName, setHGkName] = useState("");
   const [hgkNum, setHGkNum] = useState("");
   const [agkName, setAGkName] = useState("");
@@ -84,7 +87,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                     );
                   })}
 
-                  {/* {Aplayers?.map((data) => 
+                  {Aplayers?.map((data) => 
                       <>
                         <div className="text-center flex items-center">
                           <img
@@ -110,7 +113,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                           {data?.formation}
                         </p>
                       </>
-                  )} */}
+                  )}
                 </div>
                 <div className="my-4 flex justify-center items-center">
                   <SoccerLineUp

@@ -12,8 +12,6 @@ export const AllPrediction = ({themeMode,token}) => {
     const { fetchedPredictions, isLoading } = useSelector((state) => state.myPredictions);
 
     const [fixturesId, setFixturesId] = useState();
-      const [homeId, setHomeId] = useState();
-      const [awayId, setAwayId] = useState();
       const [currentPage, setCurrentPage] = useState(1);
       const [totalPages, setTotalPages] = useState();
       const [hide, setHide] = useState(true);
@@ -89,15 +87,11 @@ export const AllPrediction = ({themeMode,token}) => {
         return renderedPageNumbers;
       };
 
-      const viewDetailsModalHandler = (id, hid, aid, timeId) => {
+      const viewDetailsModalHandler = (id, timeId) => {
         setFixturesId(id);
-        setHomeId(hid);
-        setAwayId(aid);
         setTimeStamp(timeId);
         setOpenDetailsModal(true);
         console.log("fixture id: ", id);
-        console.log("home id: ", hid);
-        console.log("away id: ", aid);
         console.log("time id: ", timeId);
       };
       const handleModalClose = () => {
@@ -375,8 +369,6 @@ export const AllPrediction = ({themeMode,token}) => {
                                       onClick={() =>
                                         viewDetailsModalHandler(
                                           predict?.fixture_id,
-                                          predict?.teams?.home?.id,
-                                          predict?.teams?.away?.id,
                                           predict?.fixture_date
                                         )
                                       }
@@ -503,8 +495,7 @@ export const AllPrediction = ({themeMode,token}) => {
         onClose={handleModalClose}
         fixturesId={fixturesId}
         timeStamp={timeStamp}
-        homeId={homeId}
-        awayId={awayId}
+       
       />
     </div>
   )

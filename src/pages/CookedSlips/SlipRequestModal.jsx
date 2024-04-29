@@ -1,4 +1,4 @@
-import { Modal, Spinner } from "flowbite-react";
+import { Modal} from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,15 +12,13 @@ import {
   getHPlayers,
 } from "../../reducers/formationSlice";
 import { logoIcon } from "../../assets/images/images";
-import { MyPredictionStats } from "../MyPrediction/PredictionModal/MyPredictionStats";
-import { PredictionCorrectScores } from "../MyPrediction/PredictionModal/PredictionCorrectScores";
 import PredictionTeamFormation from "../MyPrediction/PredictionModal/PredictionTeamFormation";
+import { PredictionStats } from "../RequestPrediction/RequestPredictionModalCompo/PredictionStats";
+import { CorrectScores } from "../RequestPrediction/RequestPredictionModalCompo/CorrectScores";
 
 export const SlipRequestModal = ({
   openDetailsModal,
   onClose,
-  homeId,
-  awayId,
   fixturesId,
   timeStamp,
 }) => {
@@ -37,11 +35,21 @@ export const SlipRequestModal = ({
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null);
+  const [homeId,setHomeId] = useState()
+  const [awayId,setawayId] = useState()
   const dispatch = useDispatch();
 
   useEffect(() => {
     setIsFixturesId(fixturesId);
-  }, [dispatch, fixturesId]);
+  }, [ fixturesId]);
+  useEffect(()=>{
+    const home = Array.isArray(lastResult?.data) && lastResult?.data[0]?.teams?.home?.id
+    // console.log("h",home);
+    setHomeId(home)
+    const away = Array.isArray(lastResult?.data) && lastResult?.data[0]?.teams?.away?.id
+    // console.log("a",away);
+    setawayId(away)
+  },[lastResult])
 
   useEffect(() => {
     dispatch(LastResult({ fixture: fixturesId })).then((res) => {
@@ -69,16 +77,16 @@ export const SlipRequestModal = ({
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  const matchStartTime = (timeStamp) => {
-    const date = new Date(timeStamp);
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-      timeZone: "UTC",
-    };
-    return date.toLocaleTimeString(undefined, options);
-  };
+  // const matchStartTime = (timeStamp) => {
+  //   const date = new Date(timeStamp);
+  //   const options = {
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //     hour12: true,
+  //     timeZone: "UTC",
+  //   };
+  //   return date.toLocaleTimeString(undefined, options);
+  // };
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
       let data = lastResult?.data[0];
@@ -220,7 +228,7 @@ export const SlipRequestModal = ({
                                     Home History
                                   </h4>
                                   {h2h?.map((goal) => (
-                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={goal.id}>
                                       <div className="text-center">
                                         <img
                                           src={goal?.teams?.home?.logo}
@@ -358,12 +366,13 @@ export const SlipRequestModal = ({
                             Aplayers={Aplayers}
                           />
                         </TabPanel>
+
                         <TabPanel>
-                          <MyPredictionStats isfixturesId={isfixturesId} />
+                          <PredictionStats isfixturesId={isfixturesId} />
                         </TabPanel>
 
                         <TabPanel>
-                          <PredictionCorrectScores
+                          <CorrectScores
                             isfixturesId={isfixturesId}
                           />
                         </TabPanel>

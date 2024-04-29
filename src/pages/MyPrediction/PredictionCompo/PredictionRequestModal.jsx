@@ -1,7 +1,7 @@
-import { Modal, Spinner } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
+// import { useDateList, useTimeList } from "../../../hooks/useDateTimeHooks";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -12,7 +12,7 @@ import {
   getHFormation,
   getHPlayers,
 } from "../../../reducers/formationSlice";
-import { PredictionFormatation } from "../PredictionModal/PredictionFormatation";
+// import { PredictionFormatation } from "../PredictionModal/PredictionFormatation";
 import { MyPredictionStats } from "../PredictionModal/MyPredictionStats";
 import { PredictionCorrectScores } from "../PredictionModal/PredictionCorrectScores";
 import PredictionTeamFormation from "../PredictionModal/PredictionTeamFormation";
@@ -21,8 +21,6 @@ import { logoIcon } from "../../../assets/images/images";
 export const PredictionRequestModal = ({
   openDetailsModal,
   onClose,
-  homeId,
-  awayId,
   fixturesId,
   timeStamp,
 }) => {
@@ -39,12 +37,23 @@ export const PredictionRequestModal = ({
   const [modalData, setModalData] = useState(null);
   const [modalLoader, setModalLoader] = useState(true);
   const [isfixturesId, setIsFixturesId] = useState(null);
+  const [homeId,setHomeId] = useState()
+  const [awayId,setawayId] = useState()
+  const [error,setError] = useState()
   const dispatch = useDispatch();
 
   useEffect(() => {
     setIsFixturesId(fixturesId);
-  }, [dispatch, fixturesId]);
+  }, [fixturesId]);
 
+  useEffect(()=>{
+    const home = Array.isArray(lastResult?.data) && lastResult?.data[0]?.teams?.home?.id
+    // console.log("h",home);
+    setHomeId(home)
+    const away = Array.isArray(lastResult?.data) && lastResult?.data[0]?.teams?.away?.id
+    // console.log("a",away);
+    setawayId(away)
+  },[lastResult])
   useEffect(() => {
     dispatch(LastResult({ fixture: fixturesId })).then((res) => {
       if (res?.payload?.status === true) {
@@ -54,11 +63,17 @@ export const PredictionRequestModal = ({
           (dispatch(getHFormation({ fixture: fixturesId, team: homeId })),
           dispatch(getHPlayers({ fixture: fixturesId, team: homeId })),
           dispatch(getAFormation({ fixture: fixturesId, team: awayId })),
-          dispatch(getAPlayers({ fixture: fixturesId, team: awayId })))
+          dispatch(getAPlayers({ fixture: fixturesId, team: awayId }))
+        )
         ];
-      } else {
+      }
+      else if (res?.payload?.message === 'Something went wrong. Please try again later') {
+        setError(res?.payload?.message)
+      }
+       else {
         setModalLoader(true);
       }
+
     });
   }, [dispatch, fixturesId, homeId, awayId]);
   useEffect(() => {
@@ -201,8 +216,8 @@ export const PredictionRequestModal = ({
                                   <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-4 mt-4">
                                     Home History
                                   </h4>
-                                  {h2h?.map((goal) => (
-                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                                  {h2h?.map((goal,index) => (
+                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={index}>
                                       <div className="text-center">
                                         <img
                                           src={goal?.teams?.home?.logo}
@@ -352,6 +367,7 @@ export const PredictionRequestModal = ({
                       </>
                     ) : (
                       <div className="text-center">
+                   
                         <div role="status">
                           <img
                             src={logoIcon}
@@ -376,6 +392,7 @@ export const PredictionRequestModal = ({
                         </svg> */}
                           <span className="sr-only">Loading...</span>
                         </div>
+                        
                       </div>
                     )}
                   </Tabs>

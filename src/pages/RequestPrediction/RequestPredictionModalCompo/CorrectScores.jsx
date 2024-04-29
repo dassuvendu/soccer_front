@@ -176,10 +176,13 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
 
               <div className="grid grid-cols-3 gap-4 border-b border-gray-300 py-3">
                 <div className="text-center">
-                  <h3 className="text-black text-base">
+                {
+                    isNaN(avgHomeGoals) || avgHomeGoals===null || avgHomeGoals==undefined?
+                  (<h3 className="text-black text-base">
                     {/* {Math.round(avgHomeGoals)} */}
-                    { roundToInteger(avgHomeGoals)}
-                  </h3>
+              N/A
+                  </h3>):(<h3 className="text-black text-base"> {roundToInteger(avgHomeGoals)}</h3>)
+}
                 </div>
 
                 <div className="text-center">
@@ -189,10 +192,13 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
                 </div>
 
                 <div className="text-center">
-                  <h3 className="text-black text-base">
-                    {/* {Math.round(avgAwayGoals)} */}
-                    { roundToInteger(avgAwayGoals)}
-                  </h3>
+                {
+                    isNaN(avgAwayGoals) || avgAwayGoals===null || avgAwayGoals==undefined?
+                  (<h3 className="text-black text-base">
+                    {/* {Math.round(avgHomeGoals)} */}
+              N/A
+                  </h3>):(<h3 className="text-black text-base"> {roundToInteger(avgAwayGoals)}</h3>)
+}
                 </div>
               </div>
 
