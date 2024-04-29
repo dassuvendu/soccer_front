@@ -8,27 +8,27 @@ import {
   getleagueByid,
 } from "../../../reducers/PredictionsSlice";
 
-export const SearchCompoId = ({ onError , rid,setSendData }) => {
+export const SearchCompoId = ({ onError , rid}) => {
   // console.log("sear",id);
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { allLeague, seasons } = useSelector((state) => state.prediction);
-  const seasonCopy=[...seasons]
-   const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
+  const { allLeague } = useSelector((state) => state.prediction);
+  // const seasonCopy=[...seasons]
+  //  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
-  const [isloading, setIsLoading] = useState(false);
+  // const [isloading, setIsLoading] = useState(false);
   // const [isSeason, setIsSeason] = useState(false);
   const [leagueName, setleagueName] = useState('');
-  const [date, setDate] = useState();
+  // const [date, setDate] = useState();
   // const [cseason,setCSeason] = useState()
-  const [currentYear,setCurrentYear]=useState()
-  console.log("cY",currentYear);
-  const [cseason,setCSeason] = useState()
+  // const [currentYear,setCurrentYear]=useState()
+  // console.log("cY",currentYear);
+  // const [cseason,setCSeason] = useState()
   // const today = new Date();
   // const Year = today.getFullYear()
-  const today = new Date();
+  // const today = new Date();
   // const year = today.getFullYear();
-  const changeDateformate = today.toISOString().split("T")[0];
+  // const changeDateformate = today.toISOString().split("T")[0];
   
   const handleDateChange = (e) => {
     // console.log(e);
@@ -38,9 +38,9 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
   const month = String(e.getMonth() + 1).padStart(2, "0");
   const day = String(e.getDate()).padStart(2, "0");
   const newDate = `${year}-${month}-${day}`
-  setDate(newDate);
-  setSendData(newDate)
-  setCurrentYear(year)
+  // setDate(newDate);
+  // setSendData(newDate)
+  // setCurrentYear(year)
   
   if (rid && year && prevYear) {
     const leagueId = parseInt(rid)
@@ -56,7 +56,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
          "Something went wrong. Please try again later"
       ) dispatch(
         getFixtures({
-          date: changeDateformate,
+          date: newDate,
         league: parseInt(leagueId), // If league is selected, use its value
           season: prevYear,
          })
@@ -98,7 +98,7 @@ export const SearchCompoId = ({ onError , rid,setSendData }) => {
       }
           dispatch(getleagueByid({league : rid})).then((res) => {
             if (res?.payload?.status === true) {
-              setIsLoading(false);
+              // setIsLoading(false);
             }
           });
       }

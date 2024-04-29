@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getSlipInfo, getslipDetails } from "../../reducers/CookedSlipSlice";
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { logoIcon } from "../../assets/images/images";
@@ -381,7 +381,8 @@ const SlipInfo = () => {
                             </Table.Cell> */}
 
                               <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
-                                <MdMoreHoriz
+                                <Button
+                                color="blue"
                                   onClick={() =>
                                     viewDetailsModalHandler(
                                       predict?.fixtureId,
@@ -390,7 +391,9 @@ const SlipInfo = () => {
                                       predict?.startsOn
                                     )
                                   }
-                                />
+                                >
+                                  See Prediction
+                                  </Button>
                               </Table.Cell>
                             </Table.Row>
                           </>

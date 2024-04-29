@@ -5,18 +5,18 @@ import { useEffect, useState } from "react";
 import {
   getFixtures,
   getFixturesByleague,
-  getleagueByid,
+  
 } from "../../../reducers/PredictionsSlice";
 
 export const SearchCompo = ({ onError }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { allLeague, seasons } = useSelector((state) => state.prediction);
- const seasonCopy=[...seasons]
-  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
+  const { allLeague } = useSelector((state) => state.prediction);
+//  const seasonCopy=[...seasons]
+  // const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   // console.log('seasons', sortedSeasons);
   const dispatch = useDispatch();
   // const [loading, setLoading] = useState(false);
-  const [isloading, setIsLoading] = useState(false);
+  // const [isloading, setIsLoading] = useState(false);
   const [isLeague, setIsLeague] = useState();
   console.log("lea",isLeague);
   // const [isRequired, setIsRequired] = useState("*Please Select Date First");
@@ -24,7 +24,7 @@ export const SearchCompo = ({ onError }) => {
   console.log("d", date);
   const [isDate, setIsDate] = useState(false);
 
-  const [cseason,setCSeason] = useState()
+  // const [cseason,setCSeason] = useState()
   // const [currentYear, setCurrentYear] = useState();
   // console.log("cY", currentYear);
 
@@ -43,14 +43,17 @@ export const SearchCompo = ({ onError }) => {
     const newDate = `${year}-${month}-${day}`;
     setDate(newDate);
     // setCurrentYear(year);
-    if (isLeague && year && prevYear) {
+
       dispatch(
         getFixtures({
           date: newDate,
-        league: parseInt(isLeague.value), // If league is selected, use its value
-          season: year,
          })
         ).then((response) => {
+          if (response?.payload?.status === true) {
+            setIsDate(true);
+          } else {
+            setIsDate(false);
+          }
        if (
          response?.payload?.message ===
            "Something went wrong. Please try again later"
@@ -58,10 +61,13 @@ export const SearchCompo = ({ onError }) => {
           dispatch(
             getFixtures({
               date: newDate,
-            league: parseInt(isLeague.value), // If league is selected, use its value
-              season: prevYear,
              })
             ).then((response) =>{
+              if (response?.payload?.status === true) {
+                setIsDate(true);
+              } else {
+                setIsDate(false);
+              }
               if (
                 response?.payload?.message ===
                   "Something went wrong. Please try again later"
@@ -76,9 +82,7 @@ export const SearchCompo = ({ onError }) => {
           null
         }
       });
-    }else{
-      null
-    }
+   
   };
 
   useEffect(() => {
@@ -87,28 +91,17 @@ export const SearchCompo = ({ onError }) => {
         console.log("res", res.payload.status);
         if (res?.payload?.status === true) {
           setIsDate(true);
-          setIsLoading(false);
+   
         } else {
           setIsDate(false);
-          setIsLoading(true);
+      
         }
       });
     }
   }, [dispatch, changeDateformate]);
 
   useEffect(() => {
-    if (date) {
-      dispatch(getFixturesByleague({})).then((res) => {
-        console.log("res", res.payload.status);
-        if (res?.payload?.status === true) {
-          
-          setIsLoading(false);
-        } else {
-          
-          setIsLoading(true);
-        }
-      });
-    }
+      dispatch(getFixturesByleague({})) 
   }, [dispatch, date]);
 
   const handleLeagueChange = (selectedOption) => {
@@ -256,11 +249,11 @@ export const SearchCompo = ({ onError }) => {
   //   }
   // }, [date, isLeague, changeDateformate, apiCall, isDate]);
 
-  const [input, setInput] = useState("");
+  // const [input, setInput] = useState("");
 
-  const handleInputChange = (newValue) => {
-    setInput(newValue);
-  };
+  // const handleInputChange = (newValue) => {
+  //   // setInput(newValue);
+  // };
   //  const [filteredData,setFilteredData] = useState()
 
   // useEffect(() => {
@@ -412,7 +405,7 @@ export const SearchCompo = ({ onError }) => {
                   isDisabled={!isDate}
                   onChange={handleLeagueChange}
                   value={options.value} // Set the value to the input state
-                  onInputChange={handleInputChange}
+                  // onInputChange={handleInputChange}
                 />
              
           

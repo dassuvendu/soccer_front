@@ -165,6 +165,7 @@ const Dashboard = () => {
                         {themeMode === "light" ? (
                           <img
                             src={data.league.logo}
+                             
                             alt={data.league.name}
                             className="mb-4 inline-block"
                           />

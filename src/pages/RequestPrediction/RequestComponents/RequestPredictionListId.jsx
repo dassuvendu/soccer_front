@@ -16,11 +16,11 @@ import {
 } from "../../../reducers/PredictionsSlice";
 import { logoIcon } from "../../../assets/images/images";
 
-const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
+const RequestPredictionListId = ({ errorMessage,rid }) => {
     // console.log(rid);
     // console.log("Td2",sendData);
-    const { seasons } = useSelector((state) => state.prediction);
-    const seasonCopy=[...seasons]
+    // const { seasons } = useSelector((state) => state.prediction);
+    // const seasonCopy=[...seasons]
     //  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures } = useSelector((state) => state.prediction);
@@ -180,15 +180,15 @@ const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
       setCurrentPage(pageNumber);
     }
   };
-  useEffect(() =>{
-    if (Array.isArray(currentItems)&&currentItems.length > 8) {
+  useEffect(() => {
+    if (Array.isArray(fixtures?.data) && fixtures?.data?.length > 6) {
       setHide(true);
-    }else if (Array.isArray(currentItems)&&currentItems.length < 8) {
+    } else if (Array.isArray(fixtures?.data) && fixtures?.data?.length < 7) {
       setHide(false);
-    }else{
+    } else {
       setHide(false);
     }
-  },[currentItems])
+  }, [fixtures]);
   return (
     <div>
       {!loadingData ? (
@@ -279,11 +279,11 @@ const RequestPredictionListId = ({ errorMessage,rid,season,sendData }) => {
                               >
                                 <b>
                                   {dat?.fixture?.venue?.name?.length > 30
-                                    ? dat?.fixture?.venue?.name.substring(
+                                    ? dat?.fixture?.venue?.name?.substring(
                                         0,
                                         30
                                       ) + "..."
-                                    : dat?.fixture?.venue?.name.slice(0,15)}
+                                    : dat?.fixture?.venue?.name?.slice(0,15)}
                                 </b>
                               </span>
                             </div>

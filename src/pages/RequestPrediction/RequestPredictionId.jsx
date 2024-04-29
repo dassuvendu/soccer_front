@@ -1,5 +1,5 @@
 import { requestPredictionBanner } from "../../assets/images/images";
-import { Prediction } from "./RequestComponents/Prediction";
+// import { Prediction } from "./RequestComponents/Prediction";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SearchCompoId } from "./RequestComponents/SearchCompoId";

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Login from "../../Auth/Login/Login";
+// import Login from "../../Auth/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 import { useProbability } from "../../../hooks/useProbability";
-import { LastResult } from "../../../reducers/PredictionsSlice";
-import { Spinner } from "flowbite-react";
+// import { LastResult } from "../../../reducers/PredictionsSlice";
+// import { Spinner } from "flowbite-react";
 import { logoIcon } from "../../../assets/images/images";
 
 export const PredictionCorrectScores = ({ isfixturesId }) => {
@@ -15,7 +15,7 @@ export const PredictionCorrectScores = ({ isfixturesId }) => {
 
   const matches = h2h.slice(0, 6);
   // console.log("mat",matches);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   // const token = localStorage.getItem("userToken");
   const [check, setCheck] = useState(false);
