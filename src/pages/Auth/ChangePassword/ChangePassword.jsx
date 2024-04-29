@@ -8,6 +8,7 @@ const ChangePassword = ({ openChangePasswordModal, setOpenChangePasswordModal })
 
     const dispatch = useDispatch();
     const { loading, message } = useSelector((state) => state.auth);
+
     const {
         register,
         handleSubmit,
@@ -188,6 +189,10 @@ const ChangePassword = ({ openChangePasswordModal, setOpenChangePasswordModal })
                                     >
                                         {loading ? "Wait..." : "Change"}
                                     </button>
+
+
+                                    <div className="text-center text-green-400 font-bold mt-2"> {message}  </div>
+
                                 </form>
                             </div>
                         </div>

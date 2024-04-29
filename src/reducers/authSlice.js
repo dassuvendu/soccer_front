@@ -104,7 +104,7 @@ export const resetPassword = createAsyncThunk(
     'auth/reset-password',
     async (userInput, { rejectWithValue }) => {
         try {
-            const response = await api.post('/user/reset_password', userInput);
+            const response = await api.post('/user/change-pass', userInput);
             if (response?.data?.status_code === 200) {
                 return response.data;
             } else {
@@ -267,7 +267,7 @@ const authSlice = createSlice({
                 state.message =
                     response.payload !== undefined && response.payload.message
                         ? response.payload.message
-                        : 'Something went wrong. Try again later.';
+                        : '';
             })
 
             .addCase(resetPassword.pending, (state) => {
@@ -285,7 +285,7 @@ const authSlice = createSlice({
                 state.message =
                     response.payload !== undefined && response.payload.message
                         ? response.payload.message
-                        : 'Something went wrong. Try again later.';
+                        : '';
             })
     },
 });
