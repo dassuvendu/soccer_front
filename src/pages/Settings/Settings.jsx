@@ -222,7 +222,7 @@ const Settings = () => {
                 </button>
               </div>
             </div>
-            <div className="mt-4 bg-black rounded-md p-4 flex justify-between items-center">
+            {/* <div className="mt-4 bg-black rounded-md p-4 flex justify-between items-center">
               <div className="flex">
                 <MdVerifiedUser className="text-[#70B6C1] text-2xl mr-2" />
                 <p className="text-white text-[16px]">Secure Your Account</p>
@@ -232,7 +232,7 @@ const Settings = () => {
                   Enable
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
