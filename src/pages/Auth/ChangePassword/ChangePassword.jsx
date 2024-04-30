@@ -7,8 +7,8 @@ import { PlaycopeLogoPopup } from "../../../assets/images/images";
 const ChangePassword = ({ openChangePasswordModal, setOpenChangePasswordModal }) => {
 
     const dispatch = useDispatch();
-    const { loading, message } = useSelector((state) => state.auth);
-
+    const { loading, message,error } = useSelector((state) => state.auth);
+ console.log("m",message);
     const {
         register,
         handleSubmit,
@@ -164,7 +164,7 @@ const ChangePassword = ({ openChangePasswordModal, setOpenChangePasswordModal })
                                             })}
                                         />
                                         {errors?.password?.message && (
-                                            <h6 className="text-danger">{errors.password.message}</h6>
+                                           <small className="text-red-600">{errors.password.message}</small>
                                         )}
                                     </div>
                                     <div>
@@ -177,9 +177,9 @@ const ChangePassword = ({ openChangePasswordModal, setOpenChangePasswordModal })
                                             })}
                                         />
                                         {errors?.confirm_password?.message && (
-                                            <h6 className="text-danger">
+                                           <small className="text-red-600">
                                                 {errors.confirm_password?.message}
-                                            </h6>
+                                            </small>
                                         )}
                                     </div>
                                     <button
@@ -190,8 +190,14 @@ const ChangePassword = ({ openChangePasswordModal, setOpenChangePasswordModal })
                                         {loading ? "Wait..." : "Change"}
                                     </button>
 
-
-                                    <div className="text-center text-green-400 font-bold mt-2"> {message}  </div>
+                                    {
+                                        message&&<div className="text-center text-green-400 font-bold mt-2"> {message}  </div>
+                                        
+                                    }
+                                    {
+                                         error&&<div className="text-center text-red-500 font-bold mt-2"> {error}  </div>
+                                    }
+                                    
 
                                 </form>
                             </div>

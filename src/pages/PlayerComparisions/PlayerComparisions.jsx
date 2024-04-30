@@ -216,9 +216,9 @@ const PlayerComparisions = () => {
           >
             Player Comparisions
           </h1>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          {/* <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             Match Predictions <FiArrowRight className="text-white ml-0.5" />
-          </Link>
+          </Link> */}
         </div>
         <div
           className={` ${
@@ -228,7 +228,7 @@ const PlayerComparisions = () => {
           <div className="max-w-2xl mx-auto">
             <Tabs className="team_comparisions_tab_section">
               <TabList className="tab_bar">
-                <Tab>Past Matches</Tab>
+                <Tab>Player comparisions</Tab>
                 {/* <Tab>Single Team Info</Tab> */}
               </TabList>
               <TabPanel>

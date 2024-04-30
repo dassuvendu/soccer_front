@@ -159,11 +159,12 @@ const CookedSlips = () => {
     return date.toLocaleTimeString(undefined, options);
   };
   useEffect(() => {
-    if (Array.isArray(oddsData) && oddsData?.length > 5) {
+   if (Array.isArray(oddsData) && oddsData?.length > 5) {
       setHide(true);
     } else if (Array.isArray(oddsData) && oddsData?.length < 6) {
       setHide(false);
-    } else {
+    }
+      else{
       setHide(false);
     }
   }, [oddsData]);

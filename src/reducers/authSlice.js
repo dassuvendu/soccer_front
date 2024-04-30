@@ -105,9 +105,12 @@ export const resetPassword = createAsyncThunk(
     async (userInput, { rejectWithValue }) => {
         try {
             const response = await api.post('/user/change-pass', userInput);
-            if (response?.data?.status_code === 200) {
+            console.log("response: ",response);
+            if (response?.status === 200) {
+            //    console.log("response: ",response?.data);
                 return response.data;
             } else {
+                
                 // Handle the case when status code is not 200
                 return rejectWithValue(response.data.message);
             }
@@ -276,13 +279,14 @@ const authSlice = createSlice({
                 state.loading = true;
             })
             .addCase(resetPassword.fulfilled, (state, { payload }) => {
-                const { message } = payload;
+                 const { message } = payload;
                 state.loading = false;
-                state.message = message;
+                 state.message = message;
+                // console.log("payload",response);
             })
             .addCase(resetPassword.rejected, (state, response) => {
                 state.loading = false;
-                state.message =
+                state.error =
                     response.payload !== undefined && response.payload.message
                         ? response.payload.message
                         : '';

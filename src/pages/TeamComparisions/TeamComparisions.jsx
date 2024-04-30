@@ -232,9 +232,9 @@ const TeamComparisions = () => {
           >
             Stats Comparisions
           </h1>
-          <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[12px] md:text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
+          {/* <Link className="bg-[#2aa9e1] hover:bg-[#2854b7] text-white px-5 py-0 text-[12px] md:text-[14px] leading-[46px] h-[46px] font-bold rounded-3xl flex items-center font-Syne">
             Match Predictions <FiArrowRight className="text-white ml-0.5" />
-          </Link>
+          </Link> */}
         </div>
         <div
           className={` ${

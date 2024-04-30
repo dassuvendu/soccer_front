@@ -44,7 +44,7 @@ const RequestPredictionList = ({ errorMessage }) => {
   const newdate = new Date();
   const changeDateformate = newdate.toISOString().split("T")[0];
 
-  const [loadingData, setLoadingData] = useState(true);
+  // const [loadingData, setLoadingData] = useState(true);
   const [hide, setHide] = useState(false);
   const [pageHide, setPageHide] = useState(true);
   const [error, setError] = useState(false);
@@ -62,10 +62,8 @@ const RequestPredictionList = ({ errorMessage }) => {
   useEffect(() => {
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
-        setLoadingData(false);
         setError(false)
       } else {
-        setLoadingData(true);
         setError(true)
       }
       
@@ -155,7 +153,7 @@ const RequestPredictionList = ({ errorMessage }) => {
   }, [isLoading]);
   return (
     <div>
-      {!loadingData ? (
+      {!isLoading ? (
         <div>
           {error ? (
             <div className="w-full">
