@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
 import { editProfile } from "../../../reducers/profileSlice";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import { v4 as uuidv4 } from "uuid";
 
 const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const { message, isLoggedIn, error } = useSelector((state) => state.auth);
   const [errorMessage, setErrorMessage] = useState(null);
   const [errorMas, setErrorMas] = useState(null);
+  const [tsr, setTsr] = useState("");
   
   const {
     register,
@@ -41,7 +43,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       dispatch(editProfile());
     });
   };
-
+console.log("isLoggedin",isLoggedIn);
   useEffect(() => {
     if (error && message) {
       setErrorMessage(message);
@@ -52,8 +54,15 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
         clearTimeout(timeoutId);
       };
     } else if (isLoggedIn) {
+      const uuid = uuidv4(); // Generates a UUID
+      setTsr(uuidv4());
+      console.log("User Id set successfully");
+      console.log("user",tsr);
+      localStorage.setItem('uuid',uuid)
+      // console.log("uuid",typeof uuid);
       dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
+     
       setOpenLoginModal(false);
     }
   }, [message, error, isLoggedIn]);
