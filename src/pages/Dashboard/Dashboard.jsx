@@ -1,29 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
-import { BuyTokenIcon, logoIcon } from "../../assets/images/images";
+import { logoIcon } from "../../assets/images/images";
 import { FiArrowRight } from "react-icons/fi";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { getLeagues } from "../../reducers/LeagueSlice";
 import { editProfile } from "../../reducers/profileSlice";
 // import { useUuid } from "../../hooks/useUuid";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isloadingEditProfile } = useSelector((state) => state.profile);
-  const { league } = useSelector((state) => state.league);
+  const { league,isLoading } = useSelector((state) => state.league);
   const { valid } = useSelector((state) => state.uuid);
-  console.log("api",valid?.data);
-  // console.log("jk2",valid?.data);
-  const [loadingdash, setLoadingDash] = useState(true);
   const [api, setApi] = useState(true);
+  const [apiCall, setApiCall] = useState(true);
   const dispatch = useDispatch();
-  const subscribed = JSON.parse(
-    localStorage.getItem("isSubscribed")
-  )?.isSubscribed;
+  // const subscribed = JSON.parse(
+  //   localStorage.getItem("isSubscribed")
+  // )?.isSubscribed;
 
   // const [ Id ] = useUuid()
   const navigate = useNavigate()
@@ -35,41 +33,62 @@ const Dashboard = () => {
   const uuid = localStorage.getItem('uuid')
 
   useEffect(() => {
-    if (valid?.data === uuid) {
-      console.log("local", typeof uuid);
-      console.log("api", typeof valid?.data);
-      dispatch(editProfile());
-    }
-   
-      if (valid?.data !== uuid) {
-        // console.log("hio");
-        // dispatch(logout());
-        // navigate("/")
+    const timer = setTimeout(() => {
+        if (uuid === valid?.data && apiCall) {
+          console.log("local",uuid);
+          console.log("api",valid?.data);
+            dispatch(editProfile());
+            setApiCall(false)
+        }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+    
+}, [valid, uuid, dispatch,apiCall]);
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    dispatch(getUid({})).then((res) =>{
+      
+      toast.error('Your session has expired !', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      })
+    })
+      if (uuid !== valid?.data) {
+        
+          dispatch(logout())
+          navigate('/') 
+      
+       
       }
-     // 1000 milliseconds = 1 second
+      
+  },5000);
 
-  }, [valid, uuid]);
-
-
+  return () => clearTimeout(timer);
+  
+}, [valid, uuid, dispatch]);
 
   useEffect(() => {
-    if (valid?.data === uuid) {
+    if (valid?.data === uuid && apiCall) {
       dispatch(getLeagues({ ids: "39,140,135,78,61,2" })).then((res) => {
         if (res?.payload?.status === true) {
-          setLoadingDash(false);
-          setApi(false);
+         setApiCall(false)
         }
       });
     }
-   else{
-    // dispatch(logout());
-   }
-  }, [dispatch, api,valid,uuid]);
+  }, [dispatch,valid,uuid,apiCall]);
+
 
   const { profile } = useSelector((state) => state.profile);
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
+     
       {isloadingEditProfile ? (
         <div>
           <img src={logoIcon} alt="loading.." className="loader" />
@@ -185,7 +204,7 @@ const Dashboard = () => {
               >
                 Explore Matches from your Favorite Leagues
               </h2>
-              {!loadingdash ? (
+              {!isLoading ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                   {league?.data?.map((data) => (
                     <Link

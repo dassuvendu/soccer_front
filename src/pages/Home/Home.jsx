@@ -7,6 +7,7 @@ import { Footer } from "flowbite-react";
 import SelectPlan from "./SelectPlan";
 import { useDispatch, useSelector } from "react-redux";
 import CountdownTimer from "./CountTimer";
+import { ToastContainer } from "react-toastify";
 
 
 const Home = () => {
@@ -26,6 +27,7 @@ const Home = () => {
   // const matchStartTime = '2024-04-01T00:00:00';
   return (
     <div>
+       <ToastContainer />
       <Banner />
       <HomeBannerMatchStartTime />
       <SoccerPrediction />

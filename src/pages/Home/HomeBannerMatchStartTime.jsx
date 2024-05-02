@@ -59,9 +59,7 @@ const HomeBannerMatchStartTime = () => {
        
         setNextMatch(Item[0])
         
-        if (Item) {
-          setTime(Item[0].fixture.date.toString().split("+")[0]);
-        }
+       
      
     } else {
       // If no match is ongoing, find the next match

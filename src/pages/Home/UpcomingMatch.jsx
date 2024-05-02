@@ -7,7 +7,7 @@ import Login from "../Auth/Login/Login";
 import { logoIcon } from "../../assets/images/images";
 
 export const UpcomingMatch = () => {
-  const { fixtures } = useSelector((state) => state.prediction);
+  const { fixtures,isLoading } = useSelector((state) => state.prediction);
   const [apiCalled,setApiCalled] = useState(false)
 
   const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
@@ -23,7 +23,7 @@ export const UpcomingMatch = () => {
 
 // console.log("Items", Item);
 
-const Items = Item.slice(0,6)
+const Items = Array.isArray(fixtures?.data) && fixtures?.data?.slice(0,6)
 
   const today = new Date();
   const todayFormatted = today.toISOString().split("T")[0];
@@ -80,7 +80,7 @@ const Items = Item.slice(0,6)
 
   return (
     <div className="pt-4">
-      {loadingData && !homeLoader ? (
+      {!isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Items?.map((data) => (
             <div className="bg-white rounded-2xl shadow-xl" key={data.id}>

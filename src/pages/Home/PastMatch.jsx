@@ -8,9 +8,9 @@ import PastMatchModal from "./PastMatchModal";
 import {logoIcon} from "../../assets/images/images";
 
 export const PastMatch = () => {
-  const { pastFix  } = useSelector((state) => state.prediction);
+  const { pastFix,isLoading  } = useSelector((state) => state.prediction);
 
-  const Items = Array.isArray(pastFix ?.data) && pastFix ?.data?.slice(0, 6);
+  const Items = pastFix ?.data?.slice(0, 6);
   console.log("y", Items);
 
   const today = new Date();
@@ -85,9 +85,9 @@ export const PastMatch = () => {
   return (
     <div>
       <div className="pt-4">
-        {loadingData && !homeLoader ? (
+        {!isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" >
-            {Items?.map((data) => (
+            {Array.isArray(Items) && Items?.map((data) => (
               <div className="bg-white rounded-2xl shadow-xl" key={data.id}>
                 <div className="flex justify-between items-center bg-gray-800 px-5 py-3 rounded-t-2xl h-16">
                   <div className="text-white font-bold text-[16px] leading-[20px] font-Montserrat">

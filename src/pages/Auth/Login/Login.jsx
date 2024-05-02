@@ -42,7 +42,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       // localStorage.setItem('uuid',uuid)
       setTsr(uid)
    
-  },[tsr])
+  },[])
 // const uuId = localStorage.getItem('uuid')
 // console.log("ou",uuId);
 // useEffect(() =>{
