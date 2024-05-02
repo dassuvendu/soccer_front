@@ -155,6 +155,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                           name: player?.cm?.pName,
                           number: player?.cm?.pNumber,
                         })),
+                      
                         fw: HTeam?.filter(
                           (player) => player?.fw?.pPos === "F"
                         ).map((player) => ({

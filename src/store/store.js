@@ -14,6 +14,7 @@ import CheckUnlockSlice from '../reducers/CheckUnlockSlice';
 import formationSlice from '../reducers/formationSlice';
 import StatisticsSlice from '../reducers/StatisticsSlice';
 import RecentPredictionSlice from '../reducers/RecentPredictionSlice';
+import uuidSlice from '../reducers/uuidSlice';
 
 
 const store = configureStore({
@@ -32,7 +33,8 @@ const store = configureStore({
     IsunLock: CheckUnlockSlice,
     formation: formationSlice,
     statistics: StatisticsSlice,
-    recentPredicts: RecentPredictionSlice
+    recentPredicts: RecentPredictionSlice,
+    uuid:uuidSlice
   },
   devTools: import.meta.env.DEV,
 });

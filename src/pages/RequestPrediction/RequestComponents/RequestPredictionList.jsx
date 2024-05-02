@@ -12,6 +12,8 @@ import {
 } from "react-icons/bs";
 import { getFixtures } from "../../../reducers/PredictionsSlice";
 import { logoIcon } from "../../../assets/images/images";
+import { getUid } from "../../../reducers/uuidSlice";
+// import { useUuid } from "../../../hooks/useUuid";
 
 const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -21,6 +23,12 @@ const RequestPredictionList = ({ errorMessage }) => {
   const [awayId, setAwayId] = useState(null);
   const [timeStamp, setTimeStamp] = useState(null);
   const [fixturesId, setFixturesId] = useState(null);
+  // const [ Id ] = useUuid()
+  // console.log("lt",Id);
+
+  const dispatch = useDispatch();
+
+
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);
@@ -57,7 +65,7 @@ const RequestPredictionList = ({ errorMessage }) => {
     }
   }, [errorMessage]);
 
-  const dispatch = useDispatch();
+
 
   useEffect(() => {
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
@@ -74,7 +82,7 @@ const RequestPredictionList = ({ errorMessage }) => {
   const itemsPerPage = 9;
   const [searchPage, setSearchPage] = useState(null);
 
-  const currentItems = fixtures?.data?.slice(
+  const currentItems = Array.isArray(fixtures?.data) && fixtures?.data?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );

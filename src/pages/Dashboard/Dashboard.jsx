@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BuyTokenIcon, logoIcon } from "../../assets/images/images";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -7,11 +7,17 @@ import { Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { getLeagues } from "../../reducers/LeagueSlice";
 import { editProfile } from "../../reducers/profileSlice";
+// import { useUuid } from "../../hooks/useUuid";
+import { logout } from "../../reducers/authSlice";
+import { getUid } from "../../reducers/uuidSlice";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isloadingEditProfile } = useSelector((state) => state.profile);
   const { league } = useSelector((state) => state.league);
+  const { valid } = useSelector((state) => state.uuid);
+  console.log("api",valid?.data);
+  // console.log("jk2",valid?.data);
   const [loadingdash, setLoadingDash] = useState(true);
   const [api, setApi] = useState(true);
   const dispatch = useDispatch();
@@ -19,18 +25,46 @@ const Dashboard = () => {
     localStorage.getItem("isSubscribed")
   )?.isSubscribed;
 
-  useEffect(() => {
-    dispatch(editProfile());
-  }, []);
+  // const [ Id ] = useUuid()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getLeagues({ ids: "39,140,135,78,61,2" })).then((res) => {
-      if (res?.payload?.status === true) {
-        setLoadingDash(false);
-        setApi(false);
+    dispatch(getUid({}))
+  },[dispatch])
+
+  const uuid = localStorage.getItem('uuid')
+
+  useEffect(() => {
+    if (valid?.data === uuid) {
+      console.log("local", typeof uuid);
+      console.log("api", typeof valid?.data);
+      dispatch(editProfile());
+    }
+   
+      if (valid?.data !== uuid) {
+        // console.log("hio");
+        // dispatch(logout());
+        // navigate("/")
       }
-    });
-  }, [dispatch, api]);
+     // 1000 milliseconds = 1 second
+
+  }, [valid, uuid]);
+
+
+
+  useEffect(() => {
+    if (valid?.data === uuid) {
+      dispatch(getLeagues({ ids: "39,140,135,78,61,2" })).then((res) => {
+        if (res?.payload?.status === true) {
+          setLoadingDash(false);
+          setApi(false);
+        }
+      });
+    }
+   else{
+    // dispatch(logout());
+   }
+  }, [dispatch, api,valid,uuid]);
 
   const { profile } = useSelector((state) => state.profile);
 

@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../store/api';
 import errorHandler from '../store/errorHandler';
 
+
 export const registerUser = createAsyncThunk(
     'user/register',
     async (userInput, { rejectWithValue }) => {
@@ -121,6 +122,8 @@ export const resetPassword = createAsyncThunk(
     }
 );
 
+
+
 const initialState = {
     message: null,
     error: null,
@@ -152,6 +155,7 @@ const authSlice = createSlice({
             localStorage.removeItem('custId');
             localStorage.removeItem('planId');
             localStorage.removeItem('isSubscribed');
+            localStorage.removeItem('uuid')
         },
     },
     extraReducers: (builder) => {
@@ -245,6 +249,7 @@ const authSlice = createSlice({
                 localStorage.setItem('isSubscribed', JSON.stringify({ isSubscribed: subscription })
                 );
                 localStorage.removeItem('regToken');
+  
             })
             .addCase(login.rejected, (state, { payload }) => {
                 state.error = true;

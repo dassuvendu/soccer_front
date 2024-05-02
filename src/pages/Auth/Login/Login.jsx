@@ -11,6 +11,7 @@ import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
 import { editProfile } from "../../../reducers/profileSlice";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import { v4 as uuidv4 } from "uuid";
+import { getUid } from "../../../reducers/uuidSlice";
 
 const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const dispatch = useDispatch();
@@ -34,12 +35,27 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() =>{
+
+      const uid = uuidv4();
+      // console.log("User Id set successfully");
+      // localStorage.setItem('uuid',uuid)
+      setTsr(uid)
+   
+  },[tsr])
+// const uuId = localStorage.getItem('uuid')
+// console.log("ou",uuId);
+// useEffect(() =>{
+ 
+// },[tsr])
+
   const onSubmit = (data) => {
-    dispatch(login(data)).then((res) => {
+    dispatch(login({email:data.email,password:data.password,uuid: tsr})).then((res) => {
       // console.log("reS",res);
     if (res?.payload?.status_code === 401) {
       setErrorMas(res?.payload?.message);
     }
+    localStorage.setItem('uuid',tsr)
       dispatch(editProfile());
     });
   };
@@ -54,18 +70,14 @@ console.log("isLoggedin",isLoggedIn);
         clearTimeout(timeoutId);
       };
     } else if (isLoggedIn) {
-      const uuid = uuidv4(); // Generates a UUID
-      setTsr(uuidv4());
-      console.log("User Id set successfully");
-      console.log("user",tsr);
-      localStorage.setItem('uuid',uuid)
+    
       // console.log("uuid",typeof uuid);
-      dispatch(resetAfterLoggedIn());
+      // dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
      
       setOpenLoginModal(false);
     }
-  }, [message, error, isLoggedIn]);
+  }, [message, error]);
 
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
 
