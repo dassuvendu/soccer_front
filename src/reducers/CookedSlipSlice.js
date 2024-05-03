@@ -56,12 +56,50 @@ export const getSlipInfo = createAsyncThunk(
         }
     }
 )
+export const unlockSlip = createAsyncThunk(
+    'unlockSlip',
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/api/unlock_odds', data);
+            if (response.status === 200) {
+                console.log("unlock Slip", response.data);
+                return response.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
+export const userSlip = createAsyncThunk(
+    'userSlip',
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/api/user_odds', data);
+            if (response.status === 200) {
+                // console.log("unlock Slip", response.data);
+                return response.data;
+            } else {
+                let errors = errorHandler(response);
+                return rejectWithValue(errors);
+            }
+        } catch (err) {
+            let errors = errorHandler(err);
+            return rejectWithValue(errors);
+        }
+    }
+)
 const initialState = {
     oddsData: [],
     isLoading: false,
     error: false,
     singleSlip: {},
-    slipInfo: {}
+    slipInfo: {},
+    slipUnlock : [],
+    userSlipDetails :[]
 }
 const CookedSlipSlice = createSlice(
     {
@@ -104,6 +142,32 @@ const CookedSlipSlice = createSlice(
                 state.slipInfo = payload
 
             }).addCase(getSlipInfo.rejected, (state, { payload }) => {
+                state.error = true;
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            }).addCase(unlockSlip.pending, (state) => {
+                state.isLoading = true
+            }).addCase(unlockSlip.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                state.slipUnlock= payload
+
+            }).addCase(unlockSlip.rejected, (state, { payload }) => {
+                state.error = true;
+                state.isLoading = false;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            }).addCase(userSlip.pending, (state) => {
+                state.isLoading = true
+            }).addCase(userSlip.fulfilled, (state, { payload }) => {
+                state.isLoading = false
+                state.userSlip= payload
+
+            }).addCase(userSlip.rejected, (state, { payload }) => {
                 state.error = true;
                 state.isLoading = false;
                 state.message =

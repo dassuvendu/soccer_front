@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   BuyTokenIcon,
   dollerIcon,
@@ -25,13 +25,17 @@ import {
 } from "flowbite-react";
 import { CiUnlock } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { getOddsSlips } from "../../reducers/CookedSlipSlice";
+import { getOddsSlips, unlockSlip } from "../../reducers/CookedSlipSlice";
 import { useDateTimeSlip } from "../../hooks/useDateTimeSlip";
 // import { useDateTimeSlipEnd } from "../../hooks/useDateTimeSlipEnd";
 import ViewSlipDetails from "./ViewSlipDetails";
+import { logout } from "../../reducers/authSlice";
+import { getUid } from "../../reducers/uuidSlice";
+import { toast } from "react-toastify";
 const CookedSlips = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { oddsData, isLoading } = useSelector((state) => state.cookedSlips);
+  const { valid } = useSelector((state) => state.uuid);
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [dateEnd, setDateEnd] = useState(null);
@@ -52,7 +56,21 @@ const CookedSlips = () => {
   const [error, setError] = useState(false);
   const slipModalHandler = (id) => {
     setOpenSlipModal(true);
-    setSlipId(id);
+    const startDate = id.split('/')[1].toString().split('.')[0]
+    const endDate = id.split('/')[2].toString().split('.')[0]
+    setSlipId( id.split('/')[0]);
+    dispatch(unlockSlip({
+      id : parseInt(id.split('/')[0]),
+      cost:2,
+      count:parseInt(id.split('/')[6]),
+      ends_on:endDate,
+      odds:parseInt(id.split('/')[6]),
+      passed:null,
+      risk:id.split('/')[5],
+      starts_on:startDate,
+      strategy:id.split('/')[3]
+
+    }))
     console.log("slip id:", id);
   };
   // useEffect(() => {
@@ -65,6 +83,35 @@ const CookedSlips = () => {
   // }, [oddsData]);
   // console.log("End Date: ", dateListEnd);
   // console.log("End Time: ", timeListEnd);
+
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   const handleDateChange = (date) => {
     setDate(date);
@@ -375,7 +422,14 @@ const CookedSlips = () => {
                           <button
                             className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
                             onClick={() => {
-                              slipModalHandler(odds?.id);
+                              slipModalHandler(
+                                `${odds?.id}/${odds?.startsOn}/${odds?.endsOn}/${odds?.strategy}/${odds?.count}/${odds?.risk}/${odds?.odds}`  
+                                 
+                                
+                               
+                                
+                                
+                              );
                             }}
                           >
                             <CiUnlock className="text-base mr-0.5" />

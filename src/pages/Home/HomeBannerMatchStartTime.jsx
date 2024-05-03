@@ -8,7 +8,7 @@ const HomeBannerMatchStartTime = () => {
   const { fixtures } = useSelector((state) => state.prediction);
 
   const [time, setTime] = useState('');
-  
+  // console.log("time",time);
   // const formateTime = time.toString().split("+")[0]
   // console.log("next time",formateTime);
   const [countdown, setCountdown] = useState({ days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' });
@@ -43,41 +43,43 @@ const HomeBannerMatchStartTime = () => {
       return fixtureDate > new Date(currentUTCTimeWithoutMs);
   });
     
-    if (ongoingMatch) {
+  if (ongoingMatch) {
         
-        // Filter out the next match
-        const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
-    
-          const fixtureDate = new Date(item?.fixture?.date);
-          const currentUTCTime = new Date().toISOString();
-          
-          fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
-          const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+    // Filter out the next match
+    const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
+
+      const fixtureDate = new Date(item?.fixture?.date);
+      const currentUTCTime = new Date().toISOString();
       
-          return fixtureDate > new Date(currentUTCTimeWithoutMs);
-      });
-       
-        setNextMatch(Item[0])
-        
-       
-     
-    } else {
-      // If no match is ongoing, find the next match
-      const Item =  Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
+      fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+      const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+  
+      return fixtureDate > new Date(currentUTCTimeWithoutMs);
+  });
+   
+    setNextMatch(Item[0])
     
-        const fixtureDate = new Date(item?.fixture?.date);
-        const currentUTCTime = new Date().toISOString();
-        
-        fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
-        const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
-    
-        return fixtureDate > new Date(currentUTCTimeWithoutMs);
-    });
-      if (Item) {
-        setTime(Item[0].fixture.date);
-      }
+    if (Item) {
+      setTime(Item[0].fixture.date.toString().split("+")[0]);
     }
-  }, [fixtures]);
+ 
+} else {
+  // If no match is ongoing, find the next match
+  const Item =  Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
+
+    const fixtureDate = new Date(item?.fixture?.date);
+    const currentUTCTime = new Date().toISOString();
+    
+    fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+    const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+
+    return fixtureDate > new Date(currentUTCTimeWithoutMs);
+});
+  if (Item) {
+    setTime(Item[0].fixture.date);
+  }
+}
+}, [fixtures]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -101,6 +103,7 @@ const HomeBannerMatchStartTime = () => {
     // console.log("tar1",now);
     const difference = targetDate - now;
     setDiff(difference)
+    console.log("d",difference);
     if (difference < 0) {
       
       return { days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' };

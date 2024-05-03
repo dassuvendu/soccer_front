@@ -17,6 +17,10 @@ import { MyPredictionStats } from "../PredictionModal/MyPredictionStats";
 import { PredictionCorrectScores } from "../PredictionModal/PredictionCorrectScores";
 import PredictionTeamFormation from "../PredictionModal/PredictionTeamFormation";
 import { logoIcon } from "../../../assets/images/images";
+import { getUid } from "../../../reducers/uuidSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { logout } from "../../../reducers/authSlice";
 
 export const PredictionRequestModal = ({
   openDetailsModal,
@@ -28,6 +32,7 @@ export const PredictionRequestModal = ({
   const { lastResult, h2h } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
   const { Aplayers } = useSelector((state) => state.formation);
+  const { valid } = useSelector((state) => state.uuid);
   const [homeData, setHomeData] = useState();
   const [awayData, setAwayData] = useState();
   const [homeDataImg, setHomeDataImg] = useState();
@@ -42,6 +47,29 @@ export const PredictionRequestModal = ({
   const [error,setError] = useState()
   const dispatch = useDispatch();
 
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then(() =>{
+        toast.error('Your session has expired !', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
+  
   useEffect(() => {
     setIsFixturesId(fixturesId);
   }, [fixturesId]);

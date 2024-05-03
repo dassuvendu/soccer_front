@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BuyTokenIcon } from "../../assets/images/images";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -13,6 +13,9 @@ import { getLeague, serachTeam } from "../../reducers/TeamComparisonSlice";
 import debounce from "../../utils/debounce";
 import ViewTeamInformationDetails from "./ViewTeamInformationDetails";
 import Select from "react-select";
+import { getUid } from "../../reducers/uuidSlice";
+import { toast } from "react-toastify";
+import { logout } from "../../reducers/authSlice";
 const TeamComparisions = () => {
   const [openTeamComparisionsModal, setOpenTeamComparisionsModal] =
     useState(false);
@@ -28,18 +31,11 @@ const TeamComparisions = () => {
 
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { teams } = useSelector((state) => state.teamComparision);
+  const { valid } = useSelector((state) => state.uuid);
   const dispatch = useDispatch();
-  const [searchInput, setSearchInput] = useState("");
-  const [searchInputDep, setSearchInputDep] = useState("");
-  const [searchImgInput, setSearchImgInput] = useState(true);
-  const [filteredTeams, setFilteredTeams] = useState([]);
-  const [searchInput1, setSearchInput1] = useState("");
-  const [searchImgInput1, setSearchImgInput1] = useState(true);
-  const [filteredTeams1, setFilteredTeams1] = useState([]);
   const [team1Id, setTeam1Id] = useState("");
   const [team2Id, setTeam2Id] = useState("");
   const [singleTeamId, setSingleTeamId] = useState("");
-  const [searchCompleted, setSearchCompleted] = useState(false);
   const [firstteamselectedOption, setFirstTeamSelectedOption] = useState(null);
   const [isFirstTeamMenuOpen, setIsFirstTeamMenuOpen] = useState(false);
   const [secondselectedTeamOption, setSecondSelectedTeamOption] =
@@ -48,12 +44,42 @@ const TeamComparisions = () => {
   const [singleteamselectedOption, setSingleTeamSelectedOption] =
     useState(null);
   const [isSingleTeamMenuOpen, setIsSingleTeamMenuOpen] = useState(false);
+
+
   const teamComparisionsModalHandler = (team1Id, team2Id) => {
     setOpenTeamComparisionsModal(true);
     console.log("team1Id: ", team1Id);
     console.log("team2Id: ", team2Id);
   };
 
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
   // useEffect(() => {
   //   if (searchInput && searchInput.length >= 3)
   //     dispatch(serachTeam({ name: searchInput }));

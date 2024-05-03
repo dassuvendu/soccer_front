@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   ActiveBG,
   BarcelonaIcon,
@@ -28,11 +28,45 @@ import {
 import { getStatistics } from "../../reducers/StatisticsSlice";
 import { RiTeamLine } from "react-icons/ri";
 import { AiOutlineTeam } from "react-icons/ai";
+import { getUid } from "../../reducers/uuidSlice";
+import { toast } from "react-toastify";
+import { logout } from "../../reducers/authSlice";
 
 const Statistics = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { statistics, isLoading } = useSelector((state) => state.statistics);
+  const { valid } = useSelector((state) => state.uuid);
+
   const dispatch = useDispatch();
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
+
   useEffect(() => {
     dispatch(getStatistics({}));
   }, []);

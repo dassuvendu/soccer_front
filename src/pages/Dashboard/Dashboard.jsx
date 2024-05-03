@@ -9,62 +9,49 @@ import { editProfile } from "../../reducers/profileSlice";
 // import { useUuid } from "../../hooks/useUuid";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isloadingEditProfile } = useSelector((state) => state.profile);
   const { league,isLoading } = useSelector((state) => state.league);
   const { valid } = useSelector((state) => state.uuid);
-  const [api, setApi] = useState(true);
-  const [apiCall, setApiCall] = useState(true);
-  const dispatch = useDispatch();
+  
+
   // const subscribed = JSON.parse(
   //   localStorage.getItem("isSubscribed")
   // )?.isSubscribed;
 
   // const [ Id ] = useUuid()
+
+  const [apiCall, setApiCall] = useState();
+  const dispatch = useDispatch();
   const navigate = useNavigate()
+  const uuid = localStorage.getItem('uuid')
 
   useEffect(() => {
     dispatch(getUid({}))
   },[dispatch])
 
-  const uuid = localStorage.getItem('uuid')
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        if (uuid === valid?.data && apiCall) {
-          console.log("local",uuid);
-          console.log("api",valid?.data);
-            dispatch(editProfile());
-            setApiCall(false)
-        }
-    }, 2000);
-
-    return () => clearTimeout(timer);
-    
-}, [valid, uuid, dispatch,apiCall]);
-
 useEffect(() => {
   const timer = setTimeout(() => {
     dispatch(getUid({})).then((res) =>{
-      
-      toast.error('Your session has expired !', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      })
+      if (res?.payload?.data === undefined) {
+        toast.error('Your session has expired !', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+         
     })
       if (uuid !== valid?.data) {
-        
           dispatch(logout())
           navigate('/') 
-      
-       
+          
       }
       
   },5000);
@@ -83,6 +70,19 @@ useEffect(() => {
     }
   }, [dispatch,valid,uuid,apiCall]);
 
+//   useEffect(() => {
+//     const timer = setTimeout(() => {
+//         if (uuid === valid?.data && apiCall) {
+//           console.log("local",uuid);
+//           console.log("api",valid?.data);
+//             dispatch(editProfile());
+//             setApiCall(false)
+//         }
+//     }, 2000);
+
+//     return () => clearTimeout(timer);
+    
+// }, [valid, uuid, dispatch,apiCall]);
 
   const { profile } = useSelector((state) => state.profile);
 

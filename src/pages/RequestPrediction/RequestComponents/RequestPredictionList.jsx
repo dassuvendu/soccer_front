@@ -2,7 +2,7 @@ import { Button, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RequestModal } from "./RequestModal";
 import {
   BsChevronDoubleLeft,
@@ -13,11 +13,14 @@ import {
 import { getFixtures } from "../../../reducers/PredictionsSlice";
 import { logoIcon } from "../../../assets/images/images";
 import { getUid } from "../../../reducers/uuidSlice";
+import { logout } from "../../../reducers/authSlice";
+import { toast } from "react-toastify";
 // import { useUuid } from "../../../hooks/useUuid";
 
 const RequestPredictionList = ({ errorMessage }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { fixtures, isLoading } = useSelector((state) => state.prediction);
+  const { valid } = useSelector((state) => state.uuid);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
@@ -28,7 +31,34 @@ const RequestPredictionList = ({ errorMessage }) => {
 
   const dispatch = useDispatch();
 
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
 
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);

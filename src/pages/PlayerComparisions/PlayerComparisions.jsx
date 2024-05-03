@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BuyTokenIcon } from "../../assets/images/images";
 
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -17,12 +17,15 @@ import {
   getSPlayerDetails,
   getTeam,
 } from "../../reducers/PlayerComparision";
+import { getUid } from "../../reducers/uuidSlice";
+import { toast } from "react-toastify";
+import { logout } from "../../reducers/authSlice";
 
 const PlayerComparisions = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { team, playerList } = useSelector((state) => state.playerComparision);
   console.log(playerList);
-
+  const { valid } = useSelector((state) => state.uuid);
   //For Teams
   const [firstteamselectedOption, setFirstTeamSelectedOption] = useState(null);
   const [isFirstTeamMenuOpen, setIsFirstTeamMenuOpen] = useState(false);
@@ -41,6 +44,35 @@ const PlayerComparisions = () => {
   const [isSecondMenuOpen, setIsSecondMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   //For Teams
   const handleTeamChange = (firstteamselectedOption) => {

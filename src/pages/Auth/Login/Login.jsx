@@ -59,7 +59,6 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       dispatch(editProfile());
     });
   };
-console.log("isLoggedin",isLoggedIn);
   useEffect(() => {
     if (error && message) {
       setErrorMessage(message);
@@ -72,7 +71,7 @@ console.log("isLoggedin",isLoggedIn);
     } else if (isLoggedIn) {
     
       // console.log("uuid",typeof uuid);
-      // dispatch(resetAfterLoggedIn());
+      dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
      
       setOpenLoginModal(false);

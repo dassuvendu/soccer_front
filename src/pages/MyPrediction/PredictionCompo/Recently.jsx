@@ -6,11 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsChevronDoubleLeft, BsChevronDoubleRight, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { PredictionRequestModal } from './PredictionRequestModal';
 import { recentPredictions } from '../../../reducers/RecentPredictionSlice';
+import { logout } from '../../../reducers/authSlice';
+import { getUid } from '../../../reducers/uuidSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const Recently = ({themeMode,token}) => {
 
       const { recent,isLoading } = useSelector((state) => state.recentPredicts);
-
+      const { valid } = useSelector((state) => state.uuid);
       const [fixturesId, setFixturesId] = useState();
       const [homeId, setHomeId] = useState();
       const [awayId, setAwayId] = useState();
@@ -24,6 +28,31 @@ export const Recently = ({themeMode,token}) => {
       const [error, setError] = useState(null)
       const dispatch = useDispatch()
 
+      const uuid = localStorage.getItem('uuid')
+      const navigate = useNavigate()
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          dispatch(getUid({})).then((res) =>{
+            if (res?.payload?.data === undefined) {
+              toast.error('Your session has expired !', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            }
+          })
+            if (uuid !== valid?.data) {
+                dispatch(logout())
+                navigate('/') 
+            }
+        },5000);
+        return () => clearTimeout(timer);
+      }, [valid, uuid, dispatch]);
+
       useEffect(() => {
         if (token) {
           console.log("total data: ", recent?.total_data);
@@ -33,6 +62,7 @@ export const Recently = ({themeMode,token}) => {
 
       useEffect(() =>{
         if (token && currentPage) {
+          dispatch(getUid({}))
             dispatch(
                 recentPredictions({
                   page_number: currentPage,
@@ -52,6 +82,7 @@ export const Recently = ({themeMode,token}) => {
       const handlePageChange = (page) => {
         // console.log("rc",page);
         setCurrentPage(page);
+        dispatch(getUid({}))
         dispatch(
             recentPredictions({
               page_number: page,

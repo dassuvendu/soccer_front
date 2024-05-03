@@ -6,11 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsChevronDoubleLeft, BsChevronDoubleRight, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { PredictionRequestModal } from './PredictionRequestModal';
 import { getPredictions } from '../../../reducers/MyPredictionSlice';
+import { toast } from 'react-toastify';
+import { getUid } from '../../../reducers/uuidSlice';
+import { logout } from '../../../reducers/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const AllPrediction = ({themeMode,token}) => {
 
     const { fetchedPredictions, isLoading } = useSelector((state) => state.myPredictions);
-
+    const { valid } = useSelector((state) => state.uuid);
     const [fixturesId, setFixturesId] = useState();
       const [currentPage, setCurrentPage] = useState(1);
       const [totalPages, setTotalPages] = useState();
@@ -20,7 +24,33 @@ export const AllPrediction = ({themeMode,token}) => {
       const [timeStamp, setTimeStamp] = useState(null);
       const [openDetailsModal, setOpenDetailsModal] = useState(false);
       const [error, setError] = useState(null)
+
       const  dispatch = useDispatch()
+      const uuid = localStorage.getItem('uuid')
+      const navigate = useNavigate()
+
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          dispatch(getUid({})).then((res) =>{
+            if (res?.payload?.data === undefined) {
+              toast.error('Your session has expired !', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            }
+          })
+            if (uuid !== valid?.data) {
+                dispatch(logout())
+                navigate('/') 
+            }
+        },5000);
+        return () => clearTimeout(timer);
+      }, [valid, uuid, dispatch]);
+
       useEffect(() => {
         if (token) {
           console.log("total data: ", fetchedPredictions?.total_data);
@@ -29,7 +59,8 @@ export const AllPrediction = ({themeMode,token}) => {
       }, [fetchedPredictions, itemsPerPage]);
 
       useEffect(() => {
-        if (token && currentPage) {
+        if (token && currentPage ) {
+          dispatch(getUid({}))
           dispatch(
             getPredictions({
               page_number: currentPage,
@@ -42,10 +73,12 @@ export const AllPrediction = ({themeMode,token}) => {
             }
           }) 
         }
+
       }, [currentPage, itemsPerPage, token, dispatch]);
 
       const handlePageChange = (page) => {
         setCurrentPage(page);
+        dispatch(getUid({}))
         dispatch(
           getPredictions({
             page_number: page,

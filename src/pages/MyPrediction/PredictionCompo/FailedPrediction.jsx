@@ -15,12 +15,16 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getPredictions } from "../../../reducers/MyPredictionSlice";
+import { logout } from "../../../reducers/authSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { getUid } from "../../../reducers/uuidSlice";
 
 export const FailedPrediction = ({ themeMode, token }) => {
   const { fetchedPredictions, isLoading } = useSelector(
     (state) => state.myPredictions
   );
-
+  const { valid } = useSelector((state) => state.uuid);
   const [fixturesId, setFixturesId] = useState();
   const [homeId, setHomeId] = useState();
   const [awayId, setAwayId] = useState();
@@ -34,6 +38,29 @@ export const FailedPrediction = ({ themeMode, token }) => {
   const [error, setError] = useState(null);
   const [predic,setPredic] = useState()
   const dispatch = useDispatch();
+
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then(() =>{
+        toast.error('Your session has expired !', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   useEffect(() => {
     if (token) {
@@ -49,6 +76,7 @@ export const FailedPrediction = ({ themeMode, token }) => {
   },[fetchedPredictions])
   useEffect(() => {
     if (token && currentPage) {
+      dispatch(getUid({}))
       dispatch(
         getPredictions({
           page_number: currentPage,

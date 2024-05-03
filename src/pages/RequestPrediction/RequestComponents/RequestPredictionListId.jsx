@@ -2,7 +2,7 @@ import { Button, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RequestModal } from "./RequestModal";
 import {
   BsChevronDoubleLeft,
@@ -15,6 +15,9 @@ import {
   getleagueByid,
 } from "../../../reducers/PredictionsSlice";
 import { logoIcon } from "../../../assets/images/images";
+import { logout } from "../../../reducers/authSlice";
+import { getUid } from "../../../reducers/uuidSlice";
+import { toast } from "react-toastify";
 
 const RequestPredictionListId = ({ errorMessage,rid }) => {
     // console.log(rid);
@@ -23,14 +26,45 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     // const seasonCopy=[...seasons]
     //  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { fixtures } = useSelector((state) => state.prediction);
-
+  const { fixtures,isLoading } = useSelector((state) => state.prediction);
+  const { valid } = useSelector((state) => state.uuid);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
   
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
   const [timeStamp, setTimeStamp] = useState(null)
   const [fixturesId, setFixturesId] = useState(null)
+
+  
+  const dispatch = useDispatch();
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   const viewDetailsModalHandler = (id) => {
     //  console.log("det",id);
@@ -46,7 +80,6 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     setOpenViewDetailsModal(false);
   };
 
-  const [loadingData, setLoadingData] = useState(true);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState(false);
  
@@ -65,7 +98,6 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
   const prevYear = year - 1
   const changeDateformate = today.toISOString().split("T")[0];
 
-  const dispatch = useDispatch();
 
 
 
@@ -96,28 +128,36 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     dispatch(
       getFixtures({
         date: changeDateformate,
-      league: rid, // If league is selected, use its value
+        league: rid, // If league is selected, use its value
         season: year,
        })
       ).then((response) => {
         if (
-          response?.payload?.status === true
+          response?.payload?.message ===
+            "Something went wrong. Please try again later"
          ){
-          setError(false);
-         }else{
           setError(true);
-         }
+         }else {
+          setError(false);
+        }
      if (
        response?.payload?.message ===
          "Something went wrong. Please try again later"
       ) dispatch(
         getFixtures({
           date: changeDateformate,
-        league: rid, // If league is selected, use its value
+          league: rid, // If league is selected, use its value
           season: prevYear,
          })
-        ).then(() => {
-          setLoadingData(false)
+        ).then((response) =>{
+          if (
+            response?.payload?.message ===
+              "Something went wrong. Please try again later"
+           ){
+            setError(true);
+           }else {
+            setError(false);
+          }
         })
     });
     
@@ -198,7 +238,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
   }, [fixtures]);
   return (
     <div>
-      {!loadingData ? (
+      {!isLoading ? (
         <div>
           {error ? (
             <div className="w-full">

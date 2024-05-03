@@ -16,6 +16,10 @@ import TeamFormation from "../RequestPredictionModalCompo/TeamFormation";
 import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
 import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
 import { logoIcon } from "../../../assets/images/images";
+import { logout } from "../../../reducers/authSlice";
+import { getUid } from "../../../reducers/uuidSlice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 export const RequestModal = ({
   openViewDetailsModal,
   onClose,
@@ -28,6 +32,7 @@ export const RequestModal = ({
   const { lastResult, h2h } = useSelector((state) => state.prediction);
   const { Hplayers } = useSelector((state) => state.formation);
   const { Aplayers } = useSelector((state) => state.formation);
+  // const { valid } = useSelector((state) => state.uuid);
   const [homeData, setHomeData] = useState();
   const [awayData, setAwayData] = useState();
   const [homeDataImg, setHomeDataImg] = useState();
@@ -39,6 +44,29 @@ export const RequestModal = ({
   const [isfixturesId, setIsFixturesId] = useState(null);
 
   const dispatch = useDispatch();
+
+  // const uuid = localStorage.getItem('uuid')
+  // const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     dispatch(getUid({})).then(() =>{
+  //       toast.error('Your session has expired !', {
+  //         position: "top-right",
+  //         autoClose: 5000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         progress: undefined,
+  //         theme: "dark",
+  //       })
+  //     })
+  //       if (uuid !== valid?.data) {
+  //           dispatch(logout())
+  //           navigate('/') 
+  //       }
+  //   },5000);
+  //   return () => clearTimeout(timer);
+  // }, [valid, uuid, dispatch]);
 
   useEffect(() => {
     setIsFixturesId(fixturesId);
@@ -239,7 +267,7 @@ export const RequestModal = ({
                                     Home History
                                   </h4>
                                   {h2h?.map((goal) => (
-                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={goal?.id}>
                                       <div className="text-center">
                                         <img
                                           src={goal?.teams?.home?.logo}

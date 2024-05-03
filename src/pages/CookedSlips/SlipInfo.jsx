@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getSlipInfo, getslipDetails } from "../../reducers/CookedSlipSlice";
 import { Button, Table } from "flowbite-react";
 import { MdMoreHoriz } from "react-icons/md";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { logoIcon } from "../../assets/images/images";
 import { SlipRequestModal } from "./SlipRequestModal";
+import { getUid } from "../../reducers/uuidSlice";
+import { toast } from "react-toastify";
+import { logout } from "../../reducers/authSlice";
 
 const SlipInfo = () => {
   const [fixturesId, setFixturesId] = useState();
@@ -17,6 +20,7 @@ const SlipInfo = () => {
   const [newMatches, setNewMatches] = useState([]);
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isLoading, singleSlip } = useSelector((state) => state.cookedSlips);
+  const { valid } = useSelector((state) => state.uuid);
   const location = useLocation();
   let id;
   if (location?.state?.id) {
@@ -24,6 +28,36 @@ const SlipInfo = () => {
   }
   console.log("location", location);
   const dispatch = useDispatch();
+
+  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(getUid({}))
+  },[dispatch])
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) =>{
+        if (res?.payload?.data === undefined) {
+          toast.error('Your session has expired !', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+        if (uuid !== valid?.data) {
+            dispatch(logout())
+            navigate('/') 
+        }
+    },5000);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
+
   useEffect(() => {
     dispatch(getslipDetails({ id: id }));
   }, [dispatch]);
