@@ -27,6 +27,7 @@ import Bundesliga from '../pages/Bundesliga/Bundesliga.jsx';
 import PlayerComparisions from '../pages/PlayerComparisions/PlayerComparisions.jsx';
 import RequestPredictionId from '../pages/RequestPrediction/RequestPredictionId.jsx';
 import SlipInfo from '../pages/CookedSlips/SlipInfo.jsx';
+import { ReferRegistrationPage } from '../pages/Home/ReferRegistrationPage.jsx';
 
 const allRoutes = [
   {
@@ -35,6 +36,14 @@ const allRoutes = [
     children: [
       { index: true, element: <Home /> },
       { path: 'home', element: <Home /> },
+    ],
+  },
+  {
+    path: '/signup',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'ReferRegistration/:id', element: <ReferRegistrationPage /> },
     ],
   },
   {

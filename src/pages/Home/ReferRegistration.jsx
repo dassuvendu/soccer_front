@@ -5,16 +5,16 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { registerUser, verifyOtp } from "../../reducers/authSlice";
-import { v4 as uuidv4 } from "uuid";
 
-const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
+const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const token = JSON.parse(localStorage.getItem("regToken"));
-
+    const refId = localStorage.getItem('ref_id')
+    
     const loginHandler = () => {
         setOpenLoginModal(true);
         setOpenRegisterModal(false);
@@ -34,19 +34,6 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
         reset,
     } = useForm();
 
-    const [tsr, setTsr] = useState("");
-
-    useEffect(() =>{
-
-        const uid = uuidv4();
-        // console.log("User Id set successfully");
-        // localStorage.setItem('uuid',uuid)
-        setTsr(uid)
-     
-    },[])
-
-    localStorage.setItem('ref_id',tsr)
-
     function onSubmit(data) {
         if (currentUser && Object.keys(currentUser).length) {
             dispatch(verifyOtp(data)).then(() => {
@@ -62,14 +49,13 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
             setOpenRegisterModal(false);
             setOpenLoginModal(false);
         } else {
-            dispatch(registerUser( 
-                {
+            
+            dispatch(registerUser({
                 email: data?.email,
                 first_name : data?.first_name,
                 password : data?.password,
-                ref_id : tsr
-            }
-            ))
+                ref_id : refId,
+            }))
         }
     }
 
@@ -261,4 +247,4 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
     )
 }
 
-export default Registration;
+export default ReferRegistration;

@@ -81,7 +81,7 @@ export const userSlip = createAsyncThunk(
             const response = await api.post('/api/user_odds', data);
             if (response.status === 200) {
                 // console.log("unlock Slip", response.data);
-                return response.data;
+                return response;
             } else {
                 let errors = errorHandler(response);
                 return rejectWithValue(errors);
@@ -165,7 +165,7 @@ const CookedSlipSlice = createSlice(
                 state.isLoading = true
             }).addCase(userSlip.fulfilled, (state, { payload }) => {
                 state.isLoading = false
-                state.userSlip= payload
+                state.userSlipDetails= payload
 
             }).addCase(userSlip.rejected, (state, { payload }) => {
                 state.error = true;

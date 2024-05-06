@@ -15,10 +15,12 @@ import { MdVerifiedUser } from "react-icons/md";
 import { editProfile } from "../../reducers/profileSlice";
 import UpdateProfile from "./UpdateProfile";
 import ChangePassword from "../Auth/ChangePassword/ChangePassword";
+import { ReferModal } from "./ReferModal";
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { profile } = useSelector((state) => state.profile);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [openReferModal, setOpenReferModal] = useState(false);
   const updateHandler = () => {
     setOpenUpdateModal(true);
   };
@@ -32,13 +34,28 @@ const Settings = () => {
     setOpenChangePasswordModal(true);
   };
 
+  const userId = localStorage.getItem("userId");
+  console.log("ul", userId);
+  // const uId = userId?.split(':')[1]
+  // console.log("ul1",uId);
+
+  const refId = localStorage.getItem("ref_id");
+
+  const handleRefModal = () => {
+    setOpenReferModal(true);
+  };
+  useEffect(() => {
+    console.log(openReferModal);
+  }, [openReferModal]);
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-screen py-4 mb-16">
         <div className="flex justify-between mb-8">
           <h1
-            className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-              } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+            className={`${
+              themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+            } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
           >
             Settings
           </h1>
@@ -84,22 +101,25 @@ const Settings = () => {
         {/* Setting edit section start here */}
         <div className="md:flex">
           <div
-            className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md p-5 shadow-xl`}
+            className={`w-full md:w-5/12 ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-md p-5 shadow-xl`}
           >
             <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
               <h3
-                className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                  } font-medium`}
+                className={`text-[20px]  ${
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-medium`}
               >
                 Overview
               </h3>
               <button onClick={updateHandler}>
                 <AiFillEdit
-                  className={`${themeMode === "light"
-                    ? "text-[#2aa9e1] hover:text-black"
-                    : "text-white"
-                    } text-[28px] hover:text-[#2aa9e1]`}
+                  className={`${
+                    themeMode === "light"
+                      ? "text-[#2aa9e1] hover:text-black"
+                      : "text-white"
+                  } text-[28px] hover:text-[#2aa9e1]`}
                 />
               </button>
             </div>
@@ -113,8 +133,9 @@ const Settings = () => {
               </div>
               <div>
                 <p
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[19px] leading-[20px] text-medium`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[19px] leading-[20px] text-medium`}
                 >
                   {profile?.details?.first_name}
                 </p>
@@ -123,8 +144,9 @@ const Settings = () => {
                   {profile?.details?.username}
                 </p>
                 <p
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-medium`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-medium`}
                 >
                   Licence :
                 </p>
@@ -133,65 +155,103 @@ const Settings = () => {
             <div>
               <div className="flex mb-4">
                 <div
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-medium w-4/12`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-medium w-4/12`}
                 >
                   Contact phone
                 </div>
                 <div
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-normal w-8/12`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-normal w-8/12`}
                 >
                   {profile?.details?.mobile}
                 </div>
               </div>
               <div className="flex mb-4">
                 <div
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-medium w-4/12`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-medium w-4/12`}
                 >
                   {/* Address */}Gender
                 </div>
                 <div
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-normal w-8/12`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-normal w-8/12`}
                 >
                   {/* 23 Main Street, Anytown, USA 12345 */}
                   {profile?.details?.gender}
                 </div>
               </div>
-              <div className="flex mb-0">
+              <div>
                 <div
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-medium w-4/12`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-medium w-10/12 mb-4`}
                 >
-                  {/* Time Zone */}
+                  Share the your referral link below with your friends:
                 </div>
                 <div
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[14px] text-normal w-8/12`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[14px] text-normal w-8/12 flex`}
                 >
-                  {/* Jakarta (GMT+7) */}
+                  <TextInput
+                    id="base"
+                    type="text"
+                    sizing="md"
+                    className="w-8/12"
+                    value={`${"http://localhost:5173/signup"}${"/ReferRegistration/"}${userId}?=${refId}`}
+                    readOnly
+                  />
+                  <button
+                    type="button"
+                    data-modal-target="course-modal"
+                    data-modal-toggle="course-modal"
+                    className="text-white bg-black hover:bg-[#2880DA] border-gray-200 focus:ring-4 
+                    focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
+                    inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 
+                    dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 h-11 ml-4"
+                     onClick={handleRefModal}
+                  >
+                    <svg
+                      className="w-4 h-4 me-2"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17.5 3A3.5 3.5 0 0 0 14 7L8.1 9.8A3.5 3.5 0 0 0 2 12a3.5 3.5 0 0 0 6.1 2.3l6 2.7-.1.5a3.5 3.5 0 1 0 1-2.3l-6-2.7a3.5 3.5 0 0 0 0-1L15 9a3.5 3.5 0 0 0 6-2.4c0-2-1.6-3.5-3.5-3.5Z" />
+                    </svg>
+                    Share
+                  </button>
+                 
                 </div>
               </div>
             </div>
           </div>
           <div
-            className={`w-full md:w-7/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
+            className={`w-full md:w-7/12 ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
           >
             <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
               <h3
-                className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                  } font-medium`}
+                className={`text-[20px]  ${
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-medium`}
               >
                 Signin Methos
               </h3>
             </div>
             <div className="border-b border-[#DCDCDC] pb-3 pt-0 mb-3">
               <p
-                className={`${themeMode === "light" ? "text-black" : "text-white"
-                  } text-[15px] text-normal pb-0`}
+                className={`${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } text-[15px] text-normal pb-0`}
               >
                 Email Address
               </p>
@@ -202,8 +262,9 @@ const Settings = () => {
             <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
               <div className="w-9/12">
                 <p
-                  className={`${themeMode === "light" ? "text-black" : "text-white"
-                    } text-[15px] text-normal pb-0`}
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[15px] text-normal pb-0`}
                 >
                   Password
                 </p>
@@ -216,8 +277,10 @@ const Settings = () => {
                 />
               </div>
               <div className="w-3/12">
-                <button className="border border-[#2880DA] text-[12px] bg-black hover:bg-[#2880DA] text-white leading-[30px] px-3 rounded-md"
-                  onClick={handleChangePassword}>
+                <button
+                  className="border border-[#2880DA] text-[12px] bg-black hover:bg-[#2880DA] text-white leading-[30px] px-3 rounded-md"
+                  onClick={handleChangePassword}
+                >
                   Change Password
                 </button>
               </div>
@@ -236,12 +299,12 @@ const Settings = () => {
           </div>
         </div>
 
-        {openChangePasswordModal &&
+        {openChangePasswordModal && (
           <ChangePassword
             openChangePasswordModal={openChangePasswordModal}
             setOpenChangePasswordModal={setOpenChangePasswordModal}
           />
-        }
+        )}
 
         {/* Setting edit section ends here */}
         <UpdateProfile
@@ -250,7 +313,10 @@ const Settings = () => {
         />
       </div>
 
-
+      <ReferModal
+        openReferModal={openReferModal}
+        setOpenReferModal={setOpenReferModal}
+      />
     </div>
   );
 };

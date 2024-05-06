@@ -179,7 +179,7 @@ const authSlice = createSlice({
                     'regToken',
                     JSON.stringify({ token: access_token })
                 );
-                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
+                localStorage.setItem('userId', user_id );
                 // localStorage.setItem('firstName', payload?.first_name);
 
             })
@@ -245,7 +245,7 @@ const authSlice = createSlice({
                     'userToken',
                     JSON.stringify({ token: access_token })
                 );
-                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
+                localStorage.setItem('userId',user_id);
                 localStorage.setItem('isSubscribed', JSON.stringify({ isSubscribed: subscription })
                 );
                 localStorage.removeItem('regToken');

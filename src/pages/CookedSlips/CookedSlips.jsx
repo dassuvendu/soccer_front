@@ -61,8 +61,8 @@ const CookedSlips = () => {
     setSlipId( id.split('/')[0]);
     dispatch(unlockSlip({
       id : parseInt(id.split('/')[0]),
-      cost:2,
-      count:parseInt(id.split('/')[6]),
+      cost:parseInt(id.split('/')[7]),
+      count:parseInt(id.split('/')[4]),
       ends_on:endDate,
       odds:parseInt(id.split('/')[6]),
       passed:null,
@@ -423,7 +423,7 @@ const CookedSlips = () => {
                             className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
                             onClick={() => {
                               slipModalHandler(
-                                `${odds?.id}/${odds?.startsOn}/${odds?.endsOn}/${odds?.strategy}/${odds?.count}/${odds?.risk}/${odds?.odds}`  
+                                `${odds?.id}/${odds?.startsOn}/${odds?.endsOn}/${odds?.strategy}/${odds?.count}/${odds?.risk}/${odds?.odds}/${odds?.cost}`  
                                  
                                 
                                
