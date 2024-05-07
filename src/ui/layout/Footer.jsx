@@ -37,7 +37,7 @@ const Footer = () => {
   return (
     <div className="bg-[#18191b] pt-12 lg:pt-24 pb-0 px-8 lg:px-0">
       <div className="max-w-6xl mx-auto">
-        <div className="footer_top grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* <div className="footer_top grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div data-aos="fade-up" data-aos-duration="1000">
             <h3 className="font-Bebas text-xl text-white tracking-normal pb-4">
               About Us
@@ -164,13 +164,50 @@ const Footer = () => {
               Douglas Adams on Nike Hupervenom Phantom 2 FG
             </p>
           </div>
-        </div>
+        </div> */}
+
         <div className="footer_bottom text-center py-[40px]">
           <div className="flex justify-center items-center mb-6">
             <img src={footerArrow} alt="footerArrow" />
           </div>
           <div className="flex justify-center items-center mb-8">
             <img src={footerFootball} alt="footerFootball" />
+          </div>
+          <div className="text-center mb-4">
+            <ul className="flex justify-center items-center">
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/about-us"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/data-protection-policy"
+                >
+                  Data Protection Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/refund-cancellation-policy"
+                >
+                  Refund Cancellation Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/faqs"
+                >
+                  FAQs
+                </Link>
+              </li>
+            </ul>
           </div>
           <p className="text-[#9ea5a7] text-[15px] mb-6">
             <span className="text-white">PlayCope</span> © 2024 All Rights

@@ -28,6 +28,9 @@ import PlayerComparisions from '../pages/PlayerComparisions/PlayerComparisions.j
 import RequestPredictionId from '../pages/RequestPrediction/RequestPredictionId.jsx';
 import SlipInfo from '../pages/CookedSlips/SlipInfo.jsx';
 import { ReferRegistrationPage } from '../pages/Home/ReferRegistrationPage.jsx';
+import AboutUs from '../pages/AboutUs/AboutUs.jsx';
+import DataProtectionPolicy from '../pages/DataProtectionPolicy/DataProtectionPolicy.jsx';
+import RefundCancellationPolicy from '../pages/RefundCancellationPolicy/RefundCancellationPolicy.jsx';
 
 const allRoutes = [
   {
@@ -52,6 +55,30 @@ const allRoutes = [
     children: [
       { index: true, element: <Predictions /> },
       { path: 'predictions', element: <Predictions /> },
+    ],
+  },
+  {
+    path: '/about-us',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <AboutUs /> },
+      { path: 'about-us', element: <AboutUs /> },
+    ],
+  },
+  {
+    path: '/data-protection-policy',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <DataProtectionPolicy /> },
+      { path: 'data-protection-policy', element: <DataProtectionPolicy /> },
+    ],
+  },
+  {
+    path: '/refund-cancellation-policy',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <RefundCancellationPolicy /> },
+      { path: 'refund-cancellation-policy', element: <RefundCancellationPolicy /> },
     ],
   },
   {

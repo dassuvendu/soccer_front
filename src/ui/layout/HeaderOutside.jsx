@@ -80,16 +80,20 @@ const HeaderOutside = () => {
         </div>
         <Navbar.Collapse className="lg:bg-transparent main_menu">
           <li>
-            <NavLink to="/predictions">Predictions</NavLink>
+            <NavLink to="/about-us">About Us</NavLink>
+          </li>
+          <li>
+            <NavLink to="/data-protection-policy">
+              Data Protection Policy
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/refund-cancellation-policy">
+              Refund Cancellation Policy
+            </NavLink>
           </li>
           <li>
             <NavLink to="/faqs">FAQs</NavLink>
-          </li>
-          <li>
-            <NavLink to="/comparisons">Comparisons</NavLink>
-          </li>
-          <li>
-            <NavLink to="/news-blog">News & Blog</NavLink>
           </li>
         </Navbar.Collapse>
       </Navbar>
