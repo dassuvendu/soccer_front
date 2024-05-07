@@ -11,7 +11,7 @@ import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
 import { editProfile } from "../../../reducers/profileSlice";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import { v4 as uuidv4 } from "uuid";
-import { getUid } from "../../../reducers/uuidSlice";
+// import { getUid } from "../../../reducers/uuidSlice";
 
 const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const dispatch = useDispatch();
@@ -28,34 +28,34 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [errorMas, setErrorMas] = useState(null);
   const [tsr, setTsr] = useState("");
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  useEffect(() =>{
+  useEffect(() => {
 
-      const uid = uuidv4();
-      // console.log("User Id set successfully");
-      // localStorage.setItem('uuid',uuid)
-      setTsr(uid)
-   
-  },[])
-// const uuId = localStorage.getItem('uuid')
-// console.log("ou",uuId);
-// useEffect(() =>{
- 
-// },[tsr])
+    const uid = uuidv4();
+    // console.log("User Id set successfully");
+    // localStorage.setItem('uuid',uuid)
+    setTsr(uid)
+
+  }, [])
+  // const uuId = localStorage.getItem('uuid')
+  // console.log("ou",uuId);
+  // useEffect(() =>{
+
+  // },[tsr])
 
   const onSubmit = (data) => {
-    dispatch(login({email:data.email,password:data.password,uuid: tsr})).then((res) => {
+    dispatch(login({ email: data.email, password: data.password, uuid: tsr })).then((res) => {
       // console.log("reS",res);
-    if (res?.payload?.status_code === 401) {
-      setErrorMas(res?.payload?.message);
-    }
-    localStorage.setItem('uuid',tsr)
+      if (res?.payload?.status_code === 401) {
+        setErrorMas(res?.payload?.message);
+      }
+      localStorage.setItem('uuid', tsr)
       dispatch(editProfile());
     });
   };
@@ -69,11 +69,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
         clearTimeout(timeoutId);
       };
     } else if (isLoggedIn) {
-    
+
       // console.log("uuid",typeof uuid);
       dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
-     
+
       setOpenLoginModal(false);
     }
   }, [message, error]);
@@ -224,9 +224,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     <>
-                    {errors?.email?.message && (
-                      <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
-                    )}
+                      {errors?.email?.message && (
+                        <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
+                      )}
                     </>
                   </div>
                   <div>
@@ -252,8 +252,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       Forgot Password?
                     </button>
                   </div>
-                  {errorMas && 
-                   <h6 className="text-sm text-[red]">{`${'*'} ${errorMas}`}</h6>
+                  {errorMas &&
+                    <h6 className="text-sm text-[red]">{`${'*'} ${errorMas}`}</h6>
                   }
                   <Button className="create_character_btn w-full" type="submit">
                     Login

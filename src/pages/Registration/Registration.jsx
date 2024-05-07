@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { registerUser, verifyOtp } from "../../reducers/authSlice";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
     const dispatch = useDispatch();
@@ -40,17 +40,17 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
             dispatch(verifyOtp(data)).then(() => {
                 reset();
             });
-            navigate("/choose-plan");
             localStorage.setItem(
                 'userToken',
                 JSON.stringify({ token: token?.token })
             );
             localStorage.removeItem('regToken');
-            navigate("/dashboard");
+            navigate("/choose-plan");
+            // navigate("/dashboard");
             setOpenRegisterModal(false);
             setOpenLoginModal(false);
         } else {
-            dispatch(registerUser( data ))
+            dispatch(registerUser(data))
         }
     }
 
@@ -72,13 +72,13 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
             &&
             currentUser.otp_verified
         ) {
-            // navigate("/choose-plan");
             localStorage.setItem(
                 'userToken',
                 JSON.stringify({ token: token?.token })
             );
             localStorage.removeItem('regToken');
-            navigate("/dashboard");
+            navigate("/choose-plan");
+            // navigate("/dashboard");
             setOpenLoginModal(false);
             setOpenRegisterModal(false);
         }
