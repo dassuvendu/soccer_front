@@ -204,7 +204,7 @@ const Settings = () => {
                     type="text"
                     sizing="md"
                     className="w-8/12"
-                    value={`${"http://localhost:5173/signup"}${"/ReferRegistration/"}${userId}?=${refId}`}
+                    value={`${"https://www.playcope.com/signup"}${"/ReferRegistration/"}${userId}?=${refId}`}
                     readOnly
                   />
                   <button

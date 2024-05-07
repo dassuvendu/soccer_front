@@ -1,5 +1,5 @@
 import { Modal, TextInput } from "flowbite-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -47,6 +47,7 @@ const refId = localStorage.getItem("ref_id");
 const baseUrl = "http://localhost:5173/signup";
 const referRegistrationPath = "/ReferRegistration/";
 const url = `${baseUrl}${referRegistrationPath}${userId}?=${refId}`
+
 
 
   return (

@@ -1,5 +1,5 @@
 import { Modal, TextInput } from "flowbite-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { PlaycopeLogoPopup } from "../../assets/images/images";
 import { AiOutlineLogout } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -11,10 +11,13 @@ import { registerUser, verifyOtp } from "../../reducers/authSlice";
 const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const id = useParams()
+    // console.log("id",id.id);
 
     const token = JSON.parse(localStorage.getItem("regToken"));
-    const refId = localStorage.getItem('ref_id')
-    
+    const refId = localStorage.getItem('uuid')
+    console.log("ref",token);
+
     const loginHandler = () => {
         setOpenLoginModal(true);
         setOpenRegisterModal(false);
@@ -38,8 +41,9 @@ const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLog
         if (currentUser && Object.keys(currentUser).length) {
             dispatch(verifyOtp(data)).then(() => {
                 reset();
+                navigate("/choose-plan");
             });
-            // navigate("/choose-plan");
+            
             localStorage.setItem(
                 'userToken',
                 JSON.stringify({ token: token?.token })
@@ -54,7 +58,7 @@ const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLog
                 email: data?.email,
                 first_name : data?.first_name,
                 password : data?.password,
-                ref_id : refId,
+                ref_id : id.id,
             }))
         }
     }

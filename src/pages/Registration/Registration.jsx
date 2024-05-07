@@ -34,25 +34,13 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
         reset,
     } = useForm();
 
-    const [tsr, setTsr] = useState("");
-
-    useEffect(() =>{
-
-        const uid = uuidv4();
-        // console.log("User Id set successfully");
-        // localStorage.setItem('uuid',uuid)
-        setTsr(uid)
-     
-    },[])
-
-    localStorage.setItem('ref_id',tsr)
 
     function onSubmit(data) {
         if (currentUser && Object.keys(currentUser).length) {
             dispatch(verifyOtp(data)).then(() => {
                 reset();
             });
-            // navigate("/choose-plan");
+            navigate("/choose-plan");
             localStorage.setItem(
                 'userToken',
                 JSON.stringify({ token: token?.token })
@@ -62,14 +50,7 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
             setOpenRegisterModal(false);
             setOpenLoginModal(false);
         } else {
-            dispatch(registerUser( 
-                {
-                email: data?.email,
-                first_name : data?.first_name,
-                password : data?.password,
-                ref_id : tsr
-            }
-            ))
+            dispatch(registerUser( data ))
         }
     }
 
