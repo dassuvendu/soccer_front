@@ -27,7 +27,7 @@ const PaymentRedirect = () => {
   const plan_id = Number(urlParams.get("plan_id"));
   const user_id = Number(urlParams.get("user_id"));
   console.log(user_id);
-  const { profile } = useSelector((state) => state.profile);
+ 
 
   useEffect(() => {
     if (customer_id && subscription_id && plan_id && user_id) {
@@ -60,11 +60,9 @@ const PaymentRedirect = () => {
         'userToken',
         JSON.stringify({ token: token?.token })
       );
-      dispatch(referral({
-        user_id: user_id,
-        ref_id : profile.details.ref_id
-      }))
+     
       localStorage.removeItem('regToken');
+      
       setTimeout(() => {
         navigate("/dashboard");
       }, 2000);

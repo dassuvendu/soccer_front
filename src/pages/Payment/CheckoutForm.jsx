@@ -3,6 +3,8 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
+import { useDispatch, useSelector } from "react-redux";
+import { referral } from "../../reducers/RefCount";
 
 const CheckoutForm = ({
   setErrorMessage,
@@ -13,7 +15,8 @@ const CheckoutForm = ({
 }) => {
   const stripe = useStripe();
   const elements = useElements();
-
+  const { profile } = useSelector((state) => state.profile);
+const dispatch = useDispatch()
   const returnUrl = `${
     import.meta.env.VITE_FRONT_BASE_URL
   }/payment-redirect/?customer_id=${encodeURIComponent(
@@ -36,6 +39,12 @@ const CheckoutForm = ({
       .then(function (result) {
         if (result.error) {
           setErrorMessage(result.error.message);
+        }else{
+          console.log("hi");
+          dispatch(referral({
+            user_id:user_id,
+            ref_id : profile?.data?.ref_id
+          }))
         }
       });
   };
