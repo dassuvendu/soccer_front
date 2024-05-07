@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
 import { stripePayment, stripePlanKeys } from "../../reducers/paymentSlice";
 import Payment from "../Payment/Payment";
+import { referral } from "../../reducers/RefCount";
 
 const Plan = () => {
   const dispatch = useDispatch();
@@ -20,10 +21,11 @@ const Plan = () => {
   const [plans, setPlans] = useState([]);
 
   const { profile } = useSelector((state) => state.profile);
+  // console.log("pr",profile.details.ref_id);
   const { email, user_id } = useSelector((state) => state.auth?.currentUser);
 
   const UserId = JSON.parse(localStorage.getItem('userId'));
-  const userid = UserId.user_id;
+  console.log("id",UserId);
   const [userId, setUserId] = useState(null);
   useEffect(() => {
     setUserId(profile?.details?.id);
@@ -53,10 +55,14 @@ const Plan = () => {
     dispatch(
       stripePayment({
         plan_id: planId,
-        user_id: userid,
+        user_id: UserId,
         entity: "payment_intent",
       })
-    );
+    ).then((res)=>{
+      console.log(res);
+     
+      
+    })
     setShowPayment(true);
     setShowSubscription(false);
   };
@@ -114,9 +120,9 @@ const Plan = () => {
                                       {plan?.price}$ monthly only
                                     </h3>
                                     <button
-                                      // to="/payment"
+                                       to="/payment"
                                       className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]"
-                                      onClick={() => { createSubscription(plan.id, userid); }}
+                                      onClick={() => { createSubscription(plan.id, userId); }}
                                     >
                                       Subscribe Now
                                     </button>
@@ -144,7 +150,7 @@ const Plan = () => {
           <Payment
             planId={userDetails.plan_id}
             email={userDetails.email}
-            user_id={userid}
+            user_id={userId}
             stripeClientSecret={stripeClientSecret}
             stripePublishableKey={stripePublishableKey}
             customer_id={customer_id}

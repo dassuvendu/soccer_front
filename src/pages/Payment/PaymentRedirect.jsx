@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { stripePayment } from "../../reducers/paymentSlice";
+import { referral } from "../../reducers/RefCount";
 
 const PaymentRedirect = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const PaymentRedirect = () => {
     : null;
   const plan_id = Number(urlParams.get("plan_id"));
   const user_id = Number(urlParams.get("user_id"));
+  console.log(user_id);
+  const { profile } = useSelector((state) => state.profile);
 
   useEffect(() => {
     if (customer_id && subscription_id && plan_id && user_id) {
@@ -57,6 +60,10 @@ const PaymentRedirect = () => {
         'userToken',
         JSON.stringify({ token: token?.token })
       );
+      dispatch(referral({
+        user_id: user_id,
+        ref_id : profile.details.ref_id
+      }))
       localStorage.removeItem('regToken');
       setTimeout(() => {
         navigate("/dashboard");

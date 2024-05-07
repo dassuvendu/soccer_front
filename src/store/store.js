@@ -15,6 +15,8 @@ import formationSlice from '../reducers/formationSlice';
 import StatisticsSlice from '../reducers/StatisticsSlice';
 import RecentPredictionSlice from '../reducers/RecentPredictionSlice';
 import uuidSlice from '../reducers/uuidSlice';
+import RefCountSlice from '../reducers/RefCount';
+
 
 
 const store = configureStore({
@@ -34,7 +36,8 @@ const store = configureStore({
     formation: formationSlice,
     statistics: StatisticsSlice,
     recentPredicts: RecentPredictionSlice,
-    uuid:uuidSlice
+    uuid:uuidSlice,
+    refer: RefCountSlice
   },
   devTools: import.meta.env.DEV,
 });

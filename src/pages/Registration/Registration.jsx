@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { registerUser, verifyOtp } from "../../reducers/authSlice";
+// import { editProfile } from "../../reducers/profileSlice";
 // import { v4 as uuidv4 } from "uuid";
 
 const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
@@ -45,8 +46,9 @@ const Registration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginMod
                 JSON.stringify({ token: token?.token })
             );
             localStorage.removeItem('regToken');
-            navigate("/choose-plan");
+            // navigate("/choose-plan");
             // navigate("/dashboard");
+            
             setOpenRegisterModal(false);
             setOpenLoginModal(false);
         } else {

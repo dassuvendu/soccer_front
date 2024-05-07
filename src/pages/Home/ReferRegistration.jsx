@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { registerUser, verifyOtp } from "../../reducers/authSlice";
+import { editProfile } from "../../reducers/profileSlice";
 
 const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLoginModal }) => {
     const dispatch = useDispatch();
@@ -41,7 +42,6 @@ const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLog
         if (currentUser && Object.keys(currentUser).length) {
             dispatch(verifyOtp(data)).then(() => {
                 reset();
-                navigate("/choose-plan");
             });
             
             localStorage.setItem(
@@ -50,6 +50,8 @@ const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLog
             );
             localStorage.removeItem('regToken');
             navigate("/dashboard");
+            navigate("/choose-plan");
+            dispatch(editProfile())
             setOpenRegisterModal(false);
             setOpenLoginModal(false);
         } else {
