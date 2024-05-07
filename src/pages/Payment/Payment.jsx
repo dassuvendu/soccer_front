@@ -22,6 +22,8 @@ const Payment = (props) => {
     planId,
   } = props;
 
+  console.log("props", props);
+
   useEffect(() => {
     const promise = loadStripe(stripePublishableKey);
     setStripePromise(promise);
@@ -69,6 +71,7 @@ const Payment = (props) => {
                             planId &&
                             user_id && (
                               <>
+                                {console.log("keys", stripePublishableKey, customer_id, subscription_id, planId, user_id)}
                                 <Elements
                                   stripe={stripePromise}
                                   options={options}

@@ -25,7 +25,7 @@ const Plan = () => {
   const { email, user_id } = useSelector((state) => state.auth?.currentUser);
 
   const UserId = JSON.parse(localStorage.getItem('userId'));
-  console.log("id",UserId);
+  console.log("id", UserId);
   const [userId, setUserId] = useState(null);
   useEffect(() => {
     setUserId(profile?.details?.id);
@@ -58,10 +58,10 @@ const Plan = () => {
         user_id: UserId,
         entity: "payment_intent",
       })
-    ).then((res)=>{
+    ).then((res) => {
       console.log(res);
-     
-      
+
+
     })
     setShowPayment(true);
     setShowSubscription(false);
@@ -120,7 +120,7 @@ const Plan = () => {
                                       {plan?.price}$ monthly only
                                     </h3>
                                     <button
-                                       to="/payment"
+                                      to="/payment"
                                       className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]"
                                       onClick={() => { createSubscription(plan.id, userId); }}
                                     >
@@ -150,7 +150,7 @@ const Plan = () => {
           <Payment
             planId={userDetails.plan_id}
             email={userDetails.email}
-            user_id={userId}
+            user_id={user_id}
             stripeClientSecret={stripeClientSecret}
             stripePublishableKey={stripePublishableKey}
             customer_id={customer_id}
