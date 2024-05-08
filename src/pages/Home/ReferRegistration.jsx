@@ -14,16 +14,17 @@ const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLog
     const navigate = useNavigate();
     const id = useParams()
     // console.log("id",id.id);
-
+    const refId = id?.id.split('?')[0]
+    console.log("r",refId);
     const token = JSON.parse(localStorage.getItem("regToken"));
-    const refId = localStorage.getItem('uuid')
+
     console.log("ref",token);
 
     const loginHandler = () => {
         setOpenLoginModal(true);
         setOpenRegisterModal(false);
     };
-
+  
     const {
         error: validationErrors,
         currentUser,
@@ -60,7 +61,7 @@ const ReferRegistration = ({ openRegisterModal, setOpenRegisterModal, setOpenLog
                 email: data?.email,
                 first_name : data?.first_name,
                 password : data?.password,
-                ref_id : id.id,
+                ref_id : refId,
             }))
         }
     }

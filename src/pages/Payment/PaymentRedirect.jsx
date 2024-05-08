@@ -6,15 +6,27 @@ import { stripePayment } from "../../reducers/paymentSlice";
 import { referral } from "../../reducers/RefCount";
 import { editProfile } from "../../reducers/profileSlice";
 import Login from "../Auth/Login/Login";
-
+import Registration from "../Registration/Registration";
 
 const PaymentRedirect = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [message, setMessage] = useState({ type: null, text: null });
   const [showReloadMessage, setshowReloadMessage] = useState(true);
-  const { profile } = useSelector((state) => state.profile);
+  // const { profile } = useSelector((state) => state.profile);
   const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
+
+  const loginHandler = () => {
+    setOpenRegisterModal(false);
+    setOpenLoginModal(true);
+  };
+
+  useEffect(()=>{
+console.log("openLoginModal",openLoginModal);
+console.log("openRegisterModal",openRegisterModal);
+  },[openLoginModal,openRegisterModal])
+
   const token =
     JSON.parse(localStorage.getItem("userToken")) ||
     JSON.parse(localStorage.getItem("regToken"));
@@ -30,7 +42,7 @@ const PaymentRedirect = () => {
     : null;
   const plan_id = Number(urlParams.get("plan_id"));
   const user_id = Number(urlParams.get("user_id"));
-  const ref_id  = Number(urlParams.get("ref_id"))
+  const ref_id = Number(urlParams.get("ref_id"));
 
   useEffect(() => {
     if (customer_id && subscription_id && plan_id && user_id) {
@@ -41,7 +53,7 @@ const PaymentRedirect = () => {
           plan_id: plan_id,
           customer_id: customer_id,
           subscription_id: subscription_id,
-          refId : ref_id,
+          refId: ref_id,
           entity: "subscription_complete",
         })
       );
@@ -60,19 +72,17 @@ const PaymentRedirect = () => {
 
   useEffect(() => {
     if (redirectStatus === "succeeded") {
-
-    //  dispatch(referral({
-    //   user_id:user_id,
-    //   ref_id:profile?.details?.ref_id
-    //  })
-    // )
+      //  dispatch(referral({
+      //   user_id:user_id,
+      //   ref_id:profile?.details?.ref_id
+      //  })
+      // )
       localStorage.setItem(
-        'userToken',
+        "userToken",
         JSON.stringify({ token: token?.token })
-        
       );
-   
-      localStorage.removeItem('regToken');
+
+      localStorage.removeItem("regToken");
       navigate("/");
       setOpenLoginModal(true);
       // setTimeout(() => {
@@ -114,10 +124,19 @@ const PaymentRedirect = () => {
           </div>
         )}
       </div>
-      <Login
-        openLoginModal={openLoginModal}
-        setOpenLoginModal={setOpenLoginModal}
-      />
+      {openLoginModal && (
+        <Login
+          openLoginModal={openLoginModal}
+          setOpenLoginModal={setOpenLoginModal}
+        />
+      )}
+       {openRegisterModal && 
+    <Registration
+         openRegisterModal={openRegisterModal}
+         setOpenRegisterModal={setOpenRegisterModal}
+         setOpenLoginModal={setOpenLoginModal}
+        />
+    }
     </div>
   );
 };
