@@ -24,29 +24,36 @@ const dispatch = useDispatch()
   )}&subscription_id=${encodeURIComponent(
     subscription_id
   )}&plan_id=${plan_id}&user_id=${user_id}`;
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(referral({
+      user_id:user_id,
+      ref_id:profile?.details?.ref_id
+     })
+    )
+   
     if (!stripe || !elements) {
       return;
     }
-    const result = await stripe
-      .confirmPayment({
+    try {
+      const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: returnUrl,
         },
       })
-      .then(function (result) {
-        if (result.error) {
-          setErrorMessage(result.error.message);
-        }else{
-          console.log("hi");
-          dispatch(referral({
-            user_id:user_id,
-            ref_id : profile?.data?.ref_id
-          }))
-        }
-      });
+    
+      if (result.error) {
+        setErrorMessage(result.error.message);
+      } else {
+        console.log("Payment confirmed successfully");
+        // Do whatever you want to do after successful payment confirmation
+      }
+    } catch (error) {
+      console.error("An error occurred while confirming payment:", error);
+      // Handle the error accordingly
+    }
   };
 
   return (

@@ -142,7 +142,7 @@ export const RequestModal = ({
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: "Europe/London",
     };
     return date.toLocaleTimeString("en-US", options);
   };
@@ -153,7 +153,7 @@ export const RequestModal = ({
       day: "2-digit",
       month: "short",
       year: "numeric",
-      timeZone: "UTC",
+      timeZone: "Europe/London",
     };
     return date.toLocaleDateString("en-US", options);
   };

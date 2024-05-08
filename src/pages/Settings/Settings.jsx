@@ -16,11 +16,15 @@ import { editProfile } from "../../reducers/profileSlice";
 import UpdateProfile from "./UpdateProfile";
 import ChangePassword from "../Auth/ChangePassword/ChangePassword";
 import { ReferModal } from "./ReferModal";
+
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { profile } = useSelector((state) => state.profile);
+  console.log("pr",profile);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openReferModal, setOpenReferModal] = useState(false);
+  const [refCount,setRefCount] = useState()
+  console.log("n",refCount);
   const updateHandler = () => {
     setOpenUpdateModal(true);
   };
@@ -33,9 +37,10 @@ const Settings = () => {
   const handleChangePassword = () => {
     setOpenChangePasswordModal(true);
   };
-
+ 
   const userId = localStorage.getItem("userId");
   console.log("ul", userId);
+  const encodedUserId = encodeURIComponent(userId);
   // const uId = userId?.split(':')[1]
   // console.log("ul1",uId);
 
@@ -47,6 +52,14 @@ const Settings = () => {
   useEffect(() => {
     console.log(openReferModal);
   }, [openReferModal]);
+
+  useEffect(() => {
+    if (profile && profile?.details && profile?.details?.ref_count === null) {
+      setRefCount(0);
+    } else if (profile && profile?.details && typeof profile?.details?.ref_count === 'number') {
+      setRefCount(profile?.details?.ref_count);
+    }
+  }, [profile]);
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -190,7 +203,7 @@ const Settings = () => {
                 <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
-                  } text-[14px] text-medium w-10/12 mb-4`}
+                  } text-[14px] text-medium w-12/12 mb-4`}
                 >
                   Share the your referral link below with your friends:
                 </div>
@@ -204,7 +217,7 @@ const Settings = () => {
                     type="text"
                     sizing="md"
                     className="w-8/12"
-                    value={`${"https://www.playcope.com/signup"}${"/ReferRegistration/"}${userId}?=${refId}`}
+                    value={`${import.meta.env.VITE_FRONT_BASE_URL}${"/signup/ReferRegistration/"}${encodedUserId}?=${refId}`}
                     readOnly
                   />
                   <button
@@ -214,7 +227,7 @@ const Settings = () => {
                     className="text-white bg-black hover:bg-[#2880DA] border-gray-200 focus:ring-4 
                     focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                     inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 
-                    dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 h-11 ml-4"
+                    dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 h-10 ml-4"
                      onClick={handleRefModal}
                   >
                     <svg
@@ -285,17 +298,14 @@ const Settings = () => {
                 </button>
               </div>
             </div>
-            {/* <div className="mt-4 bg-black rounded-md p-4 flex justify-between items-center">
+            <div className="mt-4 rounded-md p-4 flex justify-between items-center">
               <div className="flex">
-                <MdVerifiedUser className="text-[#70B6C1] text-2xl mr-2" />
-                <p className="text-white text-[16px]">Secure Your Account</p>
+                <p className="text-black text-[16px]">Number of referrals :</p>
               </div>
               <div>
-                <button className="bg-[#2880DA] text-white text-[14px] leading-[28px] rounded-md px-4 hover:bg-gray-400">
-                  Enable
-                </button>
+              <p className="text-black text-[16px] text-md">{refCount}</p>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
 

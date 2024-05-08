@@ -73,7 +73,7 @@ export const SlipRequestModal = ({
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };

@@ -41,45 +41,48 @@ const HomeBannerMatchStartTime = () => {
       const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
   
       return fixtureDate > new Date(currentUTCTimeWithoutMs);
-  });
+    });
     
-  if (ongoingMatch) {
+    if (ongoingMatch) {
         
-    // Filter out the next match
-    const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
-
-      const fixtureDate = new Date(item?.fixture?.date);
-      const currentUTCTime = new Date().toISOString();
-      
-      fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
-      const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
-  
-      return fixtureDate > new Date(currentUTCTimeWithoutMs);
-  });
-   
-    setNextMatch(Item[0])
+        // Filter out the next match
+        const Item = Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
     
-    if (Item) {
-      setTime(Item[0].fixture.date.toString().split("+")[0]);
-    }
+            const fixtureDate = new Date(item?.fixture?.date);
+            const currentUTCTime = new Date().toISOString();
+            
+            fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+            const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+        
+            return fixtureDate > new Date(currentUTCTimeWithoutMs);
+        });
+       
+        setNextMatch(Item[0]);
+        
+        if (Item) {
+            const londonTime = new Date(Item[0].fixture.date).toLocaleString("en-US",{timeZone: 'Europe/London'});
+            setTime(londonTime);
+        }
  
-} else {
-  // If no match is ongoing, find the next match
-  const Item =  Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
-
-    const fixtureDate = new Date(item?.fixture?.date);
-    const currentUTCTime = new Date().toISOString();
+    } else {
+        // If no match is ongoing, find the next match
+        const Item =  Array.isArray(fixtures?.data) && fixtures?.data?.filter(item => {
     
-    fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
-    const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
-
-    return fixtureDate > new Date(currentUTCTimeWithoutMs);
-});
-  if (Item) {
-    setTime(Item[0].fixture.date);
-  }
-}
+            const fixtureDate = new Date(item?.fixture?.date);
+            const currentUTCTime = new Date().toISOString();
+            
+            fixtureDate.setMinutes(fixtureDate.getMinutes() + fixtureDate.getTimezoneOffset());
+            const currentUTCTimeWithoutMs = currentUTCTime.split('.')[0] + 'Z';
+        
+            return fixtureDate > new Date(currentUTCTimeWithoutMs);
+        });
+        if (Item) {
+            const londonTime = new Date(Item[0].fixture.date).toLocaleString("en-US",{timeZone: 'Europe/London'});
+            setTime(londonTime);
+        }
+    }
 }, [fixtures]);
+
 
   useEffect(() => {
     const timer = setInterval(() => {

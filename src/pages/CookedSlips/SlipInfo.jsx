@@ -69,7 +69,7 @@ const SlipInfo = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -79,7 +79,7 @@ const SlipInfo = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -89,7 +89,7 @@ const SlipInfo = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -99,7 +99,7 @@ const SlipInfo = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -109,7 +109,7 @@ const SlipInfo = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -119,7 +119,7 @@ const SlipInfo = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return date.toLocaleTimeString(undefined, options);
   };

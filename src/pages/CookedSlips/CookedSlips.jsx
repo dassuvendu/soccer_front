@@ -170,7 +170,7 @@ const CookedSlips = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -180,7 +180,7 @@ const CookedSlips = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -190,7 +190,7 @@ const CookedSlips = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -201,7 +201,7 @@ const CookedSlips = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: 'Europe/London',
     };
     return date.toLocaleTimeString(undefined, options);
   };

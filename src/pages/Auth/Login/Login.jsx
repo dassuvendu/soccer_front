@@ -57,8 +57,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       }
       localStorage.setItem('uuid', tsr)
       dispatch(editProfile());
+      const refId = uuidv4();
+      localStorage.setItem('ref_id', refId)
     });
   };
+
   useEffect(() => {
     if (error && message) {
       setErrorMessage(message);

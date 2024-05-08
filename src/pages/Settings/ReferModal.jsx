@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 export const ReferModal = ({ openReferModal, setOpenReferModal }) => {
   const themeMode = useSelector((state) => state.darkmode.mode);
 
- 
-
   const textInputRef = useRef(null);
 
   // const copy = () =>{
@@ -23,33 +21,75 @@ export const ReferModal = ({ openReferModal, setOpenReferModal }) => {
 
   const [isCopied, setIsCopied] = useState(false);
   const [textInputValue, setTextInputValue] = useState("");
- 
+  const [usersId,setUsersId] = useState()
   console.log("copy", textInputValue);
 
   const onCopy = () => {
     const fieldValue = inputRef.current.value; // Access field value using ref
     // console.log("cop", fieldValue);
-    navigator.clipboard.writeText(fieldValue)
-    .then(() => {
-      setIsCopied(true);
-      setTextInputValue(fieldValue);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    })
-    .catch(error => {
-      console.error('Failed to copy:', error);
-      // Handle error if copying fails
-    });
+    navigator.clipboard
+      .writeText(fieldValue)
+      .then(() => {
+        setIsCopied(true);
+        setTextInputValue(fieldValue);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Failed to copy:", error);
+        // Handle error if copying fails
+      });
   };
+
+  function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+    return result;
+  }
+
   const userId = localStorage.getItem("userId");
-const refId = localStorage.getItem("ref_id");
-const baseUrl = "http://localhost:5173/signup";
-const referRegistrationPath = "/ReferRegistration/";
-const url = `${baseUrl}${referRegistrationPath}${userId}?=${refId}`
 
+  useEffect(() =>{
+    if (userId) {
+      // Ensure userId is 8 characters long
+      const paddedUserId = userId.padEnd(8, '?1/5').slice(0, 8);
+      
+      // Generate a random 4-character alphanumeric string
+      const randomString = generateRandomString(4);
+      
+      // Combine userId and random string
+      const combinedString =  paddedUserId + randomString  ;
+      
+      // Encode the combined string
+      const encodedUserId = encodeURIComponent(combinedString);
+      setUsersId(encodedUserId)
+      console.log("Encoded UserId:", encodedUserId);
+    } else {
+      console.error("UserId not found in localStorage.");
+    }
+  },[userId])
+  
+  
+  const refId = localStorage.getItem("ref_id");
+  const referRegistrationPath = "/signup/ReferRegistration/";
+  const url = `${
+    import.meta.env.VITE_FRONT_BASE_URL
+  }${referRegistrationPath}${usersId}?=${refId}`;
 
-
+  const handleWps = () => {
+    window.open(`https://web.whatsapp.com/send?text=${url}`);
+  }
+  const handlefb = () => {
+    window.open(`http://m.me/send?text=${url}`);
+  }
+  const handletw = () => {
+    window.open(`https://twitter.com/share?text=${url}`);
+  }
   return (
     <div>
       <Modal
@@ -60,8 +100,8 @@ const url = `${baseUrl}${referRegistrationPath}${userId}?=${refId}`
       >
         <Modal.Header className="absolute right-0 top-0" />
         <Modal.Body>
-          <div className="md:flex items-center pt-6">
-            <div className="w-full md:w-10/12 md:pl-4">
+        
+            <div className="w-11/12 pt-6 flex justify-center items-center">
               <div
                 className={`${
                   themeMode === "light" ? "text-black" : "text-white"
@@ -100,37 +140,64 @@ const url = `${baseUrl}${referRegistrationPath}${userId}?=${refId}`
                     </span>
                   </button>
                 </div>
-
-                <div className="flex w-full">
-                  <button className="w-15 h-15 flex items-center justify-center rounded-lg bg-white shadow-md shadow-gray-200 group transition-all duration-300">
+              </div>
+            </div>
+          
+          <div className="flex justify-center items-center w-full ">
+                  <button className="px-8" onClick={handleWps}>
                     <svg
-                      className="transition-all duration-300 group-hover:scale-110"
+                      className="w-8 h-8 text-lime-500 dark:text-white"
+                      aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="45"
-                      height="45"
-                      viewBox="0 0 71 72"
+                      width="24"
+                      height="24"
                       fill="none"
+                      viewBox="0 0 24 24"
                     >
                       <path
-                        d="M12.5762 56.8405L15.8608 44.6381C13.2118 39.8847 12.3702 34.3378 13.4904 29.0154C14.6106 23.693 17.6176 18.952 21.9594 15.6624C26.3012 12.3729 31.6867 10.7554 37.1276 11.1068C42.5685 11.4582 47.6999 13.755 51.5802 17.5756C55.4604 21.3962 57.8292 26.4844 58.2519 31.9065C58.6746 37.3286 57.1228 42.7208 53.8813 47.0938C50.6399 51.4668 45.9261 54.5271 40.605 55.7133C35.284 56.8994 29.7125 56.1318 24.9131 53.5513L12.5762 56.8405ZM25.508 48.985L26.2709 49.4365C29.7473 51.4918 33.8076 52.3423 37.8191 51.8555C41.8306 51.3687 45.5681 49.5719 48.4489 46.7452C51.3298 43.9185 53.1923 40.2206 53.7463 36.2279C54.3002 32.2351 53.5143 28.1717 51.5113 24.6709C49.5082 21.1701 46.4003 18.4285 42.6721 16.8734C38.9438 15.3184 34.8045 15.0372 30.8993 16.0736C26.994 17.11 23.5422 19.4059 21.0817 22.6035C18.6212 25.801 17.2903 29.7206 17.2963 33.7514C17.293 37.0937 18.2197 40.3712 19.9732 43.2192L20.4516 44.0061L18.6153 50.8167L25.508 48.985Z"
-                        fill="#00D95F"
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z"
+                        clipRule="evenodd"
                       />
                       <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M44.0259 36.8847C43.5787 36.5249 43.0549 36.2716 42.4947 36.1442C41.9344 36.0168 41.3524 36.0186 40.793 36.1495C39.9524 36.4977 39.4093 37.8134 38.8661 38.4713C38.7516 38.629 38.5833 38.7396 38.3928 38.7823C38.2024 38.8251 38.0028 38.797 37.8316 38.7034C34.7543 37.5012 32.1748 35.2965 30.5122 32.4475C30.3704 32.2697 30.3033 32.044 30.325 31.8178C30.3467 31.5916 30.4555 31.3827 30.6286 31.235C31.2344 30.6368 31.6791 29.8959 31.9218 29.0809C31.9756 28.1818 31.7691 27.2863 31.3269 26.5011C30.985 25.4002 30.3344 24.42 29.4518 23.6762C28.9966 23.472 28.4919 23.4036 27.9985 23.4791C27.5052 23.5546 27.0443 23.7709 26.6715 24.1019C26.0242 24.6589 25.5104 25.3537 25.168 26.135C24.8256 26.9163 24.6632 27.7643 24.6929 28.6165C24.6949 29.0951 24.7557 29.5716 24.8739 30.0354C25.1742 31.1497 25.636 32.2144 26.2447 33.1956C26.6839 33.9473 27.163 34.6749 27.6801 35.3755C29.3607 37.6767 31.4732 39.6305 33.9003 41.1284C35.1183 41.8897 36.42 42.5086 37.7799 42.973C39.1924 43.6117 40.752 43.8568 42.2931 43.6824C43.1711 43.5499 44.003 43.2041 44.7156 42.6755C45.4281 42.1469 45.9995 41.4518 46.3795 40.6512C46.6028 40.1675 46.6705 39.6269 46.5735 39.1033C46.3407 38.0327 44.9053 37.4007 44.0259 36.8847Z"
-                        fill="#00D95F"
+                        fill="currentColor"
+                        d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z"
                       />
                     </svg>
                   </button>
-                  1
-                  2
-                  3
-                  4
+                  <button className="px-8" onClick={handlefb}>
+                    <svg
+                      className="w-8 h-8  text-blue-700 dark:text-white border-blue-700 "
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  <button className="px-8" onClick={handletw}>
+                    <svg
+                      className="w-6 h-6 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M13.795 10.533 20.68 2h-3.073l-5.255 6.517L7.69 2H1l7.806 10.91L1.47 22h3.074l5.705-7.07L15.31 22H22l-8.205-11.467Zm-2.38 2.95L9.97 11.464 4.36 3.627h2.31l4.528 6.317 1.443 2.02 6.018 8.409h-2.31l-4.934-6.89Z" />
+                    </svg>
+                  </button>
+                  
                 </div>
-              </div>
-            </div>
-          </div>
         </Modal.Body>
       </Modal>
     </div>

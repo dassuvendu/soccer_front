@@ -4,13 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { stripePayment } from "../../reducers/paymentSlice";
 import { referral } from "../../reducers/RefCount";
+import { editProfile } from "../../reducers/profileSlice";
+import Login from "../Auth/Login/Login";
+
 
 const PaymentRedirect = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [message, setMessage] = useState({ type: null, text: null });
   const [showReloadMessage, setshowReloadMessage] = useState(true);
-
+  const { profile } = useSelector((state) => state.profile);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   const token =
     JSON.parse(localStorage.getItem("userToken")) ||
     JSON.parse(localStorage.getItem("regToken"));
@@ -26,8 +30,7 @@ const PaymentRedirect = () => {
     : null;
   const plan_id = Number(urlParams.get("plan_id"));
   const user_id = Number(urlParams.get("user_id"));
-  console.log(user_id);
- 
+  const ref_id  = Number(urlParams.get("ref_id"))
 
   useEffect(() => {
     if (customer_id && subscription_id && plan_id && user_id) {
@@ -38,6 +41,7 @@ const PaymentRedirect = () => {
           plan_id: plan_id,
           customer_id: customer_id,
           subscription_id: subscription_id,
+          refId : ref_id,
           entity: "subscription_complete",
         })
       );
@@ -56,16 +60,24 @@ const PaymentRedirect = () => {
 
   useEffect(() => {
     if (redirectStatus === "succeeded") {
+
+    //  dispatch(referral({
+    //   user_id:user_id,
+    //   ref_id:profile?.details?.ref_id
+    //  })
+    // )
       localStorage.setItem(
         'userToken',
         JSON.stringify({ token: token?.token })
+        
       );
-     
+   
       localStorage.removeItem('regToken');
-      
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 2000);
+      navigate("/");
+      setOpenLoginModal(true);
+      // setTimeout(() => {
+      //   setOpenLoginModal(true);
+      // }, 2000);
     }
   }, [redirectStatus]);
 
@@ -102,6 +114,10 @@ const PaymentRedirect = () => {
           </div>
         )}
       </div>
+      <Login
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
     </div>
   );
 };

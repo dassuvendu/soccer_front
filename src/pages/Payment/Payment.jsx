@@ -17,9 +17,9 @@ const Payment = (props) => {
     customer_id,
     subscription_id,
     stripePublishableKey,
-    email,
     user_id,
     planId,
+    refId
   } = props;
 
   console.log("props", props);
@@ -81,6 +81,7 @@ const Payment = (props) => {
                                     subscription_id={subscription_id}
                                     plan_id={planId}
                                     user_id={user_id}
+                                    ref_id ={refId}
                                   />
                                 </Elements>
                               </>

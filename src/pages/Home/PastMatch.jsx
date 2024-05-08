@@ -41,7 +41,7 @@ export const PastMatch = () => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
     const options = {
       weekday: "short",
-      timeZone: 'UTC'
+      timeZone: 'Europe/London'
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -55,7 +55,7 @@ export const PastMatch = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: 'Europe/London'
     };
     return date.toLocaleDateString("en-US", options);
   };

@@ -62,7 +62,7 @@ const Items = Array.isArray(fixtures?.data) && fixtures?.data?.slice(0,6)
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'UTC'
+      timeZone: 'Europe/London'
     };
     return date.toLocaleDateString("en-US", options);
   };
@@ -73,7 +73,7 @@ const Items = Array.isArray(fixtures?.data) && fixtures?.data?.slice(0,6)
       day: "2-digit",
       month: "short",
       year: "numeric",
-      timeZone: 'UTC'
+      timeZone: 'Europe/London'
     };
     return date.toLocaleDateString("en-US", options);
   };

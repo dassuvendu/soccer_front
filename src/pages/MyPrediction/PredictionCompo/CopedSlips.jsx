@@ -17,7 +17,7 @@ export const CopedSlips = ({themeMode,token}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
     const [hide, setHide] = useState(true);
-    const [itemsPerPage] = useState(10);
+    const [itemsPerPage] = useState(6);
     const [searchPage, setSearchPage] = useState(null);
     const [slipModal, setOpenSlipModal] = useState(false);
     const [slipId, setSlipId] = useState(null);
@@ -145,9 +145,9 @@ export const CopedSlips = ({themeMode,token}) => {
       };
 
       useEffect(() => {
-        if (userSlipDetails?.data?.total_data > 5) {
+        if (userSlipDetails && userSlipDetails?.data && userSlipDetails?.data?.total_data > 5) {
            setHide(true);
-         } else if (userSlipDetails?.data?.total_data < 6) {
+         } else if (userSlipDetails && userSlipDetails?.data && userSlipDetails?.data?.total_data < 6) {
            setHide(false);
          }
            else{

@@ -157,7 +157,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC",
+      timeZone: "Europe/London",
     };
 
     return date.toLocaleDateString("en-US", options);
@@ -169,7 +169,7 @@ const RequestPredictionList = ({ errorMessage }) => {
       day: "2-digit",
       month: "short",
       year: "numeric",
-      timeZone: "UTC",
+      timeZone: "Europe/London",
     };
     return date.toLocaleDateString("en-US", options);
   };
