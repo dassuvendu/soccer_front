@@ -16,8 +16,8 @@ const SelectPlan = () => {
   }
 
   useEffect(()=>{
-console.log("openLoginModal",openLoginModal);
-console.log("openRegisterModal",openRegisterModal);
+// console.log("openLoginModal",openLoginModal);
+// console.log("openRegisterModal",openRegisterModal);
   },[openLoginModal,openRegisterModal])
 
   return (

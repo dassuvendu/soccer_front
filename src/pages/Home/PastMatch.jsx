@@ -11,7 +11,7 @@ export const PastMatch = () => {
   const { pastFix, isLoading } = useSelector((state) => state.prediction);
 
   const Items = pastFix?.data?.slice(0, 6);
-  console.log("y", Items);
+  // console.log("y", Items);
 
   const today = new Date();
   // const todayFormatted = today.toISOString().split("T")[0];
@@ -25,7 +25,7 @@ export const PastMatch = () => {
 
   useEffect(() => {
     dispatch(getPastFixtures({ date: yesterdayFormatted })).then((res) => {
-      console.log("res", res);
+      // console.log("res", res);
       if (res?.payload?.status === true) {
         setLoadingData(true);
         setHomeLoader(false);

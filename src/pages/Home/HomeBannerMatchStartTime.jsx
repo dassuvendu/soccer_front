@@ -106,7 +106,7 @@ const HomeBannerMatchStartTime = () => {
     // console.log("tar1",now);
     const difference = targetDate - now;
     setDiff(difference)
-    console.log("d",difference);
+    // console.log("d",difference);
     if (difference < 0) {
       
       return { days: '00', hours: '00', minutes: '00', seconds: '00', period: 'AM' };
