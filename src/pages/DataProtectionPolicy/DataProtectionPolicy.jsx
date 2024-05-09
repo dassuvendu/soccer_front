@@ -6,12 +6,12 @@ const DataProtectionPolicy = () => {
       <div className="py-10 lg:py-24 px-8 lg:px-0">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
-            Data Protection Policy
+            PLAYCOPE LTD DATA PROTECTION POLICY
           </h2>
           <div className="mb-4">
             <p className="font-bold pb-2">1. Introduction</p>
             <p>
-              At PlayCope, we are committed to protecting the privacy and
+              At PLAYCOPE LTD, we are committed to protecting the privacy and
               security of the personal data of our users. This Data Protection
               Policy outlines how we collect, use, disclose, and protect the
               personal data we gather through our Platform.
@@ -20,7 +20,7 @@ const DataProtectionPolicy = () => {
           <div className="mb-4">
             <p className="font-bold pb-2">2. Scope</p>
             <p>
-              This policy applies to all personal data collected by PlayCope
+              This policy applies to all personal data collected by PLAYCOPE LTD
               through our Platform
             </p>
           </div>
@@ -88,6 +88,13 @@ const DataProtectionPolicy = () => {
               including encryption, access controls, and regular security
               assessments.
             </p>
+            <p className="pb-2">
+              In addition to our commitment to implementing appropriate
+              technical and organizational measures, we continuously monitor and
+              update our security protocols to adapt to emerging threats and
+              industry best practices. Our staff undergo regular training to
+              ensure compliance with our data security policies and procedures.
+            </p>
           </div>
           <div className="mb-4">
             <p className="font-bold pb-2">7. Data Retention</p>
@@ -142,7 +149,17 @@ const DataProtectionPolicy = () => {
             </p>
           </div>
           <div className="mb-4">
-            <p className="font-bold pb-2">11. Contact Us</p>
+            <p className="font-bold pb-2">11. Data Breach Response</p>
+            <p className="pb-2">
+              In the event of a data breach, we have established a comprehensive
+              incident response plan to promptly assess and mitigate any
+              potential impact on user data. This includes notifying affected
+              users and relevant authorities in accordance with applicable laws
+              and regulations.
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="font-bold pb-2">12. Contact Us</p>
             <p className="pb-2">
               If you have any questions or concerns about this policy or our
               data practices, please contact us at info@playcope.com.
