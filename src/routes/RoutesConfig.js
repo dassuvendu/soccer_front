@@ -31,6 +31,7 @@ import { ReferRegistrationPage } from '../pages/Home/ReferRegistrationPage.jsx';
 import AboutUs from '../pages/AboutUs/AboutUs.jsx';
 import DataProtectionPolicy from '../pages/DataProtectionPolicy/DataProtectionPolicy.jsx';
 import RefundCancellationPolicy from '../pages/RefundCancellationPolicy/RefundCancellationPolicy.jsx';
+import { Termsofservice } from '../pages/TermsOfService/Termsofservice.jsx';
 
 const allRoutes = [
   {
@@ -47,6 +48,14 @@ const allRoutes = [
     children: [
       { index: true, element: <Home /> },
       { path: 'ReferRegistration/:id', element: <ReferRegistrationPage /> },
+    ],
+  },
+  {
+    path: '/terms-of-service',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <Termsofservice /> },
+      { path: 'terms-of-service', element: <Termsofservice/> },
     ],
   },
   {

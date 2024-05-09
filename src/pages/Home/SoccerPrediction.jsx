@@ -25,7 +25,7 @@ import { getDeshStatistics } from "../../reducers/StatisticsSlice";
 const SoccerPrediction = () => {
 
   const {DeshStatistics} = useSelector((state) => state.statistics)
-  console.log('DeshStatistics', DeshStatistics)
+  // console.log('DeshStatistics', DeshStatistics)
 
   useEffect(() => {
     AOS.init();
