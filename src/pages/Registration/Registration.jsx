@@ -92,13 +92,18 @@ const Registration = ({
     setOpenRegisterModal(false);
     navigate("/choose-plan");
   };
- const [check,setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
 
+  const handleCheck = (event) => {
+    setCheck(event.target.checked);
+  };
+  // console.log(check);
 
-    const handleCheck = (event) => {
-        setCheck(event.target.checked);
-      };
-// console.log(check);
+  const handleClick = () => {
+    navigate("/terms-of-service");
+    setOpenRegisterModal(false);
+    setOpenLoginModal(false);
+  };
   return (
     <>
       {/* {/ Register Modal start here /} */}
@@ -198,11 +203,15 @@ const Registration = ({
                       )}
                     </div>
                     <div className="flex items-center gap-2">
-                      <Checkbox id="agree" onChange={handleCheck} checked={check}/>
+                      <Checkbox
+                        id="agree"
+                        onChange={handleCheck}
+                        checked={check}
+                      />
                       <Label htmlFor="agree" className="flex">
                         I agree with the&nbsp;
                         <Link
-                          to="/terms-of-service"
+                          onClick={handleClick}
                           className="text-cyan-600 hover:underline dark:text-cyan-500"
                         >
                           terms and conditions
@@ -230,24 +239,46 @@ const Registration = ({
                             }`}</h6>
                           )}
                         </div>
-                        <button
-                          type="submit"
-                          className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#d86d3f] text-white font-medium create_character_btn"
-                          disabled={!check || loading }
-                        >
-                          {loading ? "Wait ..." : "Submit"}
-                        </button>
+                        {check ? (
+                          <button
+                            type="submit"
+                            className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#d86d3f] text-white font-medium create_character_btn"
+                            disabled={!check || loading}
+                          >
+                            {loading ? "Wait ..." : "Submit"}
+                          </button>
+                        ) : (
+                          <button
+                            type="submit"
+                            className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
+                            disabled
+                          >
+                            {loading ? "Wait ..." : "Submit"}
+                          </button>
+                        )}
                       </>
                     ) : (
+                        <>
+                    {check ? (
                       <button
                         // onClick={goChoosePlanHandler}
                         type="submit"
                         className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
-                        disabled={!check || loading }
+                        disabled={!check || loading}
                       >
                         {/* Submit */}
                         {loading ? "Wait ..." : "Register"}
                       </button>
+                    ) : (
+                        <button
+                          type="submit"
+                          className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
+                          disabled
+                        >
+                          {loading ? "Wait ..." : "Register"}
+                        </button>
+                      )}
+                      </>
                     )}
                   </form>
                   <p className="py-4">OR</p>
