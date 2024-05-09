@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { registerUser, verifyOtp } from "../../reducers/authSlice";
+import { useGoogleLogin } from "@react-oauth/google";
 // import { editProfile } from "../../reducers/profileSlice";
 // import { v4 as uuidv4 } from "uuid";
 
@@ -104,6 +105,14 @@ const Registration = ({
     setOpenRegisterModal(false);
     setOpenLoginModal(false);
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      localStorage.setItem('googleAccessToken', codeResponse.access_token);
+      navigate('/google-redirect');
+    },
+    onError: (error) => console.log('Login Failed:', error),
+  });
   return (
     <>
       {/* {/ Register Modal start here /} */}
@@ -282,7 +291,11 @@ const Registration = ({
                     )}
                   </form>
                   <p className="py-4">OR</p>
-                  <Link className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200">
+                  <Link 
+                 onClick={() => googleLogin()}
+                  className="flex justify-center items-center
+                   bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 
+                   uppercase rounded-lg text-sm font-bold hover:bg-gray-200">
                     <FcGoogle className="text-3xl" />
                     Google
                   </Link>

@@ -32,6 +32,9 @@ import AboutUs from '../pages/AboutUs/AboutUs.jsx';
 import DataProtectionPolicy from '../pages/DataProtectionPolicy/DataProtectionPolicy.jsx';
 import RefundCancellationPolicy from '../pages/RefundCancellationPolicy/RefundCancellationPolicy.jsx';
 import { Termsofservice } from '../pages/TermsOfService/Termsofservice.jsx';
+import { GoogleLogin } from '@react-oauth/google';
+import GoogleRedirect from '../pages/GoogleRedirect.jsx/GoogleRedirect.jsx';
+
 
 const allRoutes = [
   {
@@ -56,6 +59,14 @@ const allRoutes = [
     children: [
       { index: true, element: <Termsofservice /> },
       { path: 'terms-of-service', element: <Termsofservice/> },
+    ],
+  },
+  {
+    path: '/google-redirect',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <GoogleRedirect/> },
+      { path: 'terms-of-service', element: <GoogleRedirect/> },
     ],
   },
   {

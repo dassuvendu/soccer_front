@@ -11,6 +11,7 @@ import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
 import { editProfile } from "../../../reducers/profileSlice";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import { v4 as uuidv4 } from "uuid";
+import { useGoogleLogin } from "@react-oauth/google";
 // import { getUid } from "../../../reducers/uuidSlice";
 
 const Login = ({ openLoginModal, setOpenLoginModal }) => {
@@ -88,6 +89,13 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
     setOpenForgotPasswordModal(true);
   };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      localStorage.setItem('googleAccessToken', codeResponse.access_token);
+      navigate('/google-redirect');
+    },
+    onError: (error) => console.log('Login Failed:', error),
+  });
   return (
     // <div className="my-0 lg:my-0 mx-4 lg:mx-0 flex justify-center items-center h-screen">
     //   <div className="w-full max-w-lg my-0 mx-auto">
@@ -265,7 +273,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                 <p className="py-4">OR</p>
                 <Link
                   className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-                // onClick={() => googleLogin()}
+                onClick={() => googleLogin()}
                 >
                   <FcGoogle className="text-3xl" />
                   Google
