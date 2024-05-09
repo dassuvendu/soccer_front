@@ -38,8 +38,8 @@ const RefundCancellationPolicy = () => {
             </p>
             <p className="pb-2">
               Any changes made to subscription plans will be implemented
-              immediately. Users will be charged or refunded accordingly based
-              on the new terms of their subscription.
+              immediately. Users will be charged accordingly based on the new
+              terms of their subscription.
             </p>
           </div>
           <div className="mb-4">
