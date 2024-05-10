@@ -229,14 +229,14 @@ const Settings = () => {
                 </div>
               </div>
               <div>
-                <div
+                {/* <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-12/12 mb-4`}
                 >
                   Share the your referral link below with your friends:
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-normal w-8/12 flex`}
@@ -272,7 +272,7 @@ const Settings = () => {
                     </svg>
                     Share
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

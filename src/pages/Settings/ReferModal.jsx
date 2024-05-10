@@ -22,7 +22,7 @@ export const ReferModal = ({ openReferModal, setOpenReferModal }) => {
   const [isCopied, setIsCopied] = useState(false);
   const [textInputValue, setTextInputValue] = useState("");
   const [usersId,setUsersId] = useState()
-  console.log("copy", textInputValue);
+
 
   const onCopy = () => {
     const fieldValue = inputRef.current.value; // Access field value using ref
