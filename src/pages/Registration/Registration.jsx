@@ -217,13 +217,20 @@ const Registration = ({
                         onChange={handleCheck}
                         checked={check}
                       />
-                      <Label htmlFor="agree" className="flex">
-                        I agree with the&nbsp;
+                      <Label htmlFor="agree" className="flex text-xs">
+                        I have read and agreed to the&nbsp;
                         <Link
                           onClick={handleClick}
                           className="text-cyan-600 hover:underline dark:text-cyan-500"
                         >
-                          terms and conditions
+                          Terms of Service
+                        </Link>
+                        &nbsp;&&nbsp;
+                        <Link
+                          // onClick={handleClick}
+                          className="text-cyan-600 hover:underline dark:text-cyan-500"
+                        >
+                          Privacy Statement
                         </Link>
                       </Label>
                     </div>
@@ -291,14 +298,26 @@ const Registration = ({
                     )}
                   </form>
                   <p className="py-4">OR</p>
-                  <Link 
-                 onClick={() => googleLogin()}
+                  {check ? (
+                  <button 
+                  onClick={()=>googleLogin()}
                   className="flex justify-center items-center
                    bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 
                    uppercase rounded-lg text-sm font-bold hover:bg-gray-200">
                     <FcGoogle className="text-3xl" />
                     Google
-                  </Link>
+                  </button>
+                  ):(
+                    <button 
+                    disabled
+                     className="flex justify-center items-center
+                      bg-[#d0d3d4] border border-gray-300 w-full shadow-xl py-1.5 
+                      uppercase rounded-lg text-sm font-bold opacity-60">
+                       <FcGoogle className="text-3xl" />
+                       Google
+                     </button>
+                  )
+                  }
                   <p className="py-4 text-sm font-medium text-black">
                     If you have an account, please{" "}
                     <Link

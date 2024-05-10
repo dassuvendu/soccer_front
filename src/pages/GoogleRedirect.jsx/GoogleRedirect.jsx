@@ -25,15 +25,13 @@ const GoogleRedirect = () => {
             // setIsSubscribe(subscription);
             // console.log('isSubscribe in google redirect', isSubscribe);
             if (userToken !== null) {
-                localStorage.removeItem('googleAccessToken');
+               
                 // if (isSubscribe !== null) {
-                if (isSubscribed) {
+               
                     console.log('inside side effect');
                     dispatch(editProfile());
                     navigate('/dashboard');
-                } else {
-                    navigate('/registration');
-                }
+                
             } else {
                 localStorage.removeItem('googleAccessToken');
                 navigate('/');
