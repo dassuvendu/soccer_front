@@ -38,18 +38,18 @@ const Statistics = () => {
   const { valid } = useSelector((state) => state.uuid);
 
   const dispatch = useDispatch();
-  const uuid = localStorage.getItem('uuid')
-  const navigate = useNavigate()
+  const uuid = localStorage.getItem("uuid");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUid({}))
-  },[dispatch])
-  
+    dispatch(getUid({}));
+  }, [dispatch]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) =>{
+      dispatch(getUid({})).then((res) => {
         if (res?.payload?.data === undefined) {
-          toast.error('Your session has expired !', {
+          toast.error("Your session has expired !", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -58,12 +58,12 @@ const Statistics = () => {
             theme: "dark",
           });
         }
-      })
-        if (uuid !== valid?.data) {
-            dispatch(logout())
-            navigate('/') 
-        }
-    },5000);
+      });
+      if (uuid !== valid?.data) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }, 5000);
     return () => clearTimeout(timer);
   }, [valid, uuid, dispatch]);
 
@@ -107,9 +107,13 @@ const Statistics = () => {
             <h3 className="text-white text-[24px] font-medium">
               {isLoading ? (
                 <div className="text-center">
-                <div role="status">
-                  <img src={logoIcon} alt="loading.." className="loader_stats" />
-                  {/* <svg
+                  <div role="status">
+                    <img
+                      src={logoIcon}
+                      alt="loading.."
+                      className="loader_stats"
+                    />
+                    {/* <svg
                     aria-hidden="true"
                     class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101"
@@ -125,9 +129,9 @@ const Statistics = () => {
                       fill="currentFill"
                     />
                   </svg> */}
-                  <span className="sr-only">Loading...</span>
+                    <span className="sr-only">Loading...</span>
+                  </div>
                 </div>
-              </div>
               ) : (
                 Array.isArray(statistics?.data) &&
                 statistics?.data[0]?.high_accuracy
@@ -151,9 +155,13 @@ const Statistics = () => {
             </div>
             <h3 className="text-white text-[24px] font-medium">
               {isLoading ? (
-                  <div className="text-center">
+                <div className="text-center">
                   <div role="status">
-                    <img src={logoIcon} alt="loading.." className="loader_stats" />
+                    <img
+                      src={logoIcon}
+                      alt="loading.."
+                      className="loader_stats"
+                    />
                     {/* <svg
                       aria-hidden="true"
                       class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -191,9 +199,13 @@ const Statistics = () => {
             </div>
             <h3 className="text-white text-[24px] font-medium">
               {isLoading ? (
-                  <div className="text-center">
+                <div className="text-center">
                   <div role="status">
-                    <img src={logoIcon} alt="loading.." className="loader_stats" />
+                    <img
+                      src={logoIcon}
+                      alt="loading.."
+                      className="loader_stats"
+                    />
                     {/* <svg
                       aria-hidden="true"
                       class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -230,9 +242,13 @@ const Statistics = () => {
             </div>
             <h3 className="text-white text-[24px] font-medium">
               {isLoading ? (
-                  <div className="text-center">
+                <div className="text-center">
                   <div role="status">
-                    <img src={logoIcon} alt="loading.." className="loader_stats" />
+                    <img
+                      src={logoIcon}
+                      alt="loading.."
+                      className="loader_stats"
+                    />
                     {/* <svg
                       aria-hidden="true"
                       class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -271,9 +287,13 @@ const Statistics = () => {
             </div>
             <h3 className="text-white text-[24px] font-medium">
               {isLoading ? (
-                  <div className="text-center">
+                <div className="text-center">
                   <div role="status">
-                    <img src={logoIcon} alt="loading.." className="loader_stats" />
+                    <img
+                      src={logoIcon}
+                      alt="loading.."
+                      className="loader_stats"
+                    />
                     {/* <svg
                       aria-hidden="true"
                       class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -308,7 +328,7 @@ const Statistics = () => {
             <li className="mb-0">
               <NavLink
                 to="/Stats-comparisions"
-                className="text-[16px] px-4 py-1.5 rounded-full bg-[#2aa9e1] flex justify-between items-center font-semibold text-white hover:text-black"
+                className="text-[12px] md:text-[16px] px-4 py-1.5 rounded-full bg-[#2aa9e1] flex justify-between items-center font-semibold text-white hover:text-black"
               >
                 <RiTeamLine className="text-3xl mr-1" />
                 Stats Comparisions
@@ -320,7 +340,7 @@ const Statistics = () => {
             <li className="mb-0">
               <NavLink
                 to="/player-comparisions"
-                className="text-[16px] px-4 py-1.5 rounded-full bg-[#2aa9e1] flex justify-between items-center font-semibold text-white hover:text-black"
+                className="text-[12px] md:text-[16px] px-4 py-1.5 rounded-full bg-[#2aa9e1] flex justify-between items-center font-semibold text-white hover:text-black"
               >
                 <AiOutlineTeam className="text-3xl ml-1" />
                 Player Comparisions
