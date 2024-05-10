@@ -329,29 +329,23 @@ const authSlice = createSlice({
                 state.isGoogleLoggedIn = true;
                 // console.log("payload in google sign in ", payload);
                 if (subscription !== null) {
-                  // console.log('inside google fulfil', subscription);
-                  state.subscription = true;
-                  localStorage.setItem(
-                    'isSubscribed',
-                    JSON.stringify({ isSubscribed: subscription })
-                  );
+                    state.subscription = true;
                 }
-                console.log('state.isGoogleLoggedIn', state.isGoogleLoggedIn);
-                state.isLoggedIn = true;
+                state.message = payload?.message;
+                state.loading = false;
                 state.currentUser = {
-                  user_id: user_id,
-                  email: email,
-                  otp_verified: otp_verified,
+                    user_id: user_id,
+                    email: email,
+                    name: name,
                 };
                 localStorage.setItem(
-                  'userToken',
-                  JSON.stringify({ token: access_token })
+                    'userToken',
+                    JSON.stringify({ token: access_token })
                 );
-                localStorage.setItem(
-                  'isSubscribed',
-                  JSON.stringify({ isSubscribed: subscription })
+                localStorage.setItem('userId',user_id);
+                localStorage.setItem('isSubscribed', JSON.stringify({ isSubscribed: subscription })
                 );
-                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
+                localStorage.removeItem('regToken');
               })
         
               .addCase(googleSignIn.rejected, (state, { payload }) => {

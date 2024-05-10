@@ -34,6 +34,7 @@ import RefundCancellationPolicy from '../pages/RefundCancellationPolicy/RefundCa
 import { Termsofservice } from '../pages/TermsOfService/Termsofservice.jsx';
 import { GoogleLogin } from '@react-oauth/google';
 import GoogleRedirect from '../pages/GoogleRedirect.jsx/GoogleRedirect.jsx';
+import { Referral } from '../pages/Referral/Referral.jsx';
 
 
 const allRoutes = [
@@ -182,6 +183,16 @@ const allRoutes = [
       {
         index: true,
         element: <Dashboard />
+      },
+    ],
+  },
+  {
+    path: '/referral',
+    element: <InsideLayout />,
+    children: [
+      {
+        index: true,
+        element: <Referral />
       },
     ],
   },

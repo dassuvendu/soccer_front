@@ -22,6 +22,7 @@ const GoogleRedirect = () => {
         const token = localStorage.getItem('googleAccessToken');
         dispatch(googleSignIn(token)).then(() => {
             const userToken = localStorage.getItem('userToken');
+            dispatch(editProfile());
             // setIsSubscribe(subscription);
             // console.log('isSubscribe in google redirect', isSubscribe);
             if (userToken !== null) {
