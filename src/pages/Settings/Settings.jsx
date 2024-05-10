@@ -4,6 +4,8 @@ import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  earnIcon,
+  inviteIcon,
   requestPredictionBanner,
   settingBanner,
   userFace,
@@ -43,7 +45,7 @@ const Settings = () => {
   const handleChangePassword = () => {
     setOpenChangePasswordModal(true);
   };
- 
+
   const userId = localStorage.getItem("userId");
   console.log("ul", userId);
   const encodedUserId = encodeURIComponent(userId);
@@ -78,7 +80,11 @@ const Settings = () => {
   useEffect(() => {
     if (profile && profile?.details && profile?.details?.ref_count === null) {
       setRefCount(0);
-    } else if (profile && profile?.details && typeof profile?.details?.ref_count === 'number') {
+    } else if (
+      profile &&
+      profile?.details &&
+      typeof profile?.details?.ref_count === "number"
+    ) {
       setRefCount(profile?.details?.ref_count);
     }
   }, [profile]);
@@ -134,7 +140,7 @@ const Settings = () => {
         </div>
         {/* Banner ends here */}
         {/* Setting edit section start here */}
-        <div className="md:flex">
+        <div className="md:flex mb-6">
           <div
             className={`w-full md:w-5/12 ${
               themeMode === "light" ? "bg-white" : "bg-[#191D23]"
@@ -240,7 +246,9 @@ const Settings = () => {
                     type="text"
                     sizing="md"
                     className="w-8/12"
-                    value={`${import.meta.env.VITE_FRONT_BASE_URL}${"/signup/ReferRegistration/"}${encodedUserId}?=${refId}`}
+                    value={`${
+                      import.meta.env.VITE_FRONT_BASE_URL
+                    }${"/signup/ReferRegistration/"}${encodedUserId}?=${refId}`}
                     readOnly
                   />
                   <button
@@ -251,7 +259,7 @@ const Settings = () => {
                     focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center 
                     inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 
                     dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 h-10 ml-4"
-                     onClick={handleRefModal}
+                    onClick={handleRefModal}
                   >
                     <svg
                       className="w-4 h-4 me-2"
@@ -264,7 +272,6 @@ const Settings = () => {
                     </svg>
                     Share
                   </button>
-                 
                 </div>
               </div>
             </div>
@@ -336,6 +343,59 @@ const Settings = () => {
               } text-[17px] text-normal pb-0`}
               >{refCount}</p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pb-10">
+          <div
+            className={`w-full md:w-5/12 ${
+              themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+            } rounded-md p-5 shadow-xl`}
+          >
+            <h3 className="text-[20px]  text-[#2aa9e1] font-medium text-center pb-2">
+              Refer Friends and Earn Commission
+            </h3>
+            <p className="text-[#898989] text-[14px] text-center pb-2">
+              If you enjoy using Playcope, share your referral link and get paid
+              for every eligible purchase
+            </p>
+            <div className="grid grid-cols-2 gap-4 my-6">
+              <div className="border border-[#2aa9e1] rounded-md text-center p-4 bg-[#fcfcfd]">
+                <img
+                  src={inviteIcon}
+                  alt="inviteIcon"
+                  className="w-20 inline-block mb-4"
+                />
+                <p className="text-black text-[14px] font-bold text-center pb-2">
+                  Invite Friends
+                </p>
+                <span className="text-[#898989] text-[14px] text-center pb-2">
+                  Share your referral link with your friends, family, and
+                  colleagues
+                </span>
+              </div>
+              <div className="border border-[#2aa9e1] rounded-md text-center p-4 bg-[#fcfcfd]">
+                <img
+                  src={earnIcon}
+                  alt="earnIcon"
+                  className="w-20 inline-block mb-4"
+                />
+                <p className="text-black text-[14px] font-bold text-center pb-2">
+                  Earn Commission
+                </p>
+                <span className="text-[#898989] text-[14px] text-center pb-2">
+                  Get paid on each eligible purchase from your link
+                </span>
+              </div>
+            </div>
+            <div className="text-center">
+              <Link
+                to="/referral"
+                className="border border-[#2880DA] text-[12px] bg-[#2880DA] hover:bg-black text-white leading-[30px] px-3 rounded-md inline-block"
+              >
+                Refer a Friend
+              </Link>
             </div>
           </div>
         </div>

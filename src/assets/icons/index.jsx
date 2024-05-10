@@ -44,9 +44,13 @@ import {
   BsChevronDoubleRight,
   BsChevronDoubleLeft,
   BsLightningCharge,
+  BsCopy,
+  BsTwitter,
+  BsLinkedin,
+  BsWhatsapp,
 } from "react-icons/bs";
 import { BiSolidUser, BiSolidContact, BiMenu } from "react-icons/bi";
-import { FaUsers, FaEye, FaInfoCircle } from "react-icons/fa";
+import { FaUsers, FaEye, FaInfoCircle, FaPinterest } from "react-icons/fa";
 import { CgSwap, CgArrowsShrinkV } from "react-icons/cg";
 import { HiArrowsRightLeft } from "react-icons/hi2";
 import { MdManageAccounts } from "react-icons/md";
@@ -80,6 +84,11 @@ import { HiChevronUp } from "react-icons/hi2";
 import { TiTick } from "react-icons/ti";
 
 export {
+  BsTwitter,
+  BsWhatsapp,
+  FaPinterest,
+  BsCopy,
+  BsLinkedin,
   PiArrowUpRightLight,
   PiArrowDownRightLight,
   BsLightningCharge,
