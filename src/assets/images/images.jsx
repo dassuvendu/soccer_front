@@ -56,7 +56,12 @@ import fieldTwo from "../imagesource/field02.png";
 import playerCompareOne from "../imagesource/player_compare_01.png";
 import playerCompareTwo from "../imagesource/player_compare_02.png";
 
+import inviteIcon from "../imagesource/invite.png";
+import earnIcon from "../imagesource/earn.png";
+
 export {
+  inviteIcon,
+  earnIcon,
   playerCompareOne,
   playerCompareTwo,
   fieldOne,
