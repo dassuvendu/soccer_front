@@ -393,6 +393,10 @@ li.page{
   background-color: #2aa9e1;
 }
 
+.explore_matches_box {
+  min-height: 278px;
+}
+
 @media only screen and (max-width: 767px) {
   .date_picker_box_light.Select_Season select {
     width: 100%;

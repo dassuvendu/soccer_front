@@ -10,13 +10,12 @@ import { editProfile } from "../../reducers/profileSlice";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isloadingEditProfile } = useSelector((state) => state.profile);
-  const { league,isLoading } = useSelector((state) => state.league);
+  const { league, isLoading } = useSelector((state) => state.league);
   const { valid } = useSelector((state) => state.uuid);
-  
 
   // const subscribed = JSON.parse(
   //   localStorage.getItem("isSubscribed")
@@ -26,69 +25,64 @@ const Dashboard = () => {
 
   const [apiCall, setApiCall] = useState();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate();
+  const uuid = localStorage.getItem("uuid");
 
   useEffect(() => {
-    dispatch(getUid({}))
-  },[dispatch])
+    dispatch(getUid({}));
+  }, [dispatch]);
 
-useEffect(() => {
-  const timer = setTimeout(() => {
-    dispatch(getUid({})).then((res) =>{
-      if (res?.payload?.data === undefined) {
-        toast.error('Your session has expired !', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-         
-    })
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({})).then((res) => {
+        if (res?.payload?.data === undefined) {
+          toast.error("Your session has expired !", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      });
       if (uuid !== valid?.data) {
-          dispatch(logout())
-          navigate('/') 
-          
+        dispatch(logout());
+        navigate("/");
       }
-      
-  },5000);
+    }, 5000);
 
-  return () => clearTimeout(timer);
-  
-}, [valid, uuid, dispatch]);
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   useEffect(() => {
     if (valid?.data === uuid && apiCall) {
       dispatch(getLeagues({ ids: "39,140,135,78,61,2" })).then((res) => {
         if (res?.payload?.status === true) {
-         setApiCall(false)
+          setApiCall(false);
         }
       });
     }
-  }, [dispatch,valid,uuid,apiCall]);
+  }, [dispatch, valid, uuid, apiCall]);
 
-//   useEffect(() => {
-//     const timer = setTimeout(() => {
-//         if (uuid === valid?.data && apiCall) {
-//           console.log("local",uuid);
-//           console.log("api",valid?.data);
-//             dispatch(editProfile());
-//             setApiCall(false)
-//         }
-//     }, 2000);
+  //   useEffect(() => {
+  //     const timer = setTimeout(() => {
+  //         if (uuid === valid?.data && apiCall) {
+  //           console.log("local",uuid);
+  //           console.log("api",valid?.data);
+  //             dispatch(editProfile());
+  //             setApiCall(false)
+  //         }
+  //     }, 2000);
 
-//     return () => clearTimeout(timer);
-    
-// }, [valid, uuid, dispatch,apiCall]);
+  //     return () => clearTimeout(timer);
+
+  // }, [valid, uuid, dispatch,apiCall]);
 
   const { profile } = useSelector((state) => state.profile);
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
-     
       {isloadingEditProfile ? (
         <div>
           <img src={logoIcon} alt="loading.." className="loader" />
@@ -107,18 +101,23 @@ useEffect(() => {
           <div className="w-full h-full pt-4 mb-0">
             <div className="md:flex justify-between mb-0">
               <h1
-                className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                  } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                className={`${
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
               >
-                Hi, {profile?.details?.first_name !== null ? (profile?.details?.first_name.toString().split(" ")[0]) : ("")}
+                Hi,{" "}
+                {profile?.details?.first_name !== null
+                  ? profile?.details?.first_name.toString().split(" ")[0]
+                  : ""}
               </h1>
             </div>
 
             {/* Actions section start here  */}
             <div className="mb-10">
               <h2
-                className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                  } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
               >
                 Actions
               </h2>
@@ -136,8 +135,9 @@ useEffect(() => {
                     Explore different slips containing multiple matches
                   </p>
                   <div
-                    className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                      } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                    className={` ${
+                      themeMode === "light" ? "bg-white" : "bg-black"
+                    } hover:bg-gray-800 inline-block rounded-full mb-2`}
                   >
                     <Link
                       to="/coped-slips"
@@ -158,8 +158,9 @@ useEffect(() => {
                     Browse matches happening today from any league.
                   </p>
                   <div
-                    className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                      } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                    className={` ${
+                      themeMode === "light" ? "bg-white" : "bg-black"
+                    } hover:bg-gray-800 inline-block rounded-full mb-2`}
                   >
                     <Link
                       to="/match-prediction"
@@ -180,8 +181,9 @@ useEffect(() => {
                     Browse matches happening tomorrow from any league.
                   </p>
                   <div
-                    className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                      } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                    className={` ${
+                      themeMode === "light" ? "bg-white" : "bg-black"
+                    } hover:bg-gray-800 inline-block rounded-full mb-2`}
                   >
                     <Link
                       to="/statistics"
@@ -199,8 +201,9 @@ useEffect(() => {
             {/* Explore Matches section start here  */}
             <div className="mb-0">
               <h2
-                className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                  } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+                className={`${
+                  themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
               >
                 Explore Matches from your Favorite Leagues
               </h2>
@@ -212,13 +215,13 @@ useEffect(() => {
                       key={data.id}
                     >
                       <div
-                        className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                          } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl`}
+                        className={`${
+                          themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                        } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
                       >
                         {themeMode === "light" ? (
                           <img
                             src={data.league.logo}
-                             
                             alt={data.league.name}
                             className="mb-4 inline-block"
                           />
@@ -230,10 +233,9 @@ useEffect(() => {
                           />
                         )}
                         <h3
-                          className={`font-Montserrat ${themeMode === "light"
-                            ? "text-black"
-                            : "text-white"
-                            } font-bold text-[16px] leading-[20px] mb-2`}
+                          className={`font-Montserrat ${
+                            themeMode === "light" ? "text-black" : "text-white"
+                          } font-bold text-[16px] leading-[20px] mb-2`}
                         >
                           {`${data.league.name.slice(0, 14)}`}
                         </h3>
