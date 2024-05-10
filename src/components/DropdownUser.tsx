@@ -62,8 +62,10 @@ const DropdownUser = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    sessionStorage.removeItem('userToken');
-    sessionStorage.removeItem('userEmail');
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('googleAccessToken');
+    localStorage.removeItem('ref_id');
     navigate('/');
     // dispatch(getFixtures({ date: todayFormatted }))
   };

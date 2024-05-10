@@ -1,35 +1,20 @@
-import React, { useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   ActiveBG,
-  BarcelonaIcon,
-  BayernMunichIcon,
-  BuyTokenIcon,
   HighAccuracyBG,
   InactiveBG,
   LowAccuracyBG,
   TotalMatchesBG,
   logoIcon,
 } from "../../assets/images/images";
-import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
-
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import {  FiArrowUpRight } from "react-icons/fi";
 import "react-tabs/style/react-tabs.css";
-
 import { useDispatch, useSelector } from "react-redux";
-import { Table, TextInput } from "flowbite-react";
-import { MdMoreHoriz } from "react-icons/md";
-import {
-  BsChevronDoubleLeft,
-  BsChevronDoubleRight,
-  BsChevronLeft,
-  BsChevronRight,
-} from "react-icons/bs";
 import { getStatistics } from "../../reducers/StatisticsSlice";
 import { RiTeamLine } from "react-icons/ri";
 import { AiOutlineTeam } from "react-icons/ai";
 import { getUid } from "../../reducers/uuidSlice";
-import { toast } from "react-toastify";
 import { logout } from "../../reducers/authSlice";
 
 const Statistics = () => {
@@ -47,18 +32,7 @@ const Statistics = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) => {
-        if (res?.payload?.data === undefined) {
-          toast.error("Your session has expired !", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-      });
+      dispatch(getUid({}))
       if (uuid !== valid?.data) {
         dispatch(logout());
         navigate("/");

@@ -17,7 +17,6 @@ import {
 import { logoIcon } from "../../../assets/images/images";
 import { logout } from "../../../reducers/authSlice";
 import { getUid } from "../../../reducers/uuidSlice";
-import { toast } from "react-toastify";
 
 const RequestPredictionListId = ({ errorMessage,rid }) => {
     // console.log(rid);
@@ -46,18 +45,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) =>{
-        if (res?.payload?.data === undefined) {
-          toast.error('Your session has expired !', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-      })
+      dispatch(getUid({}))
         if (uuid !== valid?.data) {
             dispatch(logout())
             navigate('/') 
@@ -230,7 +218,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
   useEffect(() => {
     if (Array.isArray(fixtures?.data) && fixtures?.data?.length > 6) {
       setHide(true);
-    } else if (Array.isArray(fixtures?.data) && fixtures?.data?.length < 7) {
+    } else if (Array.isArray(fixtures?.data) && fixtures?.data?.length < 6) {
       setHide(false);
     } else {
       setHide(false);
@@ -449,23 +437,25 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
               <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
                   <li>
-                    <Link
+                    <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
                       flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => paginate(1)}
+                      disabled={currentPage === 1}
                     >
                       <BsChevronDoubleLeft />
-                    </Link>
+                    </Button>
                   </li>
                   <li>
-                    <Link
+                    <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() =>
                         handlePageChange(Math.max(currentPage - 1, 1))
                       }
+                      disabled={currentPage === 1}
                     >
                       <BsChevronLeft />
-                    </Link>
+                    </Button>
                   </li>
                   {pageNumbers.slice(0, 5).map((pageNumber) => (
                     <li key={pageNumber}>
@@ -489,7 +479,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
                         items-center rounded-full text-[12px] text-white"
                         color="#0053CD"
                         onClick={() => setCurrentPage(currentPage + 1)}
-                        disabled={!hide}
+                        disabled={currentPage === totalPages}
                       >
                         <BsChevronRight />
                       </Button>
@@ -500,7 +490,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => setCurrentPage(totalPages)}
-                      disabled={!hide}
+                      disabled={currentPage === totalPages}
                       color="#0053CD"
                     >
                       <BsChevronDoubleRight />

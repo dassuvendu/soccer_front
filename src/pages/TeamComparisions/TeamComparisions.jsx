@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { FiArrowRight } from "react-icons/fi";
-
+import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { BuyTokenIcon } from "../../assets/images/images";
-
+import {  useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Label, Button, Modal, TextInput } from "flowbite-react";
+import { Label, Modal,  } from "flowbite-react";
 import ViewComparisonDetails from "./ViewComparisonDetails";
-import { getLeague, serachTeam } from "../../reducers/TeamComparisonSlice";
-import debounce from "../../utils/debounce";
+import { serachTeam } from "../../reducers/TeamComparisonSlice";
 import ViewTeamInformationDetails from "./ViewTeamInformationDetails";
 import Select from "react-select";
 import { getUid } from "../../reducers/uuidSlice";
-import { toast } from "react-toastify";
 import { logout } from "../../reducers/authSlice";
 const TeamComparisions = () => {
   const [openTeamComparisionsModal, setOpenTeamComparisionsModal] =
     useState(false);
-  // const teamComparisionsModalHandler = () => {
-  //   setOpenTeamComparisionsModal(true);
-  // };
-
   const [openTeamInformationModal, setOpenTeamInformationModal] =
     useState(false);
   const teamInformationModalHandler = () => {
@@ -61,18 +51,7 @@ const TeamComparisions = () => {
   
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) =>{
-        if (res?.payload?.data === undefined) {
-          toast.error('Your session has expired !', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-      })
+      dispatch(getUid({}))
         if (uuid !== valid?.data) {
             dispatch(logout())
             navigate('/') 
@@ -80,64 +59,7 @@ const TeamComparisions = () => {
     },5000);
     return () => clearTimeout(timer);
   }, [valid, uuid, dispatch]);
-  // useEffect(() => {
-  //   if (searchInput && searchInput.length >= 3)
-  //     dispatch(serachTeam({ name: searchInput }));
-  // }, [dispatch, searchInput]);
-  // useEffect(() => {
-  //   setFilteredTeams(
-  //     Array.isArray(teams) &&
-  //       teams?.filter((team) =>
-  //         team?.team?.name.toLowerCase().includes(searchInput.toLowerCase())
-  //       )
-  //   );
-  // }, [teams, searchInput]);
-  // const handleInputChange = (e) => {
-  //   setSearchInput(e.target.value);
-  // };
 
-  // //second search
-
-  // useEffect(() => {
-  //   if (searchInput1 && searchCompleted)
-  //     dispatch(serachTeam({ name: searchInput1 }));
-  // }, [dispatch, searchInput1, searchCompleted]);
-  // useEffect(() => {
-  //   setFilteredTeams1(
-  //     Array.isArray(teams) &&
-  //       teams?.filter((team) =>
-  //         team?.team?.name.toLowerCase().includes(searchInput1.toLowerCase())
-  //       )
-  //   );
-  // }, [teams, searchInput1]);
-  // const handleInputChange1 = (e) => {
-  //   setSearchInput1(e.target.value);
-  // };
-  // const handleteam = (e) => {
-  //   setFilteredTeams([]);
-  //   console.log("team1 e", e);
-  //   let name = e.split("_")[0];
-  //   let logo = e.split("_")[1];
-  //   let id = e.split("_")[2];
-  //   setSearchInput(name);
-  //   setSearchImgInput(logo);
-  //   console.log("team1 ", id);
-  //   setTeam1Id(id);
-  //   setSearchCompleted(true);
-  // };
-  // const handleteam1 = (e) => {
-  //   setFilteredTeams1([]);
-  //   console.log(e);
-
-  //   let name = e.split("_")[0];
-  //   let logo = e.split("_")[1];
-  //   let id = e.split("_")[2];
-
-  //   setSearchInput1(name);
-  //   setSearchImgInput1(logo);
-  //   console.log("team2 id: ", e.split("_"));
-  //   setTeam2Id(id);
-  // };
   const handleTeamChange = (firstteamselectedOption) => {
     setFirstTeamSelectedOption(firstteamselectedOption.id);
     setTeam1Id(firstteamselectedOption.id);
@@ -389,9 +311,9 @@ const TeamComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>
@@ -489,9 +411,9 @@ const TeamComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>
@@ -620,9 +542,9 @@ const TeamComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>

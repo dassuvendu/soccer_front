@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
-import { useNavigate } from "react-router-dom";
-import { Spinner } from "flowbite-react";
 import { logoIcon } from "../../../assets/images/images";
 
 export const PredictionStats = ({ isfixturesId }) => {
@@ -26,9 +24,6 @@ export const PredictionStats = ({ isfixturesId }) => {
       setLossAPercent(lossAResult);
     }
   }, [lastResult]);
-
-  const { status } = useSelector((state) => state.IsunLock);
-  const navigate = useNavigate();
 
   // const token = localStorage.getItem("userToken");
 
@@ -63,7 +58,7 @@ export const PredictionStats = ({ isfixturesId }) => {
           <div className="flex justify-center mt-10">
             <button
               type="button"
-              class="text-white bg-blue-700 
+              className="text-white bg-blue-700 
 hover:bg-blue-800 font-medium 
 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 "
               onClick={handleClick}

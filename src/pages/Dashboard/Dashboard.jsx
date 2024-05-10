@@ -1,16 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { logoIcon } from "../../assets/images/images";
 import { FiArrowRight } from "react-icons/fi";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getLeagues } from "../../reducers/LeagueSlice";
-import { editProfile } from "../../reducers/profileSlice";
 // import { useUuid } from "../../hooks/useUuid";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { isloadingEditProfile } = useSelector((state) => state.profile);
@@ -34,18 +32,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) => {
-        if (res?.payload?.data === undefined) {
-          toast.error("Your session has expired !", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-      });
+      dispatch(getUid({}))
       if (uuid !== valid?.data) {
         dispatch(logout());
         navigate("/");

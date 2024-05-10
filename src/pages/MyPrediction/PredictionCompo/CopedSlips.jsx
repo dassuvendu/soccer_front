@@ -7,7 +7,8 @@ import { BsChevronDoubleLeft, BsChevronDoubleRight, BsChevronLeft, BsChevronRigh
 import ViewSlipDetails from '../../CookedSlips/ViewSlipDetails';
 import { logoIcon } from '../../../assets/images/images';
 import { CiUnlock } from 'react-icons/ci';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../../reducers/authSlice';
 
 export const CopedSlips = ({themeMode,token}) => {
 
@@ -21,9 +22,22 @@ export const CopedSlips = ({themeMode,token}) => {
     const [searchPage, setSearchPage] = useState(null);
     const [slipModal, setOpenSlipModal] = useState(false);
     const [slipId, setSlipId] = useState(null);
-
+    const { valid } = useSelector((state) => state.uuid);
     const dispatch = useDispatch()
-    
+    const uuid = localStorage.getItem('uuid')
+  const navigate = useNavigate()
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        dispatch(getUid({}))
+          if (uuid !== valid?.data) {
+              dispatch(logout())
+              navigate('/') 
+          }
+      },5000);
+      return () => clearTimeout(timer);
+    }, [valid, uuid, dispatch]);
+
     useEffect(() => {
       if (token) {
         console.log("total data: ", userSlipDetails?.data?.total_data);

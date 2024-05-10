@@ -1,9 +1,7 @@
 import { requestPredictionBanner } from "../../assets/images/images";
 import { SearchCompo } from "./RequestComponents/SearchCompo";
-import { Prediction } from "./RequestComponents/Prediction";
 import RequestPredictionList from "./RequestComponents/RequestPredictionList";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 const RequestPrediction = () => {
   const [errorMessage, setErrorMessage] = useState("");

@@ -19,7 +19,6 @@ import PredictionTeamFormation from "../PredictionModal/PredictionTeamFormation"
 import { logoIcon } from "../../../assets/images/images";
 import { getUid } from "../../../reducers/uuidSlice";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { logout } from "../../../reducers/authSlice";
 
 export const PredictionRequestModal = ({
@@ -52,16 +51,7 @@ export const PredictionRequestModal = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then(() =>{
-        toast.error('Your session has expired !', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        })
-      })
+      dispatch(getUid({}))
         if (uuid !== valid?.data) {
             dispatch(logout())
             navigate('/') 

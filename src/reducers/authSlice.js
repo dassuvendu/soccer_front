@@ -124,11 +124,9 @@ export const resetPassword = createAsyncThunk(
 // Google Sign In
 export const googleSignIn = createAsyncThunk(
     'auth/google-signIn',
-    async (token, { rejectWithValue }) => {
+    async (data, { rejectWithValue }) => {
       try {
-        const response = await api.post('/user/api/google-login', {
-          token: token,
-        });
+        const response = await api.post('/user/api/google-login', data);
         if (response?.data?.status_code === 200) {
           return response.data;
         } else {
@@ -175,6 +173,9 @@ const authSlice = createSlice({
             localStorage.removeItem('planId');
             localStorage.removeItem('isSubscribed');
             localStorage.removeItem('uuid')
+            localStorage.removeItem('ref_id')
+            localStorage.removeItem('googleAccessToken')
+
         },
     },
     extraReducers: (builder) => {
@@ -327,25 +328,22 @@ const authSlice = createSlice({
                 const { access_token, subscription, user_id, email, otp_verified } =
                   payload;
                 state.isGoogleLoggedIn = true;
-                // console.log("payload in google sign in ", payload);
-                if (subscription !== null) {
-                    state.subscription = true;
-                }
-                state.message = payload?.message;
-                state.loading = false;
+                // console.log('state.isGoogleLoggedIn', state.isGoogleLoggedIn);
+                state.isLoggedIn = true;
                 state.currentUser = {
-                    user_id: user_id,
-                    email: email,
-                    name: name,
+                  user_id: user_id,
+                  email: email,
+                  otp_verified: otp_verified,
                 };
                 localStorage.setItem(
                     'userToken',
                     JSON.stringify({ token: access_token })
                 );
-                localStorage.setItem('userId',user_id);
-                localStorage.setItem('isSubscribed', JSON.stringify({ isSubscribed: subscription })
+                localStorage.setItem(
+                  'isSubscribed',
+                  JSON.stringify({ isSubscribed: subscription })
                 );
-                localStorage.removeItem('regToken');
+                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
               })
         
               .addCase(googleSignIn.rejected, (state, { payload }) => {

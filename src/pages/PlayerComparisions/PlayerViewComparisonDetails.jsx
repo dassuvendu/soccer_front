@@ -1,16 +1,4 @@
-import React from "react";
-import { Modal, Spinner, Progress } from "flowbite-react";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  DeportivoPastoIcon,
-  EnvigadoIcon,
-  fieldOne,
-  fieldTwo,
-  playerCompareOne,
-  playerCompareTwo,
-} from "../../assets/images/images";
-
 const PlayerViewComparisonDetails = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { playerFDetails, playerSDetails } = useSelector(
@@ -27,7 +15,7 @@ const PlayerViewComparisonDetails = () => {
       <div className="pt-6 pb-4 px-3 mb-4 border-b border-gray-300">
         <div className="grid grid-cols-3 gap-4 mb-4">
           {playerFDetails?.response?.map((ply) => (
-            <div className="text-center">
+            <div className="text-center" key={ply.id}>
               <img
                 src={ply?.player?.photo}
                 alt={ply?.player?.name}
@@ -50,7 +38,7 @@ const PlayerViewComparisonDetails = () => {
             </div>
           </div>
           {playerSDetails?.response?.map((ply) => (
-            <div className="text-center">
+            <div className="text-center" key={ply.id}>
               <img
                 src={ply?.player?.photo}
                 alt={ply?.player?.name}
@@ -73,7 +61,7 @@ const PlayerViewComparisonDetails = () => {
       <div className="pt-6 pb-4 px-3 mb-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
           {playerFDetails?.response?.map((ply) => (
-            <div className="text-center">
+            <div className="text-center" key={ply.id}>
               <img
                 src={ply?.player?.photo}
                 alt={ply?.player?.name}
@@ -91,7 +79,7 @@ const PlayerViewComparisonDetails = () => {
           <div className="text-center col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {playerFDetails?.response?.map((ply) => (
-                <div>
+                <div key={ply.id}>
                   <h3 className="text-base text-black font-semibold pb-10 underline">
                     Player Details
                   </h3>
@@ -195,7 +183,7 @@ const PlayerViewComparisonDetails = () => {
                 </div>
               ))}
               {playerSDetails?.response?.map((ply) => (
-                <div>
+                <div key={ply.id}>
                   <h3 className="text-base text-black font-semibold pb-10 underline">
                     Player Details
                   </h3>
@@ -285,7 +273,7 @@ const PlayerViewComparisonDetails = () => {
             </div>
           </div>
           {playerSDetails?.response?.map((ply) => (
-            <div className="text-center">
+            <div className="text-center" key={ply.id}>
               <img
                 src={ply?.player?.photo}
                 alt={ply?.player?.name}

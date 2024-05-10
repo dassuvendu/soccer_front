@@ -12,9 +12,9 @@ const RequestPredictionId = () => {
   const handleError = (data) => {
     setErrorMessage(data);
   };
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
+  // useEffect(() => {
+  //   console.log(errorMessage);
+  // }, [errorMessage]);
 
   let { rid } = useParams();
 

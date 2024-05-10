@@ -77,16 +77,7 @@ export const SlipRequestModal = ({
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  // const matchStartTime = (timeStamp) => {
-  //   const date = new Date(timeStamp);
-  //   const options = {
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //     hour12: true,
-  //     timeZone: "UTC",
-  //   };
-  //   return date.toLocaleTimeString(undefined, options);
-  // };
+
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
       let data = lastResult?.data[0];
@@ -121,26 +112,6 @@ export const SlipRequestModal = ({
   const handleModal = () => {
     onClose();
   };
-
-  // const formatTime = (timestamp) => {
-  //   const date = new Date(timestamp * 1000);
-  //   const options = {
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //     hour12: true,
-  //   };
-  //   return date.toLocaleTimeString("en-US", options);
-  // };
-
-  // const formatDate = (timestamp) => {
-  //   const date = new Date(timestamp * 1000);
-  //   const options = {
-  //     day: "2-digit",
-  //     month: "short",
-  //     year: "numeric",
-  //   };
-  //   return date.toLocaleDateString("en-US", options);
-  // };
 
   return (
     <div>

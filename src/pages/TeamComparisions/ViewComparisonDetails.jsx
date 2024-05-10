@@ -1,13 +1,7 @@
-import React from "react";
-import { Modal, Spinner, Progress } from "flowbite-react";
-import { useEffect, useState } from "react";
+
+import {Progress } from "flowbite-react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  DeportivoPastoIcon,
-  EnvigadoIcon,
-  fieldOne,
-  fieldTwo,
-} from "../../assets/images/images";
 import { CompTeams } from "../../reducers/TeamComparisonSlice";
 import {
   LastAwayResult,
@@ -28,11 +22,14 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
     dispatch(LastHomeResult({ team: id1, last: 5 }));
     dispatch(LastAwayResult({ team: id2, last: 5 }));
   }, [dispatch, dispatch]);
+
   console.log("lastHome: ", lastHomeResult);
   console.log("lastaway: ", lastHomeResult);
+
   useEffect(() => {
     dispatch(CompTeams({ h2h: `${id1}-${id2}` }));
   }, [dispatch]);
+  
   console.log("comparison teams: ", comparisons[0]?.left_team_details[0]?.name);
   const formatDate = (dateString) => {
     const options = {
@@ -51,11 +48,11 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
 
       {/* top part start here */}
       {isLoading ? (
-        <div class="text-center">
+        <div className="text-center">
           <div role="status">
             <svg
               aria-hidden="true"
-              class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+              className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +66,7 @@ const ViewComparisonDetails = ({ id1, id2 }) => {
                 fill="currentFill"
               />
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       ) : (

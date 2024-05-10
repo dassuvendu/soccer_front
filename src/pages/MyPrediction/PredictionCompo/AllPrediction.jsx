@@ -31,18 +31,7 @@ export const AllPrediction = ({themeMode,token}) => {
 
       useEffect(() => {
         const timer = setTimeout(() => {
-          dispatch(getUid({})).then((res) =>{
-            if (res?.payload?.data === undefined) {
-              toast.error('Your session has expired !', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                progress: undefined,
-                theme: "dark",
-              });
-            }
-          })
+          dispatch(getUid({}))
             if (uuid !== valid?.data) {
                 dispatch(logout())
                 navigate('/') 

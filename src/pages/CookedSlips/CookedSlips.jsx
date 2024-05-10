@@ -1,37 +1,28 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  BuyTokenIcon,
-  dollerIcon,
-  icSortIcon,
   logoIcon,
 } from "../../assets/images/images";
 // import { logoIcon } from "../../assets/imagesource";
-import { FiArrowRight } from "react-icons/fi";
 import {
   BsChevronDoubleLeft,
   BsChevronDoubleRight,
-  BsChevronDown,
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
 import {
   Datepicker,
   TextInput,
-  Dropdown,
-  Spinner,
   Modal,
   Button,
 } from "flowbite-react";
 import { CiUnlock } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { getOddsSlips, unlockSlip } from "../../reducers/CookedSlipSlice";
-import { useDateTimeSlip } from "../../hooks/useDateTimeSlip";
-// import { useDateTimeSlipEnd } from "../../hooks/useDateTimeSlipEnd";
 import ViewSlipDetails from "./ViewSlipDetails";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
-import { toast } from "react-toastify";
+
 const CookedSlips = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { oddsData, isLoading } = useSelector((state) => state.cookedSlips);
@@ -46,9 +37,6 @@ const CookedSlips = () => {
   const dates = new Date();
   const timeZoneOffset = dates.getTimezoneOffset();
   dates.setMinutes(dates.getMinutes() + timeZoneOffset);
-  const newDate = dates.toISOString().split("T")[0];
-  const [dateList, timeList] = useDateTimeSlip({ date: newDate });
-  // const [dateListEnd, timeListEnd] = useDateTimeSlipEnd({ date: newDate });
   const [selectedDate, setSelectedDate] = useState(null);
   // console.log("dateList", dateList);
   // console.log("timelist", timeList);
@@ -93,18 +81,7 @@ const CookedSlips = () => {
   
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) =>{
-        if (res?.payload?.data === undefined) {
-          toast.error('Your session has expired !', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-      })
+      dispatch(getUid({}))
         if (uuid !== valid?.data) {
             dispatch(logout())
             navigate('/') 

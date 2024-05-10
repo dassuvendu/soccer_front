@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { FiArrowRight } from "react-icons/fi";
-
+import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { BuyTokenIcon } from "../../assets/images/images";
-
+import {  useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Label, Button, Modal, TextInput } from "flowbite-react";
+import { Label, Modal} from "flowbite-react";
 import PlayerViewComparisonDetails from "../PlayerComparisions/PlayerViewComparisonDetails";
-import { serachTeam } from "../../reducers/TeamComparisonSlice";
 import Select from "react-select";
 import {
   getFPlayerDetails,
@@ -18,7 +13,6 @@ import {
   getTeam,
 } from "../../reducers/PlayerComparision";
 import { getUid } from "../../reducers/uuidSlice";
-import { toast } from "react-toastify";
 import { logout } from "../../reducers/authSlice";
 
 const PlayerComparisions = () => {
@@ -54,18 +48,7 @@ const PlayerComparisions = () => {
   
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({})).then((res) =>{
-        if (res?.payload?.data === undefined) {
-          toast.error('Your session has expired !', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
-      })
+      dispatch(getUid({}))
         if (uuid !== valid?.data) {
             dispatch(logout())
             navigate('/') 
@@ -336,9 +319,9 @@ const PlayerComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>
@@ -364,33 +347,6 @@ const PlayerComparisions = () => {
                           menuIsOpen={isFirstMenuOpen}
                         />
 
-                        {/* <div className="absolute top-full left-0 w-full bg-white rounded-[25px] shadow-md z-10">
-                          {filteredTeams.length > 0 && (
-                            <div>
-                              {filteredTeams.map((team) => (
-                                <li
-                                  id="listItem"
-                                  key={team.id}
-                                  className="px-4 py-2 cursor-pointer hover:bg-gray-200 list-none"
-                                  onClick={() =>
-                                    handleteam(
-                                      `${team.team?.name}_${team.team?.logo}`
-                                    )
-                                  }
-                                >
-                                  <span className="text-sm ">
-                                    <img
-                                      src={team.team?.logo}
-                                      alt={team.team?.name}
-                                      className="inline-block w-6 h-6 mr-2"
-                                    />
-                                    {team.team?.name}
-                                  </span>
-                                </li>
-                              ))}
-                            </div>
-                          )}
-                        </div> */}
                         <div className="flex items-center px-3 pointer-events-none w-[40px] h-[40px] rounded-full absolute right-0 top-0 z-10">
                           <svg
                             className="w-5 h-5 text-[#606060]"
@@ -401,9 +357,9 @@ const PlayerComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>
@@ -464,9 +420,9 @@ const PlayerComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>
@@ -528,9 +484,9 @@ const PlayerComparisions = () => {
                           >
                             <path
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
                               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                             />
                           </svg>

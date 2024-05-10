@@ -1,4 +1,4 @@
-import { Modal, Spinner } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -16,10 +16,7 @@ import TeamFormation from "../RequestPredictionModalCompo/TeamFormation";
 import { PredictionStats } from "../RequestPredictionModalCompo/PredictionStats";
 import { CorrectScores } from "../RequestPredictionModalCompo/CorrectScores";
 import { logoIcon } from "../../../assets/images/images";
-import { logout } from "../../../reducers/authSlice";
-import { getUid } from "../../../reducers/uuidSlice";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+
 export const RequestModal = ({
   openViewDetailsModal,
   onClose,

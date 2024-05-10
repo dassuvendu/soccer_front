@@ -131,10 +131,10 @@ function Header(props: {
                     <div className="hidden lg:block w-full">
                         <div className='flex w-full'>
                             <div className='w-5/12 flex'>
-                                <div>
+                                {/* <div>
                                     <h1 className={`${themeMode === "light" ? "text-black" : "text-white"} font-Bebas tracking-wide text-[28px]`}>Dashboard</h1>
-                                    {/* <p className='text-[#727377] text-xs italic'>Update on 23 may 2023</p> */}
-                                </div>
+                                    <p className='text-[#727377] text-xs italic'>Update on 23 may 2023</p>
+                                </div> */}
                                 <div className='pl-6'>
                                     {/* <h3 className={`${ themeMode === "light" ? "text-black" : "text-white"} text-[16px] leading-[42px]`}>Go To Website</h3> */}
                                 </div>

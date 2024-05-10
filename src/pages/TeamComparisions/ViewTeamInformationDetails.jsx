@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { DeportivoPastoIcon, EnvigadoIcon } from "../../assets/images/images";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getLeague, teamStats } from "../../reducers/TeamComparisonSlice";
 import { LastHomeResult } from "../../reducers/PredictionsSlice";
@@ -55,11 +54,11 @@ const ViewTeamInformationDetails = ({ singleId }) => {
         /> */}
       </div>
       {isLoading ? (
-        <div class="text-center">
+        <div className="text-center">
           <div role="status">
             <svg
               aria-hidden="true"
-              class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+              className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +72,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                 fill="currentFill"
               />
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       ) : (
@@ -91,8 +90,8 @@ const ViewTeamInformationDetails = ({ singleId }) => {
             <div className="mb-2">
               <h3 className="font-Bebas text-xl tracking-normal">Statistics</h3>
             </div>
-            <div class="lg:flex gap-4 mb-4">
-              <div class="border border-[#d1d5db] p-4 rounded-xl flex mb-2 lg:mb-0">
+            <div className="lg:flex gap-4 mb-4">
+              <div className="border border-[#d1d5db] p-4 rounded-xl flex mb-2 lg:mb-0">
                 <div>
                   <h3 className="font-Bebas text-xl tracking-normal pb-2">
                     Goals
@@ -135,7 +134,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                   </div>
                 </div>
               </div>
-              <div class="border border-[#d1d5db] p-4 rounded-xl flex">
+              <div className="border border-[#d1d5db] p-4 rounded-xl flex">
                 <div>
                   <h3 className="font-Bebas text-xl tracking-normal pb-2">
                     Streak
@@ -203,7 +202,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               <div className="border border-[#d1d5db] p-4 rounded-xl">
-                <h3 class="font-Bebas text-xl tracking-normal pb-2">Draws</h3>
+                <h3 className="font-Bebas text-xl tracking-normal pb-2">Draws</h3>
                 <div className="flex items-center justify-center">
                   <p className="text-black text-[14px] leading-[24px] font-medium">
                     Total
@@ -226,7 +225,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                 </div>
               </div>
               <div className="border border-[#d1d5db] p-4 rounded-xl">
-                <h3 class="font-Bebas text-xl tracking-normal pb-2">Loses</h3>
+                <h3 className="font-Bebas text-xl tracking-normal pb-2">Loses</h3>
                 <div className="flex items-center justify-center">
                   <p className="text-black text-[14px] leading-[24px] font-medium">
                     Total
@@ -249,7 +248,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                 </div>
               </div>
               <div className="border border-[#d1d5db] p-4 rounded-xl">
-                <h3 class="font-Bebas text-xl tracking-normal pb-2">Played</h3>
+                <h3 className="font-Bebas text-xl tracking-normal pb-2">Played</h3>
                 <div className="flex items-center justify-center">
                   <p className="text-black text-[14px] leading-[24px] font-medium">
                     Total
@@ -272,7 +271,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
                 </div>
               </div>
               <div className="border border-[#d1d5db] p-4 rounded-xl">
-                <h3 class="font-Bebas text-xl tracking-normal pb-2">Wins</h3>
+                <h3 className="font-Bebas text-xl tracking-normal pb-2">Wins</h3>
                 <div className="flex items-center justify-center">
                   <p className="text-black text-[14px] leading-[24px] font-medium">
                     Total
@@ -301,158 +300,7 @@ const ViewTeamInformationDetails = ({ singleId }) => {
             <h3 className="font-Bebas text-xl tracking-normal">
               Recent Encounters
             </h3>
-            {/* <div>
-      <div className="grid grid-cols-4 gap-4 mb-4 border-b border-gray-300 py-4">
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={DeportivoPastoIcon}
-            alt="DeportivoPastoIcon"
-            className="inline-block"
-          />
-        </div>
-        <div className="text-center col-span-2">
-          <h3 className="text-black text-[14px] leading-[16px] font-medium font-Bebas text-base tracking-normal pb-0">
-            Sun, 10th Mar 2024
-          </h3>
-          <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat inline-block pb-2">
-            <span className="text-[#2aa9e1]">
-              At Estadio Olímpico Metropolitano,
-            </span>{" "}
-            Liga Nacional
-          </p>
-          <div className="bg-[#2aa9e1] py-2 rounded-full">
-            <h3 className="text-white text-base">2 - 0</h3>
-          </div>
-        </div>
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={EnvigadoIcon}
-            alt="EnvigadoIcon"
-            className="inline-block"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 mb-4 border-b border-gray-300 py-4">
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={DeportivoPastoIcon}
-            alt="DeportivoPastoIcon"
-            className="inline-block"
-          />
-        </div>
-        <div className="text-center col-span-2">
-          <h3 className="text-black text-[14px] leading-[16px] font-medium font-Bebas text-base tracking-normal pb-0">
-            Sun, 10th Mar 2024
-          </h3>
-          <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat inline-block pb-2">
-            <span className="text-[#2aa9e1]">
-              At Estadio Olímpico Metropolitano,
-            </span>{" "}
-            Liga Nacional
-          </p>
-          <div className="bg-[#2aa9e1] py-2 rounded-full">
-            <h3 className="text-white text-base">2 - 0</h3>
-          </div>
-        </div>
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={EnvigadoIcon}
-            alt="EnvigadoIcon"
-            className="inline-block"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 mb-4 border-b border-gray-300 py-4">
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={DeportivoPastoIcon}
-            alt="DeportivoPastoIcon"
-            className="inline-block"
-          />
-        </div>
-        <div className="text-center col-span-2">
-          <h3 className="text-black text-[14px] leading-[16px] font-medium font-Bebas text-base tracking-normal pb-0">
-            Sun, 10th Mar 2024
-          </h3>
-          <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat inline-block pb-2">
-            <span className="text-[#2aa9e1]">
-              At Estadio Olímpico Metropolitano,
-            </span>{" "}
-            Liga Nacional
-          </p>
-          <div className="bg-[#2aa9e1] py-2 rounded-full">
-            <h3 className="text-white text-base">2 - 0</h3>
-          </div>
-        </div>
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={EnvigadoIcon}
-            alt="EnvigadoIcon"
-            className="inline-block"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 mb-4 border-b border-gray-300 py-4">
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={DeportivoPastoIcon}
-            alt="DeportivoPastoIcon"
-            className="inline-block"
-          />
-        </div>
-        <div className="text-center col-span-2">
-          <h3 className="text-black text-[14px] leading-[16px] font-medium font-Bebas text-base tracking-normal pb-0">
-            Sun, 10th Mar 2024
-          </h3>
-          <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat inline-block pb-2">
-            <span className="text-[#2aa9e1]">
-              At Estadio Olímpico Metropolitano,
-            </span>{" "}
-            Liga Nacional
-          </p>
-          <div className="bg-[#2aa9e1] py-2 rounded-full">
-            <h3 className="text-white text-base">2 - 0</h3>
-          </div>
-        </div>
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={EnvigadoIcon}
-            alt="EnvigadoIcon"
-            className="inline-block"
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 mb-4 border-b border-gray-300 py-4">
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={DeportivoPastoIcon}
-            alt="DeportivoPastoIcon"
-            className="inline-block"
-          />
-        </div>
-        <div className="text-center col-span-2">
-          <h3 className="text-black text-[14px] leading-[16px] font-medium font-Bebas text-base tracking-normal pb-0">
-            Sun, 10th Mar 2024
-          </h3>
-          <p className="text-black font-semibold text-[12px] leading-[16px] font-Montserrat inline-block pb-2">
-            <span className="text-[#2aa9e1]">
-              At Estadio Olímpico Metropolitano,
-            </span>{" "}
-            Liga Nacional
-          </p>
-          <div className="bg-[#2aa9e1] py-2 rounded-full">
-            <h3 className="text-white text-base">2 - 0</h3>
-          </div>
-        </div>
-        <div className="text-center flex justify-center items-center">
-          <img
-            src={EnvigadoIcon}
-            alt="EnvigadoIcon"
-            className="inline-block"
-          />
-        </div>
-      </div>
-    </div> */}
+           
             {lastHomeResult?.data?.map((homeResults) => {
               return (
                 <>

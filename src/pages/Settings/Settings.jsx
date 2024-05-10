@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   requestPredictionBanner,
   settingBanner,
@@ -16,15 +16,21 @@ import { editProfile } from "../../reducers/profileSlice";
 import UpdateProfile from "./UpdateProfile";
 import ChangePassword from "../Auth/ChangePassword/ChangePassword";
 import { ReferModal } from "./ReferModal";
+import { logout } from "../../reducers/authSlice";
+import { getUid } from "../../reducers/uuidSlice";
 
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { profile } = useSelector((state) => state.profile);
   console.log("pr",profile);
+  const { valid } = useSelector((state) => state.uuid);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openReferModal, setOpenReferModal] = useState(false);
   const [refCount,setRefCount] = useState()
   console.log("n",refCount);
+  const navigate = useNavigate();
+  const uuid = localStorage.getItem("uuid");
+
   const updateHandler = () => {
     setOpenUpdateModal(true);
   };
@@ -52,6 +58,22 @@ const Settings = () => {
   useEffect(() => {
     console.log(openReferModal);
   }, [openReferModal]);
+
+  useEffect(() => {
+    dispatch(getUid({}));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(getUid({}))
+      if (uuid !== valid?.data) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [valid, uuid, dispatch]);
 
   useEffect(() => {
     if (profile && profile?.details && profile?.details?.ref_count === null) {
@@ -136,15 +158,15 @@ const Settings = () => {
                 />
               </button>
             </div>
-            <div className="flex items-center border-b border-[#DCDCDC] pb-3 mb-6">
-              <div className="mr-4">
+            <div className="flex items-center border-b border-[#DCDCDC] pb-3 mb-4">
+              <div >
                 {/* <img
                   className="w-10 h-10 rounded-full"
                   src={profile?.details?.avatar}
                   alt={profile?.details?.first_name}
                 /> */}
               </div>
-              <div>
+              <div >
                 <p
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
@@ -152,27 +174,28 @@ const Settings = () => {
                 >
                   {profile?.details?.first_name}
                 </p>
-                <p className="text-[#898989] text-[14px]">
+
+                <p className="text-[#898989] text-[14px] pt-1">
                   {" "}
                   {profile?.details?.username}
                 </p>
-                <p
+                {/* <p
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium`}
                 >
                   Licence :
-                </p>
+                </p> */}
               </div>
             </div>
             <div>
-              <div className="flex mb-4">
+              <div className="flex pb-4 mb-4 border-b border-[#DCDCDC]">
                 <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-4/12`}
                 >
-                  Contact phone
+                  Contact phone 
                 </div>
                 <div
                   className={`${
@@ -182,13 +205,13 @@ const Settings = () => {
                   {profile?.details?.mobile}
                 </div>
               </div>
-              <div className="flex mb-4">
+              <div className="flex mb-4 border-b border-[#DCDCDC] pb-4">
                 <div
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-4/12`}
                 >
-                  {/* Address */}Gender
+                  {/* Address */}Gender 
                 </div>
                 <div
                   className={`${
@@ -300,10 +323,18 @@ const Settings = () => {
             </div>
             <div className="mt-4 rounded-md p-4 flex justify-between items-center">
               <div className="flex">
-                <p className="text-black text-[16px]">Number of referrals :</p>
+                <p 
+                className={`${
+                  themeMode === "light" ? "text-black" : "text-white"
+                } text-[17px] text-normal pb-0`}
+                >Number of referrals :</p>
               </div>
               <div>
-              <p className="text-black text-[16px] text-md">{refCount}</p>
+              <p 
+              className={`${
+                themeMode === "light" ? "text-black" : "text-white"
+              } text-[17px] text-normal pb-0`}
+              >{refCount}</p>
               </div>
             </div>
           </div>
