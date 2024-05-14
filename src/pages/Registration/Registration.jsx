@@ -108,10 +108,10 @@ const Registration = ({
 
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      localStorage.setItem('googleAccessToken', codeResponse.access_token);
-      navigate('/google-redirect');
+      localStorage.setItem("googleAccessToken", codeResponse.access_token);
+      navigate("/google-redirect");
     },
-    onError: (error) => console.log('Login Failed:', error),
+    onError: (error) => console.log("Login Failed:", error),
   });
   return (
     <>
@@ -274,59 +274,59 @@ const Registration = ({
                         )}
                       </>
                     ) : (
-                        <>
-                    {check ? (
-                      <button
-                        // onClick={goChoosePlanHandler}
-                        type="submit"
-                        className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
-                        disabled={!check || loading}
-                      >
-                        {/* Submit */}
-                        {loading ? "Wait ..." : "Register"}
-                      </button>
-                    ) : (
-                        <button
-                          type="submit"
-                          className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
-                          disabled
-                        >
-                          {loading ? "Wait ..." : "Register"}
-                        </button>
-                      )}
+                      <>
+                        {check ? (
+                          <button
+                            // onClick={goChoosePlanHandler}
+                            type="submit"
+                            className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
+                            disabled={!check || loading}
+                          >
+                            {/* Submit */}
+                            {loading ? "Wait ..." : "Register"}
+                          </button>
+                        ) : (
+                          <button
+                            type="submit"
+                            className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
+                            disabled
+                          >
+                            {loading ? "Wait ..." : "Register"}
+                          </button>
+                        )}
                       </>
                     )}
                   </form>
                   <p className="py-4">OR</p>
                   {check ? (
-                  <button 
-                  onClick={()=>googleLogin()}
-                  className="flex justify-center items-center
+                    <button
+                      onClick={() => googleLogin()}
+                      className="flex justify-center items-center
                    bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 
-                   uppercase rounded-lg text-sm font-bold hover:bg-gray-200">
-                    <FcGoogle className="text-3xl" />
-                    Google
-                  </button>
-                  ):(
-                    <button 
-                    disabled
-                     className="flex justify-center items-center
+                   uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
+                    >
+                      <FcGoogle className="text-3xl" />
+                      Google
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      className="flex justify-center items-center
                       bg-[#d0d3d4] border border-gray-300 w-full shadow-xl py-1.5 
-                      uppercase rounded-lg text-sm font-bold opacity-60">
-                       <FcGoogle className="text-3xl" />
-                       Google
-                     </button>
-                  )
-                  }
+                      uppercase rounded-lg text-sm font-bold opacity-60"
+                    >
+                      <FcGoogle className="text-3xl" />
+                      Google
+                    </button>
+                  )}
                   <p className="py-4 text-sm font-medium text-black">
-                    If you have an account, please{" "}
+                    Already have an account?
                     <Link
                       onClick={loginHandler}
-                      className="text-[#2aa9e1] hover:text-black"
+                      className="text-[#2aa9e1] hover:text-black ml-1"
                     >
-                      Login
+                      Sign in
                     </Link>{" "}
-                    here.
                   </p>
                 </div>
               </div>

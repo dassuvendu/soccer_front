@@ -304,14 +304,13 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                   Google
                 </Link>
                 <p className="py-4 text-sm font-medium text-black">
-                  If you have not an account, please{" "}
+                  Don't have an account?
                   <Link
                     onClick={registerHandler}
-                    className="text-[#2aa9e1] hover:text-black"
+                    className="text-[#2aa9e1] hover:text-black ml-1"
                   >
-                    Register
+                    Sign up
                   </Link>{" "}
-                  here.
                 </p>
               </div>
             </div>

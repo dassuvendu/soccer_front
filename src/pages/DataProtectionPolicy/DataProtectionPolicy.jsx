@@ -1,10 +1,14 @@
 import React from "react";
+import { bannerImgThree } from "../../assets/images/images";
 
 const DataProtectionPolicy = () => {
   return (
     <>
-      <div className="py-10 lg:py-24 px-8 lg:px-0">
+      <div className="py-10 lg:py-12 px-8 lg:px-0">
         <div className="max-w-6xl mx-auto">
+          <div className="max-w-2xl mx-auto mb-8">
+            <img src={bannerImgThree} alt="" />
+          </div>
           <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
             PLAYCOPE LTD DATA PROTECTION POLICY
           </h2>

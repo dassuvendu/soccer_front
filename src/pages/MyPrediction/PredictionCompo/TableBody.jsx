@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { TabPanel, Tabs } from 'react-tabs';
-import { BarcelonaIcon, BayernMunichIcon } from '../../../assets/images/images';
-import { MdMoreHoriz } from 'react-icons/md';
-import { Table } from 'flowbite-react';
-import { postpredictions } from '../../../reducers/PredictionsSlice';
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { TabPanel, Tabs } from "react-tabs";
+import { BarcelonaIcon, BayernMunichIcon } from "../../../assets/images/images";
+import { MdMoreHoriz } from "react-icons/md";
+import { Table } from "flowbite-react";
+import { postpredictions } from "../../../reducers/PredictionsSlice";
 
 export const PreditionTableBody = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  
+
   console.log("pre", prediction);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(postpredictions({ "fixture": 198772 }))
-  }, [dispatch])
+    dispatch(postpredictions({ fixture: 198772 }));
+  }, [dispatch]);
   return (
     <Tabs className="tab_section">
       <TabPanel>
@@ -22,57 +21,58 @@ export const PreditionTableBody = () => {
           <Table hoverable>
             <Table.Head className="border-b border-[#2b2f35]">
               <Table.HeadCell
-                className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px]  ${themeMode === "light"
-                    ? "text-[#787a7d]"
-                    : "text-[#96A5B8]"
-                  } font-medium capitalize w-[34%]`}
+                className={`${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px]  ${
+                  themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[34%]`}
               >
                 Match
               </Table.HeadCell>
               <Table.HeadCell
-                className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${themeMode === "light"
-                    ? "text-[#787a7d]"
-                    : "text-[#96A5B8]"
-                  } font-medium capitalize w-[17%]`}
+                className={`${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${
+                  themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[17%]`}
               >
                 Score
               </Table.HeadCell>
               <Table.HeadCell
-                className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${themeMode === "light"
-                    ? "text-[#787a7d]"
-                    : "text-[#96A5B8]"
-                  } font-medium capitalize w-[17%]`}
+                className={`${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${
+                  themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[17%]`}
               >
-                Over Under
+                Outcome
               </Table.HeadCell>
               <Table.HeadCell
-                className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${themeMode === "light"
-                    ? "text-[#787a7d]"
-                    : "text-[#96A5B8]"
-                  } font-medium capitalize w-[17%]`}
+                className={`${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${
+                  themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[17%]`}
               >
                 Accuracy
               </Table.HeadCell>
               <Table.HeadCell
-                className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } text-[16px] ${themeMode === "light"
-                    ? "text-[#787a7d]"
-                    : "text-[#96A5B8]"
-                  } font-medium capitalize w-[15%]`}
+                className={`${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${
+                  themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[15%]`}
               >
                 More
               </Table.HeadCell>
             </Table.Head>
 
-            <Table.Body className="divide-y" >
-              {prediction.map(data => (
+            <Table.Body className="divide-y">
+              {prediction.map((data) => (
                 <Table.Row
-                  className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                    } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                  className={`${
+                    themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                  } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
                 >
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                     <div className="flex items-center">
@@ -86,10 +86,11 @@ export const PreditionTableBody = () => {
                         />
                         <div>
                           <p
-                            className={`font-Montserrat font-bold text-[13px] leading-[13px] ${themeMode === "light"
-                              ? "text-black"
-                              : "text-white"
-                              }`}
+                            className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            }`}
                           >
                             {data.teams.home.name}
                           </p>
@@ -102,10 +103,11 @@ export const PreditionTableBody = () => {
                       <div className="flex items-center">
                         <div>
                           <p
-                            className={`font-Montserrat font-bold text-[13px] leading-[13px] ${themeMode === "light"
-                              ? "text-black"
-                              : "text-white"
-                              }`}
+                            className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
+                              themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                            }`}
                           >
                             {data.teams.away.name}
                           </p>
@@ -130,8 +132,9 @@ export const PreditionTableBody = () => {
                   </Table.Cell>
                   <Table.Cell className="w-[17%]">
                     <span
-                      className={`text-base font-bold ${themeMode === "light" ? "text-black" : "text-white"
-                        }`}
+                      className={`text-base font-bold ${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      }`}
                     >
                       5/10
                     </span>
@@ -146,7 +149,6 @@ export const PreditionTableBody = () => {
                   </Table.Cell>
                 </Table.Row>
               ))}
-
 
               {/* <Table.Row
                 className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
@@ -220,14 +222,9 @@ export const PreditionTableBody = () => {
                 </Table.Cell>
               </Table.Row> */}
             </Table.Body>
-
           </Table>
         </div>
       </TabPanel>
-
     </Tabs>
-
-
-
-  )
-}
+  );
+};

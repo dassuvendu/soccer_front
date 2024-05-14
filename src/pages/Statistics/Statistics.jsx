@@ -8,7 +8,7 @@ import {
   TotalMatchesBG,
   logoIcon,
 } from "../../assets/images/images";
-import {  FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 import "react-tabs/style/react-tabs.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getStatistics } from "../../reducers/StatisticsSlice";
@@ -32,7 +32,7 @@ const Statistics = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
+      dispatch(getUid({}));
       if (uuid !== valid?.data) {
         dispatch(logout());
         navigate("/");
@@ -392,7 +392,7 @@ const Statistics = () => {
                         : "text-[#96A5B8]"
                     } font-medium capitalize w-[17%]`}
                   >
-                    Over Under
+                    Outcome
                   </Table.HeadCell>
                   <Table.HeadCell
                     className={`${

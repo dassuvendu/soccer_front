@@ -81,7 +81,7 @@ const Footer = () => {
             </ul>
           </div>
           <p className="text-[#9ea5a7] text-[15px] mb-6">
-            <span className="text-white">PlayCope</span> © 2024 All Rights
+            <span className="text-white">PlayCope Ltd</span> © 2024 All Rights
             Reserved.
           </p>
           <div>
