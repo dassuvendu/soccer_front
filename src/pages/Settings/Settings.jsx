@@ -24,12 +24,12 @@ import { getUid } from "../../reducers/uuidSlice";
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
   const { profile } = useSelector((state) => state.profile);
-  console.log("pr",profile);
+  console.log("pr", profile);
   const { valid } = useSelector((state) => state.uuid);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openReferModal, setOpenReferModal] = useState(false);
-  const [refCount,setRefCount] = useState()
-  console.log("n",refCount);
+  const [refCount, setRefCount] = useState();
+  console.log("n", refCount);
   const navigate = useNavigate();
   const uuid = localStorage.getItem("uuid");
 
@@ -67,7 +67,7 @@ const Settings = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
+      dispatch(getUid({}));
       if (uuid !== valid?.data) {
         dispatch(logout());
         navigate("/");
@@ -91,7 +91,7 @@ const Settings = () => {
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
-      <div className="w-full h-screen py-4 mb-16">
+      <div className="w-full py-4 mb-0">
         <div className="flex justify-between mb-8">
           <h1
             className={`${
@@ -165,14 +165,14 @@ const Settings = () => {
               </button>
             </div>
             <div className="flex items-center border-b border-[#DCDCDC] pb-3 mb-4">
-              <div >
+              <div>
                 {/* <img
                   className="w-10 h-10 rounded-full"
                   src={profile?.details?.avatar}
                   alt={profile?.details?.first_name}
                 /> */}
               </div>
-              <div >
+              <div>
                 <p
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
@@ -201,7 +201,7 @@ const Settings = () => {
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-4/12`}
                 >
-                  Contact phone 
+                  Contact phone
                 </div>
                 <div
                   className={`${
@@ -217,7 +217,7 @@ const Settings = () => {
                     themeMode === "light" ? "text-black" : "text-white"
                   } text-[14px] text-medium w-4/12`}
                 >
-                  {/* Address */}Gender 
+                  {/* Address */}Gender
                 </div>
                 <div
                   className={`${
@@ -330,18 +330,22 @@ const Settings = () => {
             </div>
             <div className="mt-4 rounded-md p-4 flex justify-between items-center">
               <div className="flex">
-                <p 
-                className={`${
-                  themeMode === "light" ? "text-black" : "text-white"
-                } text-[17px] text-normal pb-0`}
-                >Number of referrals :</p>
+                <p
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[17px] text-normal pb-0`}
+                >
+                  Number of referrals :
+                </p>
               </div>
               <div>
-              <p 
-              className={`${
-                themeMode === "light" ? "text-black" : "text-white"
-              } text-[17px] text-normal pb-0`}
-              >{refCount}</p>
+                <p
+                  className={`${
+                    themeMode === "light" ? "text-black" : "text-white"
+                  } text-[17px] text-normal pb-0`}
+                >
+                  {refCount}
+                </p>
               </div>
             </div>
           </div>
@@ -354,7 +358,7 @@ const Settings = () => {
             } rounded-md p-5 shadow-xl`}
           >
             <h3 className="text-[20px]  text-[#2aa9e1] font-medium text-center pb-2">
-              Refer Friends and Earn Commission
+              Refer Friends And Earn 20% Commission
             </h3>
             <p className="text-[#898989] text-[14px] text-center pb-2">
               If you enjoy using Playcope, share your referral link and get paid

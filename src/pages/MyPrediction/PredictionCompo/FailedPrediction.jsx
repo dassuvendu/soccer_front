@@ -1,7 +1,7 @@
 import { Button, Table, TextInput } from "flowbite-react";
 import {
-//   BarcelonaIcon,
-//   BayernMunichIcon,
+  //   BarcelonaIcon,
+  //   BayernMunichIcon,
   logoIcon,
 } from "../../../assets/images/images";
 import { MdMoreHoriz } from "react-icons/md";
@@ -36,20 +36,20 @@ export const FailedPrediction = ({ themeMode, token }) => {
   const [timeStamp, setTimeStamp] = useState(null);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
   const [error, setError] = useState(null);
-  const [predic,setPredic] = useState()
+  const [predic, setPredic] = useState();
   const dispatch = useDispatch();
 
-  const uuid = localStorage.getItem('uuid')
-  const navigate = useNavigate()
+  const uuid = localStorage.getItem("uuid");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
-        if (uuid !== valid?.data) {
-            dispatch(logout())
-            navigate('/') 
-        }
-    },5000);
+      dispatch(getUid({}));
+      if (uuid !== valid?.data) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }, 5000);
     return () => clearTimeout(timer);
   }, [valid, uuid, dispatch]);
 
@@ -61,13 +61,15 @@ export const FailedPrediction = ({ themeMode, token }) => {
   }, [fetchedPredictions, itemsPerPage]);
 
   useEffect(() => {
-   const failedPredic = fetchedPredictions?.data?.filter((data) => data?.fixture_status === 'failed')
-   console.log("faild",failedPredic);
-   setPredic(failedPredic)
-  },[fetchedPredictions])
+    const failedPredic = fetchedPredictions?.data?.filter(
+      (data) => data?.fixture_status === "failed"
+    );
+    console.log("faild", failedPredic);
+    setPredic(failedPredic);
+  }, [fetchedPredictions]);
   useEffect(() => {
     if (token && currentPage) {
-      dispatch(getUid({}))
+      dispatch(getUid({}));
       dispatch(
         getPredictions({
           page_number: currentPage,
@@ -146,15 +148,11 @@ export const FailedPrediction = ({ themeMode, token }) => {
   };
 
   useEffect(() => {
-    if (
-        fetchedPredictions?.total_data > 10
-      ) {
-        setHide(true);
-      } else if (
-          fetchedPredictions?.total_data < 10
-      ) {
-        setHide(false);
-      } else {
+    if (fetchedPredictions?.total_data > 10) {
+      setHide(true);
+    } else if (fetchedPredictions?.total_data < 10) {
+      setHide(false);
+    } else {
       setHide(false);
     }
   }, [predic]);
@@ -189,7 +187,7 @@ export const FailedPrediction = ({ themeMode, token }) => {
                 themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
               } font-medium capitalize w-[17%]`}
             >
-              Over Under
+              Outcome
             </Table.HeadCell>
             <Table.HeadCell
               className={`${
@@ -223,17 +221,14 @@ export const FailedPrediction = ({ themeMode, token }) => {
                 </td>
               </tr>
             ) : (
-                <>
-                {Array.isArray(predic) &&
-                predic?.length > 0 && !error ? (
-                    predic?.map((predict) => {
+              <>
+                {Array.isArray(predic) && predic?.length > 0 && !error ? (
+                  predic?.map((predict) => {
                     return (
                       <>
                         <Table.Row
                           className={`${
-                            themeMode === "light"
-                              ? "bg-white"
-                              : "bg-[#191D23]"
+                            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
                           } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
                         >
                           <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
@@ -308,8 +303,7 @@ export const FailedPrediction = ({ themeMode, token }) => {
                               }`}
                             >
                               <span>
-                                {predict?.fixture_status ===
-                                "failed" && (
+                                {predict?.fixture_status === "failed" && (
                                   <>
                                     <span>
                                       <svg
@@ -331,8 +325,7 @@ export const FailedPrediction = ({ themeMode, token }) => {
                                       </svg>
                                     </span>
                                   </>
-                                ) 
-                            }
+                                )}
                               </span>
                             </span>
                           </Table.Cell>
@@ -363,15 +356,11 @@ export const FailedPrediction = ({ themeMode, token }) => {
                       <td colSpan="5" className="text-center py-4">
                         <div className="text-center">
                           <div>
-                            {error ?
-                            <p>
-                           {error}
-                          </p>
-                          :
-                            <p>
-                              You have not made any predictions to show
-                            </p>
-                            }
+                            {error ? (
+                              <p>{error}</p>
+                            ) : (
+                              <p>You have not made any predictions to show</p>
+                            )}
                           </div>
                         </div>
                       </td>
@@ -1067,8 +1056,8 @@ export const FailedPrediction = ({ themeMode, token }) => {
               } text-xs`}
             >
               Showing {(currentPage - 1) * itemsPerPage + 1 || 0} to{" "}
-              {currentPage * itemsPerPage || 0} of{" "}
-              {predic?.total_data || 0} entries
+              {currentPage * itemsPerPage || 0} of {predic?.total_data || 0}{" "}
+              entries
             </p>
           </div>
           <div className="min-w-[450px]">

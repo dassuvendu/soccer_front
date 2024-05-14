@@ -23,7 +23,7 @@ import {
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Recently } from "./PredictionCompo/Recently";
 import { AllPrediction } from "./PredictionCompo/AllPrediction";
 import { FailedPrediction } from "./PredictionCompo/FailedPrediction";
@@ -34,7 +34,7 @@ const MyPrediction = () => {
 
   const token = localStorage.getItem("userToken");
   console.log("token: ", token);
-  
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-full py-4">
@@ -77,14 +77,14 @@ const MyPrediction = () => {
         <div
           className={` ${
             themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-          } rounded-md`}
+          } rounded-md px-4`}
         >
           {/* Tab section start here */}
           <Tabs className="tab_section">
             <div className="md:flex justify-between items-center">
               <TabList>
                 <Tab>All Prediction</Tab>
-                <Tab >Recently</Tab>
+                <Tab>Recently</Tab>
                 <Tab>Cooked Slip</Tab>
                 <Tab>Failed Prediction</Tab>
               </TabList>
@@ -97,17 +97,17 @@ const MyPrediction = () => {
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-              <Recently themeMode={themeMode} token={token}/>
+              <Recently themeMode={themeMode} token={token} />
               {/* Table ends here */}
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-             <CopedSlips themeMode={themeMode} token={token}/>
+              <CopedSlips themeMode={themeMode} token={token} />
               {/* Table ends here */}
             </TabPanel>
             <TabPanel>
               {/* Table start here */}
-              <FailedPrediction themeMode={themeMode} token={token}/>
+              <FailedPrediction themeMode={themeMode} token={token} />
               {/* Table ends here */}
             </TabPanel>
           </Tabs>

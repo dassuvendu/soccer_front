@@ -37,13 +37,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   } = useForm();
 
   useEffect(() => {
-
     const uid = uuidv4();
     // console.log("User Id set successfully");
     // localStorage.setItem('uuid',uuid)
-    setTsr(uid)
-
-  }, [])
+    setTsr(uid);
+  }, []);
   // const uuId = localStorage.getItem('uuid')
   // console.log("ou",uuId);
   // useEffect(() =>{
@@ -51,15 +49,17 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   // },[tsr])
 
   const onSubmit = (data) => {
-    dispatch(login({ email: data.email, password: data.password, uuid: tsr })).then((res) => {
+    dispatch(
+      login({ email: data.email, password: data.password, uuid: tsr })
+    ).then((res) => {
       // console.log("reS",res);
       if (res?.payload?.status_code === 401) {
         setErrorMas(res?.payload?.message);
       }
-      localStorage.setItem('uuid', tsr)
+      localStorage.setItem("uuid", tsr);
       dispatch(editProfile());
       const refId = uuidv4();
-      localStorage.setItem('ref_id', refId)
+      localStorage.setItem("ref_id", refId);
     });
   };
 
@@ -73,7 +73,6 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
         clearTimeout(timeoutId);
       };
     } else if (isLoggedIn) {
-
       // console.log("uuid",typeof uuid);
       dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
@@ -91,10 +90,10 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      localStorage.setItem('googleAccessToken', codeResponse.access_token);
-      navigate('/google-redirect');
+      localStorage.setItem("googleAccessToken", codeResponse.access_token);
+      navigate("/google-redirect");
     },
-    onError: (error) => console.log('Login Failed:', error),
+    onError: (error) => console.log("Login Failed:", error),
   });
   return (
     // <div className="my-0 lg:my-0 mx-4 lg:mx-0 flex justify-center items-center h-screen">
@@ -236,7 +235,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                     />
                     <>
                       {errors?.email?.message && (
-                        <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${
+                          errors.email.message
+                        }`}</h6>
                       )}
                     </>
                   </div>
@@ -255,7 +256,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.password?.message && (
-                      <h6 className="text-sm text-[red]">{`${'*'} ${errors.password.message}`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${
+                        errors.password.message
+                      }`}</h6>
                     )}
                   </div>
                   <div className="text-[12px] text-black hover:text-[#639bba] mb-3 ml-2">
@@ -263,9 +266,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       Forgot Password?
                     </button>
                   </div>
-                  {errorMas &&
-                    <h6 className="text-sm text-[red]">{`${'*'} ${errorMas}`}</h6>
-                  }
+                  {errorMas && (
+                    <h6 className="text-sm text-[red]">{`${"*"} ${errorMas}`}</h6>
+                  )}
                   <Button className="create_character_btn w-full" type="submit">
                     Login
                   </Button>
@@ -273,20 +276,19 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                 <p className="py-4">OR</p>
                 <Link
                   className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-                onClick={() => googleLogin()}
+                  onClick={() => googleLogin()}
                 >
                   <FcGoogle className="text-3xl" />
                   Google
                 </Link>
                 <p className="py-4 text-sm font-medium text-black">
-                  If you have not an account, please{" "}
+                  Don't have an account?
                   <Link
                     onClick={registerHandler}
-                    className="text-[#2aa9e1] hover:text-black"
+                    className="text-[#2aa9e1] hover:text-black ml-1"
                   >
-                    Register
+                    Sign up
                   </Link>{" "}
-                  here.
                 </p>
               </div>
             </div>
@@ -295,10 +297,12 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       </Modal>
       {/* {/ Login Modal ends here /} */}
 
-      {openForgotPasswordModal && <ForgotPassword
-        openForgotPasswordModal={openForgotPasswordModal}
-        setOpenForgotPasswordModal={setOpenForgotPasswordModal}
-      />}
+      {openForgotPasswordModal && (
+        <ForgotPassword
+          openForgotPasswordModal={openForgotPasswordModal}
+          setOpenForgotPasswordModal={setOpenForgotPasswordModal}
+        />
+      )}
 
       {/* registration start*/}
       <Registration
