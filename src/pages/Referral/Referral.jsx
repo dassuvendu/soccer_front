@@ -8,18 +8,18 @@ import { FaFacebookF, FaPinterest } from "react-icons/fa6";
 
 export const Referral = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const [usersId,setUsersId] = useState()
+  const [usersId, setUsersId] = useState();
   const [isCopied, setIsCopied] = useState(false);
   const [textInputValue, setTextInputValue] = useState("");
-  console.log("text",textInputValue);
+  console.log("text", textInputValue);
   const inputRef = useRef(null);
   const userId = localStorage.getItem("userId");
   const refId = localStorage.getItem("ref_id");
 
-  
   function generateRandomString(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * characters.length);
       result += characters.charAt(randomIndex);
@@ -27,25 +27,25 @@ export const Referral = () => {
     return result;
   }
 
-  useEffect(() =>{
+  useEffect(() => {
     if (userId) {
       // Ensure userId is 8 characters long
-      const paddedUserId = userId.padEnd(8, '?1/5').slice(0, 8);
-      
+      const paddedUserId = userId.padEnd(8, "?1/5").slice(0, 8);
+
       // Generate a random 4-character alphanumeric string
       const randomString = generateRandomString(4);
-      
+
       // Combine userId and random string
-      const combinedString =  paddedUserId + randomString  ;
-      
+      const combinedString = paddedUserId + randomString;
+
       // Encode the combined string
       const encodedUserId = encodeURIComponent(combinedString);
-      setUsersId(encodedUserId)
+      setUsersId(encodedUserId);
       console.log("Encoded UserId:", encodedUserId);
     } else {
       console.error("UserId not found in localStorage.");
     }
-  },[userId])
+  }, [userId]);
 
   const onCopy = () => {
     const fieldValue = inputRef.current.value; // Access field value using ref
@@ -72,14 +72,18 @@ export const Referral = () => {
 
   const handleWps = () => {
     window.open(`https://web.whatsapp.com/send?text=${url}`);
-  }
+  };
   const handlefb = () => {
     window.open(`http://m.me/send?text=${url}`);
-  }
+  };
   const handletw = () => {
     window.open(`https://twitter.com/share?text=${url}`);
-  }
-  
+  };
+  let refUrl = `${
+    import.meta.env.VITE_FRONT_BASE_URL
+  }/signup/ReferRegistration/${usersId}?=${refId}`;
+  console.log("refUrl", refUrl);
+
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full h-screen py-4 mb-16">
@@ -194,42 +198,40 @@ export const Referral = () => {
                 </h3>
               </div>
               <div className="bg-[#f9fafb] py-4 flex justify-center items-center rounded-md">
-              <TextInput
-                    id="base"
-                    type="text"
-                    sizing="md"
-                    className="w-8/12"
-                    value={`${
-                      import.meta.env.VITE_FRONT_BASE_URL
-                    }${"/signup/ReferRegistration/"}${usersId}?=${refId}`}
-                    readOnly
-                    ref={inputRef}
-                  />
-                <button className="text-[#2aa9e1] ml-3 hover:text-black flex" onClick={onCopy}>
-                  <BsCopy/>
-                      
+                <TextInput
+                  id="base"
+                  type="text"
+                  sizing="md"
+                  className="w-8/12"
+                  value={`${
+                    import.meta.env.VITE_FRONT_BASE_URL
+                  }${"/signup/ReferRegistration/"}${usersId}?=${refId}`}
+                  readOnly
+                  ref={inputRef}
+                />
+                <button
+                  className="text-[#2aa9e1] ml-3 hover:text-black flex"
+                  onClick={onCopy}
+                >
+                  <BsCopy />
                 </button>
                 <span className="text-sm font-semibold text-black ml-2">
-                        {isCopied ?
-                        <p>copied!</p>
-                        :
-                        null
-                      }
-                      </span>
+                  {isCopied ? <p>copied!</p> : null}
+                </span>
               </div>
               <div className="py-6">
                 <ul className="flex justify-center items-center">
                   <Link className="text-[#2aa9e1] text-2xl hover:text-black mx-2">
-                    <FaFacebookF onClick={handlefb}/>
+                    <FaFacebookF onClick={handlefb} />
                   </Link>
                   <Link className="text-[#2aa9e1] text-2xl hover:text-black mx-2">
-                    <BsTwitter onClick={handletw}/>
+                    <BsTwitter onClick={handletw} />
                   </Link>
                   <Link className="text-[#2aa9e1] text-2xl hover:text-black mx-2">
                     <BsLinkedin />
                   </Link>
                   <Link className="text-[#2aa9e1] text-2xl hover:text-black mx-2">
-                    <BsWhatsapp onClick={handleWps}/>
+                    <BsWhatsapp onClick={handleWps} />
                   </Link>
                   <Link className="text-[#2aa9e1] text-2xl hover:text-black mx-2">
                     <FaPinterest />

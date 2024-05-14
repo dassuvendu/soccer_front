@@ -7,12 +7,12 @@ export const referral = createAsyncThunk(
     async (userInput, { rejectWithValue }) => {
         try {
             const response = await api.post('user/ref-count', userInput);
-            console.log("response: ",response);
+            console.log("response: ", response);
             if (response?.status === 200) {
-            //    console.log("response: ",response?.data);
+                //    console.log("response: ",response?.data);
                 return response.data;
             } else {
-                
+
                 // Handle the case when status code is not 200
                 return rejectWithValue(response.data.message);
             }
@@ -27,7 +27,7 @@ const initialState = {
     message: null,
     error: null,
     loading: false,
-    data:[]
+    data: []
 };
 
 const RefContSlice = createSlice({

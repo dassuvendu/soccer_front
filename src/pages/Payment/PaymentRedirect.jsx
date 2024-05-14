@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { stripePayment } from "../../reducers/paymentSlice";
-import { referral } from "../../reducers/RefCount";
+// import { referral } from "../../reducers/RefCount";
 import { editProfile } from "../../reducers/profileSlice";
 import Login from "../Auth/Login/Login";
 import Registration from "../Registration/Registration";
@@ -22,10 +22,10 @@ const PaymentRedirect = () => {
     setOpenLoginModal(true);
   };
 
-  useEffect(()=>{
-console.log("openLoginModal",openLoginModal);
-console.log("openRegisterModal",openRegisterModal);
-  },[openLoginModal,openRegisterModal])
+  useEffect(() => {
+    console.log("openLoginModal", openLoginModal);
+    console.log("openRegisterModal", openRegisterModal);
+  }, [openLoginModal, openRegisterModal]);
 
   const token =
     JSON.parse(localStorage.getItem("userToken")) ||
@@ -130,13 +130,13 @@ console.log("openRegisterModal",openRegisterModal);
           setOpenLoginModal={setOpenLoginModal}
         />
       )}
-       {openRegisterModal && 
-    <Registration
-         openRegisterModal={openRegisterModal}
-         setOpenRegisterModal={setOpenRegisterModal}
-         setOpenLoginModal={setOpenLoginModal}
+      {openRegisterModal && (
+        <Registration
+          openRegisterModal={openRegisterModal}
+          setOpenRegisterModal={setOpenRegisterModal}
+          setOpenLoginModal={setOpenLoginModal}
         />
-    }
+      )}
     </div>
   );
 };

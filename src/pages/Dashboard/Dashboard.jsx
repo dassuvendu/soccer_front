@@ -8,6 +8,7 @@ import { getLeagues } from "../../reducers/LeagueSlice";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
 import "react-toastify/dist/ReactToastify.css";
+import { referral } from "../../reducers/RefCount";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -32,7 +33,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
+      dispatch(getUid({}));
       if (uuid !== valid?.data) {
         dispatch(logout());
         navigate("/");

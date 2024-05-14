@@ -5,6 +5,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import { referral } from "../../reducers/RefCount";
+import { useEffect } from "react";
 
 const CheckoutForm = ({
   setErrorMessage,
@@ -16,7 +17,7 @@ const CheckoutForm = ({
   const stripe = useStripe();
   const elements = useElements();
   const { profile } = useSelector((state) => state.profile);
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const returnUrl = `${
     import.meta.env.VITE_FRONT_BASE_URL
   }/payment-redirect/?customer_id=${encodeURIComponent(
@@ -24,15 +25,24 @@ const dispatch = useDispatch()
   )}&subscription_id=${encodeURIComponent(
     subscription_id
   )}&plan_id=${plan_id}&user_id=${user_id}`;
-  
+  // useEffect(() => {
+  //   dispatch(
+  //     referral({
+  //       user_id: user_id,
+  //       ref_id: profile?.details?.ref_id,
+  //     })
+  //   );
+  // }, []);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(referral({
-      user_id:user_id,
-      ref_id:profile?.details?.ref_id
-     })
-    )
-   
+    console.log("Hello");
+    dispatch(
+      referral({
+        user_id: user_id,
+        ref_id: profile?.details?.ref_id,
+      })
+    );
+
     if (!stripe || !elements) {
       return;
     }
@@ -42,8 +52,8 @@ const dispatch = useDispatch()
         confirmParams: {
           return_url: returnUrl,
         },
-      })
-    
+      });
+
       if (result.error) {
         setErrorMessage(result.error.message);
       } else {
