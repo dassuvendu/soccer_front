@@ -303,7 +303,7 @@ const Settings = () => {
               </p>
             </div>
             <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
-              <div className="w-9/12">
+              <div className="w-7/12 lg:w-9/12">
                 <p
                   className={`${
                     themeMode === "light" ? "text-black" : "text-white"
@@ -319,7 +319,7 @@ const Settings = () => {
                   className="password_box"
                 />
               </div>
-              <div className="w-3/12">
+              <div className="w-5/12 lg:w-3/12">
                 <button
                   className="border border-[#2880DA] text-[12px] bg-black hover:bg-[#2880DA] text-white leading-[30px] px-3 rounded-md"
                   onClick={handleChangePassword}
@@ -364,7 +364,7 @@ const Settings = () => {
               If you enjoy using Playcope, share your referral link and get paid
               for every eligible purchase
             </p>
-            <div className="grid grid-cols-2 gap-4 my-6">
+            <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 my-6">
               <div className="border border-[#2aa9e1] rounded-md text-center p-4 bg-[#fcfcfd]">
                 <img
                   src={inviteIcon}
