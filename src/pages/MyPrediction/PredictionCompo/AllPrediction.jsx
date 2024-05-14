@@ -284,7 +284,8 @@ export const AllPrediction = ({ themeMode, token }) => {
                                     : "text-white"
                                 }`}
                               >
-                                Over {Math.abs(predict?.over_under_line)}
+                                {/* Over {Math.abs(predict?.over_under_line)} */}
+                                Win
                               </span>
                             ) : predict?.over_under_line < 0 ? (
                               <>
@@ -295,7 +296,8 @@ export const AllPrediction = ({ themeMode, token }) => {
                                       : "text-white"
                                   }`}
                                 >
-                                  Under {Math.abs(predict?.over_under_line)}
+                                  {/* Under {Math.abs(predict?.over_under_line)} */}
+                                  Loss
                                 </span>
                               </>
                             ) : (

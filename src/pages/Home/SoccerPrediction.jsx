@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 // import {
 //   DeportivoPastoIcon,
 //   EnvigadoIcon,
@@ -23,31 +23,29 @@ import { PassedCookedSlip } from "./PassedCookedSlip";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeshStatistics } from "../../reducers/StatisticsSlice";
 const SoccerPrediction = () => {
-
-  const {DeshStatistics} = useSelector((state) => state.statistics)
+  const { DeshStatistics } = useSelector((state) => state.statistics);
   // console.log('DeshStatistics', DeshStatistics)
 
   useEffect(() => {
     AOS.init();
   }, []);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // const [loadingData, setLoadingData] = useState(false);
   // const [homeLoader, setHomeLoader] = useState(true);
 
-  useEffect(() =>{
-   dispatch(getDeshStatistics({})).then((res) =>{
-    if (res?.payload?.status === true) {
-      // setLoadingData(true);
-      // setHomeLoader(false);
-    } else {
-      // setLoadingData(false);
-      // setHomeLoader(true);
-    }
-   })
-   
-  },[dispatch])
+  useEffect(() => {
+    dispatch(getDeshStatistics({})).then((res) => {
+      if (res?.payload?.status === true) {
+        // setLoadingData(true);
+        // setHomeLoader(false);
+      } else {
+        // setLoadingData(false);
+        // setHomeLoader(true);
+      }
+    });
+  }, [dispatch]);
 
   return (
     <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
@@ -73,208 +71,247 @@ const SoccerPrediction = () => {
                   <Tab>All Statistics</Tab>
                 </TabList>
                 <TabPanel>
-             
                   <div className="pt-4">
-                   {DeshStatistics.map((data) => (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" key={data.id}>
-
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowUpRightLight className="text-white" />
+                    {DeshStatistics.map((data) => (
+                      <div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                        key={data.id}
+                      >
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <PiArrowUpRightLight className="text-white" />
+                              </div>
+                              <p className="text-black text-base font-medium mb-0">
+                                High Accuracy Predictions
+                              </p>
                             </div>
-                            <p className="text-black text-base font-medium mb-0">
-                              High Accuracy Predictions
-                            </p>
                           </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.high_accuracy}
+                            <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_high_accuracy}%)
+                            </span>
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Predictions that had same outcome as our given
+                            advice.
+                          </p>
                         </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                          {data?.high_accuracy}
-                          <span className="text-[#08a5f5] font-bold text-base">
-                            ({data?.percentage_high_accuracy}%)
-                          </span>
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1" />
-                          Predictions that had same outcome as our given advice.
-                        </p>
-                      </div>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowDownRightLight className="text-white" />
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <PiArrowDownRightLight className="text-white" />
+                              </div>
+                              <p className="text-black text-base font-medium mb-0">
+                                Low Accuracy Predictions
+                              </p>
                             </div>
-                            <p className="text-black text-base font-medium mb-0">
-                              Low Accuracy Predictions
-                            </p>
                           </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.low_accuracy}
+                            <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_low_accuracy}%)
+                            </span>
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Predictions that were completely off.
+                          </p>
                         </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                        {data?.low_accuracy}
-                          <span className="text-[#08a5f5] font-bold text-base">
-                          ({data?.percentage_low_accuracy}%)
-                          </span>
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1" />
-                          Predictions that were completely off.
-                        </p>
-                      </div>
-                    </div>
-                   ))}
-                  </div>
-                
-               
-                </TabPanel>
-                <TabPanel>
-               
-                  <div className="pt-4">
-                  {DeshStatistics.map((data) => (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" key={data?.id}>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowUpRightLight className="text-white" />
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="w-4 h-4 text-white"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                  />
+                                </svg>
+                              </div>
+                              <p className="text-black text-base font-medium mb-0">
+                                Total
+                              </p>
                             </div>
-                            <p className="text-black text-base font-medium mb-0">
-                              High Accuracy Predictions
-                            </p>
                           </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.low_accuracy + data?.high_accuracy}
+                            {/* <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_low_accuracy}%)
+                            </span> */}
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Total Predictions.
+                          </p>
                         </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                        {data?.high_accuracy}
-                          <span className="text-[#08a5f5] font-bold text-base">
-                          ({data?.percentage_high_accuracy}%)
-                          </span>
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1" />
-                          Predictions that had same outcome as our given advice.
-                        </p>
                       </div>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowDownRightLight className="text-white" />
-                            </div>
-                            <p className="text-black text-base font-medium mb-0">
-                              Low Accuracy Predictions
-                            </p>
-                          </div>
-                        </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                        {data?.low_accuracy}
-                          <span className="text-[#08a5f5] font-bold text-base">
-                          ({data?.percentage_low_accuracy}%)
-                          </span>
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1" />
-                          Predictions that were completely off.
-                        </p>
-                      </div>
-                    </div>
-                   ))}
-                  </div>
-                
-                </TabPanel>
-                <TabPanel>
-               
-                  <div className="pt-4">
-                  {DeshStatistics.map((data) => (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" key={data?.id}>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowUpRightLight className="text-white" />
-                            </div>
-                            <p className="text-black text-[14px] font-medium mb-0">
-                              High Accuracy Predictions
-                            </p>
-                          </div>
-                        </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                        {data?.high_accuracy}
-                          <span className="text-[#08a5f5] font-bold text-base">
-                          ({data?.percentage_high_accuracy}%)
-                          </span>
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
-                          Predictions that had same outcome as our given advice.
-                        </p>
-                      </div>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <PiArrowDownRightLight className="text-white" />
-                            </div>
-                            <p className="text-black text-[14px] font-medium mb-0">
-                              Low Accuracy Predictions
-                            </p>
-                          </div>
-                        </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                        {data?.low_accuracy}
-                          <span className="text-[#08a5f5] font-bold text-base">
-                          ({data?.percentage_low_accuracy}%)
-                          </span>
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1" />
-                          Predictions that were completely off.
-                        </p>
-                      </div>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#9333ea] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <BsLightningCharge className="text-white" />
-                            </div>
-                            <p className="text-black text-[14px] font-medium mb-0">
-                              All Active Predictions
-                            </p>
-                          </div>
-                        </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                          {data?.active}
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
-                          Predictions still waiting for the match to be played.
-                        </p>
-                      </div>
-                      <div className="bg-white rounded-lg p-4 shadow-xl">
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center">
-                            <div className="bg-[#a1a1aa] w-8 h-8 rounded-full flex justify-center items-center mr-1">
-                              <BsLightningCharge className="text-white" />
-                            </div>
-                            <p className="text-black text-[14px] font-medium mb-0">
-                              All Inactive Predictions
-                            </p>
-                          </div>
-                        </div>
-                        <h3 className="text-black font-bold text-5xl pb-2">
-                          {data?.inactive}
-                        </h3>
-                        <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
-                          <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
-                          Predictions for which the match has already been
-                          played.
-                        </p>
-                      </div>
-                    </div>
                     ))}
                   </div>
-               
-                  
+                </TabPanel>
+                <TabPanel>
+                  <div className="pt-4">
+                    {DeshStatistics.map((data) => (
+                      <div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                        key={data?.id}
+                      >
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <PiArrowUpRightLight className="text-white" />
+                              </div>
+                              <p className="text-black text-base font-medium mb-0">
+                                High Accuracy Predictions
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.high_accuracy}
+                            <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_high_accuracy}%)
+                            </span>
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Predictions that had same outcome as our given
+                            advice.
+                          </p>
+                        </div>
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <PiArrowDownRightLight className="text-white" />
+                              </div>
+                              <p className="text-black text-base font-medium mb-0">
+                                Low Accuracy Predictions
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.low_accuracy}
+                            <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_low_accuracy}%)
+                            </span>
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Predictions that were completely off.
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabPanel>
+                <TabPanel>
+                  <div className="pt-4">
+                    {DeshStatistics.map((data) => (
+                      <div
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+                        key={data?.id}
+                      >
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#4d927b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <PiArrowUpRightLight className="text-white" />
+                              </div>
+                              <p className="text-black text-[14px] font-medium mb-0">
+                                High Accuracy Predictions
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.high_accuracy}
+                            <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_high_accuracy}%)
+                            </span>
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
+                            Predictions that had same outcome as our given
+                            advice.
+                          </p>
+                        </div>
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <PiArrowDownRightLight className="text-white" />
+                              </div>
+                              <p className="text-black text-[14px] font-medium mb-0">
+                                Low Accuracy Predictions
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.low_accuracy}
+                            <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_low_accuracy}%)
+                            </span>
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Predictions that were completely off.
+                          </p>
+                        </div>
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#9333ea] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <BsLightningCharge className="text-white" />
+                              </div>
+                              <p className="text-black text-[14px] font-medium mb-0">
+                                All Active Predictions
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.active}
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
+                            Predictions still waiting for the match to be
+                            played.
+                          </p>
+                        </div>
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#a1a1aa] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <BsLightningCharge className="text-white" />
+                              </div>
+                              <p className="text-black text-[14px] font-medium mb-0">
+                                All Inactive Predictions
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.inactive}
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-top">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1 text-[16px]" />
+                            Predictions for which the match has already been
+                            played.
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </TabPanel>
               </Tabs>
             </div>
