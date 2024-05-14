@@ -62,6 +62,7 @@ const DropdownUser = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('uuid')
     localStorage.removeItem('userToken');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('googleAccessToken');

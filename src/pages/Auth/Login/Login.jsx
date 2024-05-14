@@ -7,7 +7,7 @@ import { AiOutlineLogin } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { login, resetAfterLoggedIn } from "../../../reducers/authSlice";
+import { login, logout, resetAfterLoggedIn } from "../../../reducers/authSlice";
 import { editProfile } from "../../../reducers/profileSlice";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import { v4 as uuidv4 } from "uuid";
@@ -37,13 +37,11 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   } = useForm();
 
   useEffect(() => {
-
     const uid = uuidv4();
     // console.log("User Id set successfully");
     // localStorage.setItem('uuid',uuid)
-    setTsr(uid)
-
-  }, [])
+    setTsr(uid);
+  }, []);
   // const uuId = localStorage.getItem('uuid')
   // console.log("ou",uuId);
   // useEffect(() =>{
@@ -51,16 +49,40 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   // },[tsr])
 
   const onSubmit = (data) => {
-    dispatch(login({ email: data.email, password: data.password, uuid: tsr })).then((res) => {
-      // console.log("reS",res);
-      if (res?.payload?.status_code === 401) {
-        setErrorMas(res?.payload?.message);
-      }
-      localStorage.setItem('uuid', tsr)
-      dispatch(editProfile());
-      const refId = uuidv4();
-      localStorage.setItem('ref_id', refId)
-    });
+    const previousUuid = localStorage.getItem("uuid");
+    console.log("previous UUID: ", previousUuid);
+    console.log("tsr", tsr);
+    if (previousUuid && previousUuid != tsr) {
+      console.log("logout");
+      dispatch(logout()).then(() => {
+        // localStorage.setItem('uuid', tsr);
+        dispatch(
+          login({ email: data?.email, password: data?.password, uuid: tsr })
+        ).then((res) => {
+          if (res?.payload?.status_code === 401) {
+            setErrorMas(res?.payload?.message);
+          }
+          localStorage.setItem("uuid", tsr);
+          dispatch(editProfile());
+          const refId = uuidv4();
+          localStorage.setItem("ref_id", refId);
+        });
+      });
+      localStorage.removeItem("uuid");
+    } else {
+      dispatch(
+        login({ email: data.email, password: data.password, uuid: tsr })
+      ).then((res) => {
+        // console.log("reS",res);
+        if (res?.payload?.status_code === 401) {
+          setErrorMas(res?.payload?.message);
+        }
+        localStorage.setItem("uuid", tsr);
+        dispatch(editProfile());
+        const refId = uuidv4();
+        localStorage.setItem("ref_id", refId);
+      });
+    }
   };
 
   useEffect(() => {
@@ -73,7 +95,6 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
         clearTimeout(timeoutId);
       };
     } else if (isLoggedIn) {
-
       // console.log("uuid",typeof uuid);
       dispatch(resetAfterLoggedIn());
       navigate("/dashboard");
@@ -91,10 +112,10 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      localStorage.setItem('googleAccessToken', codeResponse.access_token);
-      navigate('/google-redirect');
+      localStorage.setItem("googleAccessToken", codeResponse.access_token);
+      navigate("/google-redirect");
     },
-    onError: (error) => console.log('Login Failed:', error),
+    onError: (error) => console.log("Login Failed:", error),
   });
   return (
     // <div className="my-0 lg:my-0 mx-4 lg:mx-0 flex justify-center items-center h-screen">
@@ -236,7 +257,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                     />
                     <>
                       {errors?.email?.message && (
-                        <h6 className="text-sm text-[red]">{`${'*'} ${errors.email.message}`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${
+                          errors.email.message
+                        }`}</h6>
                       )}
                     </>
                   </div>
@@ -255,7 +278,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.password?.message && (
-                      <h6 className="text-sm text-[red]">{`${'*'} ${errors.password.message}`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${
+                        errors.password.message
+                      }`}</h6>
                     )}
                   </div>
                   <div className="text-[12px] text-black hover:text-[#639bba] mb-3 ml-2">
@@ -263,9 +288,9 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       Forgot Password?
                     </button>
                   </div>
-                  {errorMas &&
-                    <h6 className="text-sm text-[red]">{`${'*'} ${errorMas}`}</h6>
-                  }
+                  {errorMas && (
+                    <h6 className="text-sm text-[red]">{`${"*"} ${errorMas}`}</h6>
+                  )}
                   <Button className="create_character_btn w-full" type="submit">
                     Login
                   </Button>
@@ -273,7 +298,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                 <p className="py-4">OR</p>
                 <Link
                   className="flex justify-center items-center bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-                onClick={() => googleLogin()}
+                  onClick={() => googleLogin()}
                 >
                   <FcGoogle className="text-3xl" />
                   Google
@@ -295,10 +320,12 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
       </Modal>
       {/* {/ Login Modal ends here /} */}
 
-      {openForgotPasswordModal && <ForgotPassword
-        openForgotPasswordModal={openForgotPasswordModal}
-        setOpenForgotPasswordModal={setOpenForgotPasswordModal}
-      />}
+      {openForgotPasswordModal && (
+        <ForgotPassword
+          openForgotPasswordModal={openForgotPasswordModal}
+          setOpenForgotPasswordModal={setOpenForgotPasswordModal}
+        />
+      )}
 
       {/* registration start*/}
       <Registration
