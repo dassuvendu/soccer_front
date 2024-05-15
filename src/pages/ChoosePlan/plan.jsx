@@ -23,8 +23,10 @@ const Plan = () => {
 
   const { profile } = useSelector((state) => state.profile);
   console.log("profile", profile);
-  const { email, user_id } = useSelector((state) => state.auth?.currentUser);
+  const { email, user_id, first_name, last_name } = useSelector((state) => state.auth?.currentUser);
   console.log("email", email);
+  console.log("first_name", first_name);
+  console.log("last_name", last_name);
 
   const UserId = JSON.parse(localStorage.getItem("userId"));
   console.log("id", UserId);
@@ -65,7 +67,8 @@ const Plan = () => {
     const timestamp = new Date().getTime();
     const mref = email + "test" + timestamp
     console.log("mref", mref);
-
+    console.log("first_name_fun", first_name);
+    console.log("last_name_fun", last_name);
     dispatch(
       // stripePayment({
       //   plan_id: planId,
@@ -77,8 +80,8 @@ const Plan = () => {
         "secretKey": secretKey,
         "merchantTransactionReference": mref,
         "redirectUrl": redirectUrl,
-        "lastName": "test",
-        "firstName": "test",
+        "lastName": last_name === null ? "test" : last_name,
+        "firstName": first_name,
         "currency": "NGN",
         "phoneNumber": "09025711530",
         "address": "Zenith_Bank_Street",
