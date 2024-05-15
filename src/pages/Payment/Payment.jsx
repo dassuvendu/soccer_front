@@ -4,6 +4,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./checkoutForm";
 import { bannerImgTwo, paymentIcon } from "../../assets/images/images";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 // import { paymentIcon, stripeIcon } from '../../assets/images/images';
 
 const Payment = (props) => {
@@ -23,6 +25,9 @@ const Payment = (props) => {
   } = props;
 
   console.log("props", props);
+
+  const { paymentLink } = useSelector((state) => state.payment);
+
 
   useEffect(() => {
     const promise = loadStripe(stripePublishableKey);
@@ -65,7 +70,7 @@ const Payment = (props) => {
                           {errorMessage}
                         </div>
                         <>
-                          {stripePublishableKey &&
+                          {/* {stripePublishableKey &&
                             customer_id &&
                             subscription_id &&
                             planId &&
@@ -85,7 +90,9 @@ const Payment = (props) => {
                                   />
                                 </Elements>
                               </>
-                            )}
+                            )} */}
+                          <Link to={paymentLink} target="_blank" className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]">
+                            Pay </Link>
                         </>
                       </div>
                     </div>

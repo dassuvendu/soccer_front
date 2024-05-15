@@ -6,23 +6,25 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { planIcon } from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
-import { stripePayment, stripePlanKeys } from "../../reducers/paymentSlice";
+import { bankPayment, bankPlanKeys, stripePayment, stripePlanKeys } from "../../reducers/paymentSlice";
 import Payment from "../Payment/Payment";
 // import { referral } from "../../reducers/RefCount";
 
 const Plan = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const goPaymentHandler = () => {
-    navigate("/payment");
-  };
-
+  // const goPaymentHandler = () => {
+  //   navigate("/payment");
+  // };
+  const redirectUrl = import.meta.env.VITE_FRONT_BASE_URL;
   const plansList = useSelector((state) => state.plans?.plans);
+  console.log("plansList", plansList)
   const [plans, setPlans] = useState([]);
 
   const { profile } = useSelector((state) => state.profile);
-  // console.log("pr",profile.details.ref_id);
+  console.log("profile", profile);
   const { email, user_id } = useSelector((state) => state.auth?.currentUser);
+  console.log("email", email);
 
   const UserId = JSON.parse(localStorage.getItem("userId"));
   console.log("id", UserId);
@@ -40,26 +42,52 @@ const Plan = () => {
   });
 
   const {
-    stripeClientSecret,
-    customer_id,
-    subscription_id,
-    stripePublishableKey,
+    // stripeClientSecret,
+    // customer_id,
+    // subscription_id,
+    // stripePublishableKey,
+    secretKey,
+    paymentLink,
   } = useSelector((state) => state.payment);
+
+  console.log("secretKey", secretKey)
+
+  useEffect(() => {
+    dispatch(bankPlanKeys());
+  }, []);
 
   const createSubscription = (planId) => {
     setUserDetails(() => ({
       ...userDetails,
       plan_id: planId,
     }));
-    dispatch(stripePlanKeys());
+    // dispatch(stripePlanKeys());
+    const timestamp = new Date().getTime();
+    const mref = email + "test" + timestamp
+    console.log("mref", mref);
+
     dispatch(
-      stripePayment({
-        plan_id: planId,
-        user_id: UserId,
-        entity: "payment_intent",
+      // stripePayment({
+      //   plan_id: planId,
+      //   user_id: UserId,
+      //   entity: "payment_intent",
+      // })
+      bankPayment({
+        "amount": planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+        "secretKey": secretKey,
+        "merchantTransactionReference": mref,
+        "redirectUrl": redirectUrl,
+        "lastName": "test",
+        "firstName": "test",
+        "currency": "NGN",
+        "phoneNumber": "09025711530",
+        "address": "Zenith_Bank_Street",
+        "emailAddress": email
+
       })
     ).then((res) => {
       console.log(res);
+      // navigate(`${paymentLink}`)
     });
     setShowPayment(true);
     setShowSubscription(false);
@@ -144,18 +172,21 @@ const Plan = () => {
       )}
       {/* Choose your plan section ends here */}
       {showPayment &&
-        stripeClientSecret &&
-        customer_id &&
-        subscription_id &&
-        stripePublishableKey && (
+        // stripeClientSecret &&
+        // customer_id &&
+        // subscription_id &&
+        // stripePublishableKey && 
+        secretKey &&
+        (
           <Payment
             planId={userDetails.plan_id}
             email={userDetails.email}
             user_id={user_id}
-            stripeClientSecret={stripeClientSecret}
-            stripePublishableKey={stripePublishableKey}
-            customer_id={customer_id}
-            subscription_id={subscription_id}
+            // stripeClientSecret={stripeClientSecret}
+            // stripePublishableKey={stripePublishableKey}
+            // customer_id={customer_id}
+            // subscription_id={subscription_id}
+            secretKey={secretKey}
           />
         )}
     </div>
