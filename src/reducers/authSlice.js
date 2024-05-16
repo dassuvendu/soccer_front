@@ -106,12 +106,12 @@ export const resetPassword = createAsyncThunk(
     async (userInput, { rejectWithValue }) => {
         try {
             const response = await api.post('/user/change-pass', userInput);
-            console.log("response: ",response);
+            console.log("response: ", response);
             if (response?.status === 200) {
-            //    console.log("response: ",response?.data);
+                //    console.log("response: ",response?.data);
                 return response.data;
             } else {
-                
+
                 // Handle the case when status code is not 200
                 return rejectWithValue(response.data.message);
             }
@@ -125,20 +125,20 @@ export const resetPassword = createAsyncThunk(
 export const googleSignIn = createAsyncThunk(
     'auth/google-signIn',
     async (data, { rejectWithValue }) => {
-      try {
-        const response = await api.post('/user/api/google-login', data);
-        if (response?.data?.status_code === 200) {
-          return response.data;
-        } else {
-          // Handle the case when status code is not 200
-          return rejectWithValue(response.data.message);
+        try {
+            const response = await api.post('/user/api/google-login', data);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
         }
-      } catch (error) {
-        let errors = errorHandler(error);
-        return rejectWithValue(errors);
-      }
     }
-  );
+);
 
 
 const initialState = {
@@ -186,20 +186,21 @@ const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(registerUser.fulfilled, (state, { payload }) => {
-                const { user_id, email, otp_verified, access_token, } = payload;
+                const { user_id, email, otp_verified, access_token, first_name, last_name } = payload;
                 state.loading = false;
                 state.message = payload;
                 state.currentUser = {
                     user_id: user_id,
                     email: email,
                     otp_verified: otp_verified,
-
+                    first_name: first_name,
+                    last_name: last_name,
                 };
                 localStorage.setItem(
                     'regToken',
                     JSON.stringify({ token: access_token })
                 );
-                localStorage.setItem('userId', user_id );
+                localStorage.setItem('userId', user_id);
                 // localStorage.setItem('firstName', payload?.first_name);
 
             })
@@ -265,11 +266,11 @@ const authSlice = createSlice({
                     'userToken',
                     JSON.stringify({ token: access_token })
                 );
-                localStorage.setItem('userId',user_id);
+                localStorage.setItem('userId', user_id);
                 localStorage.setItem('isSubscribed', JSON.stringify({ isSubscribed: subscription })
                 );
                 localStorage.removeItem('regToken');
-  
+
             })
             .addCase(login.rejected, (state, { payload }) => {
                 state.error = true;
@@ -304,9 +305,9 @@ const authSlice = createSlice({
                 state.loading = true;
             })
             .addCase(resetPassword.fulfilled, (state, { payload }) => {
-                 const { message } = payload;
+                const { message } = payload;
                 state.loading = false;
-                 state.message = message;
+                state.message = message;
                 // console.log("payload",response);
             })
             .addCase(resetPassword.rejected, (state, response) => {
@@ -322,43 +323,43 @@ const authSlice = createSlice({
                 state.isGoogleLoggedIn = false;
                 state.subscription = false;
                 state.error = false;
-              })
-        
-              .addCase(googleSignIn.fulfilled, (state, { payload }) => {
+            })
+
+            .addCase(googleSignIn.fulfilled, (state, { payload }) => {
                 const { access_token, subscription, user_id, email, otp_verified } =
-                  payload;
+                    payload;
                 state.isGoogleLoggedIn = true;
                 // console.log('state.isGoogleLoggedIn', state.isGoogleLoggedIn);
                 state.isLoggedIn = true;
                 state.currentUser = {
-                  user_id: user_id,
-                  email: email,
-                  otp_verified: otp_verified,
+                    user_id: user_id,
+                    email: email,
+                    otp_verified: otp_verified,
                 };
                 localStorage.setItem(
                     'userToken',
                     JSON.stringify({ token: access_token })
                 );
                 localStorage.setItem(
-                  'isSubscribed',
-                  JSON.stringify({ isSubscribed: subscription })
+                    'isSubscribed',
+                    JSON.stringify({ isSubscribed: subscription })
                 );
                 localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
-              })
-        
-              .addCase(googleSignIn.rejected, (state, { payload }) => {
+            })
+
+            .addCase(googleSignIn.rejected, (state, { payload }) => {
                 state.error = true;
                 state.subscription = false;
                 state.isGoogleLoggedIn = false;
                 state.message =
-                  payload !== undefined
-                    ? payload
-                    : 'Something went wrong. Try again later.';
+                    payload !== undefined
+                        ? payload
+                        : 'Something went wrong. Try again later.';
                 console.log(
-                  'state.isGoogleLoggedIn -> rejected',
-                  state.isGoogleLoggedIn
+                    'state.isGoogleLoggedIn -> rejected',
+                    state.isGoogleLoggedIn
                 );
-              })
+            })
     },
 });
 export const { resetAfterLoggedIn, clearCurrentUser, logout } = authSlice.actions;

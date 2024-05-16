@@ -113,6 +113,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
       localStorage.setItem("googleAccessToken", codeResponse.access_token);
+      localStorage.setItem("uuid", tsr)
       navigate("/google-redirect");
     },
     onError: (error) => console.log("Login Failed:", error),
@@ -257,9 +258,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                     />
                     <>
                       {errors?.email?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${
-                          errors.email.message
-                        }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.email.message
+                          }`}</h6>
                       )}
                     </>
                   </div>
@@ -278,9 +278,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.password?.message && (
-                      <h6 className="text-sm text-[red]">{`${"*"} ${
-                        errors.password.message
-                      }`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${errors.password.message
+                        }`}</h6>
                     )}
                   </div>
                   <div className="text-[12px] text-black hover:text-[#639bba] mb-3 ml-2">

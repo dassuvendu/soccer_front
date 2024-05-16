@@ -41,6 +41,45 @@ export const stripePlanKeys = createAsyncThunk(
     }
 );
 
+
+export const bankPlanKeys = createAsyncThunk(
+    'user/bank-plan-keys',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await api.get('/user/gobalpay-key');
+            // console.log('stripe-key', response);
+            if (response?.data?.status_code === 200) {
+                // console.log('response.data', response.data);
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
+export const bankPayment = createAsyncThunk(
+    'user/bank-payment',
+    async (entity, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/gobalpay', entity);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
 const initialState = {
     message: null,
     error: null,
@@ -51,6 +90,8 @@ const initialState = {
     options: null,
     customer_id: null,
     subscription_id: null,
+    secretKey: null,
+    paymentLink: null,
 };
 
 const PaymentSlice = createSlice({
@@ -103,7 +144,52 @@ const PaymentSlice = createSlice({
                     response.payload !== undefined && response.payload.message
                         ? response.payload.message
                         : 'Something went wrong. Try again later.';
-            });
+            })
+
+            .addCase(bankPlanKeys.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(bankPlanKeys.fulfilled, (state, { payload }) => {
+                // console.log('payload', payload);
+                state.loading = false;
+                const { secretKey } = payload;
+                state.secretKey = secretKey;
+                // console.log('stripe_publishable_key', stripe_publishable_key);
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(bankPlanKeys.rejected, (state, response) => {
+                state.loading = false;
+                state.error = true;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(bankPayment.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(bankPayment.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.paymentLink = payload?.payment_link
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(bankPayment.rejected, (state, response) => {
+                state.loading = false;
+                state.error = true;
+                state.message =
+                    response.payload !== undefined && response.payload.message
+                        ? response.payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+
     },
 });
 
