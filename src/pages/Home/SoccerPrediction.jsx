@@ -213,6 +213,41 @@ const SoccerPrediction = () => {
                             Predictions that were completely off.
                           </p>
                         </div>
+                        <div className="bg-white rounded-lg p-4 shadow-xl">
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="flex items-center">
+                              <div className="bg-[#dc524b] w-8 h-8 rounded-full flex justify-center items-center mr-1">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="w-4 h-4 text-white"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                  />
+                                </svg>
+                              </div>
+                              <p className="text-black text-base font-medium mb-0">
+                                Total
+                              </p>
+                            </div>
+                          </div>
+                          <h3 className="text-black font-bold text-5xl pb-2">
+                            {data?.low_accuracy + data?.high_accuracy}
+                            {/* <span className="text-[#08a5f5] font-bold text-base">
+                              ({data?.percentage_low_accuracy}%)
+                            </span> */}
+                          </h3>
+                          <p className="text-[#9c9da1] text-[11px] mb-0 flex items-center">
+                            <FaInfoCircle className="text-[#08a5f5] mr-1" />
+                            Total Predictions.
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
