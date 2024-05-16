@@ -87,7 +87,27 @@ const Plan = () => {
           console.log("inside");
           if (response?.data?.data?.paymentStatus === "Successful") {
             console.log("hello");
-            navigate('/dashboard')
+            localStorage.setItem("txnref", response?.data?.data?.txnref)
+            localStorage.setItem("merchantid", response?.data?.data?.merchantid)
+            localStorage.setItem("channel", response?.data?.data?.channel)
+            localStorage.setItem("amount", response?.data?.data?.amount)
+            localStorage.setItem("paymentDate", response?.data?.data?.paymentDate)
+            localStorage.setItem("paymentStatus", response?.data?.data?.paymentStatus)
+            localStorage.setItem("furtherProcessed", response?.data?.data?.furtherProcessed)
+            localStorage.setItem("processDate", response?.data?.data?.processDate)
+            localStorage.setItem("merchantTxnref", response?.data?.data?.merchantTxnref)
+            localStorage.setItem("inAmount", response?.data?.data?.inAmount)
+            localStorage.setItem("inCurrency", response?.data?.data?.inCurrency)
+            localStorage.setItem("rate", response?.data?.data?.rate)
+            localStorage.setItem("redirectUrl", response?.data?.data?.redirectUrl)
+            localStorage.setItem("transactionSource", response?.data?.data?.transactionSource)
+            localStorage.setItem("transactionChannel", response?.data?.data?.transactionChannel)
+            localStorage.setItem("successMessage", response?.data?.successMessage)
+            localStorage.setItem("responseCode", response?.data?.responseCode)
+            localStorage.setItem("isSuccessful", response?.data?.isSuccessful)
+            localStorage.setItem("error", response?.data?.error)
+
+            navigate('/payment-redirect')
           }
 
         } else {
@@ -206,6 +226,7 @@ const Plan = () => {
                                       className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]"
                                       onClick={() => {
                                         createSubscription(plan.id, userId);
+                                        localStorage.setItem("planId", plan.id);
                                       }}
                                     >
                                       Subscribe Now

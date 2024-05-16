@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
-import { stripePayment } from "../../reducers/paymentSlice";
+import { bankPaymentRedirect, stripePayment } from "../../reducers/paymentSlice";
 // import { referral } from "../../reducers/RefCount";
 import { editProfile } from "../../reducers/profileSlice";
 import Login from "../Auth/Login/Login";
@@ -31,33 +31,88 @@ const PaymentRedirect = () => {
     JSON.parse(localStorage.getItem("userToken")) ||
     JSON.parse(localStorage.getItem("regToken"));
 
-  const urlString = window.location.search;
-  const urlParams = new URLSearchParams(urlString);
-  const redirectStatus = urlParams.get("redirect_status");
-  const customer_id = urlParams.get("customer_id")
-    ? decodeURIComponent(urlParams.get("customer_id"))
-    : null;
-  const subscription_id = urlParams.get("subscription_id")
-    ? decodeURIComponent(urlParams.get("subscription_id"))
-    : null;
-  const plan_id = Number(urlParams.get("plan_id"));
-  const user_id = Number(urlParams.get("user_id"));
-  const ref_id = Number(urlParams.get("ref_id"));
+  // const urlString = window.location.search;
+  // const urlParams = new URLSearchParams(urlString);
+  // const redirectStatus = urlParams.get("redirect_status");
+  // const customer_id = urlParams.get("customer_id")
+  //   ? decodeURIComponent(urlParams.get("customer_id"))
+  //   : null;
+  // const subscription_id = urlParams.get("subscription_id")
+  //   ? decodeURIComponent(urlParams.get("subscription_id"))
+  //   : null;
+  // const plan_id = Number(urlParams.get("plan_id"));
+  // const user_id = Number(urlParams.get("user_id"));
+  // const ref_id = Number(urlParams.get("ref_id"));
 
+
+  const UserId = JSON.parse(localStorage.getItem("userId"));
+  console.log("UserId", UserId);
+  const planId = Number(localStorage.getItem("planId"));
+  console.log("planrId", planId);
+  const txnref = localStorage.getItem("txnref");
+  const merchantid = Number(localStorage.getItem("merchantid"));
+  const channel = localStorage.getItem("channel");
+  const amount = Number(localStorage.getItem("amount"));
+  const paymentDate = localStorage.getItem("paymentDate");
+  const paymentStatus = localStorage.getItem("paymentStatus");
+  const furtherProcessed = localStorage.getItem("furtherProcessed");
+  const processDate = localStorage.getItem("processDate");
+  const merchantTxnref = localStorage.getItem("merchantTxnref");
+  const inAmount = Number(localStorage.getItem("inAmount"));
+  const inCurrency = localStorage.getItem("inCurrency");
+  const rate = localStorage.getItem("rate");
+  const redirectUrl = localStorage.getItem("redirectUrl");
+  const transactionSource = localStorage.getItem("transactionSource");
+  const transactionChannel = localStorage.getItem("transactionChannel");
+  const successMessage = localStorage.getItem("successMessage");
+  const responseCode = localStorage.getItem("responseCode");
+  const isSuccessful = localStorage.getItem("isSuccessful");
+  const error = localStorage.getItem("error");
+
+  const { redirectResponse } = useSelector((state) => state.payment)
+  console.log("redirectResponse", redirectResponse);
   useEffect(() => {
-    if (customer_id && subscription_id && plan_id && user_id) {
+    if (UserId && planId) {
       dispatch(
-        stripePayment({
-          token: token?.token,
-          user_id: user_id,
-          plan_id: plan_id,
-          customer_id: customer_id,
-          subscription_id: subscription_id,
-          refId: ref_id,
-          entity: "subscription_complete",
+        // stripePayment({
+        //   token: token?.token,
+        //   user_id: user_id,
+        //   plan_id: plan_id,
+        //   customer_id: customer_id,
+        //   subscription_id: subscription_id,
+        //   refId: ref_id,
+        //   entity: "subscription_complete",
+        // })
+        bankPaymentRedirect({
+          "user_id": UserId,
+          "plan_id": planId,
+          "data": {
+            "txnref": txnref,
+            "merchantid": merchantid,
+            "channel": channel,
+            "amount": amount,
+            "paymentDate": paymentDate,
+            "paymentStatus": paymentStatus,
+            "furtherProcessed": furtherProcessed,
+            "processDate": processDate,
+            "merchantTxnref": merchantTxnref,
+            "inAmount": inAmount,
+            "inCurrency": inCurrency,
+            "rate": rate,
+            "redirectUrl": redirectUrl,
+            "transactionSource": transactionSource,
+            "transactionChannel": transactionChannel
+          },
+
+          "successMessage": successMessage,
+          "responseCode": responseCode,
+          "isSuccessful": isSuccessful,
+          "error": error
+
         })
       );
-      if (redirectStatus === "succeeded") {
+      // if (redirectStatus === "succeeded") {
+      if (redirectResponse?.status_code === 200) {
         setshowReloadMessage(false);
         setMessage({
           type: "success",
@@ -71,7 +126,8 @@ const PaymentRedirect = () => {
   }, []);
 
   useEffect(() => {
-    if (redirectStatus === "succeeded") {
+    // if (redirectStatus === "succeeded") {
+    if (redirectResponse?.status_code === 200) {
       //  dispatch(referral({
       //   user_id:user_id,
       //   ref_id:profile?.details?.ref_id
@@ -81,15 +137,36 @@ const PaymentRedirect = () => {
         "userToken",
         JSON.stringify({ token: token?.token })
       );
-
       localStorage.removeItem("regToken");
-      navigate("/");
-      setOpenLoginModal(true);
+
+      localStorage.removeItem("txnref")
+      localStorage.removeItem("merchantid")
+      localStorage.removeItem("channel")
+      localStorage.removeItem("amount")
+      localStorage.removeItem("paymentDate")
+      localStorage.removeItem("paymentStatus")
+      localStorage.removeItem("furtherProcessed")
+      localStorage.removeItem("processDate")
+      localStorage.removeItem("merchantTxnref")
+      localStorage.removeItem("inAmount")
+      localStorage.removeItem("inCurrency")
+      localStorage.removeItem("rate")
+      localStorage.removeItem("redirectUrl")
+      localStorage.removeItem("transactionSource")
+      localStorage.removeItem("transactionChannel")
+      localStorage.removeItem("successMessage")
+      localStorage.removeItem("responseCode")
+      localStorage.removeItem("isSuccessful")
+      localStorage.removeItem("error")
+
+      navigate("/dashboard");
+      // setOpenLoginModal(true);
+      // setOpenLoginModal(true);
       // setTimeout(() => {
       //   setOpenLoginModal(true);
       // }, 2000);
     }
-  }, [redirectStatus]);
+  }, [redirectResponse]);
 
   return (
     <div className="h-96 flex justify-center items-center">

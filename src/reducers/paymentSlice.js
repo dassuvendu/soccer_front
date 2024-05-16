@@ -81,31 +81,25 @@ export const bankPayment = createAsyncThunk(
     }
 );
 
-// export const globalpayRedirect = createAsyncThunk(
-//     'user/globalpay-Redirect',
-//     async ({ GLOBALPAY_TRANS_REF, apiKey }, { rejectWithValue }) => {
-//         try {
-//             const response = await axios.get(
-//                 `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${GLOBALPAY_TRANS_REF}`, GLOBALPAY_TRANS_REF,
-//                 {
-//                     headers: {
-//                         'apiKey': `${apiKey}`, // or any other header key required by the API
-//                         'Content-Type': 'application/json'
-//                     }
-//                 }
-//             );
-//             if (response?.data?.status_code === 200) {
-//                 return response.data;
-//             } else {
-//                 // Handle the case when status code is not 200
-//                 return rejectWithValue(response.data.message);
-//             }
-//         } catch (error) {
-//             let errors = errorHandler(error);
-//             return rejectWithValue(errors);
-//         }
-//     }
-// );
+export const bankPaymentRedirect = createAsyncThunk(
+    'user/bank-payment-redirect',
+    async (entity, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/payment-complete', entity);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
+
 
 const initialState = {
     message: null,
@@ -121,7 +115,7 @@ const initialState = {
     apiKey: null,
     paymentLink: null,
     transactionReference: null,
-
+    redirectResponse: null,
 };
 
 const PaymentSlice = createSlice({
@@ -221,21 +215,25 @@ const PaymentSlice = createSlice({
                         : 'Something went wrong. Try again later.';
             })
 
-        // .addCase(globalpayRedirect.pending, (state) => {
-        //     state.loading = true
-        // })
-        // .addCase(globalpayRedirect.fulfilled, (state, { payload }) => {
-        //     state.loading = false
-        //     state.message = payload
-        // })
-        // .addCase(globalpayRedirect.rejected, (state, { payload }) => {
-        //     state.loading = false;
-        //     state.error = true;
-        //     state.message =
-        //         payload !== undefined && payload.message
-        //             ? payload.message
-        //             : 'Something went wrong. Try again later.';
-        // })
+            .addCase(bankPaymentRedirect.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(bankPaymentRedirect.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.redirectResponse = payload;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(bankPaymentRedirect.rejected, (state, { payload }) => {
+                state.loading = false;
+                state.error = true;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
 
 
     },
