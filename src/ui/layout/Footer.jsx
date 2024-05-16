@@ -36,7 +36,7 @@ const Footer = () => {
   }, []);
   return (
     <div className="bg-[#18191b] pt-0 lg:pt-0 pb-0 px-8 lg:px-0">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="footer_bottom text-center py-[40px]">
           <div className="flex justify-center items-center mb-6">
             <img src={footerArrow} alt="footerArrow" />
@@ -73,9 +73,25 @@ const Footer = () => {
               <li>
                 <Link
                   className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/terms-of-service"
+                >
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
                   to="/faqs"
                 >
                   FAQs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/contact-us"
+                >
+                  Contact Us
                 </Link>
               </li>
             </ul>

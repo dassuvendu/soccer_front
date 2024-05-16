@@ -21,13 +21,12 @@ const Payment = (props) => {
     stripePublishableKey,
     user_id,
     planId,
-    refId
+    refId,
   } = props;
 
   console.log("props", props);
 
   const { paymentLink } = useSelector((state) => state.payment);
-
 
   useEffect(() => {
     const promise = loadStripe(stripePublishableKey);
@@ -41,7 +40,7 @@ const Payment = (props) => {
   return (
     <>
       <div className="py-10 lg:py-24 px-8 lg:px-0">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
             Payment
           </h2>
@@ -91,8 +90,13 @@ const Payment = (props) => {
                                 </Elements>
                               </>
                             )} */}
-                          <Link to={paymentLink} target="_blank" className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]">
-                            Pay </Link>
+                          <Link
+                            to={paymentLink}
+                            target="_blank"
+                            className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]"
+                          >
+                            Pay{" "}
+                          </Link>
                         </>
                       </div>
                     </div>

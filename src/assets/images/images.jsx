@@ -36,6 +36,7 @@ import bannerImgOne from "../imagesource/banner_img01.png";
 import bannerImgTwo from "../imagesource/banner_img02.png";
 import bannerImgThree from "../imagesource/banner_img03.png";
 import bannerImgFour from "../imagesource/banner_img04.png";
+import bannerImgFive from "../imagesource/banner_img05.png";
 import fcDallaIcon from "../imagesource/fc_dalla_icon.png";
 import dcUnitedIcon from "../imagesource/dc_united_icon.png";
 import reventNews01 from "../imagesource/revent_news01.png";
@@ -61,6 +62,7 @@ import inviteIcon from "../imagesource/invite.png";
 import earnIcon from "../imagesource/earn.png";
 
 export {
+  bannerImgFive,
   inviteIcon,
   earnIcon,
   playerCompareOne,

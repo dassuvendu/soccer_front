@@ -431,6 +431,7 @@ li.page{
     -webkit-box-shadow: -1px 2px 12px 4px rgba(209, 209, 209, 0.59);
     -moz-box-shadow: -1px 2px 12px 4px rgba(209, 209, 209, 0.59);
   }
+
   .main_menu ul li a {
     font-size: 16px;
     line-height: 26px;

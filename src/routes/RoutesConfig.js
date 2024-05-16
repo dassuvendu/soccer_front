@@ -35,6 +35,7 @@ import { Termsofservice } from '../pages/TermsOfService/Termsofservice.jsx';
 import { GoogleLogin } from '@react-oauth/google';
 import GoogleRedirect from '../pages/GoogleRedirect.jsx/GoogleRedirect.jsx';
 import { Referral } from '../pages/Referral/Referral.jsx';
+import ContactUs from '../pages/ContactUs/ContactUs.jsx';
 
 
 const allRoutes = [
@@ -108,6 +109,14 @@ const allRoutes = [
     children: [
       { index: true, element: <Faqs /> },
       { path: 'faqs', element: < Faqs /> },
+    ],
+  },
+  {
+    path: '/contact-us',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <ContactUs /> },
+      { path: 'contact-us', element: < ContactUs /> },
     ],
   },
   {

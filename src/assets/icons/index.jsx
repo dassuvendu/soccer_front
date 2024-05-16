@@ -48,6 +48,7 @@ import {
   BsTwitter,
   BsLinkedin,
   BsWhatsapp,
+  BsTelephoneInboundFill,
 } from "react-icons/bs";
 import { BiSolidUser, BiSolidContact, BiMenu } from "react-icons/bi";
 import { FaUsers, FaEye, FaInfoCircle, FaPinterest } from "react-icons/fa";
@@ -83,7 +84,14 @@ import { HiChevronUp } from "react-icons/hi2";
 
 import { TiTick } from "react-icons/ti";
 
+import { IoMdMail } from "react-icons/io";
+
+import { ImLocation } from "react-icons/im";
+
 export {
+  ImLocation,
+  IoMdMail,
+  BsTelephoneInboundFill,
   BsTwitter,
   BsWhatsapp,
   FaPinterest,

@@ -6,7 +6,12 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { planIcon } from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
-import { bankPayment, bankPlanKeys, stripePayment, stripePlanKeys } from "../../reducers/paymentSlice";
+import {
+  bankPayment,
+  bankPlanKeys,
+  stripePayment,
+  stripePlanKeys,
+} from "../../reducers/paymentSlice";
 import Payment from "../Payment/Payment";
 // import { referral } from "../../reducers/RefCount";
 
@@ -18,12 +23,14 @@ const Plan = () => {
   // };
   const redirectUrl = import.meta.env.VITE_FRONT_BASE_URL;
   const plansList = useSelector((state) => state.plans?.plans);
-  console.log("plansList", plansList)
+  console.log("plansList", plansList);
   const [plans, setPlans] = useState([]);
 
   const { profile } = useSelector((state) => state.profile);
   console.log("profile", profile);
-  const { email, user_id, first_name, last_name } = useSelector((state) => state.auth?.currentUser);
+  const { email, user_id, first_name, last_name } = useSelector(
+    (state) => state.auth?.currentUser
+  );
   console.log("email", email);
   console.log("first_name", first_name);
   console.log("last_name", last_name);
@@ -52,7 +59,7 @@ const Plan = () => {
     paymentLink,
   } = useSelector((state) => state.payment);
 
-  console.log("secretKey", secretKey)
+  console.log("secretKey", secretKey);
 
   useEffect(() => {
     dispatch(bankPlanKeys());
@@ -65,7 +72,7 @@ const Plan = () => {
     }));
     // dispatch(stripePlanKeys());
     const timestamp = new Date().getTime();
-    const mref = email + "test" + timestamp
+    const mref = email + "test" + timestamp;
     console.log("mref", mref);
     console.log("first_name_fun", first_name);
     console.log("last_name_fun", last_name);
@@ -76,17 +83,16 @@ const Plan = () => {
       //   entity: "payment_intent",
       // })
       bankPayment({
-        "amount": planId === 1 ? plansList[0]?.price : plansList[1]?.price,
-        "secretKey": secretKey,
-        "merchantTransactionReference": mref,
-        "redirectUrl": redirectUrl,
-        "lastName": last_name === null ? "test" : last_name,
-        "firstName": first_name,
-        "currency": "NGN",
-        "phoneNumber": "09025711530",
-        "address": "Zenith_Bank_Street",
-        "emailAddress": email
-
+        amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+        secretKey: secretKey,
+        merchantTransactionReference: mref,
+        redirectUrl: redirectUrl,
+        lastName: last_name === null ? "test" : last_name,
+        firstName: first_name,
+        currency: "NGN",
+        phoneNumber: "09025711530",
+        address: "Zenith_Bank_Street",
+        emailAddress: email,
       })
     ).then((res) => {
       console.log(res);
@@ -114,12 +120,12 @@ const Plan = () => {
       {/* Choose your plan section start here */}
       {showSubscription && (
         <div className="py-10 lg:py-24 px-8 lg:px-0">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
               Choose Plan
             </h2>
             <div className="choose_your_plan_section pb-0">
-              <div className="max-w-6xl mx-auto py-0 lg:py-4 px-0">
+              <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
                 <div className="plan_tab_area">
                   <div className="px-4 lg:px-0">
                     <div className="w-full max-w-4xl p-6 mx-auto my-0 shadow-xl bg-[#2aa9e1] rounded-2xl lg:p-10">
@@ -178,9 +184,8 @@ const Plan = () => {
         // stripeClientSecret &&
         // customer_id &&
         // subscription_id &&
-        // stripePublishableKey && 
-        secretKey &&
-        (
+        // stripePublishableKey &&
+        secretKey && (
           <Payment
             planId={userDetails.plan_id}
             email={userDetails.email}
