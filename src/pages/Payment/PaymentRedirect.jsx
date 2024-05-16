@@ -159,7 +159,7 @@ const PaymentRedirect = () => {
       localStorage.removeItem("isSuccessful")
       localStorage.removeItem("error")
 
-      navigate("/dashboard");
+      navigate("/");
       // setOpenLoginModal(true);
       // setOpenLoginModal(true);
       // setTimeout(() => {

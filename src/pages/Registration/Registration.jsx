@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { registerUser, verifyOtp } from "../../reducers/authSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 // import { editProfile } from "../../reducers/profileSlice";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const Registration = ({
   openRegisterModal,
@@ -39,6 +39,13 @@ const Registration = ({
     formState: { errors },
     reset,
   } = useForm();
+
+  // const [tsr, setTsr] = useState("");
+
+  // useEffect(() => {
+  //   const uid = uuidv4();
+  //   setTsr(uid);
+  // }, [])
 
   function onSubmit(data) {
     if (currentUser && Object.keys(currentUser).length) {
@@ -161,9 +168,8 @@ const Registration = ({
                         })}
                       />
                       {errors?.first_name?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${
-                          errors.first_name.message
-                        }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.first_name.message
+                          }`}</h6>
                       )}
                     </div>
                     <div>
@@ -186,9 +192,8 @@ const Registration = ({
                         })}
                       />
                       {errors?.email?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${
-                          errors.email.message
-                        }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.email.message
+                          }`}</h6>
                       )}
                     </div>
                     <div>
@@ -206,9 +211,8 @@ const Registration = ({
                         })}
                       />
                       {errors?.password?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${
-                          errors.password.message
-                        }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.password.message
+                          }`}</h6>
                       )}
                     </div>
                     <div className="flex items-center gap-2">
@@ -250,9 +254,8 @@ const Registration = ({
                             placeholder="Enter Your OTP"
                           />
                           {errors?.otp?.message && (
-                            <h6 className="text-sm text-[red]">{`${"*"} ${
-                              errors.otp.message
-                            }`}</h6>
+                            <h6 className="text-sm text-[red]">{`${"*"} ${errors.otp.message
+                              }`}</h6>
                           )}
                         </div>
                         {check ? (

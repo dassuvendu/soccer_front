@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
 import {
   bankPayment,
+  bankPaymentRedirect,
   bankPlanKeys,
   stripePayment,
   stripePlanKeys,
@@ -15,6 +16,7 @@ import {
 import Payment from "../Payment/Payment";
 import axios from "axios";
 import errorHandler from "../../store/errorHandler";
+import Login from "../Auth/Login/Login";
 // import { referral } from "../../reducers/RefCount";
 
 const Plan = () => {
@@ -23,6 +25,14 @@ const Plan = () => {
   // const goPaymentHandler = () => {
   //   navigate("/payment");
   // };
+
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+
+  useEffect(() => {
+    console.log("openLoginModal", openLoginModal);
+    // console.log("openRegisterModal",openRegisterModal);
+  }, [openLoginModal]);
+
   const redirectUrl = `${import.meta.env.VITE_FRONT_BASE_URL}/success`;
   const plansList = useSelector((state) => state.plans?.plans);
   console.log("plansList", plansList);
@@ -39,6 +49,8 @@ const Plan = () => {
 
   const UserId = JSON.parse(localStorage.getItem("userId"));
   console.log("id", UserId);
+  const planId = Number(localStorage.getItem("planId"));
+
   const [userId, setUserId] = useState(null);
   useEffect(() => {
     setUserId(profile?.details?.id);
@@ -61,6 +73,7 @@ const Plan = () => {
     paymentLink,
     transactionReference,
     apiKey,
+    redirectResponse,
   } = useSelector((state) => state.payment);
 
   console.log("secretKey", secretKey);
@@ -87,27 +100,66 @@ const Plan = () => {
           console.log("inside");
           if (response?.data?.data?.paymentStatus === "Successful") {
             console.log("hello");
-            localStorage.setItem("txnref", response?.data?.data?.txnref)
-            localStorage.setItem("merchantid", response?.data?.data?.merchantid)
-            localStorage.setItem("channel", response?.data?.data?.channel)
-            localStorage.setItem("amount", response?.data?.data?.amount)
-            localStorage.setItem("paymentDate", response?.data?.data?.paymentDate)
-            localStorage.setItem("paymentStatus", response?.data?.data?.paymentStatus)
-            localStorage.setItem("furtherProcessed", response?.data?.data?.furtherProcessed)
-            localStorage.setItem("processDate", response?.data?.data?.processDate)
-            localStorage.setItem("merchantTxnref", response?.data?.data?.merchantTxnref)
-            localStorage.setItem("inAmount", response?.data?.data?.inAmount)
-            localStorage.setItem("inCurrency", response?.data?.data?.inCurrency)
-            localStorage.setItem("rate", response?.data?.data?.rate)
-            localStorage.setItem("redirectUrl", response?.data?.data?.redirectUrl)
-            localStorage.setItem("transactionSource", response?.data?.data?.transactionSource)
-            localStorage.setItem("transactionChannel", response?.data?.data?.transactionChannel)
-            localStorage.setItem("successMessage", response?.data?.successMessage)
-            localStorage.setItem("responseCode", response?.data?.responseCode)
-            localStorage.setItem("isSuccessful", response?.data?.isSuccessful)
-            localStorage.setItem("error", response?.data?.error)
+            // localStorage.setItem("txnref", response?.data?.data?.txnref)
+            // localStorage.setItem("merchantid", response?.data?.data?.merchantid)
+            // localStorage.setItem("channel", response?.data?.data?.channel)
+            // localStorage.setItem("amount", response?.data?.data?.amount)
+            // localStorage.setItem("paymentDate", response?.data?.data?.paymentDate)
+            // localStorage.setItem("paymentStatus", response?.data?.data?.paymentStatus)
+            // localStorage.setItem("furtherProcessed", response?.data?.data?.furtherProcessed)
+            // localStorage.setItem("processDate", response?.data?.data?.processDate)
+            // localStorage.setItem("merchantTxnref", response?.data?.data?.merchantTxnref)
+            // localStorage.setItem("inAmount", response?.data?.data?.inAmount)
+            // localStorage.setItem("inCurrency", response?.data?.data?.inCurrency)
+            // localStorage.setItem("rate", response?.data?.data?.rate)
+            // localStorage.setItem("redirectUrl", response?.data?.data?.redirectUrl)
+            // localStorage.setItem("transactionSource", response?.data?.data?.transactionSource)
+            // localStorage.setItem("transactionChannel", response?.data?.data?.transactionChannel)
+            // localStorage.setItem("successMessage", response?.data?.successMessage)
+            // localStorage.setItem("responseCode", response?.data?.responseCode)
+            // localStorage.setItem("isSuccessful", response?.data?.isSuccessful)
+            // localStorage.setItem("error", response?.data?.error)
 
-            navigate('/payment-redirect')
+            clearInterval(intervalId);
+            dispatch(bankPaymentRedirect({
+              "user_id": UserId,
+              "plan_id": planId,
+              "data": {
+                "txnref": response?.data?.data?.txnref,
+                "merchantid": response?.data?.data?.merchantid,
+                "channel": response?.data?.data?.channel,
+                "amount": response?.data?.data?.amount,
+                "paymentDate": response?.data?.data?.paymentDate,
+                "paymentStatus": response?.data?.data?.paymentStatus,
+                "furtherProcessed": response?.data?.data?.furtherProcessed,
+                "processDate": response?.data?.data?.processDate,
+                "merchantTxnref": response?.data?.data?.merchantTxnref,
+                "inAmount": response?.data?.data?.inAmount,
+                "inCurrency": response?.data?.data?.inCurrency,
+                "rate": response?.data?.data?.rate,
+                "redirectUrl": response?.data?.data?.redirectUrl,
+                "transactionSource": response?.data?.data?.transactionSource,
+                "transactionChannel": response?.data?.data?.transactionChannel
+              },
+
+              "successMessage": response?.data?.data?.successMessage,
+              "responseCode": response?.data?.data?.responseCode,
+              "isSuccessful": response?.data?.data?.isSuccessful,
+              "error": response?.data?.data?.error
+
+            })).then(() => {
+              navigate("/")
+              alert("Payment Successful")
+
+
+            })
+            console.log("modal_status", openLoginModal);
+            setOpenLoginModal(true)
+            console.log("modal_status2", openLoginModal);
+
+
+            // navigate('/payment-redirect')
+
           }
 
         } else {
@@ -124,6 +176,7 @@ const Plan = () => {
 
     // Cleanup the interval on component unmount or when dependencies change
     return () => clearInterval(intervalId);
+
   }, [transactionReference, apiKey]);
 
   const createSubscription = (planId) => {
@@ -263,6 +316,13 @@ const Plan = () => {
             secretKey={secretKey}
           />
         )}
+
+      {openLoginModal && (
+        <Login
+          openLoginModal={openLoginModal}
+          setOpenLoginModal={setOpenLoginModal}
+        />
+      )}
     </div>
   );
 };
