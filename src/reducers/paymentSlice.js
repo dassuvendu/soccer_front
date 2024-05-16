@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import errorHandler from '../store/errorHandler';
 import api from '../store/api';
+import axios from 'axios';
 
 //stripe payment
 export const stripePayment = createAsyncThunk(
@@ -80,6 +81,32 @@ export const bankPayment = createAsyncThunk(
     }
 );
 
+// export const globalpayRedirect = createAsyncThunk(
+//     'user/globalpay-Redirect',
+//     async ({ GLOBALPAY_TRANS_REF, apiKey }, { rejectWithValue }) => {
+//         try {
+//             const response = await axios.get(
+//                 `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${GLOBALPAY_TRANS_REF}`, GLOBALPAY_TRANS_REF,
+//                 {
+//                     headers: {
+//                         'apiKey': `${apiKey}`, // or any other header key required by the API
+//                         'Content-Type': 'application/json'
+//                     }
+//                 }
+//             );
+//             if (response?.data?.status_code === 200) {
+//                 return response.data;
+//             } else {
+//                 // Handle the case when status code is not 200
+//                 return rejectWithValue(response.data.message);
+//             }
+//         } catch (error) {
+//             let errors = errorHandler(error);
+//             return rejectWithValue(errors);
+//         }
+//     }
+// );
+
 const initialState = {
     message: null,
     error: null,
@@ -91,7 +118,10 @@ const initialState = {
     customer_id: null,
     subscription_id: null,
     secretKey: null,
+    apiKey: null,
     paymentLink: null,
+    transactionReference: null,
+
 };
 
 const PaymentSlice = createSlice({
@@ -152,8 +182,9 @@ const PaymentSlice = createSlice({
             .addCase(bankPlanKeys.fulfilled, (state, { payload }) => {
                 // console.log('payload', payload);
                 state.loading = false;
-                const { secretKey } = payload;
+                const { secretKey, apiKey } = payload;
                 state.secretKey = secretKey;
+                state.apiKey = apiKey;
                 // console.log('stripe_publishable_key', stripe_publishable_key);
                 state.message =
                     payload !== undefined && payload.message
@@ -175,6 +206,7 @@ const PaymentSlice = createSlice({
             .addCase(bankPayment.fulfilled, (state, { payload }) => {
                 state.loading = false;
                 state.paymentLink = payload?.payment_link
+                state.transactionReference = payload?.response?.data?.transactionReference
                 state.message =
                     payload !== undefined && payload.message
                         ? payload.message
@@ -188,6 +220,22 @@ const PaymentSlice = createSlice({
                         ? response.payload.message
                         : 'Something went wrong. Try again later.';
             })
+
+        // .addCase(globalpayRedirect.pending, (state) => {
+        //     state.loading = true
+        // })
+        // .addCase(globalpayRedirect.fulfilled, (state, { payload }) => {
+        //     state.loading = false
+        //     state.message = payload
+        // })
+        // .addCase(globalpayRedirect.rejected, (state, { payload }) => {
+        //     state.loading = false;
+        //     state.error = true;
+        //     state.message =
+        //         payload !== undefined && payload.message
+        //             ? payload.message
+        //             : 'Something went wrong. Try again later.';
+        // })
 
 
     },

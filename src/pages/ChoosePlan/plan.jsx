@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
 import { bankPayment, bankPlanKeys, stripePayment, stripePlanKeys } from "../../reducers/paymentSlice";
 import Payment from "../Payment/Payment";
+import axios from "axios";
+import errorHandler from "../../store/errorHandler";
 // import { referral } from "../../reducers/RefCount";
 
 const Plan = () => {
@@ -16,7 +18,7 @@ const Plan = () => {
   // const goPaymentHandler = () => {
   //   navigate("/payment");
   // };
-  const redirectUrl = import.meta.env.VITE_FRONT_BASE_URL;
+  const redirectUrl = `${import.meta.env.VITE_FRONT_BASE_URL}/success`;
   const plansList = useSelector((state) => state.plans?.plans);
   console.log("plansList", plansList)
   const [plans, setPlans] = useState([]);
@@ -50,6 +52,8 @@ const Plan = () => {
     // stripePublishableKey,
     secretKey,
     paymentLink,
+    transactionReference,
+    apiKey,
   } = useSelector((state) => state.payment);
 
   console.log("secretKey", secretKey)
@@ -57,6 +61,43 @@ const Plan = () => {
   useEffect(() => {
     dispatch(bankPlanKeys());
   }, []);
+
+  useEffect(() => {
+    const fetchTransaction = async () => {
+      try {
+        const response = await axios.get(
+          `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${transactionReference}`,
+          {
+            headers: {
+              'apiKey': apiKey, // or any other header key required by the API
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+        console.log("responses", response);
+        if (response?.status === 200) {
+          // console.log("aftersuccessful", response.data)
+          console.log("inside");
+          if (response?.data?.data?.paymentStatus === "Successful") {
+            console.log("hello");
+            navigate('/dashboard')
+          }
+
+        } else {
+          console.error(response.data.message);
+        }
+      } catch (error) {
+        let errors = errorHandler(error);
+        console.error(errors);
+      }
+    };
+
+    fetchTransaction();
+    const intervalId = setInterval(fetchTransaction, 2000);
+
+    // Cleanup the interval on component unmount or when dependencies change
+    return () => clearInterval(intervalId);
+  }, [transactionReference, apiKey]);
 
   const createSubscription = (planId) => {
     setUserDetails(() => ({
@@ -69,6 +110,10 @@ const Plan = () => {
     console.log("mref", mref);
     console.log("first_name_fun", first_name);
     console.log("last_name_fun", last_name);
+    // const firstName = first_name.split(" ").firstName[0]
+    // const lastName = first_name.split(" ").firstName[1]
+    // console.log('firstName', firstName);
+    // console.log('lastName', lastName);
     dispatch(
       // stripePayment({
       //   plan_id: planId,
