@@ -35,7 +35,7 @@ const HeaderOutside = () => {
   };
 
   return (
-    <div className="header_section max-w-6xl mx-auto px-0 lg:px-0 py-2 md:py-3 bg-transparent">
+    <div className="header_section max-w-7xl mx-auto px-0 lg:px-0 py-2 md:py-3 bg-transparent">
       <Navbar fluid rounded className="bg-transparent">
         <Link className="w-16 md:w-28" to="/">
           <img alt="Logo" src={logo} />
@@ -93,7 +93,13 @@ const HeaderOutside = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/terms-of-service">Terms of Service</NavLink>
+          </li>
+          <li>
             <NavLink to="/faqs">FAQs</NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact-us">Contact Us</NavLink>
           </li>
         </Navbar.Collapse>
       </Navbar>

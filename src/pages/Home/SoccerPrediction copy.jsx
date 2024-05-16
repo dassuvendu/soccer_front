@@ -10,7 +10,7 @@ const SoccerPrediction = () => {
   }, []);
   return (
     <div className="bg-[#2aa9e1] py-10 lg:py-24 px-8 lg:px-0">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <div
             data-aos="fade-up"

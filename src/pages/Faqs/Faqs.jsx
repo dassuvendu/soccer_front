@@ -6,7 +6,7 @@ const faqs = () => {
   return (
     <>
       <div className="py-10 lg:py-12 px-8 lg:px-0">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto mb-8">
             <img src={bannerImgOne} alt="" />
           </div>

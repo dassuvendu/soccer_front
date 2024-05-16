@@ -1,8 +1,6 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  logoIcon,
-} from "../../assets/images/images";
+import { logoIcon } from "../../assets/images/images";
 // import { logoIcon } from "../../assets/imagesource";
 import {
   BsChevronDoubleLeft,
@@ -10,12 +8,7 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import {
-  Datepicker,
-  TextInput,
-  Modal,
-  Button,
-} from "flowbite-react";
+import { Datepicker, TextInput, Modal, Button } from "flowbite-react";
 import { CiUnlock } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { getOddsSlips, unlockSlip } from "../../reducers/CookedSlipSlice";
@@ -44,21 +37,22 @@ const CookedSlips = () => {
   const [error, setError] = useState(false);
   const slipModalHandler = (id) => {
     setOpenSlipModal(true);
-    const startDate = id.split('/')[1].toString().split('.')[0]
-    const endDate = id.split('/')[2].toString().split('.')[0]
-    setSlipId( id.split('/')[0]);
-    dispatch(unlockSlip({
-      id : parseInt(id.split('/')[0]),
-      cost:parseInt(id.split('/')[7]),
-      count:parseInt(id.split('/')[4]),
-      ends_on:endDate,
-      odds:parseInt(id.split('/')[6]),
-      passed:null,
-      risk:id.split('/')[5],
-      starts_on:startDate,
-      strategy:id.split('/')[3]
-
-    }))
+    const startDate = id.split("/")[1].toString().split(".")[0];
+    const endDate = id.split("/")[2].toString().split(".")[0];
+    setSlipId(id.split("/")[0]);
+    dispatch(
+      unlockSlip({
+        id: parseInt(id.split("/")[0]),
+        cost: parseInt(id.split("/")[7]),
+        count: parseInt(id.split("/")[4]),
+        ends_on: endDate,
+        odds: parseInt(id.split("/")[6]),
+        passed: null,
+        risk: id.split("/")[5],
+        starts_on: startDate,
+        strategy: id.split("/")[3],
+      })
+    );
     console.log("slip id:", id);
   };
   // useEffect(() => {
@@ -72,21 +66,21 @@ const CookedSlips = () => {
   // console.log("End Date: ", dateListEnd);
   // console.log("End Time: ", timeListEnd);
 
-  const uuid = localStorage.getItem('uuid')
-  const navigate = useNavigate()
+  const uuid = localStorage.getItem("uuid");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUid({}))
-  },[dispatch])
-  
+    dispatch(getUid({}));
+  }, [dispatch]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
-        if (uuid !== valid?.data) {
-            dispatch(logout())
-            navigate('/') 
-        }
-    },5000);
+      dispatch(getUid({}));
+      if (uuid !== valid?.data) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }, 5000);
     return () => clearTimeout(timer);
   }, [valid, uuid, dispatch]);
 
@@ -147,7 +141,7 @@ const CookedSlips = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'Europe/London',
+      timeZone: "Europe/London",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -157,7 +151,7 @@ const CookedSlips = () => {
       year: "numeric",
       month: "long",
       day: "numeric",
-      timeZone: 'Europe/London',
+      timeZone: "Europe/London",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -167,7 +161,7 @@ const CookedSlips = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'Europe/London',
+      timeZone: "Europe/London",
     };
     return date.toLocaleTimeString(undefined, options);
   };
@@ -178,17 +172,16 @@ const CookedSlips = () => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'Europe/London',
+      timeZone: "Europe/London",
     };
     return date.toLocaleTimeString(undefined, options);
   };
   useEffect(() => {
-   if (Array.isArray(oddsData) && oddsData?.length > 5) {
+    if (Array.isArray(oddsData) && oddsData?.length > 5) {
       setHide(true);
     } else if (Array.isArray(oddsData) && oddsData?.length < 6) {
       setHide(false);
-    }
-      else{
+    } else {
       setHide(false);
     }
   }, [oddsData]);
@@ -400,12 +393,7 @@ const CookedSlips = () => {
                             className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
                             onClick={() => {
                               slipModalHandler(
-                                `${odds?.id}/${odds?.startsOn}/${odds?.endsOn}/${odds?.strategy}/${odds?.count}/${odds?.risk}/${odds?.odds}/${odds?.cost}`  
-                                 
-                                
-                               
-                                
-                                
+                                `${odds?.id}/${odds?.startsOn}/${odds?.endsOn}/${odds?.strategy}/${odds?.count}/${odds?.risk}/${odds?.odds}/${odds?.cost}`
                               );
                             }}
                           >
@@ -480,7 +468,7 @@ const CookedSlips = () => {
               <div className="md:flex justify-between items-center">
                 <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                   <ul className="flex">
-                    <li className='page'>
+                    <li className="page">
                       <Button
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                         onClick={() => paginate(1)}
@@ -489,27 +477,28 @@ const CookedSlips = () => {
                         <BsChevronDoubleLeft />
                       </Button>
                     </li>
-                    
-                      <li className='page'>
-                        <Button
-                          className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]`}
-                          onClick={() =>
-                            handlePageChange(Math.max(currentPage - 1, 1))
-                          }
-                          disabled={currentPage === 1}
-                        >
-                          <BsChevronLeft />
-                        </Button>
-                      </li>
-                    
+
+                    <li className="page">
+                      <Button
+                        className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]`}
+                        onClick={() =>
+                          handlePageChange(Math.max(currentPage - 1, 1))
+                        }
+                        disabled={currentPage === 1}
+                      >
+                        <BsChevronLeft />
+                      </Button>
+                    </li>
 
                     {pageNumbers.slice(0, 5).map((pageNumber) => (
-                      <li key={pageNumber} className='page'>
+                      <li key={pageNumber} className="page">
                         <Link
                           className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD] 
                         ${
-                          currentPage === pageNumber ? "bg-[#0053CD]" : "bg-black"
+                          currentPage === pageNumber
+                            ? "bg-[#0053CD]"
+                            : "bg-black"
                         }`}
                           onClick={() => handlePageChange(pageNumber)}
                         >
@@ -517,19 +506,18 @@ const CookedSlips = () => {
                         </Link>
                       </li>
                     ))}
-                    
-                      <li className='page'>
-                        <Button
-                          className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
-                          onClick={() => setCurrentPage(currentPage + 1)}
-                          disabled={currentPage === totalPages}
-                        >
-                          <BsChevronRight />
-                        </Button>
-                      </li>
-                
 
-                    <li className='page'>
+                    <li className="page">
+                      <Button
+                        className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                      >
+                        <BsChevronRight />
+                      </Button>
+                    </li>
+
+                    <li className="page">
                       <Button
                         className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                         onClick={() => setCurrentPage(totalPages)}
