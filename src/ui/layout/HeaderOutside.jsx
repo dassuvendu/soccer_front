@@ -20,6 +20,8 @@ const HeaderOutside = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 767);
+
   const loginHandler = () => {
     setOpenRegisterModal(false);
     setOpenLoginModal(true);
@@ -34,6 +36,22 @@ const HeaderOutside = () => {
     navigate("/choose-plan");
   };
 
+  const buttonRef = useRef(null);
+  useEffect(() => {
+    function handleResize() {
+      setIsSmallScreen(window.innerWidth < 767);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  function toggleClick() {
+    console.log(buttonRef.current, "(buttonRef.current(buttonRef.current");
+    buttonRef.current.click();
+  }
   return (
     <div className="header_section max-w-7xl mx-auto px-0 lg:px-0 py-2 md:py-3 bg-transparent">
       <Navbar fluid rounded className="bg-transparent">
@@ -76,30 +94,66 @@ const HeaderOutside = () => {
               </ul>
             </div>
           </>
-          <Navbar.Toggle />
+          {isSmallScreen ? <Navbar.Toggle ref={buttonRef} /> : null}
         </div>
-        <Navbar.Collapse className="lg:bg-transparent main_menu">
+        <Navbar.Collapse className="lg:bg-transparent main_menu ">
           <li>
-            <NavLink to="/about-us">About Us</NavLink>
+            {isSmallScreen ? (
+              <NavLink to="/about-us" onClick={toggleClick}>
+                About Us
+              </NavLink>
+            ) : (
+              <NavLink to="/about-us">About Us</NavLink>
+            )}
           </li>
           <li>
-            <NavLink to="/data-protection-policy">
-              Data Protection Policy
-            </NavLink>
+            {isSmallScreen ? (
+              <NavLink to="/data-protection-policy" onClick={toggleClick}>
+                Data Protection Policy
+              </NavLink>
+            ) : (
+              <NavLink to="/data-protection-policy">
+                Data Protection Policy
+              </NavLink>
+            )}
           </li>
           <li>
-            <NavLink to="/refund-cancellation-policy">
-              Refund Cancellation Policy
-            </NavLink>
+            {isSmallScreen ? (
+              <NavLink to="/refund-cancellation-policy" onClick={toggleClick}>
+                Refund Cancellation Policy
+              </NavLink>
+            ) : (
+              <NavLink to="/refund-cancellation-policy">
+                Refund Cancellation Policy
+              </NavLink>
+            )}
           </li>
           <li>
-            <NavLink to="/terms-of-service">Terms of Service</NavLink>
+            {isSmallScreen ? (
+              <NavLink to="/terms-of-service" onClick={toggleClick}>
+                Terms of Service
+              </NavLink>
+            ) : (
+              <NavLink to="/terms-of-service">Terms of Service</NavLink>
+            )}
           </li>
           <li>
-            <NavLink to="/faqs">FAQs</NavLink>
+            {isSmallScreen ? (
+              <NavLink to="/faqs" onClick={toggleClick}>
+                FAQs
+              </NavLink>
+            ) : (
+              <NavLink to="/faqs">FAQs</NavLink>
+            )}
           </li>
           <li>
-            <NavLink to="/contact-us">Contact Us</NavLink>
+            {isSmallScreen ? (
+              <NavLink to="/contact-us" onClick={toggleClick}>
+                Contact Us
+              </NavLink>
+            ) : (
+              <NavLink to="/contact-us">Contact Us</NavLink>
+            )}
           </li>
         </Navbar.Collapse>
       </Navbar>

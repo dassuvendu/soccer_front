@@ -113,6 +113,12 @@ const Registration = ({
     setOpenLoginModal(false);
   };
 
+  const dataProtectionPolicyHandleClick = () => {
+    navigate("/data-protection-policy");
+    setOpenRegisterModal(false);
+    setOpenLoginModal(false);
+  };
+
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
       localStorage.setItem("googleAccessToken", codeResponse.access_token);
@@ -168,8 +174,9 @@ const Registration = ({
                         })}
                       />
                       {errors?.first_name?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.first_name.message
-                          }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${
+                          errors.first_name.message
+                        }`}</h6>
                       )}
                     </div>
                     <div>
@@ -192,8 +199,9 @@ const Registration = ({
                         })}
                       />
                       {errors?.email?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.email.message
-                          }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${
+                          errors.email.message
+                        }`}</h6>
                       )}
                     </div>
                     <div>
@@ -211,8 +219,9 @@ const Registration = ({
                         })}
                       />
                       {errors?.password?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.password.message
-                          }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${
+                          errors.password.message
+                        }`}</h6>
                       )}
                     </div>
                     <div className="flex items-center gap-2">
@@ -231,7 +240,7 @@ const Registration = ({
                         </Link>
                         &nbsp;&&nbsp;
                         <Link
-                          // onClick={handleClick}
+                          onClick={dataProtectionPolicyHandleClick}
                           className="text-cyan-600 hover:underline dark:text-cyan-500"
                         >
                           Privacy Statement
@@ -254,8 +263,9 @@ const Registration = ({
                             placeholder="Enter Your OTP"
                           />
                           {errors?.otp?.message && (
-                            <h6 className="text-sm text-[red]">{`${"*"} ${errors.otp.message
-                              }`}</h6>
+                            <h6 className="text-sm text-[red]">{`${"*"} ${
+                              errors.otp.message
+                            }`}</h6>
                           )}
                         </div>
                         {check ? (
