@@ -14,34 +14,76 @@ const GoogleRedirect = () => {
     const { subscription } = useSelector((state) => state.auth);
     const [tsr, setTsr] = useState("")
 
+    // useEffect(() => {
+    //     // Retrieve the access token from wherever you have stored it
+    //     const uid = uuidv4();
+    //     setTsr(uid)
+    //     console.log("tsr", tsr);
+
+    //     const ggltoken = localStorage.getItem('googleAccessToken');
+    //     console.log("ggltoken:", ggltoken);
+
+    //     dispatch(googleSignIn({ token: ggltoken, uuid: uid })).then(() => {
+    //         const userToken = JSON.parse(localStorage.getItem('userToken'));
+    //         console.log("userToken ggl", userToken);
+    //         const UserToken = userToken?.token
+    //         console.log("UserToken ggl", UserToken);
+
+    //         localStorage.setItem(
+    //             'userToken',
+    //             JSON.stringify({ token: UserToken })
+    //         );
+
+    //         // setIsSubscribe(subscription);
+    //         // console.log('isSubscribe in google redirect', isSubscribe);
+    //         if (UserToken !== null) {
+
+    //             dispatch(editProfile());
+    //             console.log('inside side effect');
+
+    //             navigate('/dashboard');
+
+    //         } else {
+    //             // localStorage.removeItem('googleAccessToken');
+    //             // localStorage.removeItem('ref_id');
+    //             navigate('/');
+    //             // dispatch(isGoogleLoggedIn(false));
+    //         }
+    //     });
+    // }, [dispatch, googleSignIn]);
+
+
+
     useEffect(() => {
-        // Retrieve the access token from wherever you have stored it
-        const uid = uuidv4();
-        setTsr(uid)
-        console.log("tsr", tsr);
-        let uuids = dispatch(getUid())
-        localStorage.setItem("uuid", uid)
-        console.log("same:", uid === uuids);
-        const token = localStorage.getItem('googleAccessToken');
+        const ggltoken = localStorage.getItem('googleAccessToken');
+        const uid = localStorage.getItem('uuid');
 
-        dispatch(googleSignIn({ token: token, uuid: uid })).then(() => {
-            const userToken = localStorage.getItem('userToken');
+        console.log("ggltoken:", ggltoken);
+        console.log("uid:", uid);
 
-            // setIsSubscribe(subscription);
-            // console.log('isSubscribe in google redirect', isSubscribe);
-            if (userToken !== null) {
-                dispatch(editProfile());
-                console.log('inside side effect');
-                navigate('/dashboard');
+        if (ggltoken && uid) {
+            dispatch(googleSignIn({ token: ggltoken, uuid: uid })).then(() => {
+                const userToken = JSON.parse(localStorage.getItem('userToken'));
+                console.log("userToken ggl", userToken);
+                const UserToken = userToken?.token;
+                console.log("UserToken ggl", UserToken);
 
-            } else {
-                // localStorage.removeItem('googleAccessToken');
-                // localStorage.removeItem('ref_id');
-                navigate('/');
-                // dispatch(isGoogleLoggedIn(false));
-            }
-        });
-    }, [dispatch, googleSignIn]);
+                if (UserToken) {
+                    localStorage.setItem('userToken', JSON.stringify({ token: UserToken }));
+                    dispatch(editProfile());
+                    console.log('inside side effect');
+                    navigate('/dashboard');
+                } else {
+                    navigate('/');
+                }
+            });
+        } else {
+            navigate('/');
+        }
+    }, [dispatch, navigate]);
+
+
+
 
     return (
         <div className='h-96 flex justify-center items-center'>
