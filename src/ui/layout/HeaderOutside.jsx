@@ -106,7 +106,7 @@ const HeaderOutside = () => {
               <NavLink to="/about-us">About Us</NavLink>
             )}
           </li>
-          <li>
+          {/* <li>
             {isSmallScreen ? (
               <NavLink to="/data-protection-policy" onClick={toggleClick}>
                 Data Protection Policy
@@ -116,8 +116,8 @@ const HeaderOutside = () => {
                 Data Protection Policy
               </NavLink>
             )}
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             {isSmallScreen ? (
               <NavLink to="/refund-cancellation-policy" onClick={toggleClick}>
                 Refund Cancellation Policy
@@ -127,14 +127,14 @@ const HeaderOutside = () => {
                 Refund Cancellation Policy
               </NavLink>
             )}
-          </li>
+          </li> */}
           <li>
             {isSmallScreen ? (
-              <NavLink to="/terms-of-service" onClick={toggleClick}>
-                Terms of Service
+              <NavLink to="/" onClick={toggleClick}>
+                Home
               </NavLink>
             ) : (
-              <NavLink to="/terms-of-service">Terms of Service</NavLink>
+              <NavLink to="/">Home</NavLink>
             )}
           </li>
           <li>
