@@ -25,7 +25,8 @@ const Plan = () => {
   // const goPaymentHandler = () => {
   //   navigate("/payment");
   // };
-
+  const userToken = localStorage.getItem("userToken");
+  console.log("plan token: ", userToken);
   const [openLoginModal, setOpenLoginModal] = useState(false);
 
   useEffect(() => {
@@ -89,9 +90,9 @@ const Plan = () => {
           `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${transactionReference}`,
           {
             headers: {
-              'apiKey': apiKey, // or any other header key required by the API
-              'Content-Type': 'application/json'
-            }
+              apiKey: apiKey, // or any other header key required by the API
+              "Content-Type": "application/json",
+            },
           }
         );
         console.log("responses", response);
@@ -121,47 +122,44 @@ const Plan = () => {
             // localStorage.setItem("error", response?.data?.error)
 
             clearInterval(intervalId);
-            dispatch(bankPaymentRedirect({
-              "user_id": UserId,
-              "plan_id": planId,
-              "data": {
-                "txnref": response?.data?.data?.txnref,
-                "merchantid": response?.data?.data?.merchantid,
-                "channel": response?.data?.data?.channel,
-                "amount": response?.data?.data?.amount,
-                "paymentDate": response?.data?.data?.paymentDate,
-                "paymentStatus": response?.data?.data?.paymentStatus,
-                "furtherProcessed": response?.data?.data?.furtherProcessed,
-                "processDate": response?.data?.data?.processDate,
-                "merchantTxnref": response?.data?.data?.merchantTxnref,
-                "inAmount": response?.data?.data?.inAmount,
-                "inCurrency": response?.data?.data?.inCurrency,
-                "rate": response?.data?.data?.rate,
-                "redirectUrl": response?.data?.data?.redirectUrl,
-                "transactionSource": response?.data?.data?.transactionSource,
-                "transactionChannel": response?.data?.data?.transactionChannel
-              },
+            dispatch(
+              bankPaymentRedirect({
+                user_id: UserId,
+                plan_id: planId,
+                data: {
+                  txnref: response?.data?.data?.txnref,
+                  merchantid: response?.data?.data?.merchantid,
+                  channel: response?.data?.data?.channel,
+                  amount: response?.data?.data?.amount,
+                  paymentDate: response?.data?.data?.paymentDate,
+                  paymentStatus: response?.data?.data?.paymentStatus,
+                  furtherProcessed: response?.data?.data?.furtherProcessed,
+                  processDate: response?.data?.data?.processDate,
+                  merchantTxnref: response?.data?.data?.merchantTxnref,
+                  inAmount: response?.data?.data?.inAmount,
+                  inCurrency: response?.data?.data?.inCurrency,
+                  rate: response?.data?.data?.rate,
+                  redirectUrl: response?.data?.data?.redirectUrl,
+                  transactionSource: response?.data?.data?.transactionSource,
+                  transactionChannel: response?.data?.data?.transactionChannel,
+                },
 
-              "successMessage": response?.data?.data?.successMessage,
-              "responseCode": response?.data?.data?.responseCode,
-              "isSuccessful": response?.data?.data?.isSuccessful,
-              "error": response?.data?.data?.error
-
-            })).then(() => {
-              navigate("/")
-              alert("Payment Successful")
-
-
-            })
-            console.log("modal_status", openLoginModal);
-            setOpenLoginModal(true)
-            console.log("modal_status2", openLoginModal);
-
+                successMessage: response?.data?.data?.successMessage,
+                responseCode: response?.data?.data?.responseCode,
+                isSuccessful: response?.data?.data?.isSuccessful,
+                error: response?.data?.data?.error,
+              })
+            ).then(() => {
+              alert("Payment Successful");
+              localStorage.setItem("userToken", userToken);
+              navigate("/dashboard");
+            });
+            // console.log("modal_status", openLoginModal);
+            // setOpenLoginModal(true);
+            // console.log("modal_status2", openLoginModal);
 
             // navigate('/payment-redirect')
-
           }
-
         } else {
           console.error(response.data.message);
         }
@@ -176,7 +174,6 @@ const Plan = () => {
 
     // Cleanup the interval on component unmount or when dependencies change
     return () => clearInterval(intervalId);
-
   }, [transactionReference, apiKey]);
 
   const createSubscription = (planId) => {

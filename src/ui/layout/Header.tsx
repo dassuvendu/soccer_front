@@ -37,6 +37,7 @@ function Header(props: {
     const handleLogout = () => {
         dispatch(logout());
         navigate('/');
+        
     };
 
     return (

@@ -68,6 +68,7 @@ const DropdownUser = () => {
     localStorage.removeItem('googleAccessToken');
     localStorage.removeItem('ref_id');
     navigate('/');
+    window.location.reload();
     // dispatch(getFixtures({ date: todayFormatted }))
   };
 

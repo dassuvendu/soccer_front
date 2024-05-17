@@ -19,7 +19,9 @@ const Registration = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const token = JSON.parse(localStorage.getItem("regToken"));
+  const tokenObject = JSON.parse(localStorage.getItem("regToken"));
+  const token = tokenObject?.token;
+  console.log("token", token);
 
   const loginHandler = () => {
     setOpenLoginModal(true);
@@ -40,30 +42,35 @@ const Registration = ({
     reset,
   } = useForm();
 
-  // const [tsr, setTsr] = useState("");
+  const [tsr, setTsr] = useState("");
 
-  // useEffect(() => {
-  //   const uid = uuidv4();
-  //   setTsr(uid);
-  // }, [])
+  useEffect(() => {
+    const uid = uuidv4();
+    setTsr(uid);
+  }, []);
 
   function onSubmit(data) {
     if (currentUser && Object.keys(currentUser).length) {
       dispatch(verifyOtp(data)).then(() => {
         reset();
       });
-      localStorage.setItem(
-        "userToken",
-        JSON.stringify({ token: token?.token })
-      );
-      localStorage.removeItem("regToken");
+      localStorage.setItem("userToken", JSON.stringify({ token: token }));
+      //localStorage.removeItem("regToken");
       // navigate("/choose-plan");
       // navigate("/dashboard");
 
       setOpenRegisterModal(false);
       setOpenLoginModal(false);
     } else {
-      dispatch(registerUser(data));
+      dispatch(
+        registerUser({
+          email: data?.email,
+          first_name: data?.first_name,
+          password: data?.password,
+          uuid: tsr,
+        })
+      );
+      localStorage.setItem("uuid", tsr);
     }
   }
 
@@ -84,10 +91,7 @@ const Registration = ({
       Object.keys(currentUser).length &&
       currentUser.otp_verified
     ) {
-      localStorage.setItem(
-        "userToken",
-        JSON.stringify({ token: token?.token })
-      );
+      localStorage.setItem("userToken", JSON.stringify({ token: token }));
       localStorage.removeItem("regToken");
       navigate("/choose-plan");
       // navigate("/dashboard");
