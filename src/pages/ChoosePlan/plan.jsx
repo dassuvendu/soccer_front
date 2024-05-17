@@ -46,6 +46,9 @@ const Plan = () => {
   );
   console.log("email", email);
   console.log("first_name", first_name);
+  const fname = first_name.split(" ");
+  console.log("fName", fname[0]);
+  console.log("lName", fname[1]);
   console.log("last_name", last_name);
 
   const UserId = JSON.parse(localStorage.getItem("userId"));
