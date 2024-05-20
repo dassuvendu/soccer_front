@@ -13,6 +13,7 @@ const GoogleRedirect = () => {
     const navigate = useNavigate();
     const { subscription } = useSelector((state) => state.auth);
     const [tsr, setTsr] = useState("")
+    const [loading, setLoading] = useState(true);
 
     // useEffect(() => {
     //     // Retrieve the access token from wherever you have stored it
@@ -53,11 +54,49 @@ const GoogleRedirect = () => {
     // }, [dispatch, googleSignIn]);
 
 
+    // let uid = localStorage.getItem("uuid");
+    // if (!uid) {
+    //     uid = uuidv4();
+    //     localStorage.setItem("uuid", uid);
+    // }
+
+
+    // useEffect(() => {
+    //     const ggltoken = localStorage.getItem('googleAccessToken');
+    //     const uid = localStorage.getItem('uuid');
+
+    //     console.log("ggltoken:", ggltoken);
+    //     console.log("uid:", uid);
+
+    //     if (ggltoken && uid) {
+    //         dispatch(googleSignIn({ token: ggltoken, uuid: uid })).then(() => {
+    //             const userToken = JSON.parse(localStorage.getItem('userToken'));
+    //             console.log("userToken ggl", userToken);
+    //             const UserToken = userToken?.token;
+    //             console.log("UserToken ggl", UserToken);
+
+    //             if (UserToken) {
+    //                 localStorage.setItem('userToken', JSON.stringify({ token: UserToken }));
+    //                 dispatch(editProfile());
+    //                 console.log('inside side effect');
+    //                 navigate('/dashboard');
+    //             } else {
+    //                 navigate('/');
+    //             }
+    //         });
+    //     } else {
+    //         navigate('/');
+    //     }
+    // }, [dispatch, navigate]);
 
     useEffect(() => {
-        const ggltoken = localStorage.getItem('googleAccessToken');
-        const uid = localStorage.getItem('uuid');
+        let uid = localStorage.getItem("uuid");
+        if (!uid) {
+            uid = uuidv4();
+            localStorage.setItem("uuid", uid);
+        }
 
+        const ggltoken = localStorage.getItem('googleAccessToken');
         console.log("ggltoken:", ggltoken);
         console.log("uid:", uid);
 
@@ -72,24 +111,39 @@ const GoogleRedirect = () => {
                     localStorage.setItem('userToken', JSON.stringify({ token: UserToken }));
                     dispatch(editProfile());
                     console.log('inside side effect');
+                    console.log("UserToken Set successfully");
                     navigate('/dashboard');
                 } else {
                     navigate('/');
                 }
+                setLoading(false);
+            }).catch(() => {
+                navigate('/');
+                setLoading(false);
             });
         } else {
             navigate('/');
+            setLoading(false);
         }
-    }, [dispatch, navigate]);
+    }, [dispatch, navigate, googleSignIn]);
 
 
+    // return (
+    //     <div className='h-96 flex justify-center items-center'>
+    //         <Spinner />
+    //     </div>
+    // );
 
+    if (loading) {
+        return (
+            <div className='h-96 flex justify-center items-center'>
+                <Spinner />
+            </div>
+        );
+    }
 
-    return (
-        <div className='h-96 flex justify-center items-center'>
-            <Spinner />
-        </div>
-    );
+    return null;
+
 };
 
 export default GoogleRedirect;
