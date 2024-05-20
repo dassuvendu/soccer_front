@@ -125,7 +125,7 @@ const GoogleRedirect = () => {
             navigate('/');
             setLoading(false);
         }
-    }, [dispatch, navigate, googleSignIn]);
+    }, [dispatch, navigate]);
 
 
     // return (
