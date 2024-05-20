@@ -30,7 +30,7 @@ const CookedSlips = () => {
   const dates = new Date();
   const timeZoneOffset = dates.getTimezoneOffset();
   dates.setMinutes(dates.getMinutes() + timeZoneOffset);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(dates);
   // console.log("dateList", dateList);
   // console.log("timelist", timeList);
   const [hide, setHide] = useState(false);
@@ -104,7 +104,7 @@ const CookedSlips = () => {
     if (selectedDate) {
       fetchData(selectedDate);
     }
-  }, [selectedDate]);
+  }, [dispatch, selectedDate]);
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
   const itemsPerPage = 6;
   const [searchPage, setSearchPage] = useState(null);

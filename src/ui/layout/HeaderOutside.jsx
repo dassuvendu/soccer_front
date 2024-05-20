@@ -97,15 +97,6 @@ const HeaderOutside = () => {
           {isSmallScreen ? <Navbar.Toggle ref={buttonRef} /> : null}
         </div>
         <Navbar.Collapse className="lg:bg-transparent main_menu ">
-          <li>
-            {isSmallScreen ? (
-              <NavLink to="/about-us" onClick={toggleClick}>
-                About Us
-              </NavLink>
-            ) : (
-              <NavLink to="/about-us">About Us</NavLink>
-            )}
-          </li>
           {/* <li>
             {isSmallScreen ? (
               <NavLink to="/data-protection-policy" onClick={toggleClick}>
@@ -135,6 +126,15 @@ const HeaderOutside = () => {
               </NavLink>
             ) : (
               <NavLink to="/">Home</NavLink>
+            )}
+          </li>
+          <li>
+            {isSmallScreen ? (
+              <NavLink to="/about-us" onClick={toggleClick}>
+                About Us
+              </NavLink>
+            ) : (
+              <NavLink to="/about-us">About Us</NavLink>
             )}
           </li>
           <li>
