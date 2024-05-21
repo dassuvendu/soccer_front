@@ -49,6 +49,14 @@ const Footer = () => {
               <li>
                 <Link
                   className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-[#2aa9e1] text-[14px] hover:text-white px-2"
                   to="/about-us"
                 >
                   About Us
