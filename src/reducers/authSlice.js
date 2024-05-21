@@ -335,6 +335,7 @@ const authSlice = createSlice({
                     user_id: user_id,
                     email: email,
                     otp_verified: otp_verified,
+
                 };
                 localStorage.setItem(
                     'userToken',

@@ -113,7 +113,6 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
       localStorage.setItem("googleAccessToken", codeResponse.access_token);
-      localStorage.setItem("userToken", codeResponse.access_token);
       localStorage.setItem("uuid", tsr);
       navigate("/google-redirect");
     },
