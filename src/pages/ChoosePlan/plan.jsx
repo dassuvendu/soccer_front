@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { planIcon } from "../../assets/images/images";
+import { PlaycopeLogoPopup, planIcon } from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
 import {
@@ -17,7 +17,11 @@ import Payment from "../Payment/Payment";
 import axios from "axios";
 import errorHandler from "../../store/errorHandler";
 import Login from "../Auth/Login/Login";
+import { Modal } from "flowbite-react";
+import { AiOutlineLogin } from "react-icons/ai";
 // import { referral } from "../../reducers/RefCount";
+import { IoRadioButtonOnSharp } from "react-icons/io5";
+import MonnifyPayment from "../Payment/MonnifyPayment";
 
 const Plan = () => {
   const dispatch = useDispatch();
@@ -25,6 +29,12 @@ const Plan = () => {
   // const goPaymentHandler = () => {
   //   navigate("/payment");
   // };
+  const [openChoosePaymentModal, setOpenChoosePaymentModal] = useState(false);
+
+  const choosePaymentHandler = () => {
+    setOpenChoosePaymentModal(true);
+  };
+
   const userToken = localStorage.getItem("userToken");
   console.log("plan token: ", userToken);
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -60,6 +70,7 @@ const Plan = () => {
 
   const [showSubscription, setShowSubscription] = useState(true);
   const [showPayment, setShowPayment] = useState(false);
+  const [showMonnifyPayment, setShowMonnifyPayment] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: null,
     user_id: profile?.details?.id,
@@ -77,8 +88,6 @@ const Plan = () => {
     apiKey,
     redirectResponse,
   } = useSelector((state) => state.payment);
-
-  console.log("secretKey", secretKey);
 
   useEffect(() => {
     dispatch(bankPlanKeys());
@@ -218,6 +227,13 @@ const Plan = () => {
     setShowSubscription(false);
   };
 
+
+  const createMonnifySubscription = () => {
+    setShowMonnifyPayment(true);
+    setShowSubscription(false);
+  }
+
+
   useEffect(() => {
     dispatch(subscriptionPlans()).then(() => {
       setUserDetails({
@@ -273,10 +289,13 @@ const Plan = () => {
                                       {plan?.price}$ monthly only
                                     </h3>
                                     <button
-                                      to="/payment"
                                       className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]"
+                                      // onClick={() => {
+                                      //   createSubscription(plan.id, userId);
+                                      //   localStorage.setItem("planId", plan.id);
+                                      // }}
                                       onClick={() => {
-                                        createSubscription(plan.id, userId);
+                                        choosePaymentHandler();
                                         localStorage.setItem("planId", plan.id);
                                       }}
                                     >
@@ -315,12 +334,70 @@ const Plan = () => {
           />
         )}
 
+      {showMonnifyPayment &&
+        (
+          <MonnifyPayment
+            planId={planId}
+            email={userDetails.email}
+            user_id={user_id}
+          />
+        )}
+
       {openLoginModal && (
         <Login
           openLoginModal={openLoginModal}
           setOpenLoginModal={setOpenLoginModal}
         />
       )}
+
+      {openChoosePaymentModal && (
+        <Modal
+          show={openChoosePaymentModal}
+          size="5xl"
+          onClose={() => setOpenChoosePaymentModal(false)}
+          popup
+        >
+          <Modal.Header className="absolute right-0 top-0" />
+          <Modal.Body>
+            <div className="md:flex items-center pt-6">
+              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
+                <img
+                  src={PlaycopeLogoPopup}
+                  alt="PlaycopeLogoPopup"
+                  className="rounded-xl w-32 md:w-72 opacity-80"
+                />
+              </div>
+              <div className="w-full md:w-6/12 md:pl-4">
+                <div className="text-center">
+                  <h2 className="mb-8 text-xl font-bold text-[#2aa9e1]">Choose one payment method </h2>
+                  <button
+                    className="flex justify-center items-center rounded-xl text-base font-medium hover:bg-[#2aa9e1] text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#2aa9e1]"
+                    onClick={() => {
+                      createSubscription(planId, userId);
+                      setOpenChoosePaymentModal(false);
+                    }}
+                  >
+                    <IoRadioButtonOnSharp className="mr-1" /> Global Pay
+                  </button>
+                  <p className="py-4 text-center">OR</p>
+                  <button
+                    className="flex justify-center items-center rounded-xl text-base font-medium hover:bg-[#2aa9e1] text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#2aa9e1]"
+                    onClick={() => {
+                      createMonnifySubscription(planId, userId);
+                      setOpenChoosePaymentModal(false);
+                    }}
+
+                  >
+                    <IoRadioButtonOnSharp className="mr-1" /> Monnify
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+
+
     </div>
   );
 };
