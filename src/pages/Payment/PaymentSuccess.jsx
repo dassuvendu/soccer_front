@@ -49,7 +49,7 @@ const PaymentSuccess = () => {
             }))
             paymentSuccess.then((response) => {
                 if (response?.payload?.status_code === 200) {
-                    navigate("/")
+                    navigate("/dashboard");
                 }
             })
         }
