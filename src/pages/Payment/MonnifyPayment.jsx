@@ -10,11 +10,11 @@ const MonnifyPayment = ({ planId }) => {
 
     const [reference, setReference] = useState(`ref-${Math.floor(Math.random() * 1000000000)}`);
 
-    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-
-    const apiKey = 'MK_TEST_WE3QLPMYDR';
-    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';
-    const contractCode = '1931878869';
+    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    const baseURL = 'https://api.monnify.com/api/v1';
+    const apiKey = 'MK_PROD_DGWL4CGVAW';
+    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    const contractCode = '819597383830';
 
     const api = axios.create({
         baseURL,
