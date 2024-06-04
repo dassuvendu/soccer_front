@@ -53,6 +53,9 @@ const PaymentSuccess = () => {
             paymentSuccess.then((response) => {
                 if (response?.payload?.status_code === 200) {
                     navigate("/dashboard");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000)
                 }
             })
         }

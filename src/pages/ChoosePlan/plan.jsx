@@ -185,6 +185,9 @@ const Plan = () => {
               alert("Payment Successful");
               localStorage.setItem("userToken", userToken);
               navigate("/dashboard");
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000)
             });
             // console.log("modal_status", openLoginModal);
             // setOpenLoginModal(true);

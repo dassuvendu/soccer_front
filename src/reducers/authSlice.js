@@ -175,7 +175,6 @@ const authSlice = createSlice({
             localStorage.removeItem('uuid')
             localStorage.removeItem('ref_id')
             localStorage.removeItem('googleAccessToken')
-
         },
     },
     extraReducers: (builder) => {
@@ -201,7 +200,6 @@ const authSlice = createSlice({
                     JSON.stringify({ token: access_token })
                 );
                 localStorage.setItem('userId', user_id);
-                // localStorage.setItem('firstName', payload?.first_name);
 
             })
             .addCase(registerUser.rejected, (state, { payload }) => {
