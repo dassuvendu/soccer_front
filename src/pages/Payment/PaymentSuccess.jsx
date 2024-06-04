@@ -22,11 +22,13 @@ const PaymentSuccess = () => {
         return new URLSearchParams(search);
     };
 
-    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-    const baseURL = 'https://api.monnify.com/api/v1';
+    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    // const baseURL = 'https://api.monnify.com/api/v1';
 
-    const apiKey = 'MK_PROD_DGWL4CGVAW';
-    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    // const apiKey = 'MK_PROD_DGWL4CGVAW';
+    const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
+    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
 
     const api = axios.create({
         baseURL,

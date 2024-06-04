@@ -6,15 +6,20 @@ import { logoIcon } from '../../assets/images/images';
 const MonnifyPayment = ({ planId }) => {
     const { email, first_name } = useSelector((state) => state.auth?.currentUser);
     const plansList = useSelector((state) => state.plans?.plans);
+    const amountUSD = plansList[0]?.price;
+    console.log("amountUSD", amountUSD)
     const redirectUrl = `${import.meta.env.VITE_FRONT_BASE_URL}/payment-success`;
 
     const [reference, setReference] = useState(`ref-${Math.floor(Math.random() * 1000000000)}`);
 
-    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-    const baseURL = 'https://api.monnify.com/api/v1';
-    const apiKey = 'MK_PROD_DGWL4CGVAW';
-    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
-    const contractCode = '819597383830';
+    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    // const baseURL = 'https://api.monnify.com/api/v1';
+    const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
+    // const apiKey = 'MK_PROD_DGWL4CGVAW';
+    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
+    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    const contractCode = '1931878869';  //test
+    // const contractCode = '819597383830';
 
     const api = axios.create({
         baseURL,
@@ -28,9 +33,24 @@ const MonnifyPayment = ({ planId }) => {
         return api.post('/merchant/transactions/init-transaction', data);
     };
 
+    const convertUSDtoNGN = (amountUSD) => {
+        // Assuming a fixed exchange rate (example: 1 USD = 410 NGN)
+        const exchangeRate = 410; // Replace with your desired exchange rate
+
+        // Perform the conversion
+        const amountNGN = amountUSD * exchangeRate;
+
+        // Return the converted amount
+        return amountNGN;
+    };
+
+    const amountNGN = convertUSDtoNGN(amountUSD);
+    console.log("amountNGN", amountNGN);
+
     useEffect(() => {
         const transactionData = {
-            amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+            // amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+            amount: amountNGN,
             customerName: first_name, // Replace with dynamic data if needed
             customerEmail: email,
             paymentReference: reference,

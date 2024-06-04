@@ -53,6 +53,8 @@ const Plan = () => {
   const redirectUrl = `${import.meta.env.VITE_FRONT_BASE_URL}/success`;
   const plansList = useSelector((state) => state.plans?.plans);
   console.log("plansList", plansList);
+  const amountUSD = plansList[0]?.price;
+  console.log("amountUSD", amountUSD)
   const [plans, setPlans] = useState([]);
 
   const { profile } = useSelector((state) => state.profile);
@@ -98,6 +100,20 @@ const Plan = () => {
   useEffect(() => {
     dispatch(bankPlanKeys());
   }, []);
+
+  const convertUSDtoNGN = (amountUSD) => {
+    // Assuming a fixed exchange rate (example: 1 USD = 410 NGN)
+    const exchangeRate = 410; // Replace with your desired exchange rate
+
+    // Perform the conversion
+    const amountNGN = amountUSD * exchangeRate;
+
+    // Return the converted amount
+    return amountNGN;
+  };
+
+  const amountNGN = convertUSDtoNGN(amountUSD);
+  console.log("amountNGN", amountNGN);
 
   useEffect(() => {
     const fetchTransaction = async () => {
@@ -214,7 +230,8 @@ const Plan = () => {
       //   entity: "payment_intent",
       // })
       bankPayment({
-        amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+        // amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+        amount: amountNGN,
         secretKey: secretKey,
         merchantTransactionReference: mref,
         redirectUrl: redirectUrl,
