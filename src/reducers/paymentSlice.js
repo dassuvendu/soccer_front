@@ -99,6 +99,24 @@ export const bankPaymentRedirect = createAsyncThunk(
     }
 );
 
+export const monnifyPayment = createAsyncThunk(
+    'user/monnify-payment',
+    async (entity, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/payment-complete-monnify', entity);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
 
 
 const initialState = {
@@ -227,6 +245,25 @@ const PaymentSlice = createSlice({
                         : 'Something went wrong. Try again later.';
             })
             .addCase(bankPaymentRedirect.rejected, (state, { payload }) => {
+                state.loading = false;
+                state.error = true;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(monnifyPayment.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(monnifyPayment.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(monnifyPayment.rejected, (state, { payload }) => {
                 state.loading = false;
                 state.error = true;
                 state.message =

@@ -3,7 +3,12 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { planIcon } from "../../assets/images/images";
+import {
+  PlaycopeLogoPopup,
+  global_pay_icon,
+  monnify_icon,
+  planIcon,
+} from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
 import {
@@ -17,7 +22,12 @@ import Payment from "../Payment/Payment";
 import axios from "axios";
 import errorHandler from "../../store/errorHandler";
 import Login from "../Auth/Login/Login";
+import { Modal } from "flowbite-react";
+import { AiOutlineLogin } from "react-icons/ai";
 // import { referral } from "../../reducers/RefCount";
+import { IoRadioButtonOnSharp } from "react-icons/io5";
+import MonnifyPayment from "../Payment/MonnifyPayment";
+import { FaCircle } from "react-icons/fa";
 
 const Plan = () => {
   const dispatch = useDispatch();
@@ -25,6 +35,12 @@ const Plan = () => {
   // const goPaymentHandler = () => {
   //   navigate("/payment");
   // };
+  const [openChoosePaymentModal, setOpenChoosePaymentModal] = useState(false);
+
+  const choosePaymentHandler = () => {
+    setOpenChoosePaymentModal(true);
+  };
+
   const userToken = localStorage.getItem("userToken");
   console.log("plan token: ", userToken);
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -60,6 +76,7 @@ const Plan = () => {
 
   const [showSubscription, setShowSubscription] = useState(true);
   const [showPayment, setShowPayment] = useState(false);
+  const [showMonnifyPayment, setShowMonnifyPayment] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: null,
     user_id: profile?.details?.id,
@@ -77,8 +94,6 @@ const Plan = () => {
     apiKey,
     redirectResponse,
   } = useSelector((state) => state.payment);
-
-  console.log("secretKey", secretKey);
 
   useEffect(() => {
     dispatch(bankPlanKeys());
@@ -218,6 +233,11 @@ const Plan = () => {
     setShowSubscription(false);
   };
 
+  const createMonnifySubscription = () => {
+    setShowMonnifyPayment(true);
+    setShowSubscription(false);
+  };
+
   useEffect(() => {
     dispatch(subscriptionPlans()).then(() => {
       setUserDetails({
@@ -235,48 +255,63 @@ const Plan = () => {
     <div>
       {/* Choose your plan section start here */}
       {showSubscription && (
-        <div className="py-10 lg:py-24 px-8 lg:px-0">
+        <div className="py-10 lg:py-10 px-8 lg:px-0">
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
+            <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-0 text-[#232a34]">
               Choose Plan
             </h2>
             <div className="choose_your_plan_section pb-0">
               <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
                 <div className="plan_tab_area">
                   <div className="px-4 lg:px-0">
-                    <div className="w-full max-w-4xl p-6 mx-auto my-0 shadow-xl bg-[#2aa9e1] rounded-2xl lg:p-10">
+                    <div className="w-full max-w-4xl p-3 mx-auto my-0 lg:p-10">
                       <div className="container mx-auto my-0">
-                        <div className="md:flex">
-                          <div className="w-2/5 hidden lg:block">
-                            <div className="text-center">
-                              <img
-                                src={planIcon}
-                                alt="planIcon"
-                                className="rounded-xl"
-                              />
-                            </div>
+                        <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-2xl">
+                          <div className="hidden md:block w-5/12">
+                            <img
+                              src={planIcon}
+                              alt="planIcon"
+                              className="rounded-xl w-full inline-block"
+                            />
                           </div>
-                          <div className="w-full lg:w-3/5">
+                          <div className="w-full md:w-6/12">
                             {plans &&
                               plans.length > 0 &&
                               plans?.map((plan, plankey) => (
-                                <div
-                                  key={"plan_" + plankey}
-                                  className="lg:px-28"
-                                >
-                                  <h2 className="font-Bebas text-white py-5 text-6xl lg:text-8xl tracking-normal mb-0 text-center">
-                                    Choose Plan
+                                <div key={"plan_" + plankey} className="">
+                                  <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
+                                    Choose full features plan
                                   </h2>
+                                  {/* <ul className="mb-4 px-4">
+                                    <li className="text-[14px] text-white pb-3 flex">
+                                      <FaCircle className="text-[10px] mr-1 mt-1" />
+                                      Lorem Ipsum is simply dummy text of the
+                                      printing
+                                    </li>
+                                    <li className="text-[14px] text-white pb-3 flex">
+                                      <FaCircle className="text-[10px] mr-1 mt-1" />
+                                      Lorem Ipsum is simply dummy text of the
+                                      printing
+                                    </li>
+                                    <li className="text-[14px] text-white pb-3 flex">
+                                      <FaCircle className="text-[10px] mr-1 mt-1" />
+                                      Lorem Ipsum is simply dummy text of the
+                                      printing
+                                    </li>
+                                  </ul> */}
                                   <div className="text-center">
-                                    <h3 className="text-2xl text-white font-semibold mb-4">
+                                    <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
                                       {/* 10$ monthly only */}
                                       {plan?.price}$ monthly only
                                     </h3>
                                     <button
-                                      to="/payment"
-                                      className="text-base font-medium hover:bg-[#18191b] text-white text-center w-full block border-2 py-2 border-white hover:border-[#18191b]"
+                                      className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                      // onClick={() => {
+                                      //   createSubscription(plan.id, userId);
+                                      //   localStorage.setItem("planId", plan.id);
+                                      // }}
                                       onClick={() => {
-                                        createSubscription(plan.id, userId);
+                                        choosePaymentHandler();
                                         localStorage.setItem("planId", plan.id);
                                       }}
                                     >
@@ -315,11 +350,77 @@ const Plan = () => {
           />
         )}
 
+      {showMonnifyPayment && (
+        <MonnifyPayment
+          planId={planId}
+          email={userDetails.email}
+          user_id={user_id}
+        />
+      )}
+
       {openLoginModal && (
         <Login
           openLoginModal={openLoginModal}
           setOpenLoginModal={setOpenLoginModal}
         />
+      )}
+
+      {openChoosePaymentModal && (
+        <Modal
+          show={openChoosePaymentModal}
+          size="4xl"
+          onClose={() => setOpenChoosePaymentModal(false)}
+          popup
+        >
+          <Modal.Header className="absolute right-0 top-0" />
+          <Modal.Body>
+            <div className="md:flex items-center pt-6">
+              <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
+                <img
+                  src={PlaycopeLogoPopup}
+                  alt="PlaycopeLogoPopup"
+                  className="rounded-xl w-32 md:w-72 opacity-80"
+                />
+              </div>
+              <div className="w-full md:w-6/12 md:pl-4">
+                <div className="text-center">
+                  <h2 className="mb-8 text-xl font-bold text-[#2aa9e1]">
+                    Choose one payment method{" "}
+                  </h2>
+                  <button
+                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
+                    onClick={() => {
+                      createSubscription(planId, userId);
+                      setOpenChoosePaymentModal(false);
+                    }}
+                  >
+                    <img
+                      src={global_pay_icon}
+                      alt="global_pay_icon"
+                      className="mr-1"
+                    />{" "}
+                    Global Pay
+                  </button>
+                  <p className="py-4 text-center">OR</p>
+                  <button
+                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
+                    onClick={() => {
+                      createMonnifySubscription(planId, userId);
+                      setOpenChoosePaymentModal(false);
+                    }}
+                  >
+                    <img
+                      src={monnify_icon}
+                      alt="monnify_icon"
+                      className="mr-1"
+                    />{" "}
+                    Monnify
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
       )}
     </div>
   );

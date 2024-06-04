@@ -61,7 +61,12 @@ import playerCompareTwo from "../imagesource/player_compare_02.png";
 import inviteIcon from "../imagesource/invite.png";
 import earnIcon from "../imagesource/earn.png";
 
+import global_pay_icon from "../imagesource/global_pay_icon.png";
+import monnify_icon from "../imagesource/monnify_icon.png";
+
 export {
+  global_pay_icon,
+  monnify_icon,
   bannerImgFive,
   inviteIcon,
   earnIcon,

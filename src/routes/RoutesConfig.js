@@ -36,6 +36,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import GoogleRedirect from '../pages/GoogleRedirect.jsx/GoogleRedirect.jsx';
 import { Referral } from '../pages/Referral/Referral.jsx';
 import ContactUs from '../pages/ContactUs/ContactUs.jsx';
+import PaymentSuccess from '../pages/Payment/PaymentSuccess.jsx';
 
 
 const allRoutes = [
@@ -60,15 +61,15 @@ const allRoutes = [
     element: <OutsideLayout />,
     children: [
       { index: true, element: <Termsofservice /> },
-      { path: 'terms-of-service', element: <Termsofservice/> },
+      { path: 'terms-of-service', element: <Termsofservice /> },
     ],
   },
   {
     path: '/google-redirect',
     element: <OutsideLayout />,
     children: [
-      { index: true, element: <GoogleRedirect/> },
-      { path: 'terms-of-service', element: <GoogleRedirect/> },
+      { index: true, element: <GoogleRedirect /> },
+      { path: 'terms-of-service', element: <GoogleRedirect /> },
     ],
   },
   {
@@ -157,6 +158,14 @@ const allRoutes = [
     children: [
       { index: true, element: <PaymentRedirect /> },
       { path: 'payment-redirect', element: < PaymentRedirect /> },
+    ],
+  },
+  {
+    path: '/payment-success',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <PaymentSuccess /> },
+      { path: 'payment-success', element: < PaymentSuccess /> },
     ],
   },
   {
