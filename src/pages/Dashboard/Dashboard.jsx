@@ -16,9 +16,9 @@ const Dashboard = () => {
   const { league, isLoading } = useSelector((state) => state.league);
   const { valid } = useSelector((state) => state.uuid);
 
-  // const subscribed = JSON.parse(
-  //   localStorage.getItem("isSubscribed")
-  // )?.isSubscribed;
+  const subscribed = JSON.parse(
+    localStorage.getItem("isSubscribed")
+  )?.isSubscribed;
 
   // const [ Id ] = useUuid()
 
@@ -81,7 +81,7 @@ const Dashboard = () => {
         </div>
       ) : (
         <>
-          {/* {subscribed === null ||
+          {subscribed === null ||
             subscribed === undefined ||
             subscribed === "cancel" ? (
             <div>
@@ -89,160 +89,152 @@ const Dashboard = () => {
                 Please subscribe for using our application
               </div>
             </div>
-          ) : ( */}
-          <div className="w-full h-full pt-4 mb-0">
-            <div className="md:flex justify-between mb-0">
-              <h1
-                className={`${
-                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
-              >
-                Hi,{" "}
-                {profile?.details?.first_name !== null
-                  ? profile?.details?.first_name.toString().split(" ")[0]
-                  : ""}
-              </h1>
-            </div>
-
-            {/* Actions section start here  */}
-            <div className="mb-10">
-              <h2
-                className={`${
-                  themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
-              >
-                Actions
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-gradient-to-t from-[#04fca0] to-[#07abee] rounded-lg py-5 px-5">
-                  <div className="flex justify-between mb-4">
-                    <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                      Coped slips
-                    </h2>
-                    <span className="text-white text-[20px] leading-[40px] font-normal">
-                      New
-                    </span>
-                  </div>
-                  <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
-                    Explore different slips containing multiple matches
-                  </p>
-                  <div
-                    className={` ${
-                      themeMode === "light" ? "bg-white" : "bg-black"
-                    } hover:bg-gray-800 inline-block rounded-full mb-2`}
-                  >
-                    <Link
-                      to="/coped-slips"
-                      className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                    >
-                      Explore Slips{" "}
-                      <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                    </Link>
-                  </div>
-                </div>
-                <div className="bg-gradient-to-t from-[#03faa1] to-[#3b5998] rounded-lg py-5 px-5">
-                  <div className="flex justify-between mb-4">
-                    <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                      Predictions
-                    </h2>
-                  </div>
-                  <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
-                    Browse matches happening today from any league.
-                  </p>
-                  <div
-                    className={` ${
-                      themeMode === "light" ? "bg-white" : "bg-black"
-                    } hover:bg-gray-800 inline-block rounded-full mb-2`}
-                  >
-                    <Link
-                      to="/match-prediction"
-                      className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                    >
-                      See Predictions
-                      <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                    </Link>
-                  </div>
-                </div>
-                <div className="bg-gradient-to-t from-[#12a4ee] to-[#fdca40] rounded-lg py-5 px-5">
-                  <div className="flex justify-between mb-4">
-                    <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                      Statistics
-                    </h2>
-                  </div>
-                  <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
-                    Browse matches happening tomorrow from any league.
-                  </p>
-                  <div
-                    className={` ${
-                      themeMode === "light" ? "bg-white" : "bg-black"
-                    } hover:bg-gray-800 inline-block rounded-full mb-2`}
-                  >
-                    <Link
-                      to="/statistics"
-                      className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                    >
-                      See Statistics
-                      <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                    </Link>
-                  </div>
-                </div>
+          ) : (
+            <div className="w-full h-full pt-4 mb-0">
+              <div className="md:flex justify-between mb-0">
+                <h1
+                  className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                >
+                  Hi,{" "}
+                  {profile?.details?.first_name !== null
+                    ? profile?.details?.first_name.toString().split(" ")[0]
+                    : ""}
+                </h1>
               </div>
-              {/* Actions section ends here */}
-            </div>
 
-            {/* Explore Matches section start here  */}
-            <div className="mb-0">
-              <h2
-                className={`${
-                  themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
-              >
-                Explore Matches from your Favorite Leagues
-              </h2>
-              {!isLoading ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                  {league?.data?.map((data) => (
-                    <Link
-                      to={`/match-prediction/${data.league.id}`}
-                      key={data.id}
+              {/* Actions section start here  */}
+              <div className="mb-10">
+                <h2
+                  className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                    } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+                >
+                  Actions
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-gradient-to-t from-[#04fca0] to-[#07abee] rounded-lg py-5 px-5">
+                    <div className="flex justify-between mb-4">
+                      <h2 className="text-white text-[25px] leading-[40px] font-semibold">
+                        Coped slips
+                      </h2>
+                      <span className="text-white text-[20px] leading-[40px] font-normal">
+                        New
+                      </span>
+                    </div>
+                    <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
+                      Explore different slips containing multiple matches
+                    </p>
+                    <div
+                      className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                        } hover:bg-gray-800 inline-block rounded-full mb-2`}
                     >
-                      <div
-                        className={`${
-                          themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                        } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
+                      <Link
+                        to="/coped-slips"
+                        className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
                       >
-                        {themeMode === "light" ? (
-                          <img
-                            src={data.league.logo}
-                            alt={data.league.name}
-                            className="mb-4 inline-block"
-                          />
-                        ) : (
-                          <img
-                            src={data.league.logo}
-                            alt={data.league.name}
-                            className="mb-4 inline-block"
-                          />
-                        )}
-                        <h3
-                          className={`font-Montserrat ${
-                            themeMode === "light" ? "text-black" : "text-white"
-                          } font-bold text-[16px] leading-[20px] mb-2`}
-                        >
-                          {`${data.league.name.slice(0, 14)}`}
-                        </h3>
-                        <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
-                          {data.country.name}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                        Explore Slips{" "}
+                        <FiArrowRight className="text-[#08a5f5] ml-0.5" />
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-t from-[#03faa1] to-[#3b5998] rounded-lg py-5 px-5">
+                    <div className="flex justify-between mb-4">
+                      <h2 className="text-white text-[25px] leading-[40px] font-semibold">
+                        Predictions
+                      </h2>
+                    </div>
+                    <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
+                      Browse matches happening today from any league.
+                    </p>
+                    <div
+                      className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                        } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                    >
+                      <Link
+                        to="/match-prediction"
+                        className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                      >
+                        See Predictions
+                        <FiArrowRight className="text-[#08a5f5] ml-0.5" />
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-t from-[#12a4ee] to-[#fdca40] rounded-lg py-5 px-5">
+                    <div className="flex justify-between mb-4">
+                      <h2 className="text-white text-[25px] leading-[40px] font-semibold">
+                        Statistics
+                      </h2>
+                    </div>
+                    <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
+                      Browse matches happening tomorrow from any league.
+                    </p>
+                    <div
+                      className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                        } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                    >
+                      <Link
+                        to="/statistics"
+                        className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#fdca40] via-[#93b990] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                      >
+                        See Statistics
+                        <FiArrowRight className="text-[#08a5f5] ml-0.5" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              ) : (
-                <div className="text-center">
-                  <div role="status">
-                    <img src={logoIcon} alt="loading.." className="loader" />
-                    {/* <svg
+                {/* Actions section ends here */}
+              </div>
+
+              {/* Explore Matches section start here  */}
+              <div className="mb-0">
+                <h2
+                  className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                    } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+                >
+                  Explore Matches from your Favorite Leagues
+                </h2>
+                {!isLoading ? (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                    {league?.data?.map((data) => (
+                      <Link
+                        to={`/match-prediction/${data.league.id}`}
+                        key={data.id}
+                      >
+                        <div
+                          className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                            } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
+                        >
+                          {themeMode === "light" ? (
+                            <img
+                              src={data.league.logo}
+                              alt={data.league.name}
+                              className="mb-4 inline-block"
+                            />
+                          ) : (
+                            <img
+                              src={data.league.logo}
+                              alt={data.league.name}
+                              className="mb-4 inline-block"
+                            />
+                          )}
+                          <h3
+                            className={`font-Montserrat ${themeMode === "light" ? "text-black" : "text-white"
+                              } font-bold text-[16px] leading-[20px] mb-2`}
+                          >
+                            {`${data.league.name.slice(0, 14)}`}
+                          </h3>
+                          <p className="text-[#8EA2AB] text-[12px] leading-[20px]">
+                            {data.country.name}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <div role="status">
+                      <img src={logoIcon} alt="loading.." className="loader" />
+                      {/* <svg
                     aria-hidden="true"
                     class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101"
@@ -258,21 +250,21 @@ const Dashboard = () => {
                       fill="currentFill"
                     />
                   </svg> */}
-                    <span className="sr-only">Loading...</span>
+                      <span className="sr-only">Loading...</span>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+
+              {/* Explore Matches section ends here */}
+
+              {/* Actions section ends here */}
+
+              {/* Explore Matches section start here  */}
+
+              {/* Explore Matches section ends here */}
             </div>
-
-            {/* Explore Matches section ends here */}
-
-            {/* Actions section ends here */}
-
-            {/* Explore Matches section start here  */}
-
-            {/* Explore Matches section ends here */}
-          </div>
-          {/* )} */}
+          )}
         </>
       )}
     </div>
