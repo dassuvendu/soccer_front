@@ -43,7 +43,7 @@ const HomeBannerMatchStartTime = () => {
       return fixtureDate > new Date(currentUTCTimeWithoutMs);
     });
 
-    if (ongoingMatch) {
+    if (ongoingMatch.length > 0) {
       // Filter out the next match
       const Item =
         Array.isArray(fixtures?.data) &&
@@ -61,7 +61,7 @@ const HomeBannerMatchStartTime = () => {
 
       setNextMatch(Item[0]);
 
-      if (Item) {
+      if (Item.length > 0) {
         const londonTime = new Date(Item[0].fixture.date).toLocaleString(
           "en-US",
           { timeZone: "Europe/London" }
@@ -83,7 +83,7 @@ const HomeBannerMatchStartTime = () => {
 
           return fixtureDate > new Date(currentUTCTimeWithoutMs);
         });
-      if (Item) {
+      if (Item.length > 0) {
         const londonTime = new Date(Item[0].fixture.date).toLocaleString(
           "en-US",
           { timeZone: "Europe/London" }
@@ -213,103 +213,116 @@ const HomeBannerMatchStartTime = () => {
     <div className="mt-20 mb-[20px] relative z-10 md:px-4 lg:px-0">
       <div className="max-full mx-auto">
         <div className="md:flex justify-center items-center">
-          <div className="flex items-center justify-center mb-4 md:mb-0">
-            <img
-              src={nxtMatch?.teams?.home?.logo}
-              width={100}
-              alt={nxtMatch?.teams?.home?.name}
-            />
-            <div className="ml-2 text-right">
-              <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-                {nxtMatch?.teams?.home?.name}
-              </h2>
-              <p className="text-[#9c9da1] text-[12px] italic">
-                {nxtMatch?.league?.name}
-              </p>
-            </div>
-          </div>
-          {matchStarted ? (
-            <div>
-              <h1 className="p-5 text-lg text-[red] text-[15px] leading-[15px] font-medium m-2">
-                Match is live!
-              </h1>
-            </div>
-          ) : (
-            <div className="flex justify-center items-center mx-16 mb-4 md:mb-0">
-              <ul className="flex justify-center items-center">
-                <li className="text-center mx-2">
-                  <div className="flex justify-center items-center">
-                    <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                      {countdown?.days}
-                    </span>
-                    {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+          {nxtMatch ? (
+            <>
+              <div className="flex items-center justify-center mb-4 md:mb-0">
+                <img
+                  src={nxtMatch?.teams?.home?.logo}
+                  width={100}
+                  alt={nxtMatch?.teams?.home?.name}
+                />
+                <div className="ml-2 text-right">
+                  <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
+                    {nxtMatch?.teams?.home?.name}
+                  </h2>
+                  <p className="text-[#9c9da1] text-[12px] italic">
+                    {nxtMatch?.league?.name}
+                  </p>
+                </div>
+              </div>
+              {matchStarted ? (
+                <div>
+                  <h1 className="p-5 text-lg text-[red] text-[15px] leading-[15px] font-medium m-2">
+                    Match is live!
+                  </h1>
+                </div>
+              ) : (
+                <div className="flex justify-center items-center mx-16 mb-4 md:mb-0">
+                  <ul className="flex justify-center items-center">
+                    <li className="text-center mx-2">
+                      <div className="flex justify-center items-center">
+                        <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                          {countdown?.days}
+                        </span>
+                        {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                 {countdown?.days?.toString().split("-")[1]}
                   </span> */}
-                  </div>
-                  <p className="text-[#282828] text-[10px] pt-0.5">Days</p>
-                </li>
-                :
-                <li className="text-center mx-2">
-                  <div className="flex justify-center items-center">
-                    <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                      {countdown?.hours}
-                    </span>
-                    {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                      </div>
+                      <p className="text-[#282828] text-[10px] pt-0.5">Days</p>
+                    </li>
+                    :
+                    <li className="text-center mx-2">
+                      <div className="flex justify-center items-center">
+                        <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                          {countdown?.hours}
+                        </span>
+                        {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                 2
                   </span> */}
-                  </div>
-                  <p className="text-[#282828] text-[10px] pt-0.5">Hours</p>
-                </li>
-                :
-                <li className="text-center mx-2">
-                  <div className="flex justify-center items-center">
-                    <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
-                      {countdown.minutes}
-                    </span>
-                    {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                      </div>
+                      <p className="text-[#282828] text-[10px] pt-0.5">Hours</p>
+                    </li>
+                    :
+                    <li className="text-center mx-2">
+                      <div className="flex justify-center items-center">
+                        <span className="bg-[#282828] mr-0.5 font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                          {countdown.minutes}
+                        </span>
+                        {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                   2
                   </span> */}
-                  </div>
-                  <p className="text-[#282828] text-[10px] pt-0.5">Minutes</p>
-                </li>
-                :
-                <li className="text-center mx-2">
-                  <div className="flex justify-center items-center">
-                    {color ? (
-                      <span className=" flex  bg-[#282828] rounded-t-sm">
-                        <span className=" animate-pulse mr-0.6 font-Bebas font-medium tracking-normal text-[yellow] text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
-                          {countdown.seconds}
-                        </span>
-                      </span>
-                    ) : (
-                      <span className="bg-[#282828] mr-0.5 font-Bebas font-medium tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
-                        {countdown.seconds}
-                      </span>
-                    )}
-                    {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
+                      </div>
+                      <p className="text-[#282828] text-[10px] pt-0.5">
+                        Minutes
+                      </p>
+                    </li>
+                    :
+                    <li className="text-center mx-2">
+                      <div className="flex justify-center items-center">
+                        {color ? (
+                          <span className=" flex  bg-[#282828] rounded-t-sm">
+                            <span className=" animate-pulse mr-0.6 font-Bebas font-medium tracking-normal text-[yellow] text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
+                              {countdown.seconds}
+                            </span>
+                          </span>
+                        ) : (
+                          <span className="bg-[#282828] mr-0.5 font-Bebas font-medium tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] px-2 pt-2.5 pb-0">
+                            {countdown.seconds}
+                          </span>
+                        )}
+                        {/* <span className="bg-[#282828] font-Bebas tracking-normal rounded-t-sm text-white text-[15px] leading-[15px] font-medium px-2 pt-2.5 pb-0">
                   7
                   </span> */}
-                  </div>
-                  <p className="text-[#282828] text-[10px] pt-0.5">Seconds</p>
-                </li>
-              </ul>
+                      </div>
+                      <p className="text-[#282828] text-[10px] pt-0.5">
+                        Seconds
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              )}
+              <div className="flex items-center justify-center">
+                <div className="mr-2 text-left">
+                  <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
+                    {nxtMatch?.teams?.away?.name}
+                  </h2>
+                  <p className="text-[#9c9da1] text-[12px] italic">
+                    {nxtMatch?.league?.name}
+                  </p>
+                </div>
+                <img
+                  src={nxtMatch?.teams?.away?.logo}
+                  width={100}
+                  alt={nxtMatch?.teams?.away?.name}
+                />
+              </div>
+            </>
+          ) : (
+            // <p>No upcoming matches found.</p>
+            <div className="text-center text-gray-500 text-lg font-medium">
+              No upcoming matches found.
             </div>
           )}
-          <div className="flex items-center justify-center">
-            <div className="mr-2 text-left">
-              <h2 className="font-Bebas text-[#18191b] text-3xl tracking-normal">
-                {nxtMatch?.teams?.away?.name}
-              </h2>
-              <p className="text-[#9c9da1] text-[12px] italic">
-                {nxtMatch?.league?.name}
-              </p>
-            </div>
-            <img
-              src={nxtMatch?.teams?.away?.logo}
-              width={100}
-              alt={nxtMatch?.teams?.away?.name}
-            />
-          </div>
         </div>
       </div>
     </div>
