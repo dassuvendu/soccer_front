@@ -51,7 +51,13 @@ import {
   BsTelephoneInboundFill,
 } from "react-icons/bs";
 import { BiSolidUser, BiSolidContact, BiMenu } from "react-icons/bi";
-import { FaUsers, FaEye, FaInfoCircle, FaPinterest } from "react-icons/fa";
+import {
+  FaUsers,
+  FaEye,
+  FaInfoCircle,
+  FaPinterest,
+  FaCircle,
+} from "react-icons/fa";
 import { CgSwap, CgArrowsShrinkV } from "react-icons/cg";
 import { HiArrowsRightLeft } from "react-icons/hi2";
 import { MdManageAccounts } from "react-icons/md";
@@ -89,6 +95,7 @@ import { IoMdMail } from "react-icons/io";
 import { ImLocation } from "react-icons/im";
 
 export {
+  FaCircle,
   ImLocation,
   IoMdMail,
   BsTelephoneInboundFill,

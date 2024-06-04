@@ -3,7 +3,12 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { PlaycopeLogoPopup, planIcon } from "../../assets/images/images";
+import {
+  PlaycopeLogoPopup,
+  global_pay_icon,
+  monnify_icon,
+  planIcon,
+} from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
 import { subscriptionPlans } from "../../reducers/planSlice";
 import {
@@ -22,6 +27,7 @@ import { AiOutlineLogin } from "react-icons/ai";
 // import { referral } from "../../reducers/RefCount";
 import { IoRadioButtonOnSharp } from "react-icons/io5";
 import MonnifyPayment from "../Payment/MonnifyPayment";
+import { FaCircle } from "react-icons/fa";
 
 const Plan = () => {
   const dispatch = useDispatch();
@@ -249,36 +255,50 @@ const Plan = () => {
     <div>
       {/* Choose your plan section start here */}
       {showSubscription && (
-        <div className="py-10 lg:py-24 px-8 lg:px-0">
+        <div className="py-10 lg:py-10 px-8 lg:px-0">
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
+            <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-0 text-[#232a34]">
               Choose Plan
             </h2>
             <div className="choose_your_plan_section pb-0">
               <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
                 <div className="plan_tab_area">
                   <div className="px-4 lg:px-0">
-                    <div className="w-full max-w-4xl p-6 mx-auto my-0 lg:p-10">
+                    <div className="w-full max-w-4xl p-3 mx-auto my-0 lg:p-10">
                       <div className="container mx-auto my-0">
-                        <div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-2xl">
+                          <div className="hidden md:block w-5/12">
+                            <img
+                              src={planIcon}
+                              alt="planIcon"
+                              className="rounded-xl w-full inline-block"
+                            />
+                          </div>
+                          <div className="w-full md:w-6/12">
                             {plans &&
                               plans.length > 0 &&
                               plans?.map((plan, plankey) => (
-                                <div
-                                  key={"plan_" + plankey}
-                                  className="px-10 py-12  shadow-xl bg-[#2aa9e1] rounded-2xl"
-                                >
-                                  <div className="text-center">
-                                    <img
-                                      src={planIcon}
-                                      alt="planIcon"
-                                      className="rounded-xl w-48 inline-block"
-                                    />
-                                  </div>
-                                  <h2 className="font-Bebas text-white py-5 text-2xl lg:text-4xl tracking-normal mb-0 text-center">
-                                    Choose Plan
+                                <div key={"plan_" + plankey} className="">
+                                  <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
+                                    Choose full features plan
                                   </h2>
+                                  {/* <ul className="mb-4 px-4">
+                                    <li className="text-[14px] text-white pb-3 flex">
+                                      <FaCircle className="text-[10px] mr-1 mt-1" />
+                                      Lorem Ipsum is simply dummy text of the
+                                      printing
+                                    </li>
+                                    <li className="text-[14px] text-white pb-3 flex">
+                                      <FaCircle className="text-[10px] mr-1 mt-1" />
+                                      Lorem Ipsum is simply dummy text of the
+                                      printing
+                                    </li>
+                                    <li className="text-[14px] text-white pb-3 flex">
+                                      <FaCircle className="text-[10px] mr-1 mt-1" />
+                                      Lorem Ipsum is simply dummy text of the
+                                      printing
+                                    </li>
+                                  </ul> */}
                                   <div className="text-center">
                                     <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
                                       {/* 10$ monthly only */}
@@ -348,7 +368,7 @@ const Plan = () => {
       {openChoosePaymentModal && (
         <Modal
           show={openChoosePaymentModal}
-          size="5xl"
+          size="4xl"
           onClose={() => setOpenChoosePaymentModal(false)}
           popup
         >
@@ -368,23 +388,33 @@ const Plan = () => {
                     Choose one payment method{" "}
                   </h2>
                   <button
-                    className="flex justify-center items-center rounded-xl text-base font-medium hover:bg-[#2aa9e1] text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#2aa9e1]"
+                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
                     onClick={() => {
                       createSubscription(planId, userId);
                       setOpenChoosePaymentModal(false);
                     }}
                   >
-                    <IoRadioButtonOnSharp className="mr-1" /> Global Pay
+                    <img
+                      src={global_pay_icon}
+                      alt="global_pay_icon"
+                      className="mr-1"
+                    />{" "}
+                    Global Pay
                   </button>
                   <p className="py-4 text-center">OR</p>
                   <button
-                    className="flex justify-center items-center rounded-xl text-base font-medium hover:bg-[#2aa9e1] text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#2aa9e1]"
+                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
                     onClick={() => {
                       createMonnifySubscription(planId, userId);
                       setOpenChoosePaymentModal(false);
                     }}
                   >
-                    <IoRadioButtonOnSharp className="mr-1" /> Monnify
+                    <img
+                      src={monnify_icon}
+                      alt="monnify_icon"
+                      className="mr-1"
+                    />{" "}
+                    Monnify
                   </button>
                 </div>
               </div>
