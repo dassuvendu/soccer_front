@@ -672,11 +672,11 @@ const Settings = () => {
                   </div>
                 </div>
               ) : (
-                <div className="w-full ml-4 md:w-7/12">
+                <div className="w-full mt-4 md:mt-0 md:ml-4 md:w-7/12">
                   <div className="choose_your_plan_section pb-0">
                     <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
                       <div className="plan_tab_area">
-                        <div className="px-4 lg:px-0">
+                        <div className="px-0 lg:px-0">
                           <div className="w-full max-w-4xl p-0 mx-auto my-0 lg:p-0">
                             <div className="container mx-auto my-0">
                               <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-md">
