@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   PlaycopeLogoPopup,
+  bannerImgFour,
+  bannerImgTwo,
   earnIcon,
   global_pay_icon,
   inviteIcon,
@@ -629,8 +631,8 @@ const Settings = () => {
                               <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-md">
                                 <div className="hidden md:block w-5/12">
                                   <img
-                                    src={planIcon}
-                                    alt="planIcon"
+                                    src={bannerImgFour}
+                                    alt="bannerImgFour"
                                     className="rounded-xl w-full inline-block"
                                   />
                                 </div>
@@ -682,8 +684,8 @@ const Settings = () => {
                               <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-md">
                                 <div className="hidden md:block w-5/12">
                                   <img
-                                    src={planIcon}
-                                    alt="planIcon"
+                                    src={bannerImgFour}
+                                    alt="bannerImgFour"
                                     className="rounded-xl w-full inline-block"
                                   />
                                 </div>

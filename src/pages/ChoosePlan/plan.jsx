@@ -5,6 +5,8 @@ import "react-tabs/style/react-tabs.css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import {
   PlaycopeLogoPopup,
+  bannerImgFour,
+  bannerImgTwo,
   global_pay_icon,
   monnify_icon,
   planIcon,
@@ -54,7 +56,7 @@ const Plan = () => {
   const plansList = useSelector((state) => state.plans?.plans);
   console.log("plansList", plansList);
   const amountUSD = plansList[0]?.price;
-  console.log("amountUSD", amountUSD)
+  console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
 
   const { profile } = useSelector((state) => state.profile);
@@ -187,7 +189,7 @@ const Plan = () => {
               navigate("/dashboard");
               setTimeout(() => {
                 window.location.reload();
-              }, 1000)
+              }, 1000);
             });
             // console.log("modal_status", openLoginModal);
             // setOpenLoginModal(true);
@@ -289,8 +291,8 @@ const Plan = () => {
                         <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-2xl">
                           <div className="hidden md:block w-5/12">
                             <img
-                              src={planIcon}
-                              alt="planIcon"
+                              src={bannerImgFour}
+                              alt="bannerImgFour"
                               className="rounded-xl w-full inline-block"
                             />
                           </div>
