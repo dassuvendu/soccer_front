@@ -25,7 +25,11 @@ import { ReferModal } from "./ReferModal";
 import { logout } from "../../reducers/authSlice";
 import { getUid } from "../../reducers/uuidSlice";
 import { subscriptionPlans } from "../../reducers/planSlice";
-import { bankPayment, bankPaymentRedirect, bankPlanKeys } from "../../reducers/paymentSlice";
+import {
+  bankPayment,
+  bankPaymentRedirect,
+  bankPlanKeys,
+} from "../../reducers/paymentSlice";
 import axios from "axios";
 import errorHandler from "../../store/errorHandler";
 import Login from "../Auth/Login/Login";
@@ -100,8 +104,10 @@ const Settings = () => {
     }
   }, [profile]);
 
-  const subscribed = JSON.parse(localStorage.getItem('isSubscribed'))?.isSubscribed;
-  console.log("subscribed", subscribed)
+  const subscribed = JSON.parse(
+    localStorage.getItem("isSubscribed")
+  )?.isSubscribed;
+  console.log("subscribed", subscribed);
 
   const [openChoosePaymentModal, setOpenChoosePaymentModal] = useState(false);
 
@@ -122,14 +128,12 @@ const Settings = () => {
   const plansList = useSelector((state) => state.plans?.plans);
   console.log("plansList", plansList);
   const amountUSD = plansList[0]?.price;
-  console.log("amountUSD", amountUSD)
+  console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
 
   // const { profile } = useSelector((state) => state.profile);
   // console.log("profile", profile);
-  const { email, user_id } = useSelector(
-    (state) => state.auth?.currentUser
-  );
+  const { email, user_id } = useSelector((state) => state.auth?.currentUser);
   console.log("email", email);
 
   // const UserId = JSON.parse(localStorage.getItem("userId"));
@@ -228,7 +232,7 @@ const Settings = () => {
               navigate("/dashboard");
               setTimeout(() => {
                 window.location.reload();
-              }, 1000)
+              }, 1000);
             });
           }
         } else {
@@ -262,7 +266,10 @@ const Settings = () => {
         secretKey: secretKey,
         merchantTransactionReference: mref,
         redirectUrl: redirectUrl,
-        lastName: profile?.details?.last_name === null ? "test" : profile?.details?.last_name,
+        lastName:
+          profile?.details?.last_name === null
+            ? "test"
+            : profile?.details?.last_name,
         firstName: profile?.details?.first_name,
         currency: "NGN",
         phoneNumber: "09025711530",
@@ -297,12 +304,13 @@ const Settings = () => {
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4 mb-0">
-        {!showPayment &&
+        {!showPayment && (
           <>
             <div className="flex justify-between mb-8">
               <h1
-                className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                  } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                className={`${
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
               >
                 Settings
               </h1>
@@ -336,11 +344,11 @@ const Settings = () => {
               </h3>
             </div> */}
                 <p className="text-white text-[16px] leading-[24px] font-medium">
-                  Get ready for some easy wins! Just refer as many friends as you
-                  can, and you'll score free tokens for making predictions. Have
-                  your pals use your referral link when signing up, and when they
-                  snag tokens, you can check out and cash in on your well-deserved
-                  rewards. It's a breeze!
+                  Get ready for some easy wins! Just refer as many friends as
+                  you can, and you'll score free tokens for making predictions.
+                  Have your pals use your referral link when signing up, and
+                  when they snag tokens, you can check out and cash in on your
+                  well-deserved rewards. It's a breeze!
                 </p>
               </div>
             </div>
@@ -348,22 +356,25 @@ const Settings = () => {
             {/* Setting edit section start here */}
             <div className="md:flex mb-6">
               <div
-                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-medium`}
+                    className={`text-[20px]  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-medium`}
                   >
                     Overview
                   </h3>
                   <button onClick={updateHandler}>
                     <AiFillEdit
-                      className={`${themeMode === "light"
-                        ? "text-[#2aa9e1] hover:text-black"
-                        : "text-white"
-                        } text-[28px] hover:text-[#2aa9e1]`}
+                      className={`${
+                        themeMode === "light"
+                          ? "text-[#2aa9e1] hover:text-black"
+                          : "text-white"
+                      } text-[28px] hover:text-[#2aa9e1]`}
                     />
                   </button>
                 </div>
@@ -377,8 +388,9 @@ const Settings = () => {
                   </div>
                   <div>
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[19px] leading-[20px] text-medium`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[19px] leading-[20px] text-medium`}
                     >
                       {profile?.details?.first_name}
                     </p>
@@ -399,28 +411,32 @@ const Settings = () => {
                 <div>
                   <div className="flex pb-4 mb-4 border-b border-[#DCDCDC]">
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-medium w-4/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-medium w-4/12`}
                     >
                       Contact phone
                     </div>
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-normal w-8/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-normal w-8/12`}
                     >
                       {profile?.details?.mobile}
                     </div>
                   </div>
                   <div className="flex mb-4 border-b border-[#DCDCDC] pb-4">
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-medium w-4/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-medium w-4/12`}
                     >
                       {/* Address */}Gender
                     </div>
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-normal w-8/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-normal w-8/12`}
                     >
                       {/* 23 Main Street, Anytown, USA 12345 */}
                       {profile?.details?.gender}
@@ -475,21 +491,24 @@ const Settings = () => {
                 </div>
               </div>
               <div
-                className={`w-full md:w-7/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
+                className={`w-full md:w-7/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-medium`}
+                    className={`text-[20px]  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-medium`}
                   >
                     Signin Methos
                   </h3>
                 </div>
                 <div className="border-b border-[#DCDCDC] pb-3 pt-0 mb-3">
                   <p
-                    className={`${themeMode === "light" ? "text-black" : "text-white"
-                      } text-[15px] text-normal pb-0`}
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } text-[15px] text-normal pb-0`}
                   >
                     Email Address
                   </p>
@@ -500,8 +519,9 @@ const Settings = () => {
                 <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
                   <div className="w-7/12 lg:w-9/12">
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[15px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[15px] text-normal pb-0`}
                     >
                       Password
                     </p>
@@ -525,16 +545,18 @@ const Settings = () => {
                 <div className="mt-4 rounded-md p-4 flex justify-between items-center">
                   <div className="flex">
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[17px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[17px] text-normal pb-0`}
                     >
                       Number of referrals :
                     </p>
                   </div>
                   <div>
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[17px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[17px] text-normal pb-0`}
                     >
                       {refCount}
                     </p>
@@ -543,17 +565,18 @@ const Settings = () => {
               </div>
             </div>
 
-            <div className="flex pb-10">
+            <div className="md:flex pb-10">
               <div
-                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 shadow-xl`}
               >
                 <h3 className="text-[20px]  text-[#2aa9e1] font-medium text-center pb-2">
                   Refer Friends And Earn 20% Commission
                 </h3>
                 <p className="text-[#898989] text-[14px] text-center pb-2">
-                  If you enjoy using Playcope, share your referral link and get paid
-                  for every eligible purchase
+                  If you enjoy using Playcope, share your referral link and get
+                  paid for every eligible purchase
                 </p>
                 <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 my-6">
                   <div className="border border-[#2aa9e1] rounded-md text-center p-4 bg-[#fcfcfd]">
@@ -593,12 +616,14 @@ const Settings = () => {
                   </Link>
                 </div>
               </div>
-              {subscribed === null || subscribed === undefined || subscribed === "cancel" ? (
-                <div className="w-full ml-4 md:w-7/12">
+              {subscribed === null ||
+              subscribed === undefined ||
+              subscribed === "cancel" ? (
+                <div className="w-full md:ml-4 md:w-7/12 mt-4 md:mt-0">
                   <div className="choose_your_plan_section pb-0">
                     <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
                       <div className="plan_tab_area">
-                        <div className="px-4 lg:px-0">
+                        <div className="px-0 lg:px-0">
                           <div className="w-full max-w-4xl p-0 mx-auto my-0 lg:p-0">
                             <div className="container mx-auto my-0">
                               <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-md">
@@ -620,15 +645,16 @@ const Settings = () => {
 
                                         <div className="text-center">
                                           <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
-
                                             {plan?.price}$ monthly only
                                           </h3>
                                           <button
                                             className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-
                                             onClick={() => {
                                               choosePaymentHandler();
-                                              localStorage.setItem("planId", plan.id);
+                                              localStorage.setItem(
+                                                "planId",
+                                                plan.id
+                                              );
                                             }}
                                           >
                                             Subscribe Now
@@ -672,13 +698,15 @@ const Settings = () => {
 
                                         <div className="text-center">
                                           <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
-
                                             {plan?.price}$ monthly only
                                           </h3>
-                                          <button
-                                            className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                          >
-                                            Valid till : {profile?.details?.user_subscriptions[0]?.plan_period_end}
+                                          <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                                            Valid till :{" "}
+                                            {
+                                              profile?.details
+                                                ?.user_subscriptions[0]
+                                                ?.plan_period_end
+                                            }
                                           </button>
                                         </div>
                                       </div>
@@ -695,17 +723,16 @@ const Settings = () => {
               )}
             </div>
           </>
-        }
+        )}
 
-        {showPayment &&
-          secretKey && (
-            <Payment
-              planId={userDetails.plan_id}
-              email={userDetails.email}
-              user_id={user_id}
-              secretKey={secretKey}
-            />
-          )}
+        {showPayment && secretKey && (
+          <Payment
+            planId={userDetails.plan_id}
+            email={userDetails.email}
+            user_id={user_id}
+            secretKey={secretKey}
+          />
+        )}
 
         {showMonnifyPayment && (
           <MonnifyPayment
