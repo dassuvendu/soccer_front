@@ -24,11 +24,10 @@ const PaymentSuccess = () => {
 
     const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
     // const baseURL = 'https://api.monnify.com/api/v1';
-
-    // const apiKey = 'MK_PROD_DGWL4CGVAW';
     const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
-    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    // const apiKey = 'MK_PROD_DGWL4CGVAW';
     const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
+    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
 
     const api = axios.create({
         baseURL,
@@ -45,7 +44,6 @@ const PaymentSuccess = () => {
     useEffect(() => {
         if (paymentDetailsApi !== null) {
             const paymentSuccess = dispatch(monnifyPayment({
-
                 "user_id": UserId,
                 "plan_id": planId,
                 "data": paymentDetailsApi,
@@ -60,7 +58,7 @@ const PaymentSuccess = () => {
             })
         }
 
-    }, [paymentDetailsApi])
+    }, [paymentDetailsApi, UserId, planId, dispatch, navigate]);
 
     useEffect(() => {
         const fetchPaymentDetails = async () => {
@@ -68,10 +66,21 @@ const PaymentSuccess = () => {
             const paymentReference = params.get('paymentReference');
 
             if (paymentReference) {
-
-                const response = await getTransactionDetails(paymentReference);
-                setPaymentDetails(response.data.responseBody);
-                setPaymentDetailsApi(response.data);
+                try {
+                    const response = await getTransactionDetails(paymentReference);
+                    if (response.data.requestSuccessful) {
+                        setPaymentDetails(response.data.responseBody);
+                        setPaymentDetailsApi(response.data);
+                        setLoading(false);
+                    } else {
+                        setError(response.data.responseMessage || 'Error fetching payment details.');
+                        setLoading(false);
+                    }
+                } catch (err) {
+                    console.error('Error fetching transaction details:', err);
+                    setError('There was an error processing the request, Please try again later...');
+                    setLoading(false);
+                }
             } else {
                 setError('No payment reference found.');
                 setLoading(false);
@@ -88,7 +97,6 @@ const PaymentSuccess = () => {
     if (error) {
         return <div>{error}</div>;
     }
-
 
     return (
         <div>
