@@ -95,6 +95,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
+    window.location.reload();
   };
 
   return (

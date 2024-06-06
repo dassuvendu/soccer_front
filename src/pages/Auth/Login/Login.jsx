@@ -25,7 +25,7 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
     setOpenRegisterModal(true);
   };
 
-  const { message, isLoggedIn, error } = useSelector((state) => state.auth);
+  const { message, isLoggedIn, error, loading } = useSelector((state) => state.auth);
   const [errorMessage, setErrorMessage] = useState(null);
   const [errorMas, setErrorMas] = useState(null);
   const [tsr, setTsr] = useState("");
@@ -258,9 +258,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                     />
                     <>
                       {errors?.email?.message && (
-                        <h6 className="text-sm text-[red]">{`${"*"} ${
-                          errors.email.message
-                        }`}</h6>
+                        <h6 className="text-sm text-[red]">{`${"*"} ${errors.email.message
+                          }`}</h6>
                       )}
                     </>
                   </div>
@@ -279,9 +278,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                       })}
                     />
                     {errors?.password?.message && (
-                      <h6 className="text-sm text-[red]">{`${"*"} ${
-                        errors.password.message
-                      }`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${errors.password.message
+                        }`}</h6>
                     )}
                   </div>
                   <div className="text-[12px] text-black hover:text-[#639bba] mb-3 ml-2">
@@ -292,8 +290,8 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
                   {errorMas && (
                     <h6 className="text-sm text-[red]">{`${"*"} ${errorMas}`}</h6>
                   )}
-                  <Button className="create_character_btn w-full" type="submit">
-                    Login
+                  <Button className="create_character_btn w-full" type="submit" disabled={loading}>
+                    {loading ? "Wait ..." : "Login"}
                   </Button>
                 </form>
                 <p className="py-4">OR</p>

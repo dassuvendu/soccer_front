@@ -22,12 +22,12 @@ const PaymentSuccess = () => {
         return new URLSearchParams(search);
     };
 
-    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-    const baseURL = 'https://api.monnify.com/api/v1';
-    // const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
-    const apiKey = 'MK_PROD_DGWL4CGVAW';
-    // const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
-    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    // const baseURL = 'https://api.monnify.com/api/v1';
+    const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
+    // const apiKey = 'MK_PROD_DGWL4CGVAW';
+    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
+    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
 
     const api = axios.create({
         baseURL,
@@ -100,9 +100,8 @@ const PaymentSuccess = () => {
 
     return (
         <div>
-            <h1>Payment Successful</h1>
             {paymentDetails && (
-                <div>
+                <div className='text-center items-center'>
                     <p>Payment Reference: {paymentDetails.paymentReference}</p>
                     <p>Amount Paid: {paymentDetails.amountPaid}</p>
                     <p>Payment Status: {paymentDetails.paymentStatus}</p>
