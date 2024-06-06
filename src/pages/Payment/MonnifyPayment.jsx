@@ -12,14 +12,14 @@ const MonnifyPayment = ({ planId }) => {
 
     const [reference, setReference] = useState(`ref-${Math.floor(Math.random() * 1000000000)}`);
 
-    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-    // const baseURL = 'https://api.monnify.com/api/v1';
-    const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
-    // const apiKey = 'MK_PROD_DGWL4CGVAW';
-    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
-    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
-    const contractCode = '1931878869';  //test
-    // const contractCode = '819597383830';
+    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    const baseURL = 'https://api.monnify.com/api/v1';
+    // const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
+    const apiKey = 'MK_PROD_DGWL4CGVAW';
+    // const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
+    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    // const contractCode = '1931878869';  //test
+    const contractCode = '819597383830';
 
     const api = axios.create({
         baseURL,
@@ -75,7 +75,7 @@ const MonnifyPayment = ({ planId }) => {
 
     return (
         <div>
-            <h1>Initializing Subscription...</h1>
+            <h1 className='text-center items-center'>Initializing Subscription...</h1>
             <img src={logoIcon} alt="loading.." className="loader mb-4" />
         </div>
     );
