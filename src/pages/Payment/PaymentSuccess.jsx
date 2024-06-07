@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { monnifyPayment } from '../../reducers/paymentSlice';
 import { logoIcon } from '../../assets/images/images';
+import { subscriptionPlans } from '../../reducers/planSlice';
 
 const PaymentSuccess = () => {
     const dispatch = useDispatch();
@@ -22,12 +23,12 @@ const PaymentSuccess = () => {
         return new URLSearchParams(search);
     };
 
-    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-    const baseURL = 'https://api.monnify.com/api/v1';
-    // const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
-    const apiKey = 'MK_PROD_DGWL4CGVAW';
-    // const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
-    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    // const baseURL = 'https://api.monnify.com/api/v1';
+    const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
+    // const apiKey = 'MK_PROD_DGWL4CGVAW';
+    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
+    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
 
     const api = axios.create({
         baseURL,

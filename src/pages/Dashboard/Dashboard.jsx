@@ -94,7 +94,7 @@ const Dashboard = () => {
   const amountUSD = plansList[0]?.price;
   console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
-
+  console.log("plans--", plans)
   // const { profile } = useSelector((state) => state.profile);
   // console.log("profile", profile);
   const { email, user_id } = useSelector((state) => state.auth?.currentUser);
@@ -103,7 +103,7 @@ const Dashboard = () => {
   const UserId = JSON.parse(localStorage.getItem("userId"));
   console.log("id", UserId);
   const planId = plansList[0]?.id;
-  console.log("planId", planId)
+  console.log("planIdDashboard", planId)
 
   const [userId, setUserId] = useState(null);
   useEffect(() => {
@@ -275,7 +275,10 @@ const Dashboard = () => {
                 subscribed === "cancel" ? (
                 <div>
                   <div className="text-[#FF0000] font-medium text-base text-center">
-                    Please <button onClick={() => { choosePaymentHandler(); }}>SUBSCRIBE</button> for using our application
+                    Please <button onClick={() => {
+                      choosePaymentHandler();
+                      localStorage.setItem("planId", plans[0]?.id);
+                    }}>SUBSCRIBE</button> for using our application
                   </div>
                 </div>
               ) : (
