@@ -343,7 +343,7 @@ const authSlice = createSlice({
                     'isSubscribed',
                     JSON.stringify({ isSubscribed: subscription })
                 );
-                localStorage.setItem('userId', JSON.stringify({ user_id: user_id }));
+                localStorage.setItem('userId', user_id);
             })
 
             .addCase(googleSignIn.rejected, (state, { payload }) => {

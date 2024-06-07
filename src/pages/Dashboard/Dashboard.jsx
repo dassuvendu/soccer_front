@@ -229,7 +229,7 @@ const Dashboard = () => {
           profile?.details?.last_name === null
             ? "test"
             : profile?.details?.last_name,
-        firstName: profile?.details?.first_name,
+        firstName: profile?.details?.first_name === null ? "test" : profile?.details?.first_name,
         currency: "NGN",
         phoneNumber: "09025711530",
         address: "Zenith_Bank_Street",
