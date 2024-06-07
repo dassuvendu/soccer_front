@@ -4,9 +4,12 @@ import { TiTick } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { getOddsSlips } from "../../reducers/CookedSlipSlice";
 import { logoIcon } from "../../assets/images/images";
+import Login from "../Auth/Login/Login";
 
 export const PassedCookedSlip = () => {
   const [filterData, setFilterData] = useState([]);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
   const { oddsData, isLoading } = useSelector((state) => state.cookedSlips);
   const dispatch = useDispatch();
   const today = new Date();
@@ -20,7 +23,10 @@ export const PassedCookedSlip = () => {
   const filtered = oddsData?.filter((item) => item.passed === true);
   // setFilterData(filtered);
   console.log("filterData: ", filtered);
-
+  const loginHandler = () => {
+    setOpenRegisterModal(false);
+    setOpenLoginModal(true);
+  };
   const formatStartDate = (dateString) => {
     const options = {
       weekday: "short",
@@ -143,7 +149,10 @@ export const PassedCookedSlip = () => {
                       </div>
                     </div>
                     <div className="flex justify-between items-center mb-0">
-                      <button className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full">
+                      <button
+                        onClick={loginHandler}
+                        className="flex items-center text-[12px] leading-[32px] font-normal text-white bg-[#787878] hover:bg-[#153950] py-0 px-3 rounded-full"
+                      >
                         <FaEye className="text-base mr-1" />
                         View Slip Details
                       </button>
@@ -175,6 +184,10 @@ export const PassedCookedSlip = () => {
           )}
         </div>
       )}
+      <Login
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
     </div>
   );
 };
