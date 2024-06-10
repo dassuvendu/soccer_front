@@ -474,8 +474,11 @@ li.page{
   }
 
   .team_comparisions_tab_section ul.tab_bar li {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 25px;
+  }
+  .team_comparisions_tab_section ul.tab_bar {
+    display: inline-block;
   }
 }
 .loader {

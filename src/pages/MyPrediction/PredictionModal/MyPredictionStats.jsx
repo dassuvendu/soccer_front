@@ -75,10 +75,10 @@ export const MyPredictionStats = ({ isfixturesId }) => {
         <div>
           {lastResult?.data?.map((res) => (
             <div
-              className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
               key={res.id}
             >
-              <div className="text-center pt-10">
+              <div className="text-center md:pt-10">
                 <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
                   Outcome
                 </h4>
@@ -94,7 +94,7 @@ export const MyPredictionStats = ({ isfixturesId }) => {
                   {res?.predictions?.advice}
                 </p>
               </div>
-              <div className="text-center pt-10">
+              <div className="text-center md:pt-10">
                 <h4 className="font-Bebas text-xl tracking-normal text-black text-center mb-0 mt-4">
                   Over/Under
                 </h4>
@@ -105,10 +105,10 @@ export const MyPredictionStats = ({ isfixturesId }) => {
             </div>
           ))}
 
-          <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3">
             {lastResult?.data?.map((res) => (
               <>
-                <div className="text-center pt-10">
+                <div className="text-center md:pt-10">
                   <div className="flex justify-between px-4">
                     <div className="text-left">
                       <p className="text-base text-[#08a1f8] font-medium">
@@ -149,7 +149,7 @@ export const MyPredictionStats = ({ isfixturesId }) => {
                   </div>
                 </div>
 
-                <div className="text-center pt-10">
+                <div className="text-center md:pt-10">
                   <div className="flex justify-between px-4">
                     <div className="text-left">
                       <p className="text-base text-[#08a1f8] font-medium">

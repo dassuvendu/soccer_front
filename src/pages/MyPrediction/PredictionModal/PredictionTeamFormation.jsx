@@ -60,7 +60,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
                   {Hplayers?.map((data) => {
                     return (
                       <>
-                        <div className="text-center flex items-center">
+                        <div className="text-center md:flex items-center">
                           <img
                             src={data?.team?.logo}
                             alt={data?.team?.name?.slice(0,11)}
@@ -89,7 +89,7 @@ const TeamFormation = ({ Hplayers, Aplayers }) => {
 
                   {Aplayers?.map((data) => 
                       <>
-                        <div className="text-center flex items-center">
+                        <div className="text-center md:flex items-center">
                           <img
                             src={data?.team?.logo}
                             alt={data?.team?.name}

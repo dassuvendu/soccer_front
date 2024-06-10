@@ -266,9 +266,9 @@ export const PredictionRequestModal = ({
                                 {/* <h4 className="font-Bebas text-xl tracking-normal text-black mb-4">
                                   Last 5 matches
                                 </h4> */}
-                                <div className="flex justify-between items-center">
-                                  <div>
-                                    <ul className="flex items-center">
+                                <div className="md:flex justify-between items-center">
+                                  <div className="mb-4 md:mb-0">
+                                    <ul className="flex items-center justify-center">
                                       <li>
                                         <img
                                           src={homeData?.teams?.home?.logo}
@@ -316,7 +316,7 @@ export const PredictionRequestModal = ({
                                     </ul>
                                   </div>
                                   <div>
-                                    <ul className="flex items-center">
+                                    <ul className="flex items-center justify-center">
                                       {h2h?.map((res) => {
                                         const awayTeamId = res?.teams?.away?.id;
                                         const homeTeamId = res?.teams?.home?.id;

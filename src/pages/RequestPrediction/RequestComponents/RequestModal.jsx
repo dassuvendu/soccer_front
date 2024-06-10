@@ -297,7 +297,7 @@ export const RequestModal = ({
                                 </h4> */}
                                 <div className="md:flex justify-between items-center">
                                   <div className="mb-4 md:mb-0">
-                                    <ul className="flex items-center">
+                                    <ul className="flex items-center justify-center">
                                       <li>
                                         <img
                                           src={homeData?.teams?.home?.logo}
@@ -345,7 +345,7 @@ export const RequestModal = ({
                                     </ul>
                                   </div>
                                   <div>
-                                    <ul className="flex items-center">
+                                    <ul className="flex items-center justify-center">
                                       {h2h?.map((res) => {
                                         const awayTeamId = res?.teams?.away?.id;
                                         const homeTeamId = res?.teams?.home?.id;
