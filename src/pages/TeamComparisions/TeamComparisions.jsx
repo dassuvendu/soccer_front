@@ -191,7 +191,7 @@ const TeamComparisions = () => {
         >
           <div className="max-w-2xl mx-auto">
             <Tabs className="team_comparisions_tab_section">
-              <TabList className="tab_bar">
+              <TabList className="tab_bar w-full">
                 <Tab>Past Matches</Tab>
                 <Tab>Single Team Info</Tab>
               </TabList>

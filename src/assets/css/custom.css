@@ -480,7 +480,15 @@ li.page{
   .team_comparisions_tab_section ul.tab_bar {
     display: inline-block;
   }
+
+  .tab_section li {
+    font-size: 15px;
+  }
+
 }
+
+
+
 .loader {
   height: 50px;
   width: 50px;

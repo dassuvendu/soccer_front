@@ -176,7 +176,7 @@ const PastMatchModal = ({
               >
                 <div className="max-w-5xl mx-auto">
                   <Tabs className="team_comparisions_tab_section">
-                    <TabList className="tab_bar">
+                    <TabList className="tab_bar w-full">
                       <Tab>Prediction Statistics</Tab>
                     </TabList>
                     {!modalLoader && modalData ? (
