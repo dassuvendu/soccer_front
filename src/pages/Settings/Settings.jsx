@@ -749,7 +749,7 @@ const Settings = () => {
                     <h2 className="mb-8 text-xl font-bold text-[#2aa9e1]">
                       Choose one payment method{" "}
                     </h2>
-                    <button
+                    {/* <button
                       className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
                       onClick={() => {
                         createSubscription(planId, userId);
@@ -763,7 +763,7 @@ const Settings = () => {
                       />{" "}
                       Global Pay
                     </button>
-                    <p className="py-4 text-center">OR</p>
+                    <p className="py-4 text-center">OR</p> */}
                     <button
                       className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
                       onClick={() => {
