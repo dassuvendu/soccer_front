@@ -139,108 +139,108 @@ const Dashboard = () => {
   const amountNGN = convertUSDtoNGN(amountUSD);
   console.log("amountNGN", amountNGN);
 
-  useEffect(() => {
-    const fetchTransaction = async () => {
-      try {
-        const response = await axios.get(
-          `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${transactionReference}`,
-          {
-            headers: {
-              apiKey: apiKey, // or any other header key required by the API
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("responses", response);
-        if (response?.status === 200) {
-          console.log("inside");
-          if (response?.data?.data?.paymentStatus === "Successful") {
-            console.log("hello");
+  // useEffect(() => {
+  //   const fetchTransaction = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${transactionReference}`,
+  //         {
+  //           headers: {
+  //             apiKey: apiKey, // or any other header key required by the API
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+  //       console.log("responses", response);
+  //       if (response?.status === 200) {
+  //         console.log("inside");
+  //         if (response?.data?.data?.paymentStatus === "Successful") {
+  //           console.log("hello");
 
-            clearInterval(intervalId);
-            dispatch(
-              bankPaymentRedirect({
-                user_id: userId,
-                plan_id: planId,
-                data: {
-                  txnref: response?.data?.data?.txnref,
-                  merchantid: response?.data?.data?.merchantid,
-                  channel: response?.data?.data?.channel,
-                  amount: response?.data?.data?.amount,
-                  paymentDate: response?.data?.data?.paymentDate,
-                  paymentStatus: response?.data?.data?.paymentStatus,
-                  furtherProcessed: response?.data?.data?.furtherProcessed,
-                  processDate: response?.data?.data?.processDate,
-                  merchantTxnref: response?.data?.data?.merchantTxnref,
-                  inAmount: response?.data?.data?.inAmount,
-                  inCurrency: response?.data?.data?.inCurrency,
-                  rate: response?.data?.data?.rate,
-                  redirectUrl: response?.data?.data?.redirectUrl,
-                  transactionSource: response?.data?.data?.transactionSource,
-                  transactionChannel: response?.data?.data?.transactionChannel,
-                },
+  //           clearInterval(intervalId);
+  //           dispatch(
+  //             bankPaymentRedirect({
+  //               user_id: userId,
+  //               plan_id: planId,
+  //               data: {
+  //                 txnref: response?.data?.data?.txnref,
+  //                 merchantid: response?.data?.data?.merchantid,
+  //                 channel: response?.data?.data?.channel,
+  //                 amount: response?.data?.data?.amount,
+  //                 paymentDate: response?.data?.data?.paymentDate,
+  //                 paymentStatus: response?.data?.data?.paymentStatus,
+  //                 furtherProcessed: response?.data?.data?.furtherProcessed,
+  //                 processDate: response?.data?.data?.processDate,
+  //                 merchantTxnref: response?.data?.data?.merchantTxnref,
+  //                 inAmount: response?.data?.data?.inAmount,
+  //                 inCurrency: response?.data?.data?.inCurrency,
+  //                 rate: response?.data?.data?.rate,
+  //                 redirectUrl: response?.data?.data?.redirectUrl,
+  //                 transactionSource: response?.data?.data?.transactionSource,
+  //                 transactionChannel: response?.data?.data?.transactionChannel,
+  //               },
 
-                successMessage: response?.data?.data?.successMessage,
-                responseCode: response?.data?.data?.responseCode,
-                isSuccessful: response?.data?.data?.isSuccessful,
-                error: response?.data?.data?.error,
-              })
-            ).then(() => {
-              alert("Payment Successful");
-              localStorage.setItem("userToken", userToken);
-              navigate("/dashboard");
-              setTimeout(() => {
-                window.location.reload();
-              }, 1000);
-            });
-          }
-        } else {
-          console.error(response.data.message);
-        }
-      } catch (error) {
-        let errors = errorHandler(error);
-        console.error(errors);
-      }
-    };
+  //               successMessage: response?.data?.data?.successMessage,
+  //               responseCode: response?.data?.data?.responseCode,
+  //               isSuccessful: response?.data?.data?.isSuccessful,
+  //               error: response?.data?.data?.error,
+  //             })
+  //           ).then(() => {
+  //             alert("Payment Successful");
+  //             localStorage.setItem("userToken", userToken);
+  //             navigate("/dashboard");
+  //             setTimeout(() => {
+  //               window.location.reload();
+  //             }, 1000);
+  //           });
+  //         }
+  //       } else {
+  //         console.error(response.data.message);
+  //       }
+  //     } catch (error) {
+  //       let errors = errorHandler(error);
+  //       console.error(errors);
+  //     }
+  //   };
 
-    fetchTransaction();
-    const intervalId = setInterval(fetchTransaction, 2000);
+  //   fetchTransaction();
+  //   const intervalId = setInterval(fetchTransaction, 2000);
 
-    // Cleanup the interval on component unmount or when dependencies change
-    return () => clearInterval(intervalId);
-  }, [transactionReference, apiKey]);
+  //   // Cleanup the interval on component unmount or when dependencies change
+  //   return () => clearInterval(intervalId);
+  // }, [transactionReference, apiKey]);
 
-  const createSubscription = (planId) => {
-    setUserDetails(() => ({
-      ...userDetails,
-      plan_id: planId,
-    }));
-    const timestamp = new Date().getTime();
-    const mref = email + "test" + timestamp;
-    console.log("mref", mref);
+  // const createSubscription = (planId) => {
+  //   setUserDetails(() => ({
+  //     ...userDetails,
+  //     plan_id: planId,
+  //   }));
+  //   const timestamp = new Date().getTime();
+  //   const mref = email + "test" + timestamp;
+  //   console.log("mref", mref);
 
-    dispatch(
-      bankPayment({
-        amount: amountNGN,
-        secretKey: secretKey,
-        merchantTransactionReference: mref,
-        redirectUrl: redirectUrl,
-        lastName:
-          profile?.details?.last_name === null
-            ? "test"
-            : profile?.details?.last_name,
-        firstName: profile?.details?.first_name === null ? "test" : profile?.details?.first_name,
-        currency: "NGN",
-        phoneNumber: "09025711530",
-        address: "Zenith_Bank_Street",
-        emailAddress: email,
-      })
-    ).then((res) => {
-      console.log(res);
-    });
-    setShowPayment(true);
-    setShowSubscription(false);
-  };
+  //   dispatch(
+  //     bankPayment({
+  //       amount: amountNGN,
+  //       secretKey: secretKey,
+  //       merchantTransactionReference: mref,
+  //       redirectUrl: redirectUrl,
+  //       lastName:
+  //         profile?.details?.last_name === null
+  //           ? "test"
+  //           : profile?.details?.last_name,
+  //       firstName: profile?.details?.first_name === null ? "test" : profile?.details?.first_name,
+  //       currency: "NGN",
+  //       phoneNumber: "09025711530",
+  //       address: "Zenith_Bank_Street",
+  //       emailAddress: email,
+  //     })
+  //   ).then((res) => {
+  //     console.log(res);
+  //   });
+  //   setShowPayment(true);
+  //   setShowSubscription(false);
+  // };
 
   const createMonnifySubscription = () => {
     setShowMonnifyPayment(true);

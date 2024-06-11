@@ -117,143 +117,143 @@ const Plan = () => {
   const amountNGN = convertUSDtoNGN(amountUSD);
   console.log("amountNGN", amountNGN);
 
-  useEffect(() => {
-    const fetchTransaction = async () => {
-      try {
-        const response = await axios.get(
-          `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${transactionReference}`,
-          {
-            headers: {
-              apiKey: apiKey, // or any other header key required by the API
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("responses", response);
-        if (response?.status === 200) {
-          // console.log("aftersuccessful", response.data)
-          console.log("inside");
-          if (response?.data?.data?.paymentStatus === "Successful") {
-            console.log("hello");
-            // localStorage.setItem("txnref", response?.data?.data?.txnref)
-            // localStorage.setItem("merchantid", response?.data?.data?.merchantid)
-            // localStorage.setItem("channel", response?.data?.data?.channel)
-            // localStorage.setItem("amount", response?.data?.data?.amount)
-            // localStorage.setItem("paymentDate", response?.data?.data?.paymentDate)
-            // localStorage.setItem("paymentStatus", response?.data?.data?.paymentStatus)
-            // localStorage.setItem("furtherProcessed", response?.data?.data?.furtherProcessed)
-            // localStorage.setItem("processDate", response?.data?.data?.processDate)
-            // localStorage.setItem("merchantTxnref", response?.data?.data?.merchantTxnref)
-            // localStorage.setItem("inAmount", response?.data?.data?.inAmount)
-            // localStorage.setItem("inCurrency", response?.data?.data?.inCurrency)
-            // localStorage.setItem("rate", response?.data?.data?.rate)
-            // localStorage.setItem("redirectUrl", response?.data?.data?.redirectUrl)
-            // localStorage.setItem("transactionSource", response?.data?.data?.transactionSource)
-            // localStorage.setItem("transactionChannel", response?.data?.data?.transactionChannel)
-            // localStorage.setItem("successMessage", response?.data?.successMessage)
-            // localStorage.setItem("responseCode", response?.data?.responseCode)
-            // localStorage.setItem("isSuccessful", response?.data?.isSuccessful)
-            // localStorage.setItem("error", response?.data?.error)
+  // useEffect(() => {
+  //   const fetchTransaction = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://paygw.globalpay.com.ng/globalpay-paymentgateway/api/paymentgateway/query-single-transaction/${transactionReference}`,
+  //         {
+  //           headers: {
+  //             apiKey: apiKey, // or any other header key required by the API
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+  //       console.log("responses", response);
+  //       if (response?.status === 200) {
+  //         // console.log("aftersuccessful", response.data)
+  //         console.log("inside");
+  //         if (response?.data?.data?.paymentStatus === "Successful") {
+  //           console.log("hello");
+  //           // localStorage.setItem("txnref", response?.data?.data?.txnref)
+  //           // localStorage.setItem("merchantid", response?.data?.data?.merchantid)
+  //           // localStorage.setItem("channel", response?.data?.data?.channel)
+  //           // localStorage.setItem("amount", response?.data?.data?.amount)
+  //           // localStorage.setItem("paymentDate", response?.data?.data?.paymentDate)
+  //           // localStorage.setItem("paymentStatus", response?.data?.data?.paymentStatus)
+  //           // localStorage.setItem("furtherProcessed", response?.data?.data?.furtherProcessed)
+  //           // localStorage.setItem("processDate", response?.data?.data?.processDate)
+  //           // localStorage.setItem("merchantTxnref", response?.data?.data?.merchantTxnref)
+  //           // localStorage.setItem("inAmount", response?.data?.data?.inAmount)
+  //           // localStorage.setItem("inCurrency", response?.data?.data?.inCurrency)
+  //           // localStorage.setItem("rate", response?.data?.data?.rate)
+  //           // localStorage.setItem("redirectUrl", response?.data?.data?.redirectUrl)
+  //           // localStorage.setItem("transactionSource", response?.data?.data?.transactionSource)
+  //           // localStorage.setItem("transactionChannel", response?.data?.data?.transactionChannel)
+  //           // localStorage.setItem("successMessage", response?.data?.successMessage)
+  //           // localStorage.setItem("responseCode", response?.data?.responseCode)
+  //           // localStorage.setItem("isSuccessful", response?.data?.isSuccessful)
+  //           // localStorage.setItem("error", response?.data?.error)
 
-            clearInterval(intervalId);
-            dispatch(
-              bankPaymentRedirect({
-                user_id: UserId,
-                plan_id: planId,
-                data: {
-                  txnref: response?.data?.data?.txnref,
-                  merchantid: response?.data?.data?.merchantid,
-                  channel: response?.data?.data?.channel,
-                  amount: response?.data?.data?.amount,
-                  paymentDate: response?.data?.data?.paymentDate,
-                  paymentStatus: response?.data?.data?.paymentStatus,
-                  furtherProcessed: response?.data?.data?.furtherProcessed,
-                  processDate: response?.data?.data?.processDate,
-                  merchantTxnref: response?.data?.data?.merchantTxnref,
-                  inAmount: response?.data?.data?.inAmount,
-                  inCurrency: response?.data?.data?.inCurrency,
-                  rate: response?.data?.data?.rate,
-                  redirectUrl: response?.data?.data?.redirectUrl,
-                  transactionSource: response?.data?.data?.transactionSource,
-                  transactionChannel: response?.data?.data?.transactionChannel,
-                },
+  //           clearInterval(intervalId);
+  //           dispatch(
+  //             bankPaymentRedirect({
+  //               user_id: UserId,
+  //               plan_id: planId,
+  //               data: {
+  //                 txnref: response?.data?.data?.txnref,
+  //                 merchantid: response?.data?.data?.merchantid,
+  //                 channel: response?.data?.data?.channel,
+  //                 amount: response?.data?.data?.amount,
+  //                 paymentDate: response?.data?.data?.paymentDate,
+  //                 paymentStatus: response?.data?.data?.paymentStatus,
+  //                 furtherProcessed: response?.data?.data?.furtherProcessed,
+  //                 processDate: response?.data?.data?.processDate,
+  //                 merchantTxnref: response?.data?.data?.merchantTxnref,
+  //                 inAmount: response?.data?.data?.inAmount,
+  //                 inCurrency: response?.data?.data?.inCurrency,
+  //                 rate: response?.data?.data?.rate,
+  //                 redirectUrl: response?.data?.data?.redirectUrl,
+  //                 transactionSource: response?.data?.data?.transactionSource,
+  //                 transactionChannel: response?.data?.data?.transactionChannel,
+  //               },
 
-                successMessage: response?.data?.data?.successMessage,
-                responseCode: response?.data?.data?.responseCode,
-                isSuccessful: response?.data?.data?.isSuccessful,
-                error: response?.data?.data?.error,
-              })
-            ).then(() => {
-              alert("Payment Successful");
-              localStorage.setItem("userToken", userToken);
-              navigate("/dashboard");
-              setTimeout(() => {
-                window.location.reload();
-              }, 1000);
-            });
-            // console.log("modal_status", openLoginModal);
-            // setOpenLoginModal(true);
-            // console.log("modal_status2", openLoginModal);
+  //               successMessage: response?.data?.data?.successMessage,
+  //               responseCode: response?.data?.data?.responseCode,
+  //               isSuccessful: response?.data?.data?.isSuccessful,
+  //               error: response?.data?.data?.error,
+  //             })
+  //           ).then(() => {
+  //             alert("Payment Successful");
+  //             localStorage.setItem("userToken", userToken);
+  //             navigate("/dashboard");
+  //             setTimeout(() => {
+  //               window.location.reload();
+  //             }, 1000);
+  //           });
+  //           // console.log("modal_status", openLoginModal);
+  //           // setOpenLoginModal(true);
+  //           // console.log("modal_status2", openLoginModal);
 
-            // navigate('/payment-redirect')
-          }
-        } else {
-          console.error(response.data.message);
-        }
-      } catch (error) {
-        let errors = errorHandler(error);
-        console.error(errors);
-      }
-    };
+  //           // navigate('/payment-redirect')
+  //         }
+  //       } else {
+  //         console.error(response.data.message);
+  //       }
+  //     } catch (error) {
+  //       let errors = errorHandler(error);
+  //       console.error(errors);
+  //     }
+  //   };
 
-    fetchTransaction();
-    const intervalId = setInterval(fetchTransaction, 2000);
+  //   fetchTransaction();
+  //   const intervalId = setInterval(fetchTransaction, 2000);
 
-    // Cleanup the interval on component unmount or when dependencies change
-    return () => clearInterval(intervalId);
-  }, [transactionReference, apiKey]);
+  //   // Cleanup the interval on component unmount or when dependencies change
+  //   return () => clearInterval(intervalId);
+  // }, [transactionReference, apiKey]);
 
-  const createSubscription = (planId) => {
-    setUserDetails(() => ({
-      ...userDetails,
-      plan_id: planId,
-    }));
-    // dispatch(stripePlanKeys());
-    const timestamp = new Date().getTime();
-    const mref = email + "test" + timestamp;
-    console.log("mref", mref);
-    console.log("first_name_fun", first_name);
-    console.log("last_name_fun", last_name);
-    // const firstName = first_name.split(" ").firstName[0]
-    // const lastName = first_name.split(" ").firstName[1]
-    // console.log('firstName', firstName);
-    // console.log('lastName', lastName);
-    dispatch(
-      // stripePayment({
-      //   plan_id: planId,
-      //   user_id: UserId,
-      //   entity: "payment_intent",
-      // })
-      bankPayment({
-        // amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
-        amount: amountNGN,
-        secretKey: secretKey,
-        merchantTransactionReference: mref,
-        redirectUrl: redirectUrl,
-        lastName: last_name === null ? "test" : last_name,
-        firstName: first_name,
-        currency: "NGN",
-        phoneNumber: "09025711530",
-        address: "Zenith_Bank_Street",
-        emailAddress: email,
-      })
-    ).then((res) => {
-      console.log(res);
-      // navigate(`${paymentLink}`)
-    });
-    setShowPayment(true);
-    setShowSubscription(false);
-  };
+  // const createSubscription = (planId) => {
+  //   setUserDetails(() => ({
+  //     ...userDetails,
+  //     plan_id: planId,
+  //   }));
+  //   // dispatch(stripePlanKeys());
+  //   const timestamp = new Date().getTime();
+  //   const mref = email + "test" + timestamp;
+  //   console.log("mref", mref);
+  //   console.log("first_name_fun", first_name);
+  //   console.log("last_name_fun", last_name);
+  //   // const firstName = first_name.split(" ").firstName[0]
+  //   // const lastName = first_name.split(" ").firstName[1]
+  //   // console.log('firstName', firstName);
+  //   // console.log('lastName', lastName);
+  //   dispatch(
+  //     // stripePayment({
+  //     //   plan_id: planId,
+  //     //   user_id: UserId,
+  //     //   entity: "payment_intent",
+  //     // })
+  //     bankPayment({
+  //       // amount: planId === 1 ? plansList[0]?.price : plansList[1]?.price,
+  //       amount: amountNGN,
+  //       secretKey: secretKey,
+  //       merchantTransactionReference: mref,
+  //       redirectUrl: redirectUrl,
+  //       lastName: last_name === null ? "test" : last_name,
+  //       firstName: first_name,
+  //       currency: "NGN",
+  //       phoneNumber: "09025711530",
+  //       address: "Zenith_Bank_Street",
+  //       emailAddress: email,
+  //     })
+  //   ).then((res) => {
+  //     console.log(res);
+  //     // navigate(`${paymentLink}`)
+  //   });
+  //   setShowPayment(true);
+  //   setShowSubscription(false);
+  // };
 
   const createMonnifySubscription = () => {
     setShowMonnifyPayment(true);
