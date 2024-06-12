@@ -12,7 +12,7 @@ const Header = () => {
       <Navbar fluid rounded>
         <Navbar.Brand>
           <Link to="/">
-            <img src={logo} className="w-56" />
+            <img src={logo} alt="logo" className="w-56" />
           </Link>
         </Navbar.Brand>
         <div className="relative flex md:order-2">

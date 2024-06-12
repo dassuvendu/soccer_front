@@ -52,9 +52,9 @@ const SoccerPrediction = () => {
       <div className="max-w-7xl mx-auto">
         <div>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-white">
+            <h1 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-white">
               Lifetime Statistics
-            </h2>
+            </h1>
             <p className="text-center text-white pb-8">
               Football lovers all around the world use PlayCope to generate
               prediction for games they love

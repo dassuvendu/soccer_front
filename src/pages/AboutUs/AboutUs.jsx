@@ -1,17 +1,21 @@
 import React from "react";
 import { bannerImgTwo } from "../../assets/images/images";
-
+import { Helmet, HelmetProvider } from "react-helmet-async";
 const AboutUs = () => {
   return (
     <>
+      <Helmet>
+        <title>Playcope - About Us</title>
+        <meta name="description" content="About Us" />
+      </Helmet>
       <div className="py-10 lg:py-12 px-8 lg:px-0">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto mb-8">
-            <img src={bannerImgTwo} alt="" />
+            <img src={bannerImgTwo} alt="bannerImgTwo" />
           </div>
-          <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
+          <h1 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
             About Us
-          </h2>
+          </h1>
           <p className="pb-4">
             Welcome to PLAYCOPE LTD, where passion for football meets the power
             of artificial intelligence. Founded by a team of avid football fans

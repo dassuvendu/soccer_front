@@ -1,17 +1,22 @@
 import React from "react";
 import { bannerImgFour } from "../../assets/images/images";
+import { Helmet } from "react-helmet";
 
 const RefundCancellationPolicy = () => {
   return (
     <>
+      <Helmet>
+        <title>Playcope - Refund Cancellation Policy</title>
+        <meta name="description" content="Refund Cancellation Policy" />
+      </Helmet>
       <div className="py-10 lg:py-12 px-8 lg:px-0">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto mb-8">
-            <img src={bannerImgFour} alt="" />
+            <img src={bannerImgFour} alt="bannerImgFour" />
           </div>
-          <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
+          <h1 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
             Refund Cancellation Policy
-          </h2>
+          </h1>
           <div className="mb-4">
             <p className="font-bold pb-2">CANCELLATION POLICY</p>
             <p className="pb-2">

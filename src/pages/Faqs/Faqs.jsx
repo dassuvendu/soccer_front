@@ -1,18 +1,23 @@
 import React from "react";
 import { Accordion } from "flowbite-react";
 import { bannerImgOne, bannerImgTwo } from "../../assets/images/images";
+import { Helmet } from "react-helmet";
 
 const faqs = () => {
   return (
     <>
+      <Helmet>
+        <title>Playcope - Faqs</title>
+        <meta name="description" content="Faqs" />
+      </Helmet>
       <div className="py-10 lg:py-12 px-8 lg:px-0">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto mb-8">
-            <img src={bannerImgOne} alt="" />
+            <img src={bannerImgOne} alt="bannerImgOne" />
           </div>
-          <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
+          <h1 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
             Faqs
-          </h2>
+          </h1>
           <Accordion collapseAll>
             <Accordion.Panel>
               <Accordion.Title className="bg-[#2aa9e1] hover:bg-[#191922] text-white">

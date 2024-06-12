@@ -1,17 +1,22 @@
 import React from "react";
 import { bannerImgThree } from "../../assets/images/images";
+import { Helmet } from "react-helmet";
 
 const DataProtectionPolicy = () => {
   return (
     <>
+      <Helmet>
+        <title>Playcope - Data Protection Policy</title>
+        <meta name="description" content="Data Protection Policy" />
+      </Helmet>
       <div className="py-10 lg:py-12 px-8 lg:px-0">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto mb-8">
-            <img src={bannerImgThree} alt="" />
+            <img src={bannerImgThree} alt="bannerImgThree" />
           </div>
-          <h2 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
+          <h1 className="font-Bebas text-4xl md:text-5xl tracking-normal text-center mb-4 text-[#232a34]">
             PLAYCOPE LTD DATA PROTECTION POLICY
-          </h2>
+          </h1>
           <div className="mb-4">
             <p className="font-bold pb-2">1. Introduction</p>
             <p>
