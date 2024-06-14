@@ -117,6 +117,24 @@ export const monnifyPayment = createAsyncThunk(
     }
 );
 
+export const payStackPayment = createAsyncThunk(
+    'user/payStack-payment',
+    async (entity, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/payment-complete-paystack', entity);
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
 
 
 const initialState = {
@@ -264,6 +282,25 @@ const PaymentSlice = createSlice({
                         : 'Something went wrong. Try again later.';
             })
             .addCase(monnifyPayment.rejected, (state, { payload }) => {
+                state.loading = false;
+                state.error = true;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(payStackPayment.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(payStackPayment.fulfilled, (state, { payload }) => {
+                state.loading = false
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(payStackPayment.rejected, (state, { payload }) => {
                 state.loading = false;
                 state.error = true;
                 state.message =

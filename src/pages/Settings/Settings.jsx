@@ -11,6 +11,7 @@ import {
   global_pay_icon,
   inviteIcon,
   monnify_icon,
+  paystack_icon,
   planIcon,
   requestPredictionBanner,
   settingBanner,
@@ -37,6 +38,7 @@ import errorHandler from "../../store/errorHandler";
 import Login from "../Auth/Login/Login";
 import MonnifyPayment from "../Payment/MonnifyPayment";
 import Payment from "../Payment/Payment";
+import PayStackPayment from "../Payment/PayStackPayment";
 
 const Settings = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -148,6 +150,7 @@ const Settings = () => {
   const [showSubscription, setShowSubscription] = useState(true);
   const [showPayment, setShowPayment] = useState(false);
   const [showMonnifyPayment, setShowMonnifyPayment] = useState(false);
+  const [showPayStackPayment, setShowPayStackPayment] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: null,
     user_id: profile?.details?.id,
@@ -282,6 +285,11 @@ const Settings = () => {
     setShowSubscription(false);
   };
 
+  const createPayStackSubscription = () => {
+    setShowPayStackPayment(true);
+    setShowSubscription(false);
+  };
+
   useEffect(() => {
     dispatch(subscriptionPlans()).then(() => {
       setUserDetails({
@@ -298,7 +306,7 @@ const Settings = () => {
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4 mb-0">
-        {!showPayment && !showMonnifyPayment && (
+        {!showPayment && !showMonnifyPayment && !showPayStackPayment && (
           <>
             <div className="flex justify-between mb-8">
               <h1
@@ -720,6 +728,14 @@ const Settings = () => {
           />
         )}
 
+        {showPayStackPayment && (
+          <PayStackPayment
+            planId={planId}
+            email={userDetails.email}
+            user_id={user_id}
+          />
+        )}
+
         {openLoginModal && (
           <Login
             openLoginModal={openLoginModal}
@@ -777,6 +793,21 @@ const Settings = () => {
                         className="mr-1"
                       />{" "}
                       Monnify
+                    </button>
+                    <p className="py-4 text-center">OR</p>
+                    <button
+                      className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
+                      onClick={() => {
+                        createPayStackSubscription(planId, userId);
+                        setOpenChoosePaymentModal(false);
+                      }}
+                    >
+                      <img
+                        src={paystack_icon}
+                        alt="payStack_icon"
+                        className="mr-2 w-6 py-1"
+                      />{" "}
+                      PayStack
                     </button>
                   </div>
                 </div>
