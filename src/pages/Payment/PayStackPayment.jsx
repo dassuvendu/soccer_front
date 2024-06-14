@@ -43,7 +43,7 @@ const PayStackPayment = () => {
     };
 
     const handleSuccess = async (reference) => {
-        console.log("Payment successful, reference:", reference);
+        // console.log("Payment successful, reference:", reference);
 
         try {
             const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference.reference}`, {
@@ -51,8 +51,7 @@ const PayStackPayment = () => {
                     Authorization: `Bearer ${secretKey}`
                 }
             });
-            console.log("Transaction details: response", response)
-            console.log("Transaction details:", response.data);
+            // console.log("Transaction details: response", response)
 
             const payStackPaymentSuccess = dispatch(payStackPayment({
                 "user_id": UserId,
