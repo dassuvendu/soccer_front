@@ -26,7 +26,7 @@ export const PastMatch = () => {
   const [homeLoader, setHomeLoader] = useState(true);
 
   useEffect(() => {
-    dispatch(getPastFixtures({ date: yesterdayFormatted })).then((res) => {
+    dispatch(getPastFixtures({ last: 50 })).then((res) => {
       // console.log("res", res);
       if (res?.payload?.status === true) {
         setLoadingData(true);
