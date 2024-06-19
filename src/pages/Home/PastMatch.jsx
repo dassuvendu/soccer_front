@@ -102,7 +102,7 @@ export const PastMatch = () => {
                           Friendlies | {formatDay(data?.fixture?.timestamp)},
                         </p>
                         <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                          {formatDate(data?.fixture?.timestamp)}
+                          {formatDate(data?.fixture?.timestamp)} UTC
                         </p>
                       </div>
                     </div>
