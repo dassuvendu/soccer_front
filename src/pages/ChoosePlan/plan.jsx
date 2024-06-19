@@ -9,6 +9,7 @@ import {
   bannerImgTwo,
   global_pay_icon,
   monnify_icon,
+  paystack_icon,
   planIcon,
 } from "../../assets/images/images";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,7 @@ import { AiOutlineLogin } from "react-icons/ai";
 import { IoRadioButtonOnSharp } from "react-icons/io5";
 import MonnifyPayment from "../Payment/MonnifyPayment";
 import { FaCircle } from "react-icons/fa";
+import PayStackPayment from "../Payment/PayStackPayment";
 
 const Plan = () => {
   const dispatch = useDispatch();
@@ -81,6 +83,7 @@ const Plan = () => {
   const [showSubscription, setShowSubscription] = useState(true);
   const [showPayment, setShowPayment] = useState(false);
   const [showMonnifyPayment, setShowMonnifyPayment] = useState(false);
+  const [showPayStackPayment, setShowPayStackPayment] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: null,
     user_id: profile?.details?.id,
@@ -260,6 +263,12 @@ const Plan = () => {
     setShowSubscription(false);
   };
 
+  const createPayStackSubscription = () => {
+    setShowPayStackPayment(true);
+    setShowSubscription(false);
+  };
+
+
   useEffect(() => {
     dispatch(subscriptionPlans()).then(() => {
       setUserDetails({
@@ -380,6 +389,14 @@ const Plan = () => {
         />
       )}
 
+      {showPayStackPayment && (
+        <PayStackPayment
+          planId={planId}
+          email={userDetails.email}
+          user_id={user_id}
+        />
+      )}
+
       {openLoginModal && (
         <Login
           openLoginModal={openLoginModal}
@@ -437,6 +454,21 @@ const Plan = () => {
                       className="mr-1"
                     />{" "}
                     Monnify
+                  </button>
+                  <p className="py-4 text-center">OR</p>
+                  <button
+                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
+                    onClick={() => {
+                      createPayStackSubscription(planId, userId);
+                      setOpenChoosePaymentModal(false);
+                    }}
+                  >
+                    <img
+                      src={paystack_icon}
+                      alt="payStack_icon"
+                      className="mr-2 w-6 py-1"
+                    />{" "}
+                    PayStack
                   </button>
                 </div>
               </div>

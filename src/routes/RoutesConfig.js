@@ -37,6 +37,7 @@ import GoogleRedirect from '../pages/GoogleRedirect.jsx/GoogleRedirect.jsx';
 import { Referral } from '../pages/Referral/Referral.jsx';
 import ContactUs from '../pages/ContactUs/ContactUs.jsx';
 import PaymentSuccess from '../pages/Payment/PaymentSuccess.jsx';
+import PayStackPayment from '../pages/Payment/PayStackPayment.jsx';
 
 
 const allRoutes = [

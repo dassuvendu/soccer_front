@@ -63,10 +63,12 @@ import earnIcon from "../imagesource/earn.png";
 
 import global_pay_icon from "../imagesource/global_pay_icon.png";
 import monnify_icon from "../imagesource/monnify_icon.png";
+import paystack_icon from "../imagesource/paystack.png";
 
 export {
   global_pay_icon,
   monnify_icon,
+  paystack_icon,
   bannerImgFive,
   inviteIcon,
   earnIcon,
