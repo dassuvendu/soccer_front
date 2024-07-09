@@ -49,7 +49,7 @@ export const UpcomingMatch = () => {
   };
 
   useEffect(() => {
-    dispatch(getFixtures({ date: todayFormatted })).then((res) => {
+    dispatch(getFixtures({ next: 6, status: "NS" })).then((res) => {
       if (res?.payload?.status === true) {
         setLoadingData(true);
         setHomeLoader(false);
@@ -58,7 +58,7 @@ export const UpcomingMatch = () => {
         setHomeLoader(true);
       }
     });
-  }, [todayFormatted]);
+  }, []);
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
@@ -99,7 +99,7 @@ export const UpcomingMatch = () => {
                       {formatDate(data?.fixture?.timestamp)}
                     </p>
                     <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                      {formatTime(data?.fixture?.timestamp)}
+                      {formatTime(data?.fixture?.timestamp)} UTC
                     </p>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ export const UpcomingMatch = () => {
                             {formatDate(data?.fixture?.timestamp)}
                           </p>
                           <span className=" text-black font-medium  text-[12px] leading-[16px] font-Montserrat inline-block px-0">
-                            <b>{formatTime(data?.fixture?.timestamp)}</b>
+                            <b>{formatTime(data?.fixture?.timestamp)} UTC</b>
                           </span>
                         </div>
                       </div>

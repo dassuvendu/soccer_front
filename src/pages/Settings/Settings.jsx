@@ -108,7 +108,9 @@ const Settings = () => {
     }
   }, [profile]);
 
-  const subscribed = JSON.parse(localStorage.getItem("isSubscribed"))?.isSubscribed;
+  const subscribed = JSON.parse(
+    localStorage.getItem("isSubscribed")
+  )?.isSubscribed;
   console.log("subscribed", subscribed);
 
   const [openChoosePaymentModal, setOpenChoosePaymentModal] = useState(false);
@@ -157,7 +159,13 @@ const Settings = () => {
     plan_id: null,
   });
 
-  const { secretKey, paymentLink, transactionReference, apiKey, redirectResponse } = useSelector((state) => state.payment);
+  const {
+    secretKey,
+    paymentLink,
+    transactionReference,
+    apiKey,
+    redirectResponse,
+  } = useSelector((state) => state.payment);
 
   useEffect(() => {
     dispatch(bankPlanKeys());
@@ -310,8 +318,9 @@ const Settings = () => {
           <>
             <div className="flex justify-between mb-8">
               <h1
-                className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                  } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                className={`${
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
               >
                 Settings
               </h1>
@@ -357,22 +366,25 @@ const Settings = () => {
             {/* Setting edit section start here */}
             <div className="md:flex mb-6">
               <div
-                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-medium`}
+                    className={`text-[20px]  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-medium`}
                   >
                     Overview
                   </h3>
                   <button onClick={updateHandler}>
                     <AiFillEdit
-                      className={`${themeMode === "light"
-                        ? "text-[#2aa9e1] hover:text-black"
-                        : "text-white"
-                        } text-[28px] hover:text-[#2aa9e1]`}
+                      className={`${
+                        themeMode === "light"
+                          ? "text-[#2aa9e1] hover:text-black"
+                          : "text-white"
+                      } text-[28px] hover:text-[#2aa9e1]`}
                     />
                   </button>
                 </div>
@@ -386,8 +398,9 @@ const Settings = () => {
                   </div>
                   <div>
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[19px] leading-[20px] text-medium`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[19px] leading-[20px] text-medium`}
                     >
                       {profile?.details?.first_name}
                     </p>
@@ -408,28 +421,32 @@ const Settings = () => {
                 <div>
                   <div className="flex pb-4 mb-4 border-b border-[#DCDCDC]">
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-medium w-4/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-medium w-4/12`}
                     >
                       Contact phone
                     </div>
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-normal w-8/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-normal w-8/12`}
                     >
                       {profile?.details?.mobile}
                     </div>
                   </div>
                   <div className="flex mb-4 border-b border-[#DCDCDC] pb-4">
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-medium w-4/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-medium w-4/12`}
                     >
                       {/* Address */}Gender
                     </div>
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-normal w-8/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-normal w-8/12`}
                     >
                       {/* 23 Main Street, Anytown, USA 12345 */}
                       {profile?.details?.gender}
@@ -484,21 +501,24 @@ const Settings = () => {
                 </div>
               </div>
               <div
-                className={`w-full md:w-7/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
+                className={`w-full md:w-7/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-medium`}
+                    className={`text-[20px]  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-medium`}
                   >
-                    Signin Methos
+                    Sign In Methods
                   </h3>
                 </div>
                 <div className="border-b border-[#DCDCDC] pb-3 pt-0 mb-3">
                   <p
-                    className={`${themeMode === "light" ? "text-black" : "text-white"
-                      } text-[15px] text-normal pb-0`}
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } text-[15px] text-normal pb-0`}
                   >
                     Email Address
                   </p>
@@ -509,8 +529,9 @@ const Settings = () => {
                 <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
                   <div className="w-7/12 lg:w-9/12">
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[15px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[15px] text-normal pb-0`}
                     >
                       Password
                     </p>
@@ -534,16 +555,18 @@ const Settings = () => {
                 <div className="mt-4 rounded-md p-4 flex justify-between items-center">
                   <div className="flex">
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[17px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[17px] text-normal pb-0`}
                     >
                       Number of referrals :
                     </p>
                   </div>
                   <div>
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[17px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[17px] text-normal pb-0`}
                     >
                       {refCount}
                     </p>
@@ -554,8 +577,9 @@ const Settings = () => {
 
             <div className="md:flex pb-10">
               <div
-                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 shadow-xl`}
               >
                 <h3 className="text-[20px]  text-[#2aa9e1] font-medium text-center pb-2">
                   Refer Friends And Earn 20% Commission
@@ -603,8 +627,8 @@ const Settings = () => {
                 </div>
               </div>
               {subscribed === null ||
-                subscribed === undefined ||
-                subscribed === "cancel" ? (
+              subscribed === undefined ||
+              subscribed === "cancel" ? (
                 <div className="w-full md:ml-4 md:w-7/12 mt-4 md:mt-0">
                   <div className="choose_your_plan_section pb-0">
                     <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">

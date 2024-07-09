@@ -59,7 +59,7 @@ export const RequestModal = ({
   //     })
   //       if (uuid !== valid?.data) {
   //           dispatch(logout())
-  //           navigate('/') 
+  //           navigate('/')
   //       }
   //   },5000);
   //   return () => clearTimeout(timer);
@@ -211,7 +211,7 @@ export const RequestModal = ({
                           themeMode === "light" ? "text-black" : "text-white"
                         }`}
                       >
-                        {formatTime(timeStamp)}
+                        {formatTime(timeStamp)} UTC
                       </h3>
                     </div>
                   </div>
@@ -264,7 +264,10 @@ export const RequestModal = ({
                                     Home History
                                   </h4>
                                   {h2h?.map((goal) => (
-                                    <div className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3" key={goal?.id}>
+                                    <div
+                                      className="grid grid-cols-3 gap-4 mb-4 border-b border-gray-300 py-3"
+                                      key={goal?.id}
+                                    >
                                       <div className="text-center">
                                         <img
                                           src={goal?.teams?.home?.logo}

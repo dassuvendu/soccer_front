@@ -30,21 +30,21 @@ const RequestPredictionList = ({ errorMessage }) => {
 
   const dispatch = useDispatch();
 
-  const uuid = localStorage.getItem('uuid')
-  const navigate = useNavigate()
+  const uuid = localStorage.getItem("uuid");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUid({}))
-  },[dispatch])
+    dispatch(getUid({}));
+  }, [dispatch]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
-        if (uuid !== valid?.data) {
-            dispatch(logout())
-            navigate('/') 
-        }
-    },5000);
+      dispatch(getUid({}));
+      if (uuid !== valid?.data) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }, 5000);
     return () => clearTimeout(timer);
   }, [valid, uuid, dispatch]);
 
@@ -83,16 +83,13 @@ const RequestPredictionList = ({ errorMessage }) => {
     }
   }, [errorMessage]);
 
-
-
   useEffect(() => {
     dispatch(getFixtures({ date: changeDateformate })).then((res) => {
       if (res?.payload?.status === true) {
-        setError(false)
+        setError(false);
       } else {
-        setError(true)
+        setError(true);
       }
-      
     });
   }, [dispatch]);
 
@@ -100,10 +97,12 @@ const RequestPredictionList = ({ errorMessage }) => {
   const itemsPerPage = 9;
   const [searchPage, setSearchPage] = useState(null);
 
-  const currentItems = Array.isArray(fixtures?.data) && fixtures?.data?.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const currentItems =
+    Array.isArray(fixtures?.data) &&
+    fixtures?.data?.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
   const isDataFound = currentItems && currentItems.length > 0;
 
   const totalPages = fixtures?.data
@@ -217,7 +216,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                             {formatDate(dat?.fixture?.timestamp)}
                           </p>
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                            {formatTime(dat?.fixture?.timestamp)}
+                            {formatTime(dat?.fixture?.timestamp)} UTC
                           </p>
                         </div>
                       </div>
@@ -244,7 +243,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                                   : "text-white"
                               }`}
                             >
-                              {dat?.teams?.home?.name?.slice(0,16)}
+                              {dat?.teams?.home?.name?.slice(0, 16)}
                             </p>
                           </div>
                           <div className="flex justify-center items-center">
@@ -291,7 +290,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                                   : "text-white"
                               }`}
                             >
-                              {dat?.teams?.away?.name?.slice(0,16)}
+                              {dat?.teams?.away?.name?.slice(0, 16)}
                             </p>
                           </div>
                         </div>
@@ -389,7 +388,7 @@ const RequestPredictionList = ({ errorMessage }) => {
             <div className="md:flex justify-between items-center">
               <div className="md:mr-[30px] mb-2 md:mb-0 flex justify-center items-center">
                 <ul className="flex">
-                  <li className='page'>
+                  <li className="page">
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] 
                       flex justify-center items-center rounded-full text-[12px] text-white"
@@ -400,7 +399,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                     </Button>
                   </li>
 
-                  <li className='page'>
+                  <li className="page">
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() =>
@@ -410,11 +409,11 @@ const RequestPredictionList = ({ errorMessage }) => {
                     >
                       <BsChevronLeft />
                     </Button>
-                  </li >
+                  </li>
 
                   {hide &&
                     pageNumbers.slice(0, 5).map((pageNumber) => (
-                      <li key={pageNumber} className='page'>
+                      <li key={pageNumber} className="page">
                         <Link
                           className={`mr-1 w-[32px] h-[32px] hover:bg-[#0863ea] border border-white hover:border-[#0053CD] 
                         flex justify-center items-center rounded-full text-[12px] text-white focus:bg-[#0053CD]
@@ -431,7 +430,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                       </li>
                     ))}
 
-                  <li className='page'>
+                  <li className="page">
                     {isDataFound && (
                       <Button
                         className="mr-1 w-[32px] h-[32px] bg-black 
@@ -446,7 +445,7 @@ const RequestPredictionList = ({ errorMessage }) => {
                     )}
                   </li>
 
-                  <li className='page'>
+                  <li className="page">
                     <Button
                       className="mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] active:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white"
                       onClick={() => setCurrentPage(totalPages)}

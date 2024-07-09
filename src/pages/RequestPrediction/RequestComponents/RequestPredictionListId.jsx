@@ -10,47 +10,43 @@ import {
   BsChevronLeft,
   BsChevronRight,
 } from "react-icons/bs";
-import {
-  getFixtures,
-  getleagueByid,
-} from "../../../reducers/PredictionsSlice";
+import { getFixtures, getleagueByid } from "../../../reducers/PredictionsSlice";
 import { logoIcon } from "../../../assets/images/images";
 import { logout } from "../../../reducers/authSlice";
 import { getUid } from "../../../reducers/uuidSlice";
 
-const RequestPredictionListId = ({ errorMessage,rid }) => {
-    // console.log(rid);
-    // console.log("Td2",sendData);
-    // const { seasons } = useSelector((state) => state.prediction);
-    // const seasonCopy=[...seasons]
-    //  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
+const RequestPredictionListId = ({ errorMessage, rid }) => {
+  // console.log(rid);
+  // console.log("Td2",sendData);
+  // const { seasons } = useSelector((state) => state.prediction);
+  // const seasonCopy=[...seasons]
+  //  const sortedSeasons =Array.isArray(seasonCopy) && seasonCopy?.sort((a, b) => b.year - a.year);
   const themeMode = useSelector((state) => state.darkmode.mode);
-  const { fixtures,isLoading } = useSelector((state) => state.prediction);
+  const { fixtures, isLoading } = useSelector((state) => state.prediction);
   const { valid } = useSelector((state) => state.uuid);
   const [openViewDetailsModal, setOpenViewDetailsModal] = useState(false);
-  
+
   const [homeId, setHomeId] = useState(null);
   const [awayId, setAwayId] = useState(null);
-  const [timeStamp, setTimeStamp] = useState(null)
-  const [fixturesId, setFixturesId] = useState(null)
+  const [timeStamp, setTimeStamp] = useState(null);
+  const [fixturesId, setFixturesId] = useState(null);
 
-  
   const dispatch = useDispatch();
-  const uuid = localStorage.getItem('uuid')
-  const navigate = useNavigate()
+  const uuid = localStorage.getItem("uuid");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUid({}))
-  },[dispatch])
+    dispatch(getUid({}));
+  }, [dispatch]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(getUid({}))
-        if (uuid !== valid?.data) {
-            dispatch(logout())
-            navigate('/') 
-        }
-    },5000);
+      dispatch(getUid({}));
+      if (uuid !== valid?.data) {
+        dispatch(logout());
+        navigate("/");
+      }
+    }, 5000);
     return () => clearTimeout(timer);
   }, [valid, uuid, dispatch]);
 
@@ -58,9 +54,9 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     //  console.log("det",id);
     setHomeId(id.split(":")[1]);
     setAwayId(id.split(":")[2]);
-    setTimeStamp(id.split(":")[3])
+    setTimeStamp(id.split(":")[3]);
     const fixtureId = id.split(":")[0];
-    setFixturesId(fixtureId)
+    setFixturesId(fixtureId);
     setOpenViewDetailsModal(true);
   };
 
@@ -70,7 +66,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
 
   const [hide, setHide] = useState(false);
   const [error, setError] = useState(false);
- 
+
   useEffect(() => {
     if (errorMessage === 400) {
       setError(true);
@@ -79,15 +75,10 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     }
   }, [errorMessage]);
 
-
-
   const today = new Date();
   const year = today.getFullYear();
-  const prevYear = year - 1
+  const prevYear = year - 1;
   const changeDateformate = today.toISOString().split("T")[0];
-
-
-
 
   useEffect(() => {
     // if (sendDate ) {
@@ -110,73 +101,71 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     //       setHide(false);
     //     }
     //   });
-    // } 
-    dispatch(getleagueByid({league : rid}))
-      
+    // }
+    dispatch(getleagueByid({ league: rid }));
+
     dispatch(
       getFixtures({
         date: changeDateformate,
         league: rid, // If league is selected, use its value
         season: year,
-       })
-      ).then((response) => {
-        if (
-          response?.payload?.message ===
-            "Something went wrong. Please try again later"
-         ){
-          setError(true);
-         }else {
-          setError(false);
-        }
-     if (
-       response?.payload?.message ===
-         "Something went wrong. Please try again later"
-      ) dispatch(
-        getFixtures({
-          date: changeDateformate,
-          league: rid, // If league is selected, use its value
-          season: prevYear,
-         })
-        ).then((response) =>{
+      })
+    ).then((response) => {
+      if (
+        response?.payload?.message ===
+        "Something went wrong. Please try again later"
+      ) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+      if (
+        response?.payload?.message ===
+        "Something went wrong. Please try again later"
+      )
+        dispatch(
+          getFixtures({
+            date: changeDateformate,
+            league: rid, // If league is selected, use its value
+            season: prevYear,
+          })
+        ).then((response) => {
           if (
             response?.payload?.message ===
-              "Something went wrong. Please try again later"
-           ){
+            "Something went wrong. Please try again later"
+          ) {
             setError(true);
-           }else {
+          } else {
             setError(false);
           }
-        })
+        });
     });
-    
-  }, [dispatch,rid,year,changeDateformate,prevYear]);
+  }, [dispatch, rid, year, changeDateformate, prevYear]);
 
   const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);
-     // Convert Unix timestamp to milliseconds
+    // Convert Unix timestamp to milliseconds
     const options = {
       weekday: "short",
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: 'Europe/London'
+      timeZone: "Europe/London",
     };
-    
+
     return date.toLocaleDateString("en-US", options);
-    
   };
- 
+
   const formatDate = (timestamp) => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
     const options = {
       day: "2-digit",
       month: "short",
       year: "numeric",
-      timeZone: 'Europe/London'
+      timeZone: "Europe/London",
     };
     return date.toLocaleDateString("en-US", options);
   };
-
 
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
   const itemsPerPage = 9;
@@ -186,7 +175,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  console.log("fixtures",currentItems);
+  console.log("fixtures", currentItems);
   const isDataFound = currentItems && currentItems.length > 0;
 
   const totalPages = fixtures?.data
@@ -261,10 +250,10 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
                         </div>
                         <div className="text-right">
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                          {formatDate(dat?.fixture?.timestamp)}
+                            {formatDate(dat?.fixture?.timestamp)}
                           </p>
                           <p className="text-white font-medium text-[12px] leading-[16px] font-Montserrat">
-                          {formatTime(dat?.fixture?.timestamp)}
+                            {formatTime(dat?.fixture?.timestamp)} UTC
                           </p>
                         </div>
                       </div>
@@ -318,7 +307,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
                                         0,
                                         30
                                       ) + "..."
-                                    : dat?.fixture?.venue?.name?.slice(0,15)}
+                                    : dat?.fixture?.venue?.name?.slice(0, 15)}
                                 </b>
                               </span>
                             </div>
@@ -338,7 +327,7 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
                                   : "text-white"
                               }`}
                             >
-                              {dat?.teams?.away?.name?.slice(0,15)}
+                              {dat?.teams?.away?.name?.slice(0, 15)}
                             </p>
                           </div>
                         </div>
@@ -383,9 +372,9 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
         </div>
       ) : (
         <div className="text-center">
-        <div role="status">
-          <img src={logoIcon} alt="loading.." className="loader" />
-          {/* <svg
+          <div role="status">
+            <img src={logoIcon} alt="loading.." className="loader" />
+            {/* <svg
           aria-hidden="true"
           class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
           viewBox="0 0 100 101"
@@ -401,9 +390,9 @@ const RequestPredictionListId = ({ errorMessage,rid }) => {
             fill="currentFill"
           />
         </svg> */}
-          <span className="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
-      </div>
       )}
 
       {/* pagination start */}

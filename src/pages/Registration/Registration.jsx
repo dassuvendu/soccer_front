@@ -51,6 +51,7 @@ const Registration = ({
 
   function onSubmit(data) {
     if (currentUser && Object.keys(currentUser).length) {
+      console.log("body: ", data);
       dispatch(verifyOtp(data)).then(() => {
         reset();
       });

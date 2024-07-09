@@ -26,7 +26,7 @@ export const PastMatch = () => {
   const [homeLoader, setHomeLoader] = useState(true);
 
   useEffect(() => {
-    dispatch(getPastFixtures({ last: 50 })).then((res) => {
+    dispatch(getPastFixtures({ last: 6, status: "FT" })).then((res) => {
       // console.log("res", res);
       if (res?.payload?.status === true) {
         setLoadingData(true);
@@ -36,7 +36,7 @@ export const PastMatch = () => {
         setHomeLoader(true);
       }
     });
-  }, [yesterdayFormatted]);
+  }, []);
 
   const formatDay = (timestamp) => {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
