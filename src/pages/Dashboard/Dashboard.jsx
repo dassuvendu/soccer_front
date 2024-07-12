@@ -1,5 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import { PlaycopeLogoPopup, global_pay_icon, logoIcon, monnify_icon, paystack_icon } from "../../assets/images/images";
+import {
+  PlaycopeLogoPopup,
+  global_pay_icon,
+  logoIcon,
+  monnify_icon,
+  paystack_icon,
+} from "../../assets/images/images";
 import { FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -10,7 +16,11 @@ import { getUid } from "../../reducers/uuidSlice";
 import "react-toastify/dist/ReactToastify.css";
 import { referral } from "../../reducers/RefCount";
 import { subscriptionPlans } from "../../reducers/planSlice";
-import { bankPayment, bankPaymentRedirect, bankPlanKeys } from "../../reducers/paymentSlice";
+import {
+  bankPayment,
+  bankPaymentRedirect,
+  bankPlanKeys,
+} from "../../reducers/paymentSlice";
 import errorHandler from "../../store/errorHandler";
 import axios from "axios";
 import Payment from "../Payment/Payment";
@@ -24,7 +34,9 @@ const Dashboard = () => {
   const { league, isLoading } = useSelector((state) => state.league);
   const { valid } = useSelector((state) => state.uuid);
 
-  const subscribed = JSON.parse(localStorage.getItem("isSubscribed"))?.isSubscribed;
+  const subscribed = JSON.parse(
+    localStorage.getItem("isSubscribed")
+  )?.isSubscribed;
 
   // const [ Id ] = useUuid()
 
@@ -77,7 +89,6 @@ const Dashboard = () => {
 
   // }, [valid, uuid, dispatch,apiCall]);
 
-
   const [openChoosePaymentModal, setOpenChoosePaymentModal] = useState(false);
 
   const choosePaymentHandler = () => {
@@ -95,7 +106,7 @@ const Dashboard = () => {
   const amountUSD = plansList[0]?.price;
   console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
-  console.log("plans--", plans)
+  console.log("plans--", plans);
   // const { profile } = useSelector((state) => state.profile);
   // console.log("profile", profile);
   const { email, user_id } = useSelector((state) => state.auth?.currentUser);
@@ -104,7 +115,7 @@ const Dashboard = () => {
   const UserId = JSON.parse(localStorage.getItem("userId"));
   console.log("id", UserId);
   const planId = plansList[0]?.id;
-  console.log("planIdDashboard", planId)
+  console.log("planIdDashboard", planId);
 
   const [userId, setUserId] = useState(null);
   useEffect(() => {
@@ -121,7 +132,13 @@ const Dashboard = () => {
     plan_id: null,
   });
 
-  const { secretKey, paymentLink, transactionReference, apiKey, redirectResponse } = useSelector((state) => state.payment);
+  const {
+    secretKey,
+    paymentLink,
+    transactionReference,
+    apiKey,
+    redirectResponse,
+  } = useSelector((state) => state.payment);
 
   useEffect(() => {
     dispatch(bankPlanKeys());
@@ -278,22 +295,30 @@ const Dashboard = () => {
           {!showPayment && !showMonnifyPayment && (
             <>
               {subscribed === null ||
-                subscribed === undefined ||
-                subscribed === "cancel" ? (
+              subscribed === undefined ||
+              subscribed === "cancel" ? (
                 <div>
                   <div className="text-[#FF0000] font-medium text-base text-center">
-                    Please <button onClick={() => {
-                      choosePaymentHandler();
-                      localStorage.setItem("planId", plans[0]?.id);
-                    }}>SUBSCRIBE</button> for using our application
+                    Please{" "}
+                    <button
+                      className="text-black underline hover:no-underline"
+                      onClick={() => {
+                        choosePaymentHandler();
+                        localStorage.setItem("planId", plans[0]?.id);
+                      }}
+                    >
+                      SUBSCRIBE
+                    </button>{" "}
+                    for using our application
                   </div>
                 </div>
               ) : (
                 <div className="w-full h-full pt-4 mb-0">
                   <div className="md:flex justify-between mb-0">
                     <h1
-                      className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                        } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                      } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
                     >
                       Hi,{" "}
                       {profile?.details?.first_name !== null
@@ -305,8 +330,9 @@ const Dashboard = () => {
                   {/* Actions section start here  */}
                   <div className="mb-10">
                     <h2
-                      className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                        } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+                      className={`${
+                        themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                      } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
                     >
                       Actions
                     </h2>
@@ -324,8 +350,9 @@ const Dashboard = () => {
                           Explore different slips containing multiple matches
                         </p>
                         <div
-                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                          className={` ${
+                            themeMode === "light" ? "bg-white" : "bg-black"
+                          } hover:bg-gray-800 inline-block rounded-full mb-2`}
                         >
                           <Link
                             to="/coped-slips"
@@ -346,8 +373,9 @@ const Dashboard = () => {
                           Browse matches happening today from any league.
                         </p>
                         <div
-                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                          className={` ${
+                            themeMode === "light" ? "bg-white" : "bg-black"
+                          } hover:bg-gray-800 inline-block rounded-full mb-2`}
                         >
                           <Link
                             to="/match-prediction"
@@ -368,8 +396,9 @@ const Dashboard = () => {
                           Browse matches happening tomorrow from any league.
                         </p>
                         <div
-                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                          className={` ${
+                            themeMode === "light" ? "bg-white" : "bg-black"
+                          } hover:bg-gray-800 inline-block rounded-full mb-2`}
                         >
                           <Link
                             to="/statistics"
@@ -387,8 +416,9 @@ const Dashboard = () => {
                   {/* Explore Matches section start here  */}
                   <div className="mb-0">
                     <h2
-                      className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                        } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+                      className={`${
+                        themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                      } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
                     >
                       Explore Matches from your Favorite Leagues
                     </h2>
@@ -400,8 +430,11 @@ const Dashboard = () => {
                             key={data.id}
                           >
                             <div
-                              className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                                } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
+                              className={`${
+                                themeMode === "light"
+                                  ? "bg-white"
+                                  : "bg-[#191D23]"
+                              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
                             >
                               {themeMode === "light" ? (
                                 <img
@@ -417,8 +450,11 @@ const Dashboard = () => {
                                 />
                               )}
                               <h3
-                                className={`font-Montserrat ${themeMode === "light" ? "text-black" : "text-white"
-                                  } font-bold text-[16px] leading-[20px] mb-2`}
+                                className={`font-Montserrat ${
+                                  themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                } font-bold text-[16px] leading-[20px] mb-2`}
                               >
                                 {`${data.league.name.slice(0, 14)}`}
                               </h3>
@@ -432,7 +468,11 @@ const Dashboard = () => {
                     ) : (
                       <div className="text-center">
                         <div role="status">
-                          <img src={logoIcon} alt="loading.." className="loader" />
+                          <img
+                            src={logoIcon}
+                            alt="loading.."
+                            className="loader"
+                          />
                           {/* <svg
                     aria-hidden="true"
                     class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -566,7 +606,6 @@ const Dashboard = () => {
           </Modal.Body>
         </Modal>
       )}
-
     </div>
   );
 };
