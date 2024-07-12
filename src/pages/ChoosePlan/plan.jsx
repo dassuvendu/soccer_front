@@ -268,7 +268,6 @@ const Plan = () => {
     setShowSubscription(false);
   };
 
-
   useEffect(() => {
     dispatch(subscriptionPlans()).then(() => {
       setUserDetails({
@@ -332,10 +331,16 @@ const Plan = () => {
                                   </ul> */}
                                   <div className="text-center">
                                     <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
-                                      <span className="line-through text-gray-700 text-2xl">$9.89</span> Subscribe today for
+                                      <span className="line-through text-black text-xl pr-1">
+                                        $9.89
+                                      </span>{" "}
+                                      Subscribe today for
                                     </h3>
-                                    <h3 className="text-base lg:text-base text-white font-semibold mb-4">
-                                      <span className="text-gray-700 text-3xl">{plan?.price}$</span> monthly only
+                                    <h3 className="text-3xl text-white font-bold mb-4">
+                                      <span className="text-black pr-1">
+                                        {plan?.price}$
+                                      </span>{" "}
+                                      Monthly only
                                     </h3>
 
                                     <button
