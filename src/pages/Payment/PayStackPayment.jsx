@@ -13,8 +13,10 @@ const PayStackPayment = () => {
     const amountUSD = parseFloat(plansList[0]?.price);
     // const email = "user@yopmail.com"; // Replace with actual user email
     // const paymentAmount = 5000; // Replace with actual amount to be paid
-    const publicKey = 'pk_test_ccca273e8e59f09d03c23626425219567eb4e5c6'; // Replace with your Paystack public key
-    const secretKey = 'sk_test_27d5bd78d53ef0a61692cb1145b00a1901d9eb56'; // Replace with your Paystack secret key (caution!)
+    // const publicKey = 'pk_test_ccca273e8e59f09d03c23626425219567eb4e5c6'; // Replace with your Paystack public key
+    // const secretKey = 'sk_test_27d5bd78d53ef0a61692cb1145b00a1901d9eb56'; // Replace with your Paystack secret key (caution!)
+    const publicKey = 'pk_live_b173f0ba73d0c3efedfbce69d723e2c636be51b3';
+    const secretKey = 'sk_live_555e56a0023b0517a149f9d59062608b8bd41c16';
     const amountInKobo = amountUSD * 100; // Convert amount to kobo (Naira to Kobo)
 
     const convertUSDtoNGN = (amountInKobo) => {
