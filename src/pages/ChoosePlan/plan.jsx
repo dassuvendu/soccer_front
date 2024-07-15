@@ -331,7 +331,7 @@ const Plan = () => {
                                   </ul> */}
                                   <div className="text-center">
                                     <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
-                                      <span className="line-through text-black text-xl pr-1">
+                                      <span className="line_bar2 text-black text-base mr-1">
                                         $9.89
                                       </span>{" "}
                                       Subscribe today for
