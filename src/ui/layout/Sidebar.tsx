@@ -98,9 +98,23 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     window.location.reload();
   };
 
+  const { profile } = useSelector((state: any) => state.profile);
+  const today = new Date();
+
+  // Get year, month, and day from the date object
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const day = String(today.getDate()).padStart(2, '0');
+
+  // Combine them into the desired format
+  const dateString = `${year}-${month}-${day}`;
+
+  console.log("dateString", dateString)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions?.plan_period_end < dateString)
+
   return (
     <>
-      {subscribed === null || subscribed === undefined || subscribed === "cancel" ? (
+      {subscribed === null || subscribed === undefined || subscribed === "cancel" || (profile?.details?.user_subscriptions?.plan_period_end <= dateString) === false ? (
         <>
           <div>
             <aside
