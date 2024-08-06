@@ -110,11 +110,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const dateString = `${year}-${month}-${day}`;
 
   console.log("dateString", dateString)
-  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions?.plan_period_end < dateString)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions[0]?.plan_period_end < dateString)
 
   return (
     <>
-      {subscribed === null || subscribed === undefined || subscribed === "cancel" || (profile?.details?.user_subscriptions?.plan_period_end <= dateString) === false ? (
+      {subscribed === null || subscribed === undefined || subscribed === "cancel" || (profile?.details?.user_subscriptions[0]?.plan_period_end > dateString) === false ? (
         <>
           <div>
             <aside

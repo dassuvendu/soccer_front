@@ -295,7 +295,8 @@ const Dashboard = () => {
   const dateString = `${year}-${month}-${day}`;
 
   console.log("dateString", dateString)
-  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions?.plan_period_end < dateString)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end", profile?.details?.user_subscriptions[0]?.plan_period_end)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions[0]?.plan_period_end > dateString)
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -309,7 +310,7 @@ const Dashboard = () => {
             <>
               {subscribed === null ||
                 subscribed === undefined ||
-                subscribed === "cancel" || (profile?.details?.user_subscriptions?.plan_period_end <= dateString) === false ? (
+                subscribed === "cancel" || (profile?.details?.user_subscriptions[0]?.plan_period_end > dateString) === false ? (
                 <div>
                   <div className="text-[#FF0000] font-medium text-base text-center">
                     Please{" "}
