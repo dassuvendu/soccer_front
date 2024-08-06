@@ -322,7 +322,7 @@ const Settings = () => {
   const dateString = `${year}-${month}-${day}`;
 
   console.log("dateString", dateString)
-  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions?.plan_period_end < dateString)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions[0]?.plan_period_end < dateString)
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -625,7 +625,7 @@ const Settings = () => {
               </div>
               {subscribed === null ||
                 subscribed === undefined ||
-                subscribed === "cancel" || (profile?.details?.user_subscriptions?.plan_period_end <= dateString) === false ? (
+                subscribed === "cancel" || (profile?.details?.user_subscriptions[0]?.plan_period_end > dateString) === false ? (
                 <div className="w-full md:ml-4 md:w-7/12 mt-4 md:mt-0">
                   <div className="choose_your_plan_section pb-0">
                     <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
