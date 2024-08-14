@@ -85,7 +85,7 @@ const MyPrediction = () => {
               <TabList>
                 <Tab>All Prediction</Tab>
                 <Tab>Recently</Tab>
-                <Tab>Cooked Slip</Tab>
+                <Tab>Coped Slip</Tab>
                 <Tab>Failed Prediction</Tab>
               </TabList>
             </div>

@@ -357,7 +357,7 @@ const SoccerPrediction = () => {
             >
               <TabList className="tab_bar">
                 <Tab>Past Matches</Tab>
-                <Tab>Past Cooked Slips</Tab>
+                <Tab>Past Coped Slips</Tab>
                 <Tab>Upcoming Matches</Tab>
               </TabList>
               <TabPanel>
