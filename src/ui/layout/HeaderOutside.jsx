@@ -74,6 +74,7 @@ const HeaderOutside = () => {
                 <li>
                   <Link
                     to="http://x.com/playcope"
+                    target="_blank"
                     className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block"
                   >
                     <FaXTwitter />
@@ -87,6 +88,7 @@ const HeaderOutside = () => {
                 <li>
                   <Link
                     to="https://www.instagram.com/playcope/"
+                    target="_blank"
                     className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block"
                   >
                     <FaInstagram />
