@@ -72,7 +72,10 @@ const HeaderOutside = () => {
             <div className="top_social">
               <ul className="flex justify-center items-center">
                 <li>
-                  <Link className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block">
+                  <Link
+                    to="http://x.com/playcope"
+                    className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block"
+                  >
                     <FaXTwitter />
                   </Link>
                 </li>
@@ -82,7 +85,10 @@ const HeaderOutside = () => {
                   </Link>
                 </li> */}
                 <li>
-                  <Link className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block">
+                  <Link
+                    to="https://www.instagram.com/playcope/"
+                    className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block"
+                  >
                     <FaInstagram />
                   </Link>
                 </li>

@@ -111,13 +111,19 @@ const Footer = () => {
           <div>
             <ul className="flex justify-center items-center">
               <li>
-                <Link className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block">
+                <Link
+                  to="http://x.com/playcope"
+                  className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block"
+                >
                   <FaXTwitter />
                 </Link>
               </li>
 
               <li>
-                <Link className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block">
+                <Link
+                  to="https://www.instagram.com/playcope/"
+                  className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block"
+                >
                   <FaInstagram />
                 </Link>
               </li>
