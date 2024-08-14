@@ -51,42 +51,48 @@ const Login = ({ openLoginModal, setOpenLoginModal }) => {
 
   // },[tsr])
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const previousUuid = localStorage.getItem("uuid");
     console.log("previous UUID: ", previousUuid);
     console.log("tsr", tsr);
-    if (previousUuid && previousUuid != tsr) {
+
+    if (previousUuid && previousUuid !== tsr) {
       console.log("logout");
-      dispatch(logout()).then(() => {
-        // localStorage.setItem('uuid', tsr);
-        dispatch(
+      try {
+        await dispatch(logout());
+        const loginResponse = await dispatch(
           login({ email: data?.email, password: data?.password, uuid: tsr })
-        ).then((res) => {
-          if (res?.payload?.status_code === 401) {
-            setErrorMas(res?.payload?.message);
-          }
-          localStorage.setItem("uuid", tsr);
-          dispatch(editProfile());
-          const refId = uuidv4();
-          localStorage.setItem("ref_id", refId);
-        });
-      });
-      localStorage.removeItem("uuid");
-    } else {
-      dispatch(
-        login({ email: data.email, password: data.password, uuid: tsr })
-      ).then((res) => {
-        // console.log("reS",res);
-        if (res?.payload?.status_code === 401) {
-          setErrorMas(res?.payload?.message);
+        );
+
+        if (loginResponse?.payload?.status_code === 401) {
+          setErrorMas(loginResponse?.payload?.message);
         }
         localStorage.setItem("uuid", tsr);
-        dispatch(editProfile());
+        await dispatch(editProfile());
         const refId = uuidv4();
         localStorage.setItem("ref_id", refId);
-      });
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    } else {
+      try {
+        const loginResponse = await dispatch(
+          login({ email: data.email, password: data.password, uuid: tsr })
+        );
+
+        if (loginResponse?.payload?.status_code === 401) {
+          setErrorMas(loginResponse?.payload?.message);
+        }
+        localStorage.setItem("uuid", tsr);
+        await dispatch(editProfile());
+        const refId = uuidv4();
+        localStorage.setItem("ref_id", refId);
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
     }
   };
+
 
   useEffect(() => {
     if (error && message) {

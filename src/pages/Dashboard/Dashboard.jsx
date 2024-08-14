@@ -284,6 +284,20 @@ const Dashboard = () => {
     setPlans(plansList);
   }, [plansList]);
 
+  const today = new Date();
+
+  // Get year, month, and day from the date object
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const day = String(today.getDate()).padStart(2, '0');
+
+  // Combine them into the desired format
+  const dateString = `${year}-${month}-${day}`;
+
+  console.log("dateString", dateString)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end", profile?.details?.user_subscriptions[0]?.plan_period_end)
+  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions[0]?.plan_period_end > dateString)
+
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
       {isloadingEditProfile ? (
@@ -295,8 +309,8 @@ const Dashboard = () => {
           {!showPayment && !showMonnifyPayment && (
             <>
               {subscribed === null ||
-              subscribed === undefined ||
-              subscribed === "cancel" ? (
+                subscribed === undefined ||
+                subscribed === "cancel" || (profile?.details?.user_subscriptions[0]?.plan_period_end > dateString) === false ? (
                 <div>
                   <div className="text-[#FF0000] font-medium text-base text-center">
                     Please{" "}
@@ -316,9 +330,8 @@ const Dashboard = () => {
                 <div className="w-full h-full pt-4 mb-0">
                   <div className="md:flex justify-between mb-0">
                     <h1
-                      className={`${
-                        themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                      className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                        } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
                     >
                       Hi,{" "}
                       {profile?.details?.first_name !== null
@@ -330,9 +343,8 @@ const Dashboard = () => {
                   {/* Actions section start here  */}
                   <div className="mb-10">
                     <h2
-                      className={`${
-                        themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                      } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
+                      className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                        } text-[20px] md:text-[27px] leading-[40px] font-medium pb-1 md:pb-3`}
                     >
                       Actions
                     </h2>
@@ -350,9 +362,8 @@ const Dashboard = () => {
                           Explore different slips containing multiple matches
                         </p>
                         <div
-                          className={` ${
-                            themeMode === "light" ? "bg-white" : "bg-black"
-                          } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
                         >
                           <Link
                             to="/coped-slips"
@@ -373,9 +384,8 @@ const Dashboard = () => {
                           Browse matches happening today from any league.
                         </p>
                         <div
-                          className={` ${
-                            themeMode === "light" ? "bg-white" : "bg-black"
-                          } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
                         >
                           <Link
                             to="/match-prediction"
@@ -396,9 +406,8 @@ const Dashboard = () => {
                           Browse matches happening tomorrow from any league.
                         </p>
                         <div
-                          className={` ${
-                            themeMode === "light" ? "bg-white" : "bg-black"
-                          } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
                         >
                           <Link
                             to="/statistics"
@@ -416,9 +425,8 @@ const Dashboard = () => {
                   {/* Explore Matches section start here  */}
                   <div className="mb-0">
                     <h2
-                      className={`${
-                        themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                      } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
+                      className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                        } text-[20px] md:text-[27px] leading-[25px] md:leading-[40px] font-medium pb-3`}
                     >
                       Explore Matches from your Favorite Leagues
                     </h2>
@@ -430,11 +438,10 @@ const Dashboard = () => {
                             key={data.id}
                           >
                             <div
-                              className={`${
-                                themeMode === "light"
-                                  ? "bg-white"
-                                  : "bg-[#191D23]"
-                              } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
+                              className={`${themeMode === "light"
+                                ? "bg-white"
+                                : "bg-[#191D23]"
+                                } rounded-md pt-10 pb-5 px-2 text-center border-b-4 border-[#2aa9e1] shadow-xl explore_matches_box`}
                             >
                               {themeMode === "light" ? (
                                 <img
@@ -450,11 +457,10 @@ const Dashboard = () => {
                                 />
                               )}
                               <h3
-                                className={`font-Montserrat ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                } font-bold text-[16px] leading-[20px] mb-2`}
+                                className={`font-Montserrat ${themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                                  } font-bold text-[16px] leading-[20px] mb-2`}
                               >
                                 {`${data.league.name.slice(0, 14)}`}
                               </h3>
