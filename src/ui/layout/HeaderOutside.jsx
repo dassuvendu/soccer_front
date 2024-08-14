@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Navbar, Button, Modal, TextInput } from "flowbite-react";
 import { PlaycopeLogoPopup, loginImg, logo } from "../../assets/images/images";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { FaDribbble, FaFacebookF, FaUsers } from "react-icons/fa";
 import { TfiYoutube } from "react-icons/tfi";
 import { BiSolidUser } from "react-icons/bi";
@@ -76,21 +76,21 @@ const HeaderOutside = () => {
                     <FaXTwitter />
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block">
                     <FaFacebookF />
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block">
-                    <FaDribbble />
+                    <FaInstagram />
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block">
                     <TfiYoutube />
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </>
