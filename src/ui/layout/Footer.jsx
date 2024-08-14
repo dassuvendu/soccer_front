@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaDribbble, FaFacebookF } from "react-icons/fa";
+import { FaDribbble, FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TfiYoutube } from "react-icons/tfi";
 import { Link } from "react-router-dom";
@@ -115,19 +115,10 @@ const Footer = () => {
                   <FaXTwitter />
                 </Link>
               </li>
+
               <li>
                 <Link className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block">
-                  <FaFacebookF />
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block">
-                  <FaDribbble />
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block">
-                  <TfiYoutube />
+                  <FaInstagram />
                 </Link>
               </li>
             </ul>
