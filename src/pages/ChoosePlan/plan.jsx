@@ -452,21 +452,6 @@ const Plan = () => {
                   <button
                     className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
                     onClick={() => {
-                      createMonnifySubscription(planId, userId);
-                      setOpenChoosePaymentModal(false);
-                    }}
-                  >
-                    <img
-                      src={monnify_icon}
-                      alt="monnify_icon"
-                      className="mr-1"
-                    />{" "}
-                    Monnify
-                  </button>
-                  <p className="py-4 text-center">OR</p>
-                  <button
-                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
-                    onClick={() => {
                       createPayStackSubscription(planId, userId);
                       setOpenChoosePaymentModal(false);
                     }}
@@ -477,6 +462,21 @@ const Plan = () => {
                       className="mr-2 w-6 py-1"
                     />{" "}
                     PayStack
+                  </button>
+                  <p className="py-4 text-center">OR</p>
+                  <button
+                    className="flex justify-center items-center rounded-xl text-base font-medium text-[#111111] text-center w-full border-2 py-2 border-[#2aa9e1] hover:border-[#111111]"
+                    onClick={() => {
+                      createMonnifySubscription(planId, userId);
+                      setOpenChoosePaymentModal(false);
+                    }}
+                  >
+                    <img
+                      src={monnify_icon}
+                      alt="monnify_icon"
+                      className="mr-1"
+                    />{" "}
+                    Monnify
                   </button>
                 </div>
               </div>

@@ -57,7 +57,9 @@ const MonnifyPayment = ({ planId }) => {
             paymentDescription: 'Subscription Payment',
             currencyCode: 'NGN',
             contractCode: contractCode, // Replace with your Monnify contract code
-            redirectUrl: redirectUrl // Replace with your success URL
+            redirectUrl: redirectUrl, // Replace with your success URL
+            paymentMethods: ['CARD']
+
         };
 
         const handleSubscription = async () => {
