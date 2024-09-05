@@ -38,6 +38,7 @@ import { Referral } from '../pages/Referral/Referral.jsx';
 import ContactUs from '../pages/ContactUs/ContactUs.jsx';
 import PaymentSuccess from '../pages/Payment/PaymentSuccess.jsx';
 import PayStackPayment from '../pages/Payment/PayStackPayment.jsx';
+import RegistrationPage from '../pages/Registration/RegistrationPage.jsx';
 
 
 const allRoutes = [
@@ -57,6 +58,8 @@ const allRoutes = [
       { path: 'ReferRegistration/:id', element: <ReferRegistrationPage /> },
     ],
   },
+
+
   {
     path: '/terms-of-service',
     element: <OutsideLayout />,
@@ -161,6 +164,15 @@ const allRoutes = [
       { path: 'payment-redirect', element: < PaymentRedirect /> },
     ],
   },
+
+  {
+    path: '/sign-up',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <RegistrationPage /> },
+      { path: 'sign-up', element: < RegistrationPage /> },
+    ],
+  },
   {
     path: '/payment-success',
     element: <OutsideLayout />,
@@ -177,6 +189,15 @@ const allRoutes = [
       { path: 'login', element: <Login /> },
     ],
   },
+  {
+    path: '/forgot-password',
+    element: <OutsideLayout />,
+    children: [
+      { index: true, element: <ForgotPassword /> },
+      { path: 'forgot-password', element: <ForgotPassword /> },
+    ],
+  },
+
   {
     path: '/forgot-password',
     element: <OutsideLayout />,

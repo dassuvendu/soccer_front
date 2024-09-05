@@ -13,6 +13,7 @@ import {
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import Login from "../../pages/Auth/Login/Login";
+import Registration from "../../pages/Registration/Registration";
 
 const HeaderOutside = () => {
   const navigate = useNavigate();
@@ -67,6 +68,24 @@ const HeaderOutside = () => {
                 className="text-sm font-medium text-gray-400 mr-4 my-2 hover:text-[#2aa9e1]"
               >
                 Login
+              </Link>
+            </div>
+            {/* <div className="sm:block md:hidden flex items-center">
+              <BiSolidUser className="text-gray-400 text-xl mr-1" />
+              <Link
+                onClick={registerHandler}
+                className="text-sm font-medium text-gray-400 mr-4 my-2 hover:text-[#2aa9e1]"
+              >
+                Sign Up
+              </Link>
+            </div> */}
+            <div className="flex items-center">
+              <BiSolidUser className="text-gray-400 text-xl mr-1" />
+              <Link
+                to="/sign-up"
+                className="text-sm font-medium text-gray-400 mr-4 my-2 hover:text-[#2aa9e1]"
+              >
+                Sign Up
               </Link>
             </div>
             <div className="top_social">
@@ -239,6 +258,13 @@ const HeaderOutside = () => {
         openLoginModal={openLoginModal}
         setOpenLoginModal={setOpenLoginModal}
       />
+      {openRegisterModal && (
+        <Registration
+          openRegisterModal={openRegisterModal}
+          setOpenRegisterModal={setOpenRegisterModal}
+          setOpenLoginModal={setOpenLoginModal}
+        />
+      )}
       {/* Login Modal ends here */}
 
       {/* Register Modal start here */}
