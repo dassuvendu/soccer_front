@@ -5,6 +5,9 @@ body {
   background: #f8f8f8 url(../imagesource//home_header_bg.png) no-repeat center
     20px;
 }
+.outsideLayout2 {
+  background: #f8f8f8;
+}
 
 /* hide scrollbar for chrome, safari and opera */
 .container::-webkit-scrollbar {
@@ -150,9 +153,9 @@ body {
   line-height: 30px;
   font-weight: 600;
   padding: 0;
-  margin-right:  0px !important;
+  margin-right: 0px !important;
 }
-li.page{
+li.page {
   margin-left: 2px;
 }
 .tab_section li.react-tabs__tab--selected:before {
@@ -388,7 +391,6 @@ li.page{
   margin-top: 7%;
 }
 
-
 .bg-cyan-700 {
   background-color: #2aa9e1;
 }
@@ -400,7 +402,6 @@ li.page{
 .bg-cyan-700 {
   background: #2aa9e1 !important;
 }
-
 
 .line_bar {
   position: relative;
@@ -430,7 +431,6 @@ li.page{
   content: "";
   display: block;
 }
-
 
 @media only screen and (max-width: 767px) {
   .date_picker_box_light.Select_Season select {
@@ -515,10 +515,7 @@ li.page{
   .tab_section li {
     font-size: 15px;
   }
-
 }
-
-
 
 .loader {
   height: 50px;

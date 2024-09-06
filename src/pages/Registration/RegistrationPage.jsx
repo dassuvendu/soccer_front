@@ -11,15 +11,16 @@ import { useGoogleLogin } from "@react-oauth/google";
 // import { editProfile } from "../../reducers/profileSlice";
 import { v4 as uuidv4 } from "uuid";
 import { Helmet } from "react-helmet";
+import Login from "../Auth/Login/Login";
 
-const RegistrationPage = ({ setOpenLoginModal }) => {
+const RegistrationPage = ({}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [openLoginModal, setOpenLoginModal] = useState(false);
   const tokenObject = JSON.parse(localStorage.getItem("regToken"));
   const token = tokenObject?.token;
   console.log("token", token);
-
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   const loginHandler = () => {
     setOpenLoginModal(true);
     // setOpenRegisterModal(false);
@@ -336,6 +337,10 @@ const RegistrationPage = ({ setOpenLoginModal }) => {
           {/* {/ Register Modal end here /} */}
         </div>
       </div>
+      <Login
+        openLoginModal={openLoginModal}
+        setOpenLoginModal={setOpenLoginModal}
+      />
     </>
   );
 };
