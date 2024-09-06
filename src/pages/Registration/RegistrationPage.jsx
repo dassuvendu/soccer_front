@@ -1,6 +1,6 @@
 import { Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import { PlaycopeLogoPopup } from "../../assets/images/images";
+import { bannerImgTwo, PlaycopeLogoPopup } from "../../assets/images/images";
 import { AiOutlineLogout } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { registerUser, verifyOtp } from "../../reducers/authSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 // import { editProfile } from "../../reducers/profileSlice";
 import { v4 as uuidv4 } from "uuid";
+import { Helmet } from "react-helmet";
 
 const RegistrationPage = ({ setOpenLoginModal }) => {
   const dispatch = useDispatch();
@@ -129,211 +130,212 @@ const RegistrationPage = ({ setOpenLoginModal }) => {
   });
   return (
     <>
-      {/* {/ Register Modal start here /} */}
+      <Helmet>
+        <title>Playcope - Register</title>
+        <meta name="description" content="Register" />
+      </Helmet>
+      <div className="py-10 lg:py-12 px-8 lg:px-0">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mx-auto mb-8">
+            <img src={bannerImgTwo} alt="bannerImgTwo" />
+          </div>
+          {/* {/ Register Modal start here /} */}
 
-      <div className="md:flex items-center pt-6">
-        <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
-          <img
-            src={PlaycopeLogoPopup}
-            alt="PlaycopeLogoPopup"
-            className="rounded-xl w-32 md:w-72 opacity-80"
-          />
-        </div>
-        <div className="w-full md:w-6/12 md:pl-4">
-          <div className="text-left">
-            <AiOutlineLogout className="mx-7 mb-4 h-14 w-14 text-gray-400" />
-            <h3 className="mb-5 text-xl font-bold text-black">
-              Register to <span className="text-[#2aa9e1]">PlayCope</span>
-            </h3>
-            <form
-              className="flex max-w-md flex-col gap-5 text-left"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div>
-                {/* <TextInput
-                                                id="name"
-                                                type="name"
-                                                placeholder="Your name"
-                                                autoComplete="off"
-                                            /> */}
-                <TextInput
-                  id="name"
-                  type="name"
-                  placeholder="Your name"
-                  autoComplete="off"
-                  {...register("first_name", {
-                    required: "Name is required",
-                    maxLength: 30,
-                  })}
-                />
-                {errors?.first_name?.message && (
-                  <h6 className="text-sm text-[red]">{`${"*"} ${
-                    errors.first_name.message
-                  }`}</h6>
-                )}
-              </div>
-              <div>
-                {/* <TextInput
-                                                id="email1"
-                                                type="email"
-                                                placeholder="Your email"
-                                            /> */}
-                <TextInput
-                  id="email1"
-                  type="email"
-                  placeholder="Your email"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: "Entered value does not match email format",
-                    },
-                  })}
-                />
-                {errors?.email?.message && (
-                  <h6 className="text-sm text-[red]">{`${"*"} ${
-                    errors.email.message
-                  }`}</h6>
-                )}
-              </div>
-              <div>
-                {/* <TextInput
-                                                id="password1"
-                                                type="password"
-                                                placeholder="Password"
-                                            /> */}
-                <TextInput
-                  id="password1"
-                  type="password"
-                  placeholder="Password"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                />
-                {errors?.password?.message && (
-                  <h6 className="text-sm text-[red]">{`${"*"} ${
-                    errors.password.message
-                  }`}</h6>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                <Checkbox id="agree" onChange={handleCheck} checked={check} />
-                <Label htmlFor="agree" className="flex text-xs">
-                  I have read and agreed to the&nbsp;
-                  <Link
-                    onClick={handleClick}
-                    className="text-cyan-600 hover:underline dark:text-cyan-500"
-                  >
-                    Terms of Service
-                  </Link>
-                  &nbsp;&&nbsp;
-                  <Link
-                    onClick={dataProtectionPolicyHandleClick}
-                    className="text-cyan-600 hover:underline dark:text-cyan-500"
-                  >
-                    Privacy Statement
-                  </Link>
-                </Label>
-              </div>
-              {currentUser && Object.keys(currentUser).length ? (
-                <>
-                  <p className="text-sm text-red-600 mb-3">
-                    You will receive your OTP code in your email.
-                  </p>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      name="otp"
-                      {...register("otp", {
-                        required: "Otp is required",
+          <div className="md:flex items-center pt-6">
+            {/* <div className="w-full md:w-6/12 flex md:pr-4 mb-4 md:mb-0 justify-center items-center">
+              <img
+                src={PlaycopeLogoPopup}
+                alt="PlaycopeLogoPopup"
+                className="rounded-xl w-32 md:w-72 opacity-80"
+              />
+            </div> */}
+            <div className="w-full md:w-6/12 mx-auto bg-white p-10 rounded-lg">
+              <div className="text-center">
+                <div className="flex justify-center items-center">
+                  <AiOutlineLogout className="mx-7 mb-4 h-14 w-14 text-gray-400 text" />
+                </div>
+                <h3 className="mb-5 text-xl font-bold text-black">
+                  Register to <span className="text-[#2aa9e1]">PlayCope</span>
+                </h3>
+                <form
+                  className="flex w-full flex-col gap-5 text-left"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <div>
+                    <TextInput
+                      id="name"
+                      type="name"
+                      placeholder="Your name"
+                      autoComplete="off"
+                      {...register("first_name", {
+                        required: "Name is required",
+                        maxLength: 30,
                       })}
-                      className="w-full h-12 px-5 mb-3 text-base border border-solid rounded-full border-slate-400"
-                      placeholder="Enter Your OTP"
                     />
-                    {errors?.otp?.message && (
+                    {errors?.first_name?.message && (
                       <h6 className="text-sm text-[red]">{`${"*"} ${
-                        errors.otp.message
+                        errors.first_name.message
                       }`}</h6>
                     )}
                   </div>
-                  {check ? (
-                    <button
-                      type="submit"
-                      className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#d86d3f] text-white font-medium create_character_btn"
-                      disabled={!check || loading}
-                    >
-                      {loading ? "Wait ..." : "Submit"}
-                    </button>
+                  <div>
+                    <TextInput
+                      id="email1"
+                      type="email"
+                      placeholder="Your email"
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /\S+@\S+\.\S+/,
+                          message: "Entered value does not match email format",
+                        },
+                      })}
+                    />
+                    {errors?.email?.message && (
+                      <h6 className="text-sm text-[red]">{`${"*"} ${
+                        errors.email.message
+                      }`}</h6>
+                    )}
+                  </div>
+                  <div>
+                    <TextInput
+                      id="password1"
+                      type="password"
+                      placeholder="Password"
+                      {...register("password", {
+                        required: "Password is required",
+                      })}
+                    />
+                    {errors?.password?.message && (
+                      <h6 className="text-sm text-[red]">{`${"*"} ${
+                        errors.password.message
+                      }`}</h6>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="agree"
+                      onChange={handleCheck}
+                      checked={check}
+                    />
+                    <Label htmlFor="agree" className="flex text-xs">
+                      I have read and agreed to the&nbsp;
+                      <Link
+                        onClick={handleClick}
+                        className="text-cyan-600 hover:underline dark:text-cyan-500"
+                      >
+                        Terms of Service
+                      </Link>
+                      &nbsp;&&nbsp;
+                      <Link
+                        onClick={dataProtectionPolicyHandleClick}
+                        className="text-cyan-600 hover:underline dark:text-cyan-500"
+                      >
+                        Privacy Statement
+                      </Link>
+                    </Label>
+                  </div>
+                  {currentUser && Object.keys(currentUser).length ? (
+                    <>
+                      <p className="text-sm text-red-600 mb-3">
+                        You will receive your OTP code in your email.
+                      </p>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          name="otp"
+                          {...register("otp", {
+                            required: "Otp is required",
+                          })}
+                          className="w-full h-12 px-5 mb-3 text-base border border-solid rounded-full border-slate-400"
+                          placeholder="Enter Your OTP"
+                        />
+                        {errors?.otp?.message && (
+                          <h6 className="text-sm text-[red]">{`${"*"} ${
+                            errors.otp.message
+                          }`}</h6>
+                        )}
+                      </div>
+                      {check ? (
+                        <button
+                          type="submit"
+                          className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#d86d3f] text-white font-medium create_character_btn"
+                          disabled={!check || loading}
+                        >
+                          {loading ? "Wait ..." : "Submit"}
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
+                          disabled
+                        >
+                          {loading ? "Wait ..." : "Submit"}
+                        </button>
+                      )}
+                    </>
                   ) : (
-                    <button
-                      type="submit"
-                      className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
-                      disabled
-                    >
-                      {loading ? "Wait ..." : "Submit"}
-                    </button>
+                    <>
+                      {check ? (
+                        <button
+                          // onClick={goChoosePlanHandler}
+                          type="submit"
+                          className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
+                          disabled={!check || loading}
+                        >
+                          {/* Submit */}
+                          {loading ? "Wait ..." : "Register"}
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
+                          disabled
+                        >
+                          {loading ? "Wait ..." : "Register"}
+                        </button>
+                      )}
+                    </>
                   )}
-                </>
-              ) : (
-                <>
-                  {check ? (
-                    <button
-                      // onClick={goChoosePlanHandler}
-                      type="submit"
-                      className="w-full text-[14px] py-2.5 rounded-[8px] text-white font-medium create_character_btn"
-                      disabled={!check || loading}
-                    >
-                      {/* Submit */}
-                      {loading ? "Wait ..." : "Register"}
-                    </button>
-                  ) : (
-                    <button
-                      type="submit"
-                      className="w-full text-[14px] py-2.5 rounded-[8px] bg-[#7fc5e4] text-white font-medium uppercase"
-                      disabled
-                    >
-                      {loading ? "Wait ..." : "Register"}
-                    </button>
-                  )}
-                </>
-              )}
-            </form>
-            <p className="py-4 text-center mx-6">OR</p>
-            {check ? (
-              <button
-                onClick={() => googleLogin()}
-                className="flex justify-center items-center
+                </form>
+                <p className="py-4 text-center mx-6">OR</p>
+                {check ? (
+                  <button
+                    onClick={() => googleLogin()}
+                    className="flex justify-center items-center
                    bg-gray-100 border border-gray-300 w-full shadow-xl py-1.5 
                    uppercase rounded-lg text-sm font-bold hover:bg-gray-200"
-              >
-                <FcGoogle className="text-3xl" />
-                Google
-              </button>
-            ) : (
-              <button
-                disabled
-                className="flex justify-center items-center
+                  >
+                    <FcGoogle className="text-3xl" />
+                    Google
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className="flex justify-center items-center
                       bg-[#d0d3d4] border border-gray-300 w-full shadow-xl py-1.5 
                       uppercase rounded-lg text-sm font-bold opacity-60"
-              >
-                <FcGoogle className="text-3xl" />
-                Google
-              </button>
-            )}
-            <p className="py-4 text-sm font-medium text-black">
-              Already have an account?
-              <Link
-                onClick={loginHandler}
-                className="text-[#2aa9e1] hover:text-black ml-1"
-              >
-                Sign in
-              </Link>{" "}
-            </p>
+                  >
+                    <FcGoogle className="text-3xl" />
+                    Google
+                  </button>
+                )}
+                <p className="py-4 text-sm font-medium text-black">
+                  Already have an account?
+                  <Link
+                    onClick={loginHandler}
+                    className="text-[#2aa9e1] hover:text-black ml-1"
+                  >
+                    Sign in
+                  </Link>{" "}
+                </p>
+              </div>
+            </div>
           </div>
+
+          {/* {/ Register Modal end here /} */}
         </div>
       </div>
-
-      {/* {/ Register Modal end here /} */}
     </>
   );
 };
