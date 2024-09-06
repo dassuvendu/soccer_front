@@ -11,18 +11,18 @@ import { useGoogleLogin } from "@react-oauth/google";
 // import { editProfile } from "../../reducers/profileSlice";
 import { v4 as uuidv4 } from "uuid";
 
-const RegistrationPage = () => {
+const RegistrationPage = ({ setOpenLoginModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  // const [openLoginModal, setOpenLoginModal] = useState(false);
   const tokenObject = JSON.parse(localStorage.getItem("regToken"));
   const token = tokenObject?.token;
   console.log("token", token);
 
-  //   const loginHandler = () => {
-  //     setOpenLoginModal(true);
-  //     setOpenRegisterModal(false);
-  //   };
+  const loginHandler = () => {
+    setOpenLoginModal(true);
+    // setOpenRegisterModal(false);
+  };
 
   const {
     error: validationErrors,
@@ -323,7 +323,7 @@ const RegistrationPage = () => {
             <p className="py-4 text-sm font-medium text-black">
               Already have an account?
               <Link
-                // onClick={loginHandler}
+                onClick={loginHandler}
                 className="text-[#2aa9e1] hover:text-black ml-1"
               >
                 Sign in
