@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Helmet } from "react-helmet";
 import Login from "../Auth/Login/Login";
 
-const RegistrationPage = ({}) => {
+const RegistrationPage = ({ }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -138,7 +138,7 @@ const RegistrationPage = ({}) => {
       <div className="py-10 lg:py-12 px-8 lg:px-0">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mx-auto mb-8">
-            <img src={bannerImgTwo} alt="bannerImgTwo" />
+            {/* <img src={bannerImgTwo} alt="bannerImgTwo" /> */}
           </div>
           {/* {/ Register Modal start here /} */}
 
@@ -174,9 +174,8 @@ const RegistrationPage = ({}) => {
                       })}
                     />
                     {errors?.first_name?.message && (
-                      <h6 className="text-sm text-[red]">{`${"*"} ${
-                        errors.first_name.message
-                      }`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${errors.first_name.message
+                        }`}</h6>
                     )}
                   </div>
                   <div>
@@ -193,9 +192,8 @@ const RegistrationPage = ({}) => {
                       })}
                     />
                     {errors?.email?.message && (
-                      <h6 className="text-sm text-[red]">{`${"*"} ${
-                        errors.email.message
-                      }`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${errors.email.message
+                        }`}</h6>
                     )}
                   </div>
                   <div>
@@ -208,9 +206,8 @@ const RegistrationPage = ({}) => {
                       })}
                     />
                     {errors?.password?.message && (
-                      <h6 className="text-sm text-[red]">{`${"*"} ${
-                        errors.password.message
-                      }`}</h6>
+                      <h6 className="text-sm text-[red]">{`${"*"} ${errors.password.message
+                        }`}</h6>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
@@ -252,9 +249,8 @@ const RegistrationPage = ({}) => {
                           placeholder="Enter Your OTP"
                         />
                         {errors?.otp?.message && (
-                          <h6 className="text-sm text-[red]">{`${"*"} ${
-                            errors.otp.message
-                          }`}</h6>
+                          <h6 className="text-sm text-[red]">{`${"*"} ${errors.otp.message
+                            }`}</h6>
                         )}
                       </div>
                       {check ? (

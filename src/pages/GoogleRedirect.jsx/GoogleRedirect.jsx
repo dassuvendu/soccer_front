@@ -7,6 +7,7 @@ import { googleSignIn } from "../../reducers/authSlice";
 import { Spinner } from "flowbite-react";
 import { v4 as uuidv4 } from "uuid";
 import { getUid } from "../../reducers/uuidSlice";
+import { toast } from "react-toastify";
 
 const GoogleRedirect = () => {
   const dispatch = useDispatch();
@@ -109,11 +110,20 @@ const GoogleRedirect = () => {
             console.log("inside side effect");
             navigate("/dashboard");
           } else {
+            toast.success(response?.payload, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              progress: undefined,
+              theme: "light",
+            });
             navigate("/");
           }
         }
       );
     } else {
+
       navigate("/");
     }
   }, [dispatch, navigate]);

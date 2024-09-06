@@ -344,6 +344,14 @@ const authSlice = createSlice({
                     JSON.stringify({ isSubscribed: subscription })
                 );
                 localStorage.setItem('userId', user_id);
+                state.message =
+                    payload !== undefined
+                        ? payload
+                        : 'Something went wrong. Try again later.';
+                console.log(
+                    'state.isGoogleLoggedIn -> rejected',
+                    state.isGoogleLoggedIn
+                );
             })
 
             .addCase(googleSignIn.rejected, (state, { payload }) => {
