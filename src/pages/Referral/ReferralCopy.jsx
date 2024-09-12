@@ -86,7 +86,7 @@ export const Referral = () => {
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
-      <div className="w-full h-screen py-4 mb-16 text-center justify-center items-center ">
+      <div className="w-full h-screen py-4 mb-16">
         <div className="flex justify-between mb-8">
           <h1
             className={`${
@@ -96,9 +96,10 @@ export const Referral = () => {
             Referral
           </h1>
         </div>
+
         {/* Setting edit section start here */}
-        <div className="md:flex mb-6 justify-center items-center">
-          {/* <div className="w-full md:w-6/12 ">
+        <div className="md:flex mb-6">
+          <div className="w-full md:w-6/12 ">
             <div
               className={`${
                 themeMode === "light" ? "bg-white" : "bg-[#191D23]"
@@ -179,11 +180,9 @@ export const Referral = () => {
                 </button>
               </div>
             </div>
-          </div> */}
-          <div>
-            <p className="text-5xl text-[#2aa9e1]"> COMING SOON</p>
           </div>
-          {/* <div className="w-full md:w-6/12 ">
+
+          <div className="w-full md:w-6/12 ">
             <div
               className={`${
                 themeMode === "light" ? "bg-white" : "bg-[#191D23]"
@@ -288,9 +287,8 @@ export const Referral = () => {
                 Terms of Service
               </Link>
             </div>
-          </div> */}
+          </div>
         </div>
-        {/*  */}
       </div>
     </div>
   );
