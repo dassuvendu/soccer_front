@@ -432,6 +432,28 @@ li.page {
   display: block;
 }
 
+
+/*
+ *  STYLE 3
+ */
+
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #d9d9d9;
+}
+
+#style-3::-webkit-scrollbar {
+  width: 6px;
+  background-color: #d9d9d9;
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: #2aa9e1;
+}
+
+/*  */
+
+
 @media only screen and (max-width: 767px) {
   .date_picker_box_light.Select_Season select {
     width: 100%;

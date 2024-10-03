@@ -43,7 +43,7 @@ const InsideLayout = () => {
             {/* <!-- ===== Main Content Start ===== --> */}
             <main
               className={
-                themeMode === "light" ? "bg-[#f3f4f6] h-full" : "bg-[#0d0f11] h-full"
+                themeMode === "light" ? "bg-[#f3f4f6]" : "bg-[#0d0f11]"
               }
             >
               <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">

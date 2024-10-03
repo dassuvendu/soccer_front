@@ -210,7 +210,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           </div>
           {/* <!-- SIDEBAR HEADER --> */}
 
-          <div className="sidebar_menu no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear overscroll-none">
+          <div id='style-3' className="sidebar_menu no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear overscroll-none">
             {/* <!-- Sidebar Menu --> */}
             <nav className="mt-2 py-4 px-4 lg:mt-0 lg:px-2">
               {/* <!-- Menu Group --> */}
