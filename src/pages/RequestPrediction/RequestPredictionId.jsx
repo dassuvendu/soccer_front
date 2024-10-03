@@ -18,16 +18,16 @@ const RequestPredictionId = () => {
 
   let { rid } = useParams();
 
- const [sendData,setSendData] = useState()
-  useEffect(() =>{
-  console.log(sendData);
-  },[sendData])
+  const [sendData, setSendData] = useState();
+  useEffect(() => {
+    console.log(sendData);
+  }, [sendData]);
 
-// const [season, setSeason] = useState(null)
+  // const [season, setSeason] = useState(null)
 
-// useEffect(()=>{
-//   console.log("sea",season);
-// },[season])
+  // useEffect(()=>{
+  //   console.log("sea",season);
+  // },[season])
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
       <div className="w-full py-4">
@@ -35,7 +35,7 @@ const RequestPredictionId = () => {
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
           style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-full md:w-5/12 py-28 pl-14">
+          <div className="w-full md:w-5/12 py-10 lg:py-28 pl-14">
             <h1 className="font-Bebas text-5xl tracking-normal text-white mb-4">
               Match Predictions
             </h1>
@@ -45,13 +45,21 @@ const RequestPredictionId = () => {
           </div>
         </div>
         <div className="lg:flex justify-between items-center mb-6 w:6/12">
-          <SearchCompoId onError={handleError} rid={rid}  setSendData={setSendData}/>
+          <SearchCompoId
+            onError={handleError}
+            rid={rid}
+            setSendData={setSendData}
+          />
           {/* <Prediction /> */}
         </div>
       </div>
 
       {/* Request Predictions list start here */}
-      <RequestPredictionListId errorMessage={errorMessage}  rid={rid} sendData={sendData}/>
+      <RequestPredictionListId
+        errorMessage={errorMessage}
+        rid={rid}
+        sendData={sendData}
+      />
       {/* Request Predictions list ends here */}
 
       {/* Pagination section start here */}

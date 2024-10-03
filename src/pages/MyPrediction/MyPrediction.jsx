@@ -64,7 +64,7 @@ const MyPrediction = () => {
           className="bg-right-top bg-no-repeat rounded-xl bg-cover mb-6"
           style={{ backgroundImage: `url(${requestPredictionBanner})` }}
         >
-          <div className="w-full md:w-5/12 py-28 pl-14">
+          <div className="w-full md:w-5/12 py-10 lg:py-28 pl-14">
             <h1 className="font-Bebas text-5xl tracking-normal text-white mb-4">
               My Prediction
             </h1>
