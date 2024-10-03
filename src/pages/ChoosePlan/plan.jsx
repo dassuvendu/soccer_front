@@ -107,8 +107,8 @@ const Plan = () => {
   }, []);
 
   const convertUSDtoNGN = (amountUSD) => {
-    // Assuming a fixed exchange rate (example: 1 USD = 410 NGN)
-    const exchangeRate = 1500; // Replace with your desired exchange rate
+    // Assuming a fixed exchange rate (example: 1 USD = 1500 NGN)
+    const exchangeRate = 1000; // Replace with your desired exchange rate
 
     // Perform the conversion
     const amountNGN = amountUSD * exchangeRate;
@@ -338,7 +338,8 @@ const Plan = () => {
                                     </h3>
                                     <h3 className="text-3xl text-white font-bold mb-4">
                                       <span className="text-black pr-1">
-                                        {plan?.price}$
+                                        {/* {plan?.price}$ */}
+                                        ₦5,000
                                       </span>{" "}
                                       Monthly only
                                     </h3>

@@ -30,7 +30,7 @@ const SelectPlan = () => {
               <span className="text-[#2aa9e1] font-normal mb-0 text-3xl line_bar mr-2">
                 $9.89
               </span>{" "}
-              <span className="text-black font-bold pr-2">$5</span>
+              <span className="text-black font-bold pr-2">₦5,000</span>
               monthly only
             </h3>
             <Link

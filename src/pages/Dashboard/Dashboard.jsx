@@ -145,8 +145,8 @@ const Dashboard = () => {
   }, []);
 
   const convertUSDtoNGN = (amountUSD) => {
-    // Assuming a fixed exchange rate (example: 1 USD = 410 NGN)
-    const exchangeRate = 1500; // Replace with your desired exchange rate
+    // Assuming a fixed exchange rate (example: 1 USD = 1500 NGN)
+    const exchangeRate = 1000; // Replace with your desired exchange rate
 
     // Perform the conversion
     const amountNGN = amountUSD * exchangeRate;

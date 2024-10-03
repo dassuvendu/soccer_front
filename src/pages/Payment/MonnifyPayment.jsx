@@ -12,14 +12,14 @@ const MonnifyPayment = ({ planId }) => {
 
     const [reference, setReference] = useState(`ref-${Math.floor(Math.random() * 1000000000)}`);
 
-    // const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
-    const baseURL = 'https://api.monnify.com/api/v1';
-    // const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
-    const apiKey = 'MK_PROD_DGWL4CGVAW';
-    // const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
-    const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
-    // const contractCode = '1931878869';  //test
-    const contractCode = '819597383830';
+    const baseURL = 'https://sandbox.monnify.com/api/v1'; // Use the appropriate Monnify environment
+    // const baseURL = 'https://api.monnify.com/api/v1';
+    const apiKey = 'MK_TEST_WE3QLPMYDR'; //test
+    // const apiKey = 'MK_PROD_DGWL4CGVAW';
+    const secretKey = 'DPKDQWEDGNN2TZ1LF6YPYA0B00NAC0YL';  //test
+    // const secretKey = 'QN7DBTKPHNWM2X4WPCASLXPBGUNAMK6H';
+    const contractCode = '1931878869';  //test
+    // const contractCode = '819597383830';
 
     const api = axios.create({
         baseURL,
@@ -34,8 +34,7 @@ const MonnifyPayment = ({ planId }) => {
     };
 
     const convertUSDtoNGN = (amountUSD) => {
-        // Assuming a fixed exchange rate (example: 1 USD = 410 NGN)
-        const exchangeRate = 1500; // Replace with your desired exchange rate
+        const exchangeRate = 1000; // Replace with your desired exchange rate
 
         // Perform the conversion
         const amountNGN = amountUSD * exchangeRate;
