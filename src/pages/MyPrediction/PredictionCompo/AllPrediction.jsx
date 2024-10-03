@@ -107,9 +107,8 @@ export const AllPrediction = ({ themeMode, token }) => {
         <li key={i} className="page">
           <Button
             onClick={() => handlePageChange(i)}
-            className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white ${
-              currentPage === i ? "bg-[#0053CD]" : ""
-            }`}
+            className={`mr-1 w-[32px] h-[32px] bg-black hover:bg-[#0053CD] border border-white hover:border-[#0053CD] flex justify-center items-center rounded-full text-[12px] text-white ${currentPage === i ? "bg-[#0053CD]" : ""
+              }`}
           >
             {i}
           </Button>
@@ -146,24 +145,20 @@ export const AllPrediction = ({ themeMode, token }) => {
         <Table hoverable>
           <Table.Head className="border-b border-[#2b2f35]">
             <Table.HeadCell
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } text-[16px]  ${
-                themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-              } font-medium capitalize w-[34%]`}
+              className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px]  ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[34%]`}
             >
               Match
             </Table.HeadCell>
             <Table.HeadCell
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } text-[16px] ${
-                themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-              } font-medium capitalize w-[17%]`}
+              className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[17%]`}
             >
               Score
             </Table.HeadCell>
-            <Table.HeadCell
+            {/* <Table.HeadCell
               className={`${
                 themeMode === "light" ? "bg-white" : "bg-[#191D23]"
               } text-[16px] ${
@@ -178,22 +173,18 @@ export const AllPrediction = ({ themeMode, token }) => {
               } text-[16px] ${
                 themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
               } font-medium capitalize w-[17%]`}
-            ></Table.HeadCell>
-            <Table.HeadCell
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } text-[16px] ${
-                themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-              } font-medium capitalize w-[17%]`}
+            ></Table.HeadCell> */}
+            {/* <Table.HeadCell
+              className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[17%]`}
             >
               Accuracy
-            </Table.HeadCell>
+            </Table.HeadCell> */}
             <Table.HeadCell
-              className={`${
-                themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-              } text-[16px] ${
-                themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
-              } font-medium capitalize w-[15%]`}
+              className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } text-[16px] ${themeMode === "light" ? "text-[#787a7d]" : "text-[#96A5B8]"
+                } font-medium capitalize w-[15%]`}
             >
               More
             </Table.HeadCell>
@@ -213,26 +204,24 @@ export const AllPrediction = ({ themeMode, token }) => {
             ) : (
               <>
                 {Array.isArray(fetchedPredictions?.data) &&
-                fetchedPredictions?.data?.length > 0 &&
-                !error ? (
+                  fetchedPredictions?.data?.length > 0 &&
+                  !error ? (
                   fetchedPredictions?.data?.map((predict) => {
                     return (
                       <>
                         <Table.Row
-                          className={`${
-                            themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                          } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
+                          className={`${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                            } border-b border-[#2b2f35] dark:border-gray-700 dark:bg-gray-800 hover:bg-transparent`}
                         >
                           <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white w-[34%]">
                             <div className="flex items-center">
                               <div className="flex items-center">
                                 <div>
                                   <p
-                                    className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                      themeMode === "light"
-                                        ? "text-black"
-                                        : "text-white"
-                                    }`}
+                                    className={`font-Montserrat font-bold text-[13px] leading-[13px] ${themeMode === "light"
+                                      ? "text-black"
+                                      : "text-white"
+                                      }`}
                                   >
                                     {predict?.fixture_vrs}
                                   </p>
@@ -245,11 +234,10 @@ export const AllPrediction = ({ themeMode, token }) => {
                               <div className="flex items-center">
                                 <div>
                                   <p
-                                    className={`font-Montserrat font-bold text-[13px] leading-[13px] ${
-                                      themeMode === "light"
-                                        ? "text-black"
-                                        : "text-white"
-                                    }`}
+                                    className={`font-Montserrat font-bold text-[13px] leading-[13px] ${themeMode === "light"
+                                      ? "text-black"
+                                      : "text-white"
+                                      }`}
                                   >
                                     {/* {predict?.teams?.away?.name} */}
                                   </p>
@@ -275,28 +263,26 @@ export const AllPrediction = ({ themeMode, token }) => {
                               {predict?.fixture_score}
                             </span>
                           </Table.Cell>
-                          <Table.Cell className="w-[17%]">
+                          {/* <Table.Cell className="w-[17%]">
                             {predict?.over_under_line > 0 ? (
                               <span
-                                className={`text-base font-bold ${
-                                  themeMode === "light"
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
+                                className={`text-base font-bold ${themeMode === "light"
+                                  ? "text-black"
+                                  : "text-white"
+                                  }`}
                               >
-                                {/* Over {Math.abs(predict?.over_under_line)} */}
+                           
                                 Win
                               </span>
                             ) : predict?.over_under_line < 0 ? (
                               <>
                                 <span
-                                  className={`text-base font-bold ${
-                                    themeMode === "light"
-                                      ? "text-black"
-                                      : "text-white"
-                                  }`}
+                                  className={`text-base font-bold ${themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                    }`}
                                 >
-                                  {/* Under {Math.abs(predict?.over_under_line)} */}
+                              
                                   Loss
                                 </span>
                               </>
@@ -304,24 +290,22 @@ export const AllPrediction = ({ themeMode, token }) => {
                               <>
                                 {" "}
                                 <span
-                                  className={`text-base font-bold ${
-                                    themeMode === "light"
-                                      ? "text-black"
-                                      : "text-white"
-                                  }`}
+                                  className={`text-base font-bold ${themeMode === "light"
+                                    ? "text-black"
+                                    : "text-white"
+                                    }`}
                                 >
                                   N/A
                                 </span>
                               </>
                             )}
-                          </Table.Cell>
-                          <Table.Cell className="w-[5%]">
+                          </Table.Cell> */}
+                          {/* <Table.Cell className="w-[5%]">
                             <span
-                              className={`text-base font-bold ${
-                                themeMode === "light"
-                                  ? "text-black"
-                                  : "text-white"
-                              }`}
+                              className={`text-base font-bold ${themeMode === "light"
+                                ? "text-black"
+                                : "text-white"
+                                }`}
                             >
                               <span>
                                 {predict?.fixture_status === "failed" ? (
@@ -373,12 +357,12 @@ export const AllPrediction = ({ themeMode, token }) => {
                                 )}{" "}
                               </span>
                             </span>
-                          </Table.Cell>
-                          <Table.Cell className="w-[10%]">
+                          </Table.Cell> */}
+                          {/* <Table.Cell className="w-[10%]">
                             <span className="bg-[#ff0000] rounded-2xl text-white font-medium text-[15px] leading-[30px] font-Montserrat inline-block px-6">
                               {predict?.accuracy}%
                             </span>
-                          </Table.Cell>
+                          </Table.Cell> */}
                           <Table.Cell className="text-center text-2xl cursor-pointer w-[15%]">
                             <MdMoreHoriz
                               onClick={() =>
@@ -419,9 +403,8 @@ export const AllPrediction = ({ themeMode, token }) => {
         <div className="md:flex justify-between items-center mt-8">
           <div className="mb-2 md:mb-0 text-center">
             <p
-              className={`${
-                themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
-              } text-xs`}
+              className={`${themeMode === "light" ? "text-[#0d0f11]" : "text-[#989ca0]"
+                } text-xs`}
             >
               Showing {(currentPage - 1) * itemsPerPage + 1 || 0} to{" "}
               {currentPage * itemsPerPage || 0} of{" "}
@@ -475,9 +458,8 @@ export const AllPrediction = ({ themeMode, token }) => {
               </div>
               <div className="flex items-center justify-center">
                 <p
-                  className={`text-[12px] ${
-                    themeMode === "light" ? "text-[#0d0f11]" : "text-white"
-                  } mr-1.5`}
+                  className={`text-[12px] ${themeMode === "light" ? "text-[#0d0f11]" : "text-white"
+                    } mr-1.5`}
                 >
                   Go to page
                 </p>
