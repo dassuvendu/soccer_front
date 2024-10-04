@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaDribbble, FaFacebookF, FaInstagram } from "react-icons/fa";
+import { FaDribbble, FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TfiYoutube } from "react-icons/tfi";
 import { Link } from "react-router-dom";
@@ -127,6 +127,15 @@ const Footer = () => {
                   className="text-[#acb4b6] text-2xl hover:text-[#2aa9e1] mx-2 block"
                 >
                   <FaInstagram />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="https://www.TikTok.com/@playcope"
+                  target="_blank"
+                  className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block"
+                >
+                  <FaTiktok />
                 </Link>
               </li>
             </ul>
