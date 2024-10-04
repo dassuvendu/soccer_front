@@ -651,12 +651,12 @@ const Settings = () => {
                                         </h2>
 
                                         <div className="text-center">
-                                          <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
+                                          {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
                                             <span className="line_bar2 text-black text-base mr-1">
                                               $9.89
                                             </span>{" "}
                                             Subscribe today for
-                                          </h3>
+                                          </h3> */}
                                           <h3 className="text-3xl text-white font-bold mb-4">
                                             <span className="text-black pr-1">
                                               {/* {plan?.price}$ */}

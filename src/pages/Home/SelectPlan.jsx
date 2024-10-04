@@ -27,9 +27,9 @@ const SelectPlan = () => {
         >
           <div className="md:flex justify-between items-center max-w-2xl mx-auto text-center">
             <h3 className="font-Bebas py-5 text-5xl tracking-normal mb-0 text-center text-[#2aa9e1]">
-              <span className="text-[#2aa9e1] font-normal mb-0 text-3xl line_bar mr-2">
+              {/* <span className="text-[#2aa9e1] font-normal mb-0 text-3xl line_bar mr-2">
                 $9.89
-              </span>{" "}
+              </span>{" "} */}
               <span className="text-black font-bold pr-2">₦5,000</span>
               monthly only
             </h3>
