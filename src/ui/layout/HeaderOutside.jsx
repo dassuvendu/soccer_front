@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Navbar, Button, Modal, TextInput } from "flowbite-react";
 import { PlaycopeLogoPopup, loginImg, logo } from "../../assets/images/images";
 import { FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { FaDribbble, FaFacebookF, FaUsers } from "react-icons/fa";
+import { FaDribbble, FaFacebookF, FaTiktok, FaUsers } from "react-icons/fa";
 import { TfiYoutube } from "react-icons/tfi";
 import { BiSolidUser } from "react-icons/bi";
 import {
@@ -113,11 +113,15 @@ const HeaderOutside = () => {
                     <FaInstagram />
                   </Link>
                 </li>
-                {/* <li>
-                  <Link className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block">
-                    <TfiYoutube />
+                <li>
+                  <Link
+                    to="https://www.TikTok.com/@playcope"
+                    target="_blank"
+                    className="text-[#acb4b6] text-base hover:text-[#2aa9e1] mx-1 block"
+                  >
+                    <FaTiktok />
                   </Link>
-                </li> */}
+                </li>
               </ul>
             </div>
           </>
