@@ -6,6 +6,7 @@ import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 import { useProbability } from "../../../hooks/useProbability";
 import { Spinner } from "flowbite-react";
 import { logoIcon } from "../../../assets/images/images";
+import { toast, ToastContainer } from "react-toastify";
 
 export const CorrectScores = ({ isfixturesId }) => {
   const { isLoading } = useSelector((state) => state.IsunLock);
@@ -27,23 +28,23 @@ export const CorrectScores = ({ isfixturesId }) => {
 
   const [averageGoal, setAverageGoals] = useState(null);
   const [averagePercentage, setAveragePercentage] = useState(null);
-   
+
   const probabilities = useProbability({ averageGoal });
-const homeGoal= h2h?.map(item=>item?.goals?.home)
-console.log("Home Goals: ",homeGoal);
-const awayGoal= h2h?.map(item=>item?.goals?.away)
-console.log("Away Goals: ",awayGoal);
+  const homeGoal = h2h?.map(item => item?.goals?.home)
+  console.log("Home Goals: ", homeGoal);
+  const awayGoal = h2h?.map(item => item?.goals?.away)
+  console.log("Away Goals: ", awayGoal);
 
-const totalHomeGoals = homeGoal.reduce((acc, cur) => acc + cur, 0);
-console.log('totalHomeGoals', totalHomeGoals)
-const totalAwayGoals = awayGoal.reduce((acc, cur) => acc + cur, 0);
-console.log('totalAwayGoals', totalAwayGoals)
+  const totalHomeGoals = homeGoal.reduce((acc, cur) => acc + cur, 0);
+  console.log('totalHomeGoals', totalHomeGoals)
+  const totalAwayGoals = awayGoal.reduce((acc, cur) => acc + cur, 0);
+  console.log('totalAwayGoals', totalAwayGoals)
 
-const avgHomeGoals = totalHomeGoals / homeGoal.length;
-const avgAwayGoals = totalAwayGoals / awayGoal.length;
+  const avgHomeGoals = totalHomeGoals / homeGoal.length;
+  const avgAwayGoals = totalAwayGoals / awayGoal.length;
 
-console.log("Average Home Goals: ", avgHomeGoals);
-console.log("Average Away Goals: ", avgAwayGoals);
+  console.log("Average Home Goals: ", avgHomeGoals);
+  console.log("Average Away Goals: ", avgAwayGoals);
   useEffect(() => {
     if (teamResult?.home?.league?.goals?.for) {
       console.log("per :", teamResult?.home?.league?.goals?.for?.minute);
@@ -66,7 +67,17 @@ console.log("Average Away Goals: ", avgAwayGoals);
   }, [dispatch, isfixturesId]);
 
   const handleClick = () => {
-    dispatch(getUnlockCheck({ fixture: isfixturesId })).then((res) => {
+    dispatch(getUnlockCheck({ fixture_id: isfixturesId })).then((res) => {
+      if (res?.payload?.response?.data?.message) {
+        toast.error(res?.payload?.response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
       setIsUnlock(res.payload.status);
       setCheck(true);
     });
@@ -94,17 +105,18 @@ console.log("Average Away Goals: ", avgAwayGoals);
   function roundToInteger(value) {
     // Check if value is greater than or equal to 1
     if (value >= 1) {
-        return Math.floor(value); // Round down to the nearest integer
+      return Math.floor(value); // Round down to the nearest integer
     } else {
-        // Check if value has more than 7 decimal places
-        const roundedValue = Number(value.toFixed(7));
-        // Check if rounded value is integer or not
-        return roundedValue === Math.trunc(roundedValue) ? Math.trunc(roundedValue) : Math.round(roundedValue);
+      // Check if value has more than 7 decimal places
+      const roundedValue = Number(value.toFixed(7));
+      // Check if rounded value is integer or not
+      return roundedValue === Math.trunc(roundedValue) ? Math.trunc(roundedValue) : Math.round(roundedValue);
     }
-}
+  }
 
   return (
     <div>
+      <ToastContainer />
       {isUnlock === false && check === false && isLoading === false ? (
         <>
           <div className="flex justify-center mt-10">
@@ -176,13 +188,13 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
 
               <div className="grid grid-cols-3 gap-4 border-b border-gray-300 py-3">
                 <div className="text-center">
-                {
-                    isNaN(avgHomeGoals) || avgHomeGoals===null || avgHomeGoals==undefined?
-                  (<h3 className="text-black text-base">
-                    {/* {Math.round(avgHomeGoals)} */}
-              N/A
-                  </h3>):(<h3 className="text-black text-base"> {roundToInteger(avgHomeGoals)}</h3>)
-}
+                  {
+                    isNaN(avgHomeGoals) || avgHomeGoals === null || avgHomeGoals == undefined ?
+                      (<h3 className="text-black text-base">
+                        {/* {Math.round(avgHomeGoals)} */}
+                        N/A
+                      </h3>) : (<h3 className="text-black text-base"> {roundToInteger(avgHomeGoals)}</h3>)
+                  }
                 </div>
 
                 <div className="text-center">
@@ -192,13 +204,13 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
                 </div>
 
                 <div className="text-center">
-                {
-                    isNaN(avgAwayGoals) || avgAwayGoals===null || avgAwayGoals==undefined?
-                  (<h3 className="text-black text-base">
-                    {/* {Math.round(avgHomeGoals)} */}
-              N/A
-                  </h3>):(<h3 className="text-black text-base"> {roundToInteger(avgAwayGoals)}</h3>)
-}
+                  {
+                    isNaN(avgAwayGoals) || avgAwayGoals === null || avgAwayGoals == undefined ?
+                      (<h3 className="text-black text-base">
+                        {/* {Math.round(avgHomeGoals)} */}
+                        N/A
+                      </h3>) : (<h3 className="text-black text-base"> {roundToInteger(avgAwayGoals)}</h3>)
+                  }
                 </div>
               </div>
 
