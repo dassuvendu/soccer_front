@@ -32,6 +32,7 @@ import {
   bankPayment,
   bankPaymentRedirect,
   bankPlanKeys,
+  freePayment,
 } from "../../reducers/paymentSlice";
 import axios from "axios";
 import errorHandler from "../../store/errorHandler";
@@ -66,7 +67,7 @@ const Settings = () => {
   };
 
   const userId = localStorage.getItem("userId");
-  console.log("ul", userId);
+  console.log("userId", userId);
   const encodedUserId = encodeURIComponent(userId);
   // const uId = userId?.split(':')[1]
   // console.log("ul1",uId);
@@ -134,6 +135,7 @@ const Settings = () => {
   const amountUSD = plansList[0]?.price;
   console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
+  console.log("plans", plans)
 
   // const { profile } = useSelector((state) => state.profile);
   // console.log("profile", profile);
@@ -165,6 +167,7 @@ const Settings = () => {
     transactionReference,
     apiKey,
     redirectResponse,
+    loadingFree,
   } = useSelector((state) => state.payment);
 
   useEffect(() => {
@@ -323,6 +326,17 @@ const Settings = () => {
 
   console.log("dateString", dateString)
   console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions[0]?.plan_period_end < dateString)
+
+  const handleFreeSub = () => {
+    dispatch(freePayment()).then((response) => {
+      if (response?.payload?.status_code === 200) {
+        navigate("/dashboard");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
+      }
+    });
+  };
 
   return (
     <div className="wrapper_area max-w-7xl my-0 mx-auto px-0">
@@ -646,37 +660,64 @@ const Settings = () => {
                                     plans.length > 0 &&
                                     plans?.map((plan, plankey) => (
                                       <div key={"plan_" + plankey} className="">
-                                        <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                          Choose full features plan
-                                        </h2>
-
-                                        <div className="text-center">
-                                          {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
+                                        {console.log("plan", plan)}
+                                        {plan?.is_free === 1 ? (
+                                          <>
+                                            <h1 className="text-center mt-2 font-bold">OR</h1>
+                                            <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center mt-4">
+                                              Choose free plan
+                                            </h2>
+                                            <div className="text-center">
+                                              <h3 className="text-3xl text-white font-bold mb-4">
+                                                <span className="text-black pr-1">
+                                                  Limit:
+                                                </span>{" "}
+                                                5 predictions / day
+                                              </h3>
+                                              <button
+                                                className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                                onClick={() => {
+                                                  handleFreeSub()
+                                                }}
+                                              >
+                                                {loadingFree ? "Wait..." : "Subscribe Now"}
+                                              </button>
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                                              Choose full features plan
+                                            </h2>
+                                            <div className="text-center">
+                                              {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
                                             <span className="line_bar2 text-black text-base mr-1">
                                               $9.89
                                             </span>{" "}
                                             Subscribe today for
                                           </h3> */}
-                                          <h3 className="text-3xl text-white font-bold mb-4">
-                                            <span className="text-black pr-1">
-                                              {/* {plan?.price}$ */}
-                                              ₦5,000
-                                            </span>{" "}
-                                            Monthly only
-                                          </h3>
-                                          <button
-                                            className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                            onClick={() => {
-                                              choosePaymentHandler();
-                                              localStorage.setItem(
-                                                "planId",
-                                                plan.id
-                                              );
-                                            }}
-                                          >
-                                            Subscribe Now
-                                          </button>
-                                        </div>
+                                              <h3 className="text-3xl text-white font-bold mb-4">
+                                                <span className="text-black pr-1">
+                                                  {/* {plan?.price}$ */}
+                                                  ₦5,000
+                                                </span>{" "}
+                                                Monthly only
+                                              </h3>
+                                              <button
+                                                className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                                onClick={() => {
+                                                  choosePaymentHandler();
+                                                  localStorage.setItem(
+                                                    "planId",
+                                                    plan.id
+                                                  );
+                                                }}
+                                              >
+                                                Subscribe Now
+                                              </button>
+                                            </div>
+                                          </>
+                                        )}
                                       </div>
                                     ))}
                                 </div>
@@ -687,6 +728,56 @@ const Settings = () => {
                       </div>
                     </div>
                   </div>
+
+                  {/* <div className="choose_your_plan_section pb-0 mt-2">
+                    <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
+                      <div className="plan_tab_area">
+                        <div className="px-0 lg:px-0">
+                          <div className="w-full max-w-4xl p-0 mx-auto my-0 lg:p-0">
+                            <div className="container mx-auto my-0">
+                              <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-md">
+                                <div className="hidden md:block w-5/12">
+                                  <img
+                                    src={bannerImgFour}
+                                    alt="bannerImgFour"
+                                    className="rounded-xl w-full inline-block"
+                                  />
+                                </div>
+                                <div className="w-full md:w-6/12">
+                                  <div className="">
+                                    <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                                      Choose free plan
+                                    </h2>
+                                    <div className="text-center">
+                                      <h3 className="text-3xl text-white font-bold mb-4">
+                                        <span className="text-black pr-1">
+                                          Free
+                                        </span>{" "}
+                                      </h3>
+                                      <h3 className="text-3xl text-white font-bold mb-4">
+                                        <span className="text-black pr-1">
+                                          Limit:
+                                        </span>{" "}
+                                        5 predictions
+                                      </h3>
+                                      <button
+                                        className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                        onClick={() => {
+                                        }}
+                                      >
+                                        Subscribe Now
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> */}
+
                 </div>
               ) : (
                 <div className="w-full mt-4 md:mt-0 md:ml-4 md:w-7/12">
@@ -705,30 +796,39 @@ const Settings = () => {
                                   />
                                 </div>
                                 <div className="w-full md:w-6/12">
-                                  {plans &&
+                                  {/* {plans &&
                                     plans.length > 0 &&
-                                    plans?.map((plan, plankey) => (
-                                      <div key={"plan_" + plankey} className="">
-                                        <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                          Choose full features plan
-                                        </h2>
-
-                                        <div className="text-center">
-                                          <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
-                                            {/* {plan?.price}$  */}
-                                            ₦5,000 monthly only
-                                          </h3>
-                                          <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
-                                            Valid till :{" "}
-                                            {
-                                              profile?.details
-                                                ?.user_subscriptions[0]
-                                                ?.plan_period_end
-                                            }
-                                          </button>
-                                        </div>
-                                      </div>
-                                    ))}
+                                    plans?.map((plan, plankey) => ( */}
+                                  <div
+                                    // key={"plan_" + plankey} 
+                                    className="">
+                                    <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                                      {
+                                        profile?.details
+                                          ?.user_subscriptions[0]
+                                          ?.subscription === "free" ? "Choose free plan" : "Choose full features plan"
+                                      }
+                                    </h2>
+                                    <div className="text-center">
+                                      <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
+                                        {/* {plan?.price}$  */}
+                                        {
+                                          profile?.details
+                                            ?.user_subscriptions[0]
+                                            ?.subscription === "free" ? "Free" : "₦5,000 monthly only"
+                                        }
+                                      </h3>
+                                      <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                                        Valid till :{" "}
+                                        {
+                                          profile?.details
+                                            ?.user_subscriptions[0]
+                                            ?.plan_period_end
+                                        }
+                                      </button>
+                                    </div>
+                                  </div>
+                                  {/* ))} */}
                                 </div>
                               </div>
                             </div>

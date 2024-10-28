@@ -38,6 +38,7 @@ const plansSlice = createSlice({
                 state.loading = true;
             })
             .addCase(subscriptionPlans.fulfilled, (state, response) => {
+                console.log("response", response)
                 state.loading = false;
                 state.plans = response.payload;
             })

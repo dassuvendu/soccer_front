@@ -135,6 +135,24 @@ export const payStackPayment = createAsyncThunk(
     }
 );
 
+export const freePayment = createAsyncThunk(
+    'user/free-payment',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await api.post('/user/subscribe_to_free_plan');
+            if (response?.data?.status_code === 200) {
+                return response.data;
+            } else {
+                // Handle the case when status code is not 200
+                return rejectWithValue(response.data.message);
+            }
+        } catch (error) {
+            let errors = errorHandler(error);
+            return rejectWithValue(errors);
+        }
+    }
+);
+
 
 
 const initialState = {
@@ -152,6 +170,7 @@ const initialState = {
     paymentLink: null,
     transactionReference: null,
     redirectResponse: null,
+    loadingFree: false,
 };
 
 const PaymentSlice = createSlice({
@@ -302,6 +321,25 @@ const PaymentSlice = createSlice({
             })
             .addCase(payStackPayment.rejected, (state, { payload }) => {
                 state.loading = false;
+                state.error = true;
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+
+            .addCase(freePayment.pending, (state) => {
+                state.loadingFree = true
+            })
+            .addCase(freePayment.fulfilled, (state, { payload }) => {
+                state.loadingFree = false
+                state.message =
+                    payload !== undefined && payload.message
+                        ? payload.message
+                        : 'Something went wrong. Try again later.';
+            })
+            .addCase(freePayment.rejected, (state, { payload }) => {
+                state.loadingFree = false;
                 state.error = true;
                 state.message =
                     payload !== undefined && payload.message

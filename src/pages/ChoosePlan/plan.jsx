@@ -18,6 +18,7 @@ import {
   bankPayment,
   bankPaymentRedirect,
   bankPlanKeys,
+  freePayment,
   stripePayment,
   stripePlanKeys,
 } from "../../reducers/paymentSlice";
@@ -60,6 +61,7 @@ const Plan = () => {
   const amountUSD = plansList[0]?.price;
   console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
+  console.log("plans", plans)
 
   const { profile } = useSelector((state) => state.profile);
   console.log("profile", profile);
@@ -100,6 +102,7 @@ const Plan = () => {
     transactionReference,
     apiKey,
     redirectResponse,
+    loadingFree,
   } = useSelector((state) => state.payment);
 
   useEffect(() => {
@@ -281,6 +284,17 @@ const Plan = () => {
     setPlans(plansList);
   }, [plansList]);
 
+  const handleFreeSub = () => {
+    dispatch(freePayment()).then((response) => {
+      if (response?.payload?.status_code === 200) {
+        navigate("/dashboard");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
+      }
+    });
+  };
+
   return (
     <div>
       {/* Choose your plan section start here */}
@@ -309,58 +323,97 @@ const Plan = () => {
                               plans.length > 0 &&
                               plans?.map((plan, plankey) => (
                                 <div key={"plan_" + plankey} className="">
-                                  <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
-                                    Choose full features plan
-                                  </h2>
-                                  {/* <ul className="mb-4 px-4">
-                                    <li className="text-[14px] text-white pb-3 flex">
-                                      <FaCircle className="text-[10px] mr-1 mt-1" />
-                                      Lorem Ipsum is simply dummy text of the
-                                      printing
-                                    </li>
-                                    <li className="text-[14px] text-white pb-3 flex">
-                                      <FaCircle className="text-[10px] mr-1 mt-1" />
-                                      Lorem Ipsum is simply dummy text of the
-                                      printing
-                                    </li>
-                                    <li className="text-[14px] text-white pb-3 flex">
-                                      <FaCircle className="text-[10px] mr-1 mt-1" />
-                                      Lorem Ipsum is simply dummy text of the
-                                      printing
-                                    </li>
-                                  </ul> */}
-                                  <div className="text-center">
-                                    {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
+                                  {console.log("plan", plan)}
+                                  {plan?.is_free === 1 ? (
+                                    <>
+                                      <h1 className="text-center mt-2 font-bold">OR</h1>
+                                      <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center mt-4">
+                                        Choose free plan
+                                      </h2>
+                                      <div className="text-center">
+                                        <h3 className="text-3xl text-white font-bold mb-4">
+                                          <span className="text-black pr-1">
+                                            Limit:
+                                          </span>{" "}
+                                          5 predictions / day
+                                        </h3>
+                                        <button
+                                          className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                          onClick={() => {
+                                            handleFreeSub()
+                                          }}
+                                        >
+                                          {loadingFree ? "Wait..." : "Subscribe Now"}
+                                        </button>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
+                                        Choose full features plan
+                                      </h2>
+                                      <div className="text-center">
+                                        {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
                                       <span className="line_bar2 text-black text-base mr-1">
                                         $9.89
                                       </span>{" "}
                                       Subscribe today for
                                     </h3> */}
-                                    <h3 className="text-3xl text-white font-bold mb-4">
-                                      <span className="text-black pr-1">
-                                        {/* {plan?.price}$ */}
-                                        ₦5,000
-                                      </span>{" "}
-                                      Monthly only
-                                    </h3>
-
-                                    <button
-                                      className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                      // onClick={() => {
-                                      //   createSubscription(plan.id, userId);
-                                      //   localStorage.setItem("planId", plan.id);
-                                      // }}
-                                      onClick={() => {
-                                        choosePaymentHandler();
-                                        localStorage.setItem("planId", plan.id);
-                                      }}
-                                    >
-                                      Subscribe Now
-                                    </button>
-                                  </div>
+                                        <h3 className="text-3xl text-white font-bold mb-4">
+                                          <span className="text-black pr-1">
+                                            {/* {plan?.price}$ */}
+                                            ₦5,000
+                                          </span>{" "}
+                                          Monthly only
+                                        </h3>
+                                        <button
+                                          className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                          // onClick={() => {
+                                          //   createSubscription(plan.id, userId);
+                                          //   localStorage.setItem("planId", plan.id);
+                                          // }}
+                                          onClick={() => {
+                                            choosePaymentHandler();
+                                            localStorage.setItem("planId", plan.id);
+                                          }}
+                                        >
+                                          Subscribe Now
+                                        </button>
+                                      </div>
+                                    </>
+                                  )}
                                 </div>
                               ))}
                           </div>
+                          {/* <p>Or</p>
+                          <div className="w-full md:w-6/12">
+                            <div className="">
+                              <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
+                                Choose full features plan
+                              </h2>
+                              <div className="text-center">
+                                <h3 className="text-3xl text-white font-bold mb-4">
+                                  <span className="text-black pr-1">
+                                    Free
+                                  </span>{" "}
+                                </h3>
+                                <h3 className="text-xl text-white font-bold mb-4">
+                                  <span className="text-black pr-1">
+                                    Limit:
+                                  </span>{" "}
+                                  5 predictions
+                                </h3>
+                                <button
+                                  className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                  onClick={() => {
+                                  }}
+                                >
+                                  Subscribe Now
+                                </button>
+                              </div>
+                            </div>
+
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -368,6 +421,58 @@ const Plan = () => {
                 </div>
               </div>
             </div>
+
+            {/* <div className="choose_your_plan_section pb-0">
+              <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
+                <div className="plan_tab_area">
+                  <div className="px-4 lg:px-0">
+                    <div className="w-full max-w-4xl p-3 mx-auto my-0 lg:p-10">
+                      <div className="container mx-auto my-0">
+                        <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-2xl">
+                          <div className="hidden md:block w-5/12">
+                            <img
+                              src={bannerImgFour}
+                              alt="bannerImgFour"
+                              className="rounded-xl w-full inline-block"
+                            />
+                          </div>
+                          <div className="w-full md:w-6/12">
+                            <div className="">
+                              <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
+                                Choose free plan
+                              </h2>
+                              <div className="text-center">
+                                <h3 className="text-3xl text-white font-bold mb-4">
+                                  <span className="text-black pr-1">
+                                    Free
+                                  </span>{" "}
+                                </h3>
+                                <h3 className="text-xl text-white font-bold mb-4">
+                                  <span className="text-black pr-1">
+                                    Limit:
+                                  </span>{" "}
+                                  5 predictions
+                                </h3>
+                                <button
+                                  className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
+                                  onClick={() => {
+                                    handleFreeSub()
+                                  }}
+                                >
+                                  Subscribe Now
+                                </button>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
           </div>
         </div>
       )}

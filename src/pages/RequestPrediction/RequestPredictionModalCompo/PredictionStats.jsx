@@ -1,7 +1,8 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 import { logoIcon } from "../../../assets/images/images";
+import { toast, ToastContainer } from "react-toastify";
 
 export const PredictionStats = ({ isfixturesId }) => {
   const { lastResult } = useSelector((state) => state.prediction);
@@ -45,7 +46,18 @@ export const PredictionStats = ({ isfixturesId }) => {
   }, [dispatch, isfixturesId]);
 
   const handleClick = () => {
-    dispatch(getUnlockCheck({ fixture: isfixturesId })).then((res) => {
+    dispatch(getUnlockCheck({ fixture_id: isfixturesId })).then((res) => {
+      console.log("response", res)
+      if (res?.payload?.response?.data?.message) {
+        toast.error(res?.payload?.response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
       setIsUnlock(res.payload.status);
       setCheck(true);
     });
@@ -53,6 +65,7 @@ export const PredictionStats = ({ isfixturesId }) => {
 
   return (
     <div>
+      <ToastContainer />
       {isUnlock === false && check === false && isLoading === false ? (
         <>
           <div className="flex justify-center mt-10">
