@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   PlaycopeLogoPopup,
+  bannerImgFive,
   bannerImgFour,
   bannerImgTwo,
   earnIcon,
@@ -348,9 +349,8 @@ const Settings = () => {
           <>
             <div className="flex justify-between mb-8">
               <h1
-                className={`${
-                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                  } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
               >
                 Settings
               </h1>
@@ -396,25 +396,22 @@ const Settings = () => {
             {/* Setting edit section start here */}
             <div className="md:flex mb-6">
               <div
-                className={`w-full md:w-5/12 ${
-                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                  } rounded-md p-5 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${
-                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                    } font-medium`}
+                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                      } font-medium`}
                   >
                     Overview
                   </h3>
                   <button onClick={updateHandler}>
                     <AiFillEdit
-                      className={`${
-                        themeMode === "light"
-                          ? "text-[#2aa9e1] hover:text-black"
-                          : "text-white"
-                      } text-[28px] hover:text-[#2aa9e1]`}
+                      className={`${themeMode === "light"
+                        ? "text-[#2aa9e1] hover:text-black"
+                        : "text-white"
+                        } text-[28px] hover:text-[#2aa9e1]`}
                     />
                   </button>
                 </div>
@@ -428,9 +425,8 @@ const Settings = () => {
                   </div>
                   <div>
                     <p
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[19px] leading-[20px] text-medium`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[19px] leading-[20px] text-medium`}
                     >
                       {profile?.details?.first_name}
                     </p>
@@ -451,32 +447,28 @@ const Settings = () => {
                 <div>
                   <div className="flex pb-4 mb-4 border-b border-[#DCDCDC]">
                     <div
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[14px] text-medium w-4/12`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[14px] text-medium w-4/12`}
                     >
                       Contact phone
                     </div>
                     <div
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[14px] text-normal w-8/12`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[14px] text-normal w-8/12`}
                     >
                       {profile?.details?.mobile}
                     </div>
                   </div>
                   <div className="flex mb-4 border-b border-[#DCDCDC] pb-4">
                     <div
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[14px] text-medium w-4/12`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[14px] text-medium w-4/12`}
                     >
                       {/* Address */}Gender
                     </div>
                     <div
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[14px] text-normal w-8/12`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[14px] text-normal w-8/12`}
                     >
                       {/* 23 Main Street, Anytown, USA 12345 */}
                       {profile?.details?.gender}
@@ -531,24 +523,21 @@ const Settings = () => {
                 </div>
               </div>
               <div
-                className={`w-full md:w-7/12 ${
-                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
+                className={`w-full md:w-7/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                  } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${
-                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                    } font-medium`}
+                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                      } font-medium`}
                   >
                     Sign In Methods
                   </h3>
                 </div>
                 <div className="border-b border-[#DCDCDC] pb-3 pt-0 mb-3">
                   <p
-                    className={`${
-                      themeMode === "light" ? "text-black" : "text-white"
-                    } text-[15px] text-normal pb-0`}
+                    className={`${themeMode === "light" ? "text-black" : "text-white"
+                      } text-[15px] text-normal pb-0`}
                   >
                     Email Address
                   </p>
@@ -559,9 +548,8 @@ const Settings = () => {
                 <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
                   <div className="w-7/12 lg:w-9/12">
                     <p
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[15px] text-normal pb-0`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[15px] text-normal pb-0`}
                     >
                       Password
                     </p>
@@ -585,18 +573,16 @@ const Settings = () => {
                 <div className="mt-4 rounded-md p-4 flex justify-between items-center">
                   <div className="flex">
                     <p
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[17px] text-normal pb-0`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[17px] text-normal pb-0`}
                     >
                       Number of referrals :
                     </p>
                   </div>
                   <div>
                     <p
-                      className={`${
-                        themeMode === "light" ? "text-black" : "text-white"
-                      } text-[17px] text-normal pb-0`}
+                      className={`${themeMode === "light" ? "text-black" : "text-white"
+                        } text-[17px] text-normal pb-0`}
                     >
                       {refCount}
                     </p>
@@ -607,9 +593,8 @@ const Settings = () => {
 
             <div className="md:flex pb-10">
               <div
-                className={`w-full md:w-5/12 ${
-                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                  } rounded-md p-5 shadow-xl`}
               >
                 <h3 className="text-[20px]  text-[#2aa9e1] font-medium text-center pb-2">
                   Refer Friends And Earn 20% Commission
@@ -657,14 +642,14 @@ const Settings = () => {
                 </div>
               </div>
               {subscribed === null ||
-              subscribed === undefined ||
-              subscribed === "cancel" ||
-              profile?.details?.user_subscriptions[0]?.plan_period_end >
+                subscribed === undefined ||
+                subscribed === "cancel" ||
+                profile?.details?.user_subscriptions[0]?.plan_period_end >
                 dateString ===
                 false ? (
                 <div className="w-full md:ml-4 md:w-7/12 mt-4 md:mt-0">
                   <div className="choose_your_plan_section pb-0">
-                    <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
+                    {/* <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
                       <div className="plan_tab_area">
                         <div className="px-0 lg:px-0">
                           <div className="w-full max-w-4xl p-0 mx-auto my-0 lg:p-0">
@@ -716,15 +701,8 @@ const Settings = () => {
                                               Choose full features plan
                                             </h2>
                                             <div className="text-center">
-                                              {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
-                                            <span className="line_bar2 text-black text-base mr-1">
-                                              $9.89
-                                            </span>{" "}
-                                            Subscribe today for
-                                          </h3> */}
                                               <h3 className="text-3xl text-white font-bold mb-4">
                                                 <span className="text-black pr-1">
-                                                  {/* {plan?.price}$ */}
                                                   ₦5,000
                                                 </span>{" "}
                                                 Monthly only
@@ -752,62 +730,101 @@ const Settings = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* <div className="choose_your_plan_section pb-0 mt-2">
-                    <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
-                      <div className="plan_tab_area">
-                        <div className="px-0 lg:px-0">
-                          <div className="w-full max-w-4xl p-0 mx-auto my-0 lg:p-0">
-                            <div className="container mx-auto my-0">
-                              <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-md">
-                                <div className="hidden md:block w-5/12">
-                                  <img
-                                    src={bannerImgFour}
-                                    alt="bannerImgFour"
-                                    className="rounded-xl w-full inline-block"
-                                  />
-                                </div>
-                                <div className="w-full md:w-6/12">
-                                  <div className="">
+                    </div> */}
+                    <div className="max-w-7xl mx-auto">
+                      <div className="py-16 flex justify-center items-center gap-8">
+                        {plans &&
+                          plans.length > 0 &&
+                          plans?.map((plan, plankey) => (
+                            <div key={"plan_" + plankey} className="w-6/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                              {plan?.is_free === 1 ? (
+                                <>
+                                  <div className="w-full">
+                                    <div className="hidden md:block w-full mb-6">
+                                      <img
+                                        src={bannerImgFive}
+                                        alt="bannerImgFive"
+                                        className="rounded-xl w-full inline-block"
+                                      />
+                                    </div>
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
                                       Choose free plan
                                     </h2>
                                     <div className="text-center">
-                                      <h3 className="text-3xl text-white font-bold mb-4">
-                                        <span className="text-black pr-1">
-                                          Free
-                                        </span>{" "}
+                                      <h3 className="text-xl text-white font-bold mb-4">
+                                        <span className="text-black pr-1">Limit:</span> 5 predictions
+                                        / day
                                       </h3>
-                                      <h3 className="text-3xl text-white font-bold mb-4">
-                                        <span className="text-black pr-1">
-                                          Limit:
-                                        </span>{" "}
-                                        5 predictions
+                                      <button onClick={() => {
+                                        handleFreeSub()
+                                      }}
+                                        className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                                        {loadingFree ? "Wait..." : "Subscribe Now"}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="w-full">
+                                    <div className="hidden md:block w-full mb-6">
+                                      <img
+                                        src={bannerImgFour}
+                                        alt="bannerImgFour"
+                                        className="rounded-xl w-full inline-block"
+                                      />
+                                    </div>
+                                    <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                                      Choose full features plan
+                                    </h2>
+                                    <div className="text-center">
+                                      <h3 className="text-xl text-white font-bold mb-4">
+                                        <span className="text-black pr-1">₦5,000</span> Monthly only
                                       </h3>
-                                      <button
-                                        className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                        onClick={() => {
-                                        }}
-                                      >
+                                      <button onClick={() => {
+                                        choosePaymentHandler();
+                                        localStorage.setItem("planId", plan.id);
+                                      }}
+                                        className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
                                         Subscribe Now
                                       </button>
                                     </div>
                                   </div>
-                                </div>
-                              </div>
+                                </>
+                              )}
                             </div>
-                          </div>
-                        </div>
+                          ))}
+                        {/* <div className="w-3/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                    <div className="w-full">
+                      <div className="hidden md:block w-full mb-6">
+                        <img
+                          src={bannerImgFive}
+                          alt="bannerImgFive"
+                          className="rounded-xl w-full inline-block"
+                        />
+                      </div>
+                      <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                        Choose free <br></br> plan
+                      </h2>
+                      <div className="text-center">
+                        <h3 className="text-xl text-white font-bold mb-4">
+                          <span className="text-black pr-1">Limit:</span> 5 predictions
+                          / day
+                        </h3>
+                        <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                          Subscribe Now
+                        </button>
                       </div>
                     </div>
                   </div> */}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <div className="w-full mt-4 md:mt-0 md:ml-4 md:w-7/12">
                   <div className="choose_your_plan_section pb-0">
-                    <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
+                    {/* <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
                       <div className="plan_tab_area">
                         <div className="px-0 lg:px-0">
                           <div className="w-full max-w-4xl p-0 mx-auto my-0 lg:p-0">
@@ -821,11 +838,7 @@ const Settings = () => {
                                   />
                                 </div>
                                 <div className="w-full md:w-6/12">
-                                  {/* {plans &&
-                                    plans.length > 0 &&
-                                    plans?.map((plan, plankey) => ( */}
                                   <div
-                                    // key={"plan_" + plankey}
                                     className=""
                                   >
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
@@ -836,7 +849,6 @@ const Settings = () => {
                                     </h2>
                                     <div className="text-center">
                                       <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
-                                        {/* {plan?.price}$  */}
                                         {profile?.details?.user_subscriptions[0]
                                           ?.subscription === "free"
                                           ? "Free"
@@ -852,9 +864,47 @@ const Settings = () => {
                                       </button>
                                     </div>
                                   </div>
-                                  {/* ))} */}
                                 </div>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> */}
+                    <div className="max-w-7xl mx-auto">
+                      <div className="py-16 flex justify-center items-center gap-8">
+                        <div className="w-6/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                          <div className="w-full">
+                            <div className="hidden md:block w-full mb-6">
+                              <img
+                                src={profile?.details?.user_subscriptions[0]
+                                  ?.subscription === "free" ? bannerImgFive : bannerImgFour}
+                                alt="bannerImgFour"
+                                className="rounded-xl w-full inline-block"
+                              />
+                            </div>
+                            <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                              {profile?.details?.user_subscriptions[0]
+                                ?.subscription === "free"
+                                ? "Free plan"
+                                : "Full features plan"}
+                            </h2>
+                            <div className="text-center">
+                              <h3 className="text-xl text-white font-bold mb-4">
+                                {/* <span className="text-black pr-1">₦5,000</span> Monthly only */}
+                                {profile?.details?.user_subscriptions[0]
+                                  ?.subscription === "free"
+                                  ? "Free"
+                                  : "₦5,000 monthly only"}
+                              </h3>
+                              <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                                Valid till :{" "}
+                                {
+                                  profile?.details
+                                    ?.user_subscriptions[0]
+                                    ?.plan_period_end
+                                }
+                              </button>
                             </div>
                           </div>
                         </div>

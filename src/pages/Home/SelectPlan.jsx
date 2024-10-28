@@ -38,7 +38,7 @@ const SelectPlan = () => {
                 <h3 className="text-xl text-white font-bold mb-4">
                   <span className="text-black pr-1">₦5,000</span> Monthly only
                 </h3>
-                <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                <button onClick={RegisterModal} className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
                   Subscribe Now
                 </button>
               </div>
@@ -61,7 +61,7 @@ const SelectPlan = () => {
                   <span className="text-black pr-1">Limit:</span> 5 predictions
                   / day
                 </h3>
-                <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                <button onClick={RegisterModal} className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
                   Subscribe Now
                 </button>
               </div>

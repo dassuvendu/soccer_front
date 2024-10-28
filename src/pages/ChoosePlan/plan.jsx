@@ -5,6 +5,7 @@ import "react-tabs/style/react-tabs.css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import {
   PlaycopeLogoPopup,
+  bannerImgFive,
   bannerImgFour,
   bannerImgTwo,
   global_pay_icon,
@@ -305,7 +306,7 @@ const Plan = () => {
               Choose Plan
             </h2>
             <div className="choose_your_plan_section pb-0">
-              <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
+              {/* <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
                 <div className="plan_tab_area">
                   <div className="px-4 lg:px-0">
                     <div className="w-full max-w-4xl p-3 mx-auto my-0 lg:p-10">
@@ -353,25 +354,14 @@ const Plan = () => {
                                         Choose full features plan
                                       </h2>
                                       <div className="text-center">
-                                        {/* <h3 className="text-xl lg:text-xl text-white font-semibold mb-4">
-                                      <span className="line_bar2 text-black text-base mr-1">
-                                        $9.89
-                                      </span>{" "}
-                                      Subscribe today for
-                                    </h3> */}
                                         <h3 className="text-3xl text-white font-bold mb-4">
                                           <span className="text-black pr-1">
-                                            {/* {plan?.price}$ */}
                                             ₦5,000
                                           </span>{" "}
                                           Monthly only
                                         </h3>
                                         <button
                                           className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                          // onClick={() => {
-                                          //   createSubscription(plan.id, userId);
-                                          //   localStorage.setItem("planId", plan.id);
-                                          // }}
                                           onClick={() => {
                                             choosePaymentHandler();
                                             localStorage.setItem("planId", plan.id);
@@ -385,93 +375,102 @@ const Plan = () => {
                                 </div>
                               ))}
                           </div>
-                          {/* <p>Or</p>
-                          <div className="w-full md:w-6/12">
-                            <div className="">
-                              <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
-                                Choose full features plan
-                              </h2>
-                              <div className="text-center">
-                                <h3 className="text-3xl text-white font-bold mb-4">
-                                  <span className="text-black pr-1">
-                                    Free
-                                  </span>{" "}
-                                </h3>
-                                <h3 className="text-xl text-white font-bold mb-4">
-                                  <span className="text-black pr-1">
-                                    Limit:
-                                  </span>{" "}
-                                  5 predictions
-                                </h3>
-                                <button
-                                  className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                  onClick={() => {
-                                  }}
-                                >
-                                  Subscribe Now
-                                </button>
-                              </div>
-                            </div>
-
-                          </div> */}
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div> */}
+              <div className="max-w-7xl mx-auto">
+                <div className="py-16 flex justify-center items-center gap-8">
+                  {plans &&
+                    plans.length > 0 &&
+                    plans?.map((plan, plankey) => (
+                      <div key={"plan_" + plankey} className="w-3/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                        {plan?.is_free === 1 ? (
+                          <>
+                            <div className="w-full">
+                              <div className="hidden md:block w-full mb-6">
+                                <img
+                                  src={bannerImgFive}
+                                  alt="bannerImgFive"
+                                  className="rounded-xl w-full inline-block"
+                                />
+                              </div>
+                              <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                                Choose free <br></br> plan
+                              </h2>
+                              <div className="text-center">
+                                <h3 className="text-xl text-white font-bold mb-4">
+                                  <span className="text-black pr-1">Limit:</span> 5 predictions
+                                  / day
+                                </h3>
+                                <button onClick={() => {
+                                  handleFreeSub()
+                                }}
+                                  className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                                  {loadingFree ? "Wait..." : "Subscribe Now"}
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-full">
+                              <div className="hidden md:block w-full mb-6">
+                                <img
+                                  src={bannerImgFour}
+                                  alt="bannerImgFour"
+                                  className="rounded-xl w-full inline-block"
+                                />
+                              </div>
+                              <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                                Choose full features plan
+                              </h2>
+                              <div className="text-center">
+                                <h3 className="text-xl text-white font-bold mb-4">
+                                  <span className="text-black pr-1">₦5,000</span> Monthly only
+                                </h3>
+                                <button onClick={() => {
+                                  choosePaymentHandler();
+                                  localStorage.setItem("planId", plan.id);
+                                }}
+                                  className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                                  Subscribe Now
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))}
+                  {/* <div className="w-3/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                    <div className="w-full">
+                      <div className="hidden md:block w-full mb-6">
+                        <img
+                          src={bannerImgFive}
+                          alt="bannerImgFive"
+                          className="rounded-xl w-full inline-block"
+                        />
+                      </div>
+                      <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
+                        Choose free <br></br> plan
+                      </h2>
+                      <div className="text-center">
+                        <h3 className="text-xl text-white font-bold mb-4">
+                          <span className="text-black pr-1">Limit:</span> 5 predictions
+                          / day
+                        </h3>
+                        <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
+                          Subscribe Now
+                        </button>
+                      </div>
+                    </div>
+                  </div> */}
                 </div>
               </div>
             </div>
 
-            {/* <div className="choose_your_plan_section pb-0">
-              <div className="max-w-7xl mx-auto py-0 lg:py-4 px-0">
-                <div className="plan_tab_area">
-                  <div className="px-4 lg:px-0">
-                    <div className="w-full max-w-4xl p-3 mx-auto my-0 lg:p-10">
-                      <div className="container mx-auto my-0">
-                        <div className="md:flex justify-between px-4 md:px-10 py-10  shadow-xl bg-[#2aa9e1] rounded-2xl">
-                          <div className="hidden md:block w-5/12">
-                            <img
-                              src={bannerImgFour}
-                              alt="bannerImgFour"
-                              className="rounded-xl w-full inline-block"
-                            />
-                          </div>
-                          <div className="w-full md:w-6/12">
-                            <div className="">
-                              <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[40px] tracking-normal mb-2 text-center">
-                                Choose free plan
-                              </h2>
-                              <div className="text-center">
-                                <h3 className="text-3xl text-white font-bold mb-4">
-                                  <span className="text-black pr-1">
-                                    Free
-                                  </span>{" "}
-                                </h3>
-                                <h3 className="text-xl text-white font-bold mb-4">
-                                  <span className="text-black pr-1">
-                                    Limit:
-                                  </span>{" "}
-                                  5 predictions
-                                </h3>
-                                <button
-                                  className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
-                                  onClick={() => {
-                                    handleFreeSub()
-                                  }}
-                                >
-                                  Subscribe Now
-                                </button>
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
           </div>
         </div>
