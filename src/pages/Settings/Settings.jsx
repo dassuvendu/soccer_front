@@ -135,7 +135,7 @@ const Settings = () => {
   const amountUSD = plansList[0]?.price;
   console.log("amountUSD", amountUSD);
   const [plans, setPlans] = useState([]);
-  console.log("plans", plans)
+  console.log("plans", plans);
 
   // const { profile } = useSelector((state) => state.profile);
   // console.log("profile", profile);
@@ -318,14 +318,17 @@ const Settings = () => {
 
   // Get year, month, and day from the date object
   const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+  const day = String(today.getDate()).padStart(2, "0");
 
   // Combine them into the desired format
   const dateString = `${year}-${month}-${day}`;
 
-  console.log("dateString", dateString)
-  console.log("profile?.details?.user_subscriptions?.plan_period_end < dateString", profile?.details?.user_subscriptions[0]?.plan_period_end < dateString)
+  console.log("dateString", dateString);
+  console.log(
+    "profile?.details?.user_subscriptions?.plan_period_end < dateString",
+    profile?.details?.user_subscriptions[0]?.plan_period_end < dateString
+  );
 
   const handleFreeSub = () => {
     dispatch(freePayment()).then((response) => {
@@ -333,7 +336,7 @@ const Settings = () => {
         navigate("/dashboard");
         setTimeout(() => {
           window.location.reload();
-        }, 1000)
+        }, 1000);
       }
     });
   };
@@ -345,8 +348,9 @@ const Settings = () => {
           <>
             <div className="flex justify-between mb-8">
               <h1
-                className={`${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                  } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
+                className={`${
+                  themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                } font-Bebas text-2xl md:text-5xl tracking-normal mb-0`}
               >
                 Settings
               </h1>
@@ -392,22 +396,25 @@ const Settings = () => {
             {/* Setting edit section start here */}
             <div className="md:flex mb-6">
               <div
-                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-medium`}
+                    className={`text-[20px]  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-medium`}
                   >
                     Overview
                   </h3>
                   <button onClick={updateHandler}>
                     <AiFillEdit
-                      className={`${themeMode === "light"
-                        ? "text-[#2aa9e1] hover:text-black"
-                        : "text-white"
-                        } text-[28px] hover:text-[#2aa9e1]`}
+                      className={`${
+                        themeMode === "light"
+                          ? "text-[#2aa9e1] hover:text-black"
+                          : "text-white"
+                      } text-[28px] hover:text-[#2aa9e1]`}
                     />
                   </button>
                 </div>
@@ -421,8 +428,9 @@ const Settings = () => {
                   </div>
                   <div>
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[19px] leading-[20px] text-medium`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[19px] leading-[20px] text-medium`}
                     >
                       {profile?.details?.first_name}
                     </p>
@@ -443,28 +451,32 @@ const Settings = () => {
                 <div>
                   <div className="flex pb-4 mb-4 border-b border-[#DCDCDC]">
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-medium w-4/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-medium w-4/12`}
                     >
                       Contact phone
                     </div>
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-normal w-8/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-normal w-8/12`}
                     >
                       {profile?.details?.mobile}
                     </div>
                   </div>
                   <div className="flex mb-4 border-b border-[#DCDCDC] pb-4">
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-medium w-4/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-medium w-4/12`}
                     >
                       {/* Address */}Gender
                     </div>
                     <div
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[14px] text-normal w-8/12`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[14px] text-normal w-8/12`}
                     >
                       {/* 23 Main Street, Anytown, USA 12345 */}
                       {profile?.details?.gender}
@@ -519,21 +531,24 @@ const Settings = () => {
                 </div>
               </div>
               <div
-                className={`w-full md:w-7/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
+                className={`w-full md:w-7/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 md:ml-4 mt-4 md:mt-0 shadow-xl`}
               >
                 <div className="flex justify-between items-center border-b border-[#DCDCDC] pb-3 mb-3">
                   <h3
-                    className={`text-[20px]  ${themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
-                      } font-medium`}
+                    className={`text-[20px]  ${
+                      themeMode === "light" ? "text-[#2aa9e1]" : "text-white"
+                    } font-medium`}
                   >
                     Sign In Methods
                   </h3>
                 </div>
                 <div className="border-b border-[#DCDCDC] pb-3 pt-0 mb-3">
                   <p
-                    className={`${themeMode === "light" ? "text-black" : "text-white"
-                      } text-[15px] text-normal pb-0`}
+                    className={`${
+                      themeMode === "light" ? "text-black" : "text-white"
+                    } text-[15px] text-normal pb-0`}
                   >
                     Email Address
                   </p>
@@ -544,8 +559,9 @@ const Settings = () => {
                 <div className="border-b border-[#DCDCDC] pb-0 pt-0 mb-0 flex items-center">
                   <div className="w-7/12 lg:w-9/12">
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[15px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[15px] text-normal pb-0`}
                     >
                       Password
                     </p>
@@ -569,16 +585,18 @@ const Settings = () => {
                 <div className="mt-4 rounded-md p-4 flex justify-between items-center">
                   <div className="flex">
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[17px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[17px] text-normal pb-0`}
                     >
                       Number of referrals :
                     </p>
                   </div>
                   <div>
                     <p
-                      className={`${themeMode === "light" ? "text-black" : "text-white"
-                        } text-[17px] text-normal pb-0`}
+                      className={`${
+                        themeMode === "light" ? "text-black" : "text-white"
+                      } text-[17px] text-normal pb-0`}
                     >
                       {refCount}
                     </p>
@@ -589,8 +607,9 @@ const Settings = () => {
 
             <div className="md:flex pb-10">
               <div
-                className={`w-full md:w-5/12 ${themeMode === "light" ? "bg-white" : "bg-[#191D23]"
-                  } rounded-md p-5 shadow-xl`}
+                className={`w-full md:w-5/12 ${
+                  themeMode === "light" ? "bg-white" : "bg-[#191D23]"
+                } rounded-md p-5 shadow-xl`}
               >
                 <h3 className="text-[20px]  text-[#2aa9e1] font-medium text-center pb-2">
                   Refer Friends And Earn 20% Commission
@@ -638,8 +657,11 @@ const Settings = () => {
                 </div>
               </div>
               {subscribed === null ||
-                subscribed === undefined ||
-                subscribed === "cancel" || (profile?.details?.user_subscriptions[0]?.plan_period_end > dateString) === false ? (
+              subscribed === undefined ||
+              subscribed === "cancel" ||
+              profile?.details?.user_subscriptions[0]?.plan_period_end >
+                dateString ===
+                false ? (
                 <div className="w-full md:ml-4 md:w-7/12 mt-4 md:mt-0">
                   <div className="choose_your_plan_section pb-0">
                     <div className="max-w-7xl mx-auto py-0 lg:py-0 px-0">
@@ -663,7 +685,9 @@ const Settings = () => {
                                         {console.log("plan", plan)}
                                         {plan?.is_free === 1 ? (
                                           <>
-                                            <h1 className="text-center mt-2 font-bold">OR</h1>
+                                            <h1 className="text-center mt-2 font-bold">
+                                              OR
+                                            </h1>
                                             <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center mt-4">
                                               Choose free plan
                                             </h2>
@@ -677,10 +701,12 @@ const Settings = () => {
                                               <button
                                                 className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]"
                                                 onClick={() => {
-                                                  handleFreeSub()
+                                                  handleFreeSub();
                                                 }}
                                               >
-                                                {loadingFree ? "Wait..." : "Subscribe Now"}
+                                                {loadingFree
+                                                  ? "Wait..."
+                                                  : "Subscribe Now"}
                                               </button>
                                             </div>
                                           </>
@@ -777,7 +803,6 @@ const Settings = () => {
                       </div>
                     </div>
                   </div> */}
-
                 </div>
               ) : (
                 <div className="w-full mt-4 md:mt-0 md:ml-4 md:w-7/12">
@@ -800,23 +825,22 @@ const Settings = () => {
                                     plans.length > 0 &&
                                     plans?.map((plan, plankey) => ( */}
                                   <div
-                                    // key={"plan_" + plankey} 
-                                    className="">
+                                    // key={"plan_" + plankey}
+                                    className=""
+                                  >
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                      {
-                                        profile?.details
-                                          ?.user_subscriptions[0]
-                                          ?.subscription === "free" ? "Choose free plan" : "Choose full features plan"
-                                      }
+                                      {profile?.details?.user_subscriptions[0]
+                                        ?.subscription === "free"
+                                        ? "Choose free plan"
+                                        : "Choose full features plan"}
                                     </h2>
                                     <div className="text-center">
                                       <h3 className="text-xl lg:text-2xl text-white font-semibold mb-4">
                                         {/* {plan?.price}$  */}
-                                        {
-                                          profile?.details
-                                            ?.user_subscriptions[0]
-                                            ?.subscription === "free" ? "Free" : "₦5,000 monthly only"
-                                        }
+                                        {profile?.details?.user_subscriptions[0]
+                                          ?.subscription === "free"
+                                          ? "Free"
+                                          : "₦5,000 monthly only"}
                                       </h3>
                                       <button className="text-base font-medium bg-[#18191b] hover:bg-[#2aa9e1] text-white text-center rounded-lg w-full block border-2 py-2 hover:border-white border-[#18191b]">
                                         Valid till :{" "}
