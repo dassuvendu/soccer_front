@@ -732,15 +732,15 @@ const Settings = () => {
                       </div>
                     </div> */}
                     <div className="max-w-7xl mx-auto">
-                      <div className="py-16 flex justify-center items-center gap-8">
+                      <div className="py-16 lg:flex justify-center items-center gap-8">
                         {plans &&
                           plans.length > 0 &&
                           plans?.map((plan, plankey) => (
-                            <div key={"plan_" + plankey} className="w-6/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                            <div key={"plan_" + plankey} className="w-full mb-4 lg:mb-0 lg:w-6/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
                               {plan?.is_free === 1 ? (
                                 <>
                                   <div className="w-full">
-                                    <div className="hidden md:block w-full mb-6">
+                                    <div className="w-full mb-6">
                                       <img
                                         src={bannerImgFive}
                                         alt="bannerImgFive"
@@ -748,7 +748,7 @@ const Settings = () => {
                                       />
                                     </div>
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                      Choose free plan
+                                      Choose free <br></br> plan
                                     </h2>
                                     <div className="text-center">
                                       <h3 className="text-xl text-white font-bold mb-4">
@@ -767,7 +767,7 @@ const Settings = () => {
                               ) : (
                                 <>
                                   <div className="w-full">
-                                    <div className="hidden md:block w-full mb-6">
+                                    <div className="w-full mb-6">
                                       <img
                                         src={bannerImgFour}
                                         alt="bannerImgFour"
@@ -775,7 +775,7 @@ const Settings = () => {
                                       />
                                     </div>
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                      Choose full features plan
+                                      Choose full features <br></br> plan
                                     </h2>
                                     <div className="text-center">
                                       <h3 className="text-xl text-white font-bold mb-4">
@@ -872,10 +872,10 @@ const Settings = () => {
                       </div>
                     </div> */}
                     <div className="max-w-7xl mx-auto">
-                      <div className="py-16 flex justify-center items-center gap-8">
-                        <div className="w-6/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
+                      <div className="py-16 md:flex justify-center items-center gap-8">
+                        <div className="w-full lg:w-6/12 md:flex justify-between px-4 md:px-5 py-10 shadow-xl bg-[#2aa9e1] rounded-md">
                           <div className="w-full">
-                            <div className="hidden md:block w-full mb-6">
+                            <div className="w-full mb-6">
                               <img
                                 src={profile?.details?.user_subscriptions[0]
                                   ?.subscription === "free" ? bannerImgFive : bannerImgFour}
