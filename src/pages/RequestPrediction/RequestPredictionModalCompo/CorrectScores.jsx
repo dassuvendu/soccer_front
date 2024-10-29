@@ -12,6 +12,7 @@ export const CorrectScores = ({ isfixturesId }) => {
   const { isLoading } = useSelector((state) => state.IsunLock);
   const { teamResult, predict, h2h } = useSelector((state) => state.prediction);
   console.log(teamResult);
+  const [getMessage, SetGetMessage] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ export const CorrectScores = ({ isfixturesId }) => {
 
   const handleClick = () => {
     dispatch(getUnlockCheck({ fixture_id: isfixturesId })).then((res) => {
+      SetGetMessage(res?.payload?.response?.data?.message);
       if (res?.payload?.response?.data?.message) {
         toast.error(res?.payload?.response?.data?.message, {
           position: "top-right",
@@ -77,6 +79,7 @@ export const CorrectScores = ({ isfixturesId }) => {
           progress: undefined,
           theme: "dark",
         });
+        // navigate("/dashboard");
       }
       setIsUnlock(res.payload.status);
       setCheck(true);
@@ -163,7 +166,7 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
         </>
       )}
 
-      {check && (
+      {check && !getMessage && (
         <div className="mb-4">
           <div>
             <div className="grid grid-cols-1 gap-8 ">

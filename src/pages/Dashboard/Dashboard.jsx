@@ -28,6 +28,7 @@ import Payment from "../Payment/Payment";
 import MonnifyPayment from "../Payment/MonnifyPayment";
 import { Modal } from "flowbite-react";
 import PayStackPayment from "../Payment/PayStackPayment";
+import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
   const themeMode = useSelector((state) => state.darkmode.mode);
@@ -319,6 +320,7 @@ const Dashboard = () => {
 
   return (
     <div className="dark wrapper_area max-w-7xl my-0 mx-auto px-0">
+      {/* <ToastContainer /> */}
       {isloadingEditProfile ? (
         <div>
           <img src={logoIcon} alt="loading.." className="loader" />
@@ -345,7 +347,8 @@ const Dashboard = () => {
                     >
                       SUBSCRIBE
                     </button>{" "}
-                    to use App or try <button
+                    to use App
+                    or try <button
                       className="text-black underline hover:no-underline"
                       onClick={() => {
                         handleFreeSub()
@@ -402,31 +405,34 @@ const Dashboard = () => {
                       Actions
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="bg-gradient-to-t from-[#04fca0] to-[#07abee] rounded-lg py-5 px-5">
-                        <div className="flex justify-between mb-4">
-                          <h2 className="text-white text-[25px] leading-[40px] font-semibold">
-                            Coped slips
-                          </h2>
-                          <span className="text-white text-[20px] leading-[40px] font-normal">
+                      {profile?.details?.user_subscriptions[0]
+                        ?.subscription !== "free" && (
+                          <div className="bg-gradient-to-t from-[#04fca0] to-[#07abee] rounded-lg py-5 px-5">
+                            <div className="flex justify-between mb-4">
+                              <h2 className="text-white text-[25px] leading-[40px] font-semibold">
+                                Coped slips
+                              </h2>
+                              {/* <span className="text-white text-[20px] leading-[40px] font-normal">
                             New
-                          </span>
-                        </div>
-                        <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
-                          Explore different slips containing multiple matches
-                        </p>
-                        <div
-                          className={` ${themeMode === "light" ? "bg-white" : "bg-black"
-                            } hover:bg-gray-800 inline-block rounded-full mb-2`}
-                        >
-                          <Link
-                            to="/coped-slips"
-                            className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
-                          >
-                            Explore Slips{" "}
-                            <FiArrowRight className="text-[#08a5f5] ml-0.5" />
-                          </Link>
-                        </div>
-                      </div>
+                          </span> */}
+                            </div>
+                            <p className="text-white text-[15px] leading-[22px] font-normal mb-5">
+                              Explore different slips containing multiple matches
+                            </p>
+                            <div
+                              className={` ${themeMode === "light" ? "bg-white" : "bg-black"
+                                } hover:bg-gray-800 inline-block rounded-full mb-2`}
+                            >
+                              <Link
+                                to="/coped-slips"
+                                className="font-Syne font-bold flex items-center px-4 py-0 text-[15px] leading-[44px] from-[#03faa1] via-[#06c5d5] to-[#08a5f5] bg-gradient-to-r bg-clip-text text-transparent"
+                              >
+                                Explore Slips{" "}
+                                <FiArrowRight className="text-[#08a5f5] ml-0.5" />
+                              </Link>
+                            </div>
+                          </div>
+                        )}
                       <div className="bg-gradient-to-t from-[#03faa1] to-[#3b5998] rounded-lg py-5 px-5">
                         <div className="flex justify-between mb-4">
                           <h2 className="text-white text-[25px] leading-[40px] font-semibold">

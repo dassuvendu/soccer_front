@@ -235,19 +235,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   {/* <!-- Menu Item Dashboard --> */}
 
                   {/* <!-- Menu Item Calendar --> */}
-                  <li className='mb-3'>
-                    <NavLink
-                      to="/coped-slips"
-                      onClick={() => setSidebarOpen(!sidebarOpen)}
-                      className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
-                        } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('coped-slips') &&
-                        'bg-graydark dark:bg-meta-4'
-                        }`}
-                    >
-                      <HiTemplate className='text-4xl' />
-                      Coped slips
-                    </NavLink>
-                  </li>
+                  {profile?.details?.user_subscriptions[0]?.subscription !== "free" && (
+                    <li className='mb-3'>
+                      <NavLink
+                        to="/coped-slips"
+                        onClick={() => setSidebarOpen(!sidebarOpen)}
+                        className={`group relative flex items-center gap-2 rounded-sm py-1 px-1 font-medium text-sm ${themeMode === "light" ? "text-[#0d0f11]" : "text-[#e1e1e1]"
+                          } duration-300 ease-in-out hover:bg-graydark ${pathname.includes('coped-slips') &&
+                          'bg-graydark dark:bg-meta-4'
+                          }`}
+                      >
+                        <HiTemplate className='text-4xl' />
+                        Coped slips
+                      </NavLink>
+                    </li>
+                  )}
                   {/* <!-- Menu Item Calendar --> */}
 
                   {/* <!-- Menu Item Offer Request --> */}

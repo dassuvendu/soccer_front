@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCheck, getUnlockCheck } from "../../../reducers/CheckUnlockSlice";
 import { logoIcon } from "../../../assets/images/images";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const PredictionStats = ({ isfixturesId }) => {
+  const navigate = useNavigate();
   const { lastResult } = useSelector((state) => state.prediction);
   const { isLoading } = useSelector((state) => state.IsunLock);
 
   const [lossHPercent, setLossHPercent] = useState();
   const [lossAPercent, setLossAPercent] = useState();
+  const [getMessage, SetGetMessage] = useState();
 
   useEffect(() => {
     if (lastResult && lastResult.data && lastResult.data.length > 0) {
@@ -48,6 +51,7 @@ export const PredictionStats = ({ isfixturesId }) => {
   const handleClick = () => {
     dispatch(getUnlockCheck({ fixture_id: isfixturesId })).then((res) => {
       console.log("response", res)
+      SetGetMessage(res?.payload?.response?.data?.message);
       if (res?.payload?.response?.data?.message) {
         toast.error(res?.payload?.response?.data?.message, {
           position: "top-right",
@@ -57,6 +61,7 @@ export const PredictionStats = ({ isfixturesId }) => {
           progress: undefined,
           theme: "dark",
         });
+        // navigate("/dashboard");
       }
       setIsUnlock(res.payload.status);
       setCheck(true);
@@ -111,7 +116,7 @@ rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
         </>
       )}
 
-      {check && (
+      {check && !getMessage && (
         <div>
           {lastResult?.data?.map((res) => (
             <div
