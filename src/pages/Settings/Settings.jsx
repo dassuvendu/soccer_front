@@ -748,7 +748,7 @@ const Settings = () => {
                                       />
                                     </div>
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                      Choose free <br></br> plan
+                                      Free Plan
                                     </h2>
                                     <div className="text-center">
                                       <h3 className="text-xl text-white font-bold mb-4">
@@ -775,7 +775,7 @@ const Settings = () => {
                                       />
                                     </div>
                                     <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                      Choose full features <br></br> plan
+                                      Unlimited Plan
                                     </h2>
                                     <div className="text-center">
                                       <h3 className="text-xl text-white font-bold mb-4">
@@ -886,8 +886,8 @@ const Settings = () => {
                             <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
                               {profile?.details?.user_subscriptions[0]
                                 ?.subscription === "free"
-                                ? "Free plan"
-                                : "Full features plan"}
+                                ? "Free Plan"
+                                : "Unlimited Plan"}
                             </h2>
                             <div className="text-center">
                               <h3 className="text-xl text-white font-bold mb-4">

@@ -398,7 +398,7 @@ const Plan = () => {
                                 />
                               </div>
                               <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                Choose free <br></br> plan
+                                Free Plan
                               </h2>
                               <div className="text-center">
                                 <h3 className="text-xl text-white font-bold mb-4">
@@ -425,7 +425,7 @@ const Plan = () => {
                                 />
                               </div>
                               <h2 className="font-Bebas text-white pb-5 text-2xl lg:text-[35px] tracking-normal mb-2 text-center">
-                                Choose full features <br></br> plan
+                                Unlimited Plan
                               </h2>
                               <div className="text-center">
                                 <h3 className="text-xl text-white font-bold mb-4">
